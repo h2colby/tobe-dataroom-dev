@@ -7,7 +7,7 @@ import { PipelineNetwork } from '@/components/PipelineNetwork';
 const systemModules = [
   { id: '01', label: 'Overview', href: '/' },
   { id: '02', label: 'Technology', href: '/technology' },
-  { id: '03', label: 'Business Model', href: '#' },
+  { id: '03', label: 'Business Model', href: '/business-model' },
   { id: '04', label: 'Financials', href: '#' },
   { id: '05', label: 'Team', href: '/team' },
 ];
