@@ -5,12 +5,12 @@ export const metadata = {
 
 const team = [
   {
-    name: 'Colby Tobe',
+    name: 'Colby DeWeese',
     role: 'Co-Founder & CEO',
     bio: 'Colby leads strategy, business development, and investor relations at Tobe Energy. With a background spanning energy markets and technology commercialization, he drives the company\u2019s go-to-market execution and partnership development across industrial hydrogen verticals.',
   },
   {
-    name: 'Caleb Tobe',
+    name: 'Dr. Caleb Lareau',
     role: 'Co-Founder & CTO',
     bio: 'Caleb leads the engineering and R&D efforts behind Tobe\u2019s membrane-free electrolysis platform. His work on electrode design and system architecture underpins the company\u2019s 94% efficiency benchmark and scalable stack-based deployment model.',
   },
