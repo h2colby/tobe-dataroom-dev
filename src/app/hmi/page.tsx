@@ -843,7 +843,10 @@ export default function HMIPage() {
             ╔══════════════════════════════════════════════════════════════════════════════════╗
           </div>
           <div className="text-center font-mono text-[9px] text-white/10">
-            ║ DEMO MODE — ANIMATED PLACEHOLDER VALUES — NOT CONNECTED TO LIVE HARDWARE       ║
+            ║ DEMO MODE — SIMULATED VALUES ONLY — NO REAL DATA, WAVEFORM PARAMETERS,        ║
+          </div>
+          <div className="text-center font-mono text-[9px] text-white/10">
+            ║ CONTROL ALGORITHMS, OR CALIBRATION DATA ARE EXPOSED IN THIS INTERFACE           ║
           </div>
           <div className="text-center font-mono text-[9px] text-white/10">
             ╚══════════════════════════════════════════════════════════════════════════════════╝
