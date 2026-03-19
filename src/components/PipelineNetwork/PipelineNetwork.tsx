@@ -39,8 +39,8 @@ const getNodePosition = (opp: Opportunity, index: number): { x: number; y: numbe
   const angle = (angleMap[opp.id] ?? index * 30) * (Math.PI / 180);
   
   return {
-    x: centerX + Math.cos(angle) * baseDistance,
-    y: centerY + Math.sin(angle) * baseDistance,
+    x: Math.round(centerX + Math.cos(angle) * baseDistance),
+    y: Math.round(centerY + Math.sin(angle) * baseDistance),
   };
 };
 
