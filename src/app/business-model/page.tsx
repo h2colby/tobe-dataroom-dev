@@ -56,7 +56,7 @@ const moat = [
 
 export default function BusinessModelPage() {
   return (
-    <div className="min-h-screen bg-[#0a0a0f] text-white">
+    <div className="relative min-h-screen bg-[#0a0a0f] font-mono text-white">
       {/* Scanline overlay */}
       <div
         className="pointer-events-none fixed inset-0 z-[100]"
@@ -79,22 +79,27 @@ export default function BusinessModelPage() {
       {/* Hero */}
       <section className="relative border-b border-white/10 px-6 py-20">
         <div className="mx-auto max-w-5xl">
+          <pre className="mb-6 text-xs leading-tight text-[#ff6b35]/70 sm:text-sm" style={{ whiteSpace: 'pre' }}>
+{`┌─── SECTION 03 ─── BUSINESS MODEL ───────────────────────┐`}
+          </pre>
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4 }}
-            className="mb-3 font-mono text-sm tracking-widest text-[#ff6b35] uppercase"
+            className="mb-3 text-sm tracking-widest text-[#ff6b35] uppercase"
           >
-            Section 03 // Business Model
+            ▸ Section 03 // Business Model
           </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="mb-4 font-mono text-4xl font-bold tracking-tight md:text-5xl"
+            className="mb-4 text-4xl font-bold tracking-tight md:text-5xl"
           >
             How Tobe{' '}
-            <span className="text-[#00ff88]">Makes Money</span>
+            <span className="text-[#00ff88]" style={{ textShadow: '0 0 10px rgba(0,255,136,0.5)' }}>
+              Makes Money
+            </span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0 }}
@@ -105,15 +110,29 @@ export default function BusinessModelPage() {
             Produce hydrogen for under $5/kg. Sell it at $20-50+/kg.
             80%+ gross margin at scale. Recurring revenue. No commodity dependency.
           </motion.p>
+
+          {/* ASCII revenue flow diagram */}
+          <pre className="mt-8 text-[0.6rem] leading-tight text-[#00ff88]/50 sm:text-xs" style={{ whiteSpace: 'pre' }}>
+{`    ┌──────────┐     ┌───────────┐     ┌──────────┐
+    │ PRODUCE  │────▶│   SELL    │────▶│  MARGIN  │
+    │ <$5/kg   │     │ $20-50+  │     │  80%+    │
+    └──────────┘     └───────────┘     └──────────┘
+         │                │                 │
+    Membrane-free    On-site delivery   Recurring
+    low-cost mfg     long-term PPAs     cash flow`}
+          </pre>
         </div>
       </section>
 
       {/* UNIT ECONOMICS */}
       <section className="border-b border-white/10 px-6 py-16">
         <div className="mx-auto max-w-5xl">
-          <div className="mb-8 flex items-baseline gap-3">
-            <span className="font-mono text-[0.7rem] tracking-[0.1em] text-[#ff6b35]">01 //</span>
-            <h2 className="font-mono text-2xl font-bold tracking-tight">Unit Economics</h2>
+          <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
+{`┌─── SECTION 03.1 ─── UNIT ECONOMICS ─────────────────────┐`}
+          </pre>
+          <div className="mb-4 flex items-baseline gap-3">
+            <span className="text-[0.7rem] tracking-[0.1em] text-[#ff6b35]">01 //</span>
+            <h2 className="text-2xl font-bold tracking-tight">Unit Economics</h2>
           </div>
 
           <div className="mb-8 grid gap-6 md:grid-cols-2">
@@ -126,8 +145,13 @@ export default function BusinessModelPage() {
               variants={fadeUp}
               className="rounded border border-[#00ff88]/20 bg-[#00ff88]/[0.03] p-6"
             >
-              <p className="mb-1 font-mono text-xs tracking-[0.15em] text-[#ff6b35]">TOBE ALL-IN COST</p>
-              <p className="font-mono text-5xl font-bold text-[#00ff88]">{unitEconomics.tobeCost}</p>
+              <p className="mb-1 text-xs tracking-[0.15em] text-[#ff6b35]">▸ TOBE ALL-IN COST</p>
+              <p
+                className="text-5xl font-bold text-[#00ff88]"
+                style={{ textShadow: '0 0 10px rgba(0,255,136,0.5)' }}
+              >
+                {unitEconomics.tobeCost}
+              </p>
               <p className="mt-2 text-sm text-white/50">Production + delivery. Fully loaded.</p>
             </motion.div>
 
@@ -140,8 +164,13 @@ export default function BusinessModelPage() {
               variants={fadeUp}
               className="rounded border border-[#00d4ff]/20 bg-[#00d4ff]/[0.03] p-6"
             >
-              <p className="mb-1 font-mono text-xs tracking-[0.15em] text-[#ff6b35]">GROSS MARGIN AT SCALE</p>
-              <p className="font-mono text-5xl font-bold text-[#00d4ff]">80%+</p>
+              <p className="mb-1 text-xs tracking-[0.15em] text-[#ff6b35]">▸ GROSS MARGIN AT SCALE</p>
+              <p
+                className="text-5xl font-bold text-[#00d4ff]"
+                style={{ textShadow: '0 0 10px rgba(0,212,255,0.5)' }}
+              >
+                80%+
+              </p>
               <p className="mt-2 text-sm text-white/50">Market sells at $20-50+. We produce at &lt;$5.</p>
             </motion.div>
           </div>
@@ -156,10 +185,10 @@ export default function BusinessModelPage() {
             className="rounded border border-white/10 bg-white/[0.02] p-6"
           >
             <div className="mb-4 flex items-baseline gap-3">
-              <p className="font-mono text-sm font-semibold text-[#ff6b35]">
-                DELIVERED H&#x2082; MARKET REALITY
+              <p className="text-sm font-semibold text-[#ff6b35]">
+                ▸ DELIVERED H&#x2082; MARKET REALITY
               </p>
-              <span className="font-mono text-[0.65rem] text-white/30">// NOT ONLINE FANTASY</span>
+              <span className="text-[0.65rem] text-white/30">// NOT ONLINE FANTASY</span>
             </div>
             <p className="mb-4 text-sm text-white/50">
               Online says $10-15/kg. The reality for delivered hydrogen is $20-50+. These are real quotes.
@@ -176,16 +205,21 @@ export default function BusinessModelPage() {
                   className="flex items-center justify-between border-b border-white/5 pb-3 last:border-0"
                 >
                   <div>
-                    <p className="font-mono text-sm text-white/80">{p.source}</p>
+                    <p className="text-sm text-white/80">{p.source}</p>
                     <p className="text-xs text-white/40">{p.note}</p>
                   </div>
-                  <p className="font-mono text-xl font-bold text-[#00d4ff]">{p.price}</p>
+                  <p
+                    className="text-xl font-bold text-[#00d4ff]"
+                    style={{ textShadow: '0 0 10px rgba(0,212,255,0.5)' }}
+                  >
+                    {p.price}
+                  </p>
                 </motion.div>
               ))}
             </div>
             <div className="mt-4 rounded border border-[#ff6b35]/20 bg-[#ff6b35]/[0.03] px-4 py-3">
-              <p className="font-mono text-xs text-[#ff6b35]">
-                TAKEAWAY: The gap between Tobe&apos;s cost (&lt;$5) and market reality ($20-50+) is the business.
+              <p className="text-xs text-[#ff6b35]">
+                ● TAKEAWAY: The gap between Tobe&apos;s cost (&lt;$5) and market reality ($20-50+) is the business.
               </p>
             </div>
           </motion.div>
@@ -195,9 +229,12 @@ export default function BusinessModelPage() {
       {/* REVENUE STREAMS */}
       <section className="border-b border-white/10 px-6 py-16">
         <div className="mx-auto max-w-5xl">
+          <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
+{`┌─── SECTION 03.2 ─── REVENUE STREAMS ────────────────────┐`}
+          </pre>
           <div className="mb-8 flex items-baseline gap-3">
-            <span className="font-mono text-[0.7rem] tracking-[0.1em] text-[#ff6b35]">02 //</span>
-            <h2 className="font-mono text-2xl font-bold tracking-tight">Revenue Streams</h2>
+            <span className="text-[0.7rem] tracking-[0.1em] text-[#ff6b35]">02 //</span>
+            <h2 className="text-2xl font-bold tracking-tight">Revenue Streams</h2>
           </div>
 
           <div className="grid gap-6 md:grid-cols-3">
@@ -211,21 +248,19 @@ export default function BusinessModelPage() {
                 variants={fadeUp}
                 className="rounded border border-white/10 bg-white/[0.02] p-6"
               >
-                <p className="font-mono text-4xl font-bold" style={{ color: s.color }}>
+                <p
+                  className="text-4xl font-bold"
+                  style={{ color: s.color, textShadow: `0 0 10px ${s.color}80` }}
+                >
                   {s.pct}%
                 </p>
-                <p className="mt-2 font-mono text-sm font-semibold text-[#ff6b35]">{s.label}</p>
+                <p className="mt-2 text-sm font-semibold text-[#ff6b35]">▸ {s.label}</p>
                 <p className="mt-1 text-sm text-white/50">{s.desc}</p>
-                {/* Bar */}
-                <div className="mt-4 h-1.5 w-full rounded-full bg-white/5">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${s.pct}%` }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: i * 0.15, ease: 'easeOut' }}
-                    className="h-full rounded-full"
-                    style={{ backgroundColor: s.color }}
-                  />
+                {/* Terminal-style progress bar */}
+                <div className="mt-4">
+                  <pre className="text-[0.6rem]" style={{ whiteSpace: 'pre', color: s.color }}>
+{`[${'█'.repeat(Math.round(s.pct / 5))}${'░'.repeat(20 - Math.round(s.pct / 5))}] ${s.pct}%`}
+                  </pre>
                 </div>
               </motion.div>
             ))}
@@ -236,18 +271,21 @@ export default function BusinessModelPage() {
       {/* FINANCIAL TRAJECTORY */}
       <section className="border-b border-white/10 px-6 py-16">
         <div className="mx-auto max-w-5xl">
+          <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
+{`┌─── SECTION 03.3 ─── FINANCIAL TRAJECTORY ───────────────┐`}
+          </pre>
           <div className="mb-8 flex items-baseline gap-3">
-            <span className="font-mono text-[0.7rem] tracking-[0.1em] text-[#ff6b35]">03 //</span>
-            <h2 className="font-mono text-2xl font-bold tracking-tight">7-Year Financial Trajectory</h2>
+            <span className="text-[0.7rem] tracking-[0.1em] text-[#ff6b35]">03 //</span>
+            <h2 className="text-2xl font-bold tracking-tight">7-Year Financial Trajectory</h2>
           </div>
 
           {/* Table header */}
-          <div className="hidden rounded-t border border-white/10 bg-white/[0.04] px-6 py-3 font-mono text-xs tracking-[0.1em] text-[#ff6b35] md:grid md:grid-cols-5 md:gap-4">
-            <span>YEAR</span>
-            <span>REVENUE</span>
-            <span>EBITDA</span>
-            <span>MARGIN</span>
-            <span>MILESTONE</span>
+          <div className="hidden rounded-t border border-white/10 bg-white/[0.04] px-6 py-3 text-xs tracking-[0.1em] text-[#ff6b35] md:grid md:grid-cols-5 md:gap-4">
+            <span>▸ YEAR</span>
+            <span>▸ REVENUE</span>
+            <span>▸ EBITDA</span>
+            <span>▸ MARGIN</span>
+            <span>▸ MILESTONE</span>
           </div>
 
           {/* Table rows */}
@@ -262,20 +300,30 @@ export default function BusinessModelPage() {
               className="grid grid-cols-2 gap-4 border border-t-0 border-white/10 bg-white/[0.02] px-6 py-4 first:border-t first:rounded-t md:first:rounded-t-none md:grid-cols-5"
             >
               <div>
-                <span className="font-mono text-xs text-white/30 md:hidden">YEAR </span>
-                <span className="font-mono font-bold text-white/80">{f.year}</span>
+                <span className="text-xs text-white/30 md:hidden">YEAR </span>
+                <span className="font-bold text-white/80">{f.year}</span>
               </div>
               <div>
-                <span className="font-mono text-xs text-white/30 md:hidden">REV </span>
-                <span className="font-mono font-bold text-[#00ff88]">{f.revenue}</span>
+                <span className="text-xs text-white/30 md:hidden">REV </span>
+                <span
+                  className="font-bold text-[#00ff88]"
+                  style={{ textShadow: '0 0 10px rgba(0,255,136,0.5)' }}
+                >
+                  {f.revenue}
+                </span>
               </div>
               <div>
-                <span className="font-mono text-xs text-white/30 md:hidden">EBITDA </span>
-                <span className="font-mono text-[#00d4ff]">{f.ebitda}</span>
+                <span className="text-xs text-white/30 md:hidden">EBITDA </span>
+                <span
+                  className="text-[#00d4ff]"
+                  style={{ textShadow: '0 0 10px rgba(0,212,255,0.5)' }}
+                >
+                  {f.ebitda}
+                </span>
               </div>
               <div>
-                <span className="font-mono text-xs text-white/30 md:hidden">MARGIN </span>
-                <span className="font-mono text-white/70">{f.margin}</span>
+                <span className="text-xs text-white/30 md:hidden">MARGIN </span>
+                <span className="text-white/70">{f.margin}</span>
               </div>
               <div className="col-span-2 md:col-span-1">
                 <span className="text-sm text-white/40">{f.note}</span>
@@ -291,8 +339,8 @@ export default function BusinessModelPage() {
             variants={fadeUp}
             className="mt-4 rounded border border-[#00ff88]/20 bg-[#00ff88]/[0.03] px-4 py-3"
           >
-            <p className="font-mono text-xs text-[#00ff88]">
-              EBITDA POSITIVE BY YEAR 2. 66% MARGIN AT SCALE. CAPITAL-EFFICIENT GROWTH.
+            <p className="text-xs text-[#00ff88]">
+              ● EBITDA POSITIVE BY YEAR 2. 66% MARGIN AT SCALE. CAPITAL-EFFICIENT GROWTH.
             </p>
           </motion.div>
         </div>
@@ -301,9 +349,12 @@ export default function BusinessModelPage() {
       {/* FUNDING ROADMAP */}
       <section className="border-b border-white/10 px-6 py-16">
         <div className="mx-auto max-w-5xl">
+          <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
+{`┌─── SECTION 03.4 ─── FUNDING ROADMAP ────────────────────┐`}
+          </pre>
           <div className="mb-8 flex items-baseline gap-3">
-            <span className="font-mono text-[0.7rem] tracking-[0.1em] text-[#ff6b35]">04 //</span>
-            <h2 className="font-mono text-2xl font-bold tracking-tight">Funding Roadmap</h2>
+            <span className="text-[0.7rem] tracking-[0.1em] text-[#ff6b35]">04 //</span>
+            <h2 className="text-2xl font-bold tracking-tight">Funding Roadmap</h2>
           </div>
 
           <div className="mb-8 grid gap-6 md:grid-cols-2">
@@ -318,18 +369,23 @@ export default function BusinessModelPage() {
                 className="rounded border border-white/10 bg-white/[0.02] p-6"
               >
                 <div className="mb-3 flex items-center justify-between">
-                  <p className="font-mono text-sm font-semibold text-[#ff6b35]">{f.round}</p>
+                  <p className="text-sm font-semibold text-[#ff6b35]">▸ {f.round}</p>
                   <span
-                    className={`rounded px-2 py-0.5 font-mono text-[0.65rem] font-bold tracking-wider ${
+                    className={`rounded px-2 py-0.5 text-[0.65rem] font-bold tracking-wider ${
                       f.status === 'CLOSED'
                         ? 'bg-[#00ff88]/10 text-[#00ff88]'
                         : 'bg-[#ff6b35]/10 text-[#ff6b35]'
                     }`}
                   >
-                    {f.status}
+                    ● {f.status}
                   </span>
                 </div>
-                <p className="font-mono text-3xl font-bold text-[#00d4ff]">{f.amount}</p>
+                <p
+                  className="text-3xl font-bold text-[#00d4ff]"
+                  style={{ textShadow: '0 0 10px rgba(0,212,255,0.5)' }}
+                >
+                  {f.amount}
+                </p>
                 <p className="mt-2 text-sm text-white/50">{f.detail}</p>
               </motion.div>
             ))}
@@ -344,23 +400,23 @@ export default function BusinessModelPage() {
             variants={fadeUp}
             className="rounded border border-white/10 bg-white/[0.02] p-6"
           >
-            <p className="mb-4 font-mono text-sm font-semibold text-[#ff6b35]">SEED USE OF FUNDS</p>
+            <p className="mb-4 text-sm font-semibold text-[#ff6b35]">▸ SEED USE OF FUNDS</p>
             <div className="space-y-4">
               {seedUse.map((s, i) => (
                 <div key={s.label}>
                   <div className="mb-1 flex items-center justify-between">
-                    <span className="font-mono text-sm text-white/70">{s.label}</span>
-                    <span className="font-mono text-sm font-bold text-[#00d4ff]">{s.pct}%</span>
+                    <span className="text-sm text-white/70">{s.label}</span>
+                    <span
+                      className="text-sm font-bold text-[#00d4ff]"
+                      style={{ textShadow: '0 0 10px rgba(0,212,255,0.5)' }}
+                    >
+                      {s.pct}%
+                    </span>
                   </div>
-                  <div className="h-2 w-full rounded-full bg-white/5">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${s.pct}%` }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.8, delay: i * 0.1, ease: 'easeOut' }}
-                      className="h-full rounded-full bg-[#00d4ff]"
-                    />
-                  </div>
+                  {/* Terminal-style progress bar */}
+                  <pre className="text-[0.6rem] text-[#00d4ff]" style={{ whiteSpace: 'pre' }}>
+{`[${'█'.repeat(Math.round(s.pct / 5))}${'░'.repeat(20 - Math.round(s.pct / 5))}]`}
+                  </pre>
                 </div>
               ))}
             </div>
@@ -371,9 +427,12 @@ export default function BusinessModelPage() {
       {/* COMPETITIVE MOAT */}
       <section className="px-6 py-16">
         <div className="mx-auto max-w-5xl">
+          <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
+{`┌─── SECTION 03.5 ─── COMPETITIVE MOAT ───────────────────┐`}
+          </pre>
           <div className="mb-8 flex items-baseline gap-3">
-            <span className="font-mono text-[0.7rem] tracking-[0.1em] text-[#ff6b35]">05 //</span>
-            <h2 className="font-mono text-2xl font-bold tracking-tight">Competitive Moat</h2>
+            <span className="text-[0.7rem] tracking-[0.1em] text-[#ff6b35]">05 //</span>
+            <h2 className="text-2xl font-bold tracking-tight">Competitive Moat</h2>
           </div>
 
           <div className="grid gap-6 md:grid-cols-2">
@@ -388,9 +447,19 @@ export default function BusinessModelPage() {
                 className="rounded border border-white/10 bg-white/[0.02] p-6"
               >
                 <div className="mb-3 flex items-center gap-4">
-                  <span className="font-mono text-3xl font-bold text-[#00d4ff]">{m.stat}</span>
+                  <span
+                    className="text-3xl font-bold text-[#00d4ff]"
+                    style={{ textShadow: '0 0 10px rgba(0,212,255,0.5)' }}
+                  >
+                    {m.stat}
+                  </span>
                 </div>
-                <p className="font-mono text-sm font-semibold text-[#ff6b35]">{m.title}</p>
+                <p
+                  className="text-sm font-semibold text-[#ff6b35]"
+                  style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)' }}
+                >
+                  ▸ {m.title}
+                </p>
                 <p className="mt-2 text-sm leading-relaxed text-white/50">{m.desc}</p>
               </motion.div>
             ))}
@@ -405,15 +474,28 @@ export default function BusinessModelPage() {
             variants={fadeUp}
             className="mt-8 rounded border border-[#ff6b35]/20 bg-[#ff6b35]/[0.03] p-6 text-center"
           >
-            <p className="font-mono text-sm text-[#ff6b35]">
-              NO MEMBRANE. NO RARE EARTHS. NO COOLING. NO IMPORTS.
-            </p>
-            <p className="mt-2 font-mono text-lg font-bold text-white/80">
+            <pre className="mb-3 text-[0.6rem] text-[#ff6b35]/50 sm:text-xs" style={{ whiteSpace: 'pre' }}>
+{`╔═══════════════════════════════════════════════════════╗
+║  NO MEMBRANE · NO RARE EARTHS · NO COOLING · NO IMP  ║
+╚═══════════════════════════════════════════════════════╝`}
+            </pre>
+            <p className="text-lg font-bold text-white/80">
               Just hydrogen, cheaper and cleaner than anyone else.
             </p>
           </motion.div>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="border-t border-white/10 px-6 py-8">
+        <div className="mx-auto max-w-5xl text-center">
+          <pre className="text-xs text-white/20" style={{ whiteSpace: 'pre' }}>
+{`═══════════════════════════════════════════════════════════
+ TOBE ENERGY CORP // CONFIDENTIAL // 2026
+═══════════════════════════════════════════════════════════`}
+          </pre>
+        </div>
+      </footer>
     </div>
   );
 }
