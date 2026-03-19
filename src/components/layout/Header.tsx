@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 
 const navLinks = [
+  { href: '/pipeline', label: 'Pipeline' },
   { href: '/technology', label: 'Technology' },
   { href: '/mission', label: 'Mission' },
   { href: '/whitepapers', label: 'Whitepapers' },
