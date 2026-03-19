@@ -14,6 +14,7 @@ const navLinks = [
   { href: "/business-model", label: "Business Model" },
   { href: "/team", label: "Team" },
   { href: "/pipeline", label: "Pipeline" },
+  { href: "/hmi", label: "HMI" },
 ];
 
 export default function RootLayout({

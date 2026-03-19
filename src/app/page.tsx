@@ -10,12 +10,13 @@ const systemModules = [
   { id: '03', label: 'Business Model', href: '/business-model' },
   { id: '04', label: 'Financials', href: '#' },
   { id: '05', label: 'Team', href: '/team' },
+  { id: '06', label: 'HMI', href: '/hmi' },
 ];
 
 const resources = [
-  { id: '06', label: 'Pitch Deck', href: '#' },
-  { id: '07', label: 'Legal & IP', href: '#' },
-  { id: '08', label: 'Media Assets', href: '#' },
+  { id: '07', label: 'Pitch Deck', href: '#' },
+  { id: '08', label: 'Legal & IP', href: '#' },
+  { id: '09', label: 'Media Assets', href: '#' },
 ];
 
 const stats = [
