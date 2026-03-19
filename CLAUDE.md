@@ -58,3 +58,27 @@ Pipeline opportunities are in:
 ```
 
 Update this file to add/modify opportunities. No code changes needed.
+
+## For Claude Code Specifically
+
+### Before Making Changes
+- Read this file first
+- Check `pipelineData.ts` for opportunity data structure
+- Run `npm run dev` to test locally
+
+### Common Tasks
+
+**Add a new opportunity:**
+Edit `/src/components/PipelineNetwork/pipelineData.ts` — follow the existing format
+
+**Fix styling issues:**
+Use Tailwind classes, check mobile with browser dev tools
+
+**Deploy preview:**
+Dev server on Mac Studio is accessible via Tailscale at http://100.69.95.38:3000
+
+### Don't
+- Commit node_modules, .env files, or .vercel/
+- Create nested git repos
+- Use unrounded floats in SVG coordinates (causes hydration errors)
+- Push breaking changes without testing
