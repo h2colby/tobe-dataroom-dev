@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="operational">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>TOBE ENERGY // INVESTOR DATA ROOM</title>
+
+  <!-- NERV Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Saira+Extra+Condensed:wght@400;600;700;800&family=Shippori+Mincho+B1:wght@500;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/nerv-ui.css">
+  <script>/*__SESSION_DATA__*/</script>
+  <style>
+    :root {
+      --tobe-accent: #FF9830;
+    }
+
+    /* Main Console Layout */
+    .console-wrapper {
+      display: block;
+      min-height: 100vh;
+    }
+
+    .console-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: var(--void);
+      border-bottom: 1px solid var(--nerv-orange-dim);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      z-index: 100;
+    }
+
+    .header-logo {
+      font-family: var(--font-title);
+      font-weight: 900;
+      font-size: 1.5rem;
+      color: var(--nerv-orange);
+      transform: scaleX(0.82);
+      letter-spacing: 0.15em;
+    }
+
+    .header-status {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .status-item {
+      font-family: var(--font-sys);
+      font-size: 0.7rem;
+      color: var(--steel-dim);
+      letter-spacing: 0.1em;
+    }
+
+    .status-item span {
+      color: var(--data-green);
+    }
+
+    .status-item.classification span {
+      color: var(--nerv-orange);
+    }
+
+    .logout-btn {
+      background: transparent;
+      border: 1px solid var(--nerv-orange-dim);
+      color: var(--nerv-orange);
+      font-family: var(--font-sys);
+      font-size: 0.65rem;
+      padding: 0.4rem 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .logout-btn:hover {
+      background: var(--nerv-orange);
+      color: var(--void);
+    }
+
+    /* Sidebar Navigation */
+    .console-sidebar {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      bottom: 0;
+      width: 240px;
+      background: var(--void-panel);
+      border-right: 1px solid var(--steel-line);
+      padding: 1.5rem 0;
+      overflow-y: auto;
+    }
+
+    .nav-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .nav-section-label {
+      font-family: var(--font-sys);
+      font-size: 0.65rem;
+      color: var(--nerv-orange);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-sys);
+      font-size: 0.8rem;
+      color: var(--steel);
+      text-decoration: none;
+      padding: 0.6rem 1.5rem;
+      letter-spacing: 0.05em;
+      border-left: 2px solid transparent;
+      transition: all 0.15s;
+    }
+
+    .nav-item:hover {
+      background: var(--nerv-orange-fill);
+      color: var(--nerv-orange);
+    }
+
+    .nav-item.active {
+      border-left-color: var(--nerv-orange);
+      color: var(--nerv-orange);
+      background: var(--nerv-orange-fill);
+    }
+
+    .nav-item-number {
+      color: var(--steel-dim);
+      margin-right: 0.5rem;
+    }
+
+    .nav-item-count {
+      font-size: 0.65rem;
+      color: var(--steel-dim);
+      background: var(--void);
+      padding: 0.1rem 0.4rem;
+      min-width: 1.4rem;
+      text-align: center;
+    }
+
+    /* Main Content Area */
+    .console-main {
+      margin-left: 240px;
+      margin-top: 60px;
+      padding: 2rem;
+      padding-bottom: 3rem;
+      min-height: calc(100vh - 60px);
+    }
+
+    /* Section Styling */
+    .section {
+      display: none;
+      animation: section-fade-in 0.3s ease-out;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    @keyframes section-fade-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--steel-line);
+    }
+
+    .section-number {
+      font-family: var(--font-sys);
+      font-size: 0.75rem;
+      color: var(--nerv-orange);
+      letter-spacing: 0.1em;
+    }
+
+    .section-title {
+      font-family: var(--font-title);
+      font-weight: 900;
+      font-size: 2rem;
+      color: var(--steel);
+      transform: scaleX(0.85);
+      transform-origin: left;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .section-subtitle {
+      font-family: var(--font-sys);
+      font-size: 0.75rem;
+      color: var(--steel-dim);
+      margin-left: auto;
+    }
+
+    /* Document Grid */
+    .doc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+
+    .doc-card {
+      display: block;
+      background: var(--void-panel);
+      border: 1px solid var(--steel-line);
+      padding: 1.25rem;
+      transition: all 0.2s;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .doc-card:hover {
+      border-color: var(--nerv-orange);
+      background: var(--void-raised);
+    }
+
+    .doc-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .doc-icon {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-sys);
+      font-size: 0.7rem;
+      color: var(--nerv-orange);
+      border: 1px solid var(--nerv-orange-dim);
+      flex-shrink: 0;
+    }
+
+    .doc-title {
+      font-family: var(--font-sys);
+      font-size: 0.85rem;
+      color: var(--steel);
+      flex: 1;
+    }
+
+    .doc-meta {
+      font-family: var(--font-sys);
+      font-size: 0.7rem;
+      color: var(--steel-dim);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .doc-classification {
+      color: var(--data-green);
+    }
+
+    /* Metrics Panel */
+    .metrics-panel {
+      background: var(--void-panel);
+      border: 1px solid var(--steel-line);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .metric {
+      text-align: center;
+    }
+
+    .metric-value {
+      font-family: var(--font-sys);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--data-green);
+    }
+
+    .metric-label {
+      font-family: var(--font-sys);
+      font-size: 0.65rem;
+      color: var(--nerv-orange);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-top: 0.25rem;
+    }
+
+    /* Empty State */
+    .empty-state {
+      font-family: var(--font-sys);
+      font-size: 0.8rem;
+      color: var(--steel-dim);
+      text-align: center;
+      padding: 3rem 1rem;
+      border: 1px dashed var(--steel-line);
+      letter-spacing: 0.1em;
+    }
+
+    /* Footer Classification */
+    .console-footer {
+      position: fixed;
+      bottom: 0;
+      left: 240px;
+      right: 0;
+      height: 32px;
+      background: var(--void);
+      border-top: 1px solid var(--steel-line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3rem;
+      font-family: var(--font-sys);
+      font-size: 0.65rem;
+      color: var(--steel-dim);
+      letter-spacing: 0.15em;
+    }
+
+    .footer-item.warning {
+      color: var(--nerv-orange);
+    }
+
+    /* Mobile responsive */
+    @media (max-width: 1100px) {
+      .console-sidebar {
+        display: none;
+      }
+      .console-main {
+        margin-left: 0;
+      }
+      .console-footer {
+        left: 0;
+      }
+      .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .mobile-nav {
+        display: flex;
+        gap: 0.5rem;
+        overflow-x: auto;
+        padding: 0.75rem 0;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid var(--steel-line);
+      }
+      .mobile-nav a {
+        font-family: var(--font-sys);
+        font-size: 0.7rem;
+        color: var(--steel-dim);
+        text-decoration: none;
+        padding: 0.4rem 0.8rem;
+        white-space: nowrap;
+        border: 1px solid var(--steel-line);
+        transition: all 0.15s;
+      }
+      .mobile-nav a.active {
+        color: var(--nerv-orange);
+        border-color: var(--nerv-orange);
+      }
+    }
+    @media (min-width: 1101px) {
+      .mobile-nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="scan-line-overlay"></div>
+
+  <!-- MAIN CONSOLE -->
+  <div class="console-wrapper">
+    <header class="console-header">
+      <div class="header-logo">TOBE ENERGY</div>
+      <div class="header-status">
+        <div class="status-item">SESSION: <span id="sessionId">---</span></div>
+        <div class="status-item">STATUS: <span>ACTIVE</span></div>
+        <div class="status-item classification">CLASSIFICATION: <span>INVESTOR</span></div>
+        <button class="logout-btn" onclick="fetch('/api/logout',{method:'POST'}).then(()=>location.href='/login.html')">LOGOUT</button>
+      </div>
+    </header>
+
+    <nav class="console-sidebar">
+      <div class="nav-section">
+        <div class="nav-section-label">System Modules</div>
+        <a href="#overview" class="nav-item active" data-section="overview">
+          <span><span class="nav-item-number">01</span> Overview</span>
+          <span class="nav-item-count" id="count-overview">-</span>
+        </a>
+        <a href="#technology" class="nav-item" data-section="technology">
+          <span><span class="nav-item-number">02</span> Technology</span>
+          <span class="nav-item-count" id="count-technology">-</span>
+        </a>
+        <a href="#business" class="nav-item" data-section="business">
+          <span><span class="nav-item-number">03</span> Business Model</span>
+          <span class="nav-item-count" id="count-business">-</span>
+        </a>
+        <a href="#financials" class="nav-item" data-section="financials">
+          <span><span class="nav-item-number">04</span> Financials</span>
+          <span class="nav-item-count" id="count-financials">-</span>
+        </a>
+        <a href="#team" class="nav-item" data-section="team">
+          <span><span class="nav-item-number">05</span> Team</span>
+          <span class="nav-item-count" id="count-team">-</span>
+        </a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-label">Resources</div>
+        <a href="#deck" class="nav-item" data-section="deck">
+          <span><span class="nav-item-number">06</span> Pitch Deck</span>
+          <span class="nav-item-count" id="count-deck">-</span>
+        </a>
+        <a href="#legal" class="nav-item" data-section="legal">
+          <span><span class="nav-item-number">07</span> Legal & IP</span>
+          <span class="nav-item-count" id="count-legal">-</span>
+        </a>
+        <a href="#media" class="nav-item" data-section="media">
+          <span><span class="nav-item-number">08</span> Media Assets</span>
+          <span class="nav-item-count" id="count-media">-</span>
+        </a>
+      </div>
+    </nav>
+
+    <main class="console-main">
+      <!-- Mobile Navigation -->
+      <div class="mobile-nav">
+        <a href="#overview" class="active" data-section="overview">01 Overview</a>
+        <a href="#technology" data-section="technology">02 Technology</a>
+        <a href="#business" data-section="business">03 Business</a>
+        <a href="#financials" data-section="financials">04 Financials</a>
+        <a href="#team" data-section="team">05 Team</a>
+        <a href="#deck" data-section="deck">06 Deck</a>
+        <a href="#legal" data-section="legal">07 Legal</a>
+        <a href="#media" data-section="media">08 Media</a>
+      </div>
+
+      <!-- OVERVIEW SECTION -->
+      <section class="section active" id="overview">
+        <div class="section-header">
+          <span class="section-number">SECTION 01 //</span>
+          <h1 class="section-title">Mission Overview</h1>
+        </div>
+
+        <div class="metrics-panel">
+          <div class="metrics-grid">
+            <div class="metric">
+              <div class="metric-value">>92%</div>
+              <div class="metric-label">System Efficiency</div>
+            </div>
+            <div class="metric">
+              <div class="metric-value"><$2</div>
+              <div class="metric-label">LCOH ($/kg)</div>
+            </div>
+            <div class="metric">
+              <div class="metric-value">$100M</div>
+              <div class="metric-label">Pipeline</div>
+            </div>
+            <div class="metric">
+              <div class="metric-value">$10M</div>
+              <div class="metric-label">Raising</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="doc-grid" id="docs-overview"></div>
+      </section>
+
+      <!-- TECHNOLOGY SECTION -->
+      <section class="section" id="technology">
+        <div class="section-header">
+          <span class="section-number">SECTION 02 //</span>
+          <h1 class="section-title">Technology</h1>
+          <span class="section-subtitle">Isothermal Electrolysis Platform</span>
+        </div>
+
+        <div class="metrics-panel">
+          <div class="metrics-grid">
+            <div class="metric">
+              <div class="metric-value">8x</div>
+              <div class="metric-label">Less Heat Loss</div>
+            </div>
+            <div class="metric">
+              <div class="metric-value"><30&deg;C</div>
+              <div class="metric-label">Operating Temp</div>
+            </div>
+            <div class="metric">
+              <div class="metric-value">0</div>
+              <div class="metric-label">Rare Earth Metals</div>
+            </div>
+            <div class="metric">
+              <div class="metric-value">95%</div>
+              <div class="metric-label">US Sourced</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="doc-grid" id="docs-technology"></div>
+      </section>
+
+      <!-- BUSINESS SECTION -->
+      <section class="section" id="business">
+        <div class="section-header">
+          <span class="section-number">SECTION 03 //</span>
+          <h1 class="section-title">Business Model</h1>
+        </div>
+        <div class="doc-grid" id="docs-business"></div>
+      </section>
+
+      <!-- FINANCIALS SECTION -->
+      <section class="section" id="financials">
+        <div class="section-header">
+          <span class="section-number">SECTION 04 //</span>
+          <h1 class="section-title">Financials</h1>
+        </div>
+        <div class="doc-grid" id="docs-financials"></div>
+      </section>
+
+      <!-- TEAM SECTION -->
+      <section class="section" id="team">
+        <div class="section-header">
+          <span class="section-number">SECTION 05 //</span>
+          <h1 class="section-title">Team</h1>
+        </div>
+        <div class="doc-grid" id="docs-team"></div>
+      </section>
+
+      <!-- PITCH DECK SECTION -->
+      <section class="section" id="deck">
+        <div class="section-header">
+          <span class="section-number">SECTION 06 //</span>
+          <h1 class="section-title">Pitch Deck</h1>
+        </div>
+        <div class="doc-grid" id="docs-deck"></div>
+      </section>
+
+      <!-- LEGAL SECTION -->
+      <section class="section" id="legal">
+        <div class="section-header">
+          <span class="section-number">SECTION 07 //</span>
+          <h1 class="section-title">Legal & IP</h1>
+        </div>
+        <div class="doc-grid" id="docs-legal"></div>
+      </section>
+
+      <!-- MEDIA SECTION -->
+      <section class="section" id="media">
+        <div class="section-header">
+          <span class="section-number">SECTION 08 //</span>
+          <h1 class="section-title">Media Assets</h1>
+        </div>
+        <div class="doc-grid" id="docs-media"></div>
+      </section>
+    </main>
+
+    <footer class="console-footer">
+      <span>TOBE ENERGY CORP</span>
+      <span class="footer-item warning">CONFIDENTIAL — INVESTOR USE ONLY</span>
+      <span>OKLAHOMA CITY, USA</span>
+    </footer>
+  </div>
+
+  <script>
+    // Session ID from server injection
+    if (window.__SESSION__) {
+      document.getElementById('sessionId').textContent = window.__SESSION__.id || '---';
+    }
+
+    // Navigation
+    var navItems = document.querySelectorAll('.nav-item, .mobile-nav a');
+    var sections = document.querySelectorAll('.section');
+
+    navItems.forEach(function(item) {
+      item.addEventListener('click', function(e) {
+        e.preventDefault();
+        var sectionId = item.dataset.section;
+        if (!sectionId) return;
+
+        // Update sidebar nav
+        document.querySelectorAll('.console-sidebar .nav-item').forEach(function(n) { n.classList.remove('active'); });
+        document.querySelector('.console-sidebar .nav-item[data-section="' + sectionId + '"]').classList.add('active');
+
+        // Update mobile nav
+        document.querySelectorAll('.mobile-nav a').forEach(function(n) { n.classList.remove('active'); });
+        var mobileLink = document.querySelector('.mobile-nav a[data-section="' + sectionId + '"]');
+        if (mobileLink) mobileLink.classList.add('active');
+
+        // Update sections
+        sections.forEach(function(s) { s.classList.remove('active'); });
+        document.getElementById(sectionId).classList.add('active');
+      });
+    });
+
+    // Folder-to-section mapping
+    var FOLDER_MAP = {
+      '/overview': 'overview',
+      '/technology': 'technology',
+      '/business': 'business',
+      '/financials': 'financials',
+      '/team': 'team',
+      '/deck': 'deck',
+      '/legal': 'legal',
+      '/media': 'media'
+    };
+
+    // Classification from folder
+    function classificationFromFolder(folder) {
+      var f = folder.toLowerCase();
+      if (f === '/legal') return 'LEGAL';
+      if (f === '/media') return 'MEDIA';
+      if (f === '/deck') return 'CURRENT';
+      if (f === '/team') return 'INVESTOR-READY';
+      return 'CONFIDENTIAL';
+    }
+
+    // File icon from mime type or name
+    function fileIcon(file) {
+      var name = (file.name || '').toLowerCase();
+      var mime = (file.mime_type || '').toLowerCase();
+      if (mime.indexOf('pdf') !== -1 || name.endsWith('.pdf')) return 'PDF';
+      if (mime.indexOf('spreadsheet') !== -1 || mime.indexOf('excel') !== -1 || name.endsWith('.xlsx') || name.endsWith('.xls') || name.endsWith('.csv')) return 'XLS';
+      if (mime.indexOf('video') !== -1 || name.endsWith('.mp4') || name.endsWith('.mov')) return 'MP4';
+      if (mime.indexOf('image') !== -1 || name.endsWith('.png') || name.endsWith('.jpg') || name.endsWith('.svg')) return 'IMG';
+      if (mime.indexOf('zip') !== -1 || name.endsWith('.zip') || name.endsWith('.tar')) return 'ZIP';
+      if (mime.indexOf('presentation') !== -1 || name.endsWith('.pptx') || name.endsWith('.ppt')) return 'PPT';
+      if (mime.indexOf('word') !== -1 || name.endsWith('.docx') || name.endsWith('.doc')) return 'DOC';
+      return 'FILE';
+    }
+
+    // Format file size
+    function formatSize(bytes) {
+      if (!bytes) return '';
+      if (bytes < 1024) return bytes + ' B';
+      if (bytes < 1048576) return (bytes / 1024).toFixed(0) + ' KB';
+      return (bytes / 1048576).toFixed(1) + ' MB';
+    }
+
+    // Render a single doc card
+    function renderCard(file) {
+      var folder = (file.folder || '').toLowerCase();
+      var classification = classificationFromFolder(folder);
+      var icon = fileIcon(file);
+      var size = formatSize(file.size_bytes);
+
+      return '<a class="doc-card" href="/api/data/download?id=' + encodeURIComponent(file.id) + '">' +
+        '<div class="doc-card-header">' +
+          '<div class="doc-icon">' + icon + '</div>' +
+          '<div class="doc-title">' + escapeHtml(file.name) + '</div>' +
+        '</div>' +
+        '<div class="doc-meta">' +
+          '<span>' + size + '</span>' +
+          '<span class="doc-classification">' + classification + '</span>' +
+        '</div>' +
+      '</a>';
+    }
+
+    function escapeHtml(str) {
+      var div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    // Load files from API
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('/api/data/files')
+        .then(function(res) {
+          if (res.status === 401) {
+            location.href = '/login.html';
+            return null;
+          }
+          return res.json();
+        })
+        .then(function(data) {
+          if (!data) return;
+
+          var files = Array.isArray(data) ? data : (data.files || []);
+
+          // Group by folder (case-insensitive)
+          var grouped = {};
+          Object.keys(FOLDER_MAP).forEach(function(k) { grouped[k] = []; });
+
+          files.forEach(function(file) {
+            var folder = '/' + (file.folder || '').replace(/^\/+/, '').split('/')[0].toLowerCase();
+            if (grouped[folder]) {
+              grouped[folder].push(file);
+            }
+          });
+
+          // Render each section
+          Object.keys(FOLDER_MAP).forEach(function(folder) {
+            var sectionKey = FOLDER_MAP[folder];
+            var container = document.getElementById('docs-' + sectionKey);
+            var countEl = document.getElementById('count-' + sectionKey);
+            var sectionFiles = grouped[folder];
+
+            if (sectionFiles.length === 0) {
+              container.innerHTML = '<div class="empty-state">NO DOCUMENTS AVAILABLE</div>';
+              if (countEl) countEl.textContent = '0';
+            } else {
+              container.innerHTML = sectionFiles.map(renderCard).join('');
+              if (countEl) countEl.textContent = sectionFiles.length;
+            }
+          });
+        })
+        .catch(function(err) {
+          console.error('Failed to load files:', err);
+        });
+    });
+  </script>
+</body>
+</html>

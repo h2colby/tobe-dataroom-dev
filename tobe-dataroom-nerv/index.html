@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="operational">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TOBE ENERGY // INVESTOR DATA ROOM</title>
+  
+  <!-- NERV Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Saira+Extra+Condensed:wght@400;600;700;800&family=Shippori+Mincho+B1:wght@500;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/nerv-ui.css">
+  <style>
+    /* TOBE Energy Overrides */
+    :root {
+      --tobe-accent: #FF9830;
+    }
+    
+    /* Access Screen */
+    .access-screen {
+      position: fixed;
+      inset: 0;
+      background: var(--void);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10001;
+      transition: opacity 0.8s, visibility 0.8s;
+    }
+    
+    .access-screen.granted {
+      opacity: 0;
+      visibility: hidden;
+    }
+    
+    .access-logo {
+      font-family: var(--font-title);
+      font-weight: 900;
+      font-size: 4rem;
+      color: var(--nerv-orange);
+      transform: scaleX(0.82);
+      letter-spacing: 0.2em;
+      margin-bottom: 2rem;
+    }
+    
+    .access-label {
+      font-family: var(--font-sys);
+      font-size: 0.75rem;
+      color: var(--steel-dim);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 3rem;
+    }
+    
+    .access-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .access-input {
+      background: var(--void-panel);
+      border: 1px solid var(--nerv-orange-dim);
+      color: var(--data-green);
+      font-family: var(--font-sys);
+      font-size: 1rem;
+      padding: 0.75rem 1.5rem;
+      width: 280px;
+      text-align: center;
+      letter-spacing: 0.2em;
+    }
+    
+    .access-input:focus {
+      outline: none;
+      border-color: var(--nerv-orange);
+      box-shadow: 0 0 20px rgba(255, 152, 48, 0.2);
+    }
+    
+    .access-input::placeholder {
+      color: var(--steel-dim);
+    }
+    
+    .access-button {
+      background: transparent;
+      border: 2px solid var(--nerv-orange);
+      color: var(--nerv-orange);
+      font-family: var(--font-sys);
+      font-size: 0.875rem;
+      padding: 0.75rem 2rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .access-button:hover {
+      background: var(--nerv-orange);
+      color: var(--void);
+    }
+    
+    .access-status {
+      font-family: var(--font-sys);
+      font-size: 0.75rem;
+      color: var(--alert-red);
+      height: 1.5rem;
+      margin-top: 1rem;
+    }
+    
+    .access-granted-text {
+      font-family: var(--font-stamp);
+      font-size: 3rem;
+      color: var(--data-green);
+      letter-spacing: 0.2em;
+      opacity: 0;
+      animation: granted-flash 0.5s ease-out forwards;
+    }
+    
+    @keyframes granted-flash {
+      0% { opacity: 0; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.1); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    
+    /* Main Console Layout */
+    .console-wrapper {
+      display: none;
+      min-height: 100vh;
+    }
+    
+    .console-wrapper.active {
+      display: block;
+    }
+    
+    .console-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: var(--void);
+      border-bottom: 1px solid var(--nerv-orange-dim);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      z-index: 100;
+    }
+    
+    .header-logo {
+      font-family: var(--font-title);
+      font-weight: 900;
+      font-size: 1.5rem;
+      color: var(--nerv-orange);
+      transform: scaleX(0.82);
+      letter-spacing: 0.15em;
+    }
+    
+    .header-status {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+    
+    .status-item {
+      font-family: var(--font-sys);
+      font-size: 0.7rem;
+      color: var(--steel-dim);
+      letter-spacing: 0.1em;
+    }
+    
+    .status-item span {
+      color: var(--data-green);
+    }
+    
+    .status-item.classification span {
+      color: var(--nerv-orange);
+    }
+    
+    /* Sidebar Navigation */
+    .console-sidebar {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      bottom: 0;
+      width: 240px;
+      background: var(--void-panel);
+      border-right: 1px solid var(--steel-line);
+      padding: 1.5rem 0;
+      overflow-y: auto;
+    }
+    
+    .nav-section {
+      margin-bottom: 1.5rem;
+    }
+    
+    .nav-section-label {
+      font-family: var(--font-sys);
+      font-size: 0.65rem;
+      color: var(--nerv-orange);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .nav-item {
+      display: block;
+      font-family: var(--font-sys);
+      font-size: 0.8rem;
+      color: var(--steel);
+      text-decoration: none;
+      padding: 0.6rem 1.5rem;
+      letter-spacing: 0.05em;
+      border-left: 2px solid transparent;
+      transition: all 0.15s;
+    }
+    
+    .nav-item:hover {
+      background: var(--nerv-orange-fill);
+      color: var(--nerv-orange);
+    }
+    
+    .nav-item.active {
+      border-left-color: var(--nerv-orange);
+      color: var(--nerv-orange);
+      background: var(--nerv-orange-fill);
+    }
+    
+    .nav-item-number {
+      color: var(--steel-dim);
+      margin-right: 0.5rem;
+    }
+    
+    /* Main Content Area */
+    .console-main {
+      margin-left: 240px;
+      margin-top: 60px;
+      padding: 2rem;
+      min-height: calc(100vh - 60px);
+    }
+    
+    /* Section Styling */
+    .section {
+      display: none;
+      animation: section-fade-in 0.3s ease-out;
+    }
+    
+    .section.active {
+      display: block;
+    }
+    
+    @keyframes section-fade-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--steel-line);
+    }
+    
+    .section-number {
+      font-family: var(--font-sys);
+      font-size: 0.75rem;
+      color: var(--nerv-orange);
+      letter-spacing: 0.1em;
+    }
+    
+    .section-title {
+      font-family: var(--font-title);
+      font-weight: 900;
+      font-size: 2rem;
+      color: var(--steel);
+      transform: scaleX(0.85);
+      transform-origin: left;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    
+    .section-subtitle {
+      font-family: var(--font-sys);
+      font-size: 0.75rem;
+      color: var(--steel-dim);
+      margin-left: auto;
+    }
+    
+    /* Document Grid */
+    .doc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+    
+    .doc-card {
+      background: var(--void-panel);
+      border: 1px solid var(--steel-line);
+      padding: 1.25rem;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    
+    .doc-card:hover {
+      border-color: var(--nerv-orange);
+      background: var(--void-raised);
+    }
+    
+    .doc-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    
+    .doc-icon {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-sys);
+      font-size: 0.7rem;
+      color: var(--nerv-orange);
+      border: 1px solid var(--nerv-orange-dim);
+    }
+    
+    .doc-title {
+      font-family: var(--font-sys);
+      font-size: 0.85rem;
+      color: var(--steel);
+      flex: 1;
+    }
+    
+    .doc-meta {
+      font-family: var(--font-sys);
+      font-size: 0.7rem;
+      color: var(--steel-dim);
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .doc-classification {
+      color: var(--data-green);
+    }
+    
+    /* Metrics Panel */
+    .metrics-panel {
+      background: var(--void-panel);
+      border: 1px solid var(--steel-line);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+    
+    .metric {
+      text-align: center;
+    }
+    
+    .metric-value {
+      font-family: var(--font-sys);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--data-green);
+    }
+    
+    .metric-label {
+      font-family: var(--font-sys);
+      font-size: 0.65rem;
+      color: var(--nerv-orange);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-top: 0.25rem;
+    }
+    
+    /* Footer Classification */
+    .console-footer {
+      position: fixed;
+      bottom: 0;
+      left: 240px;
+      right: 0;
+      height: 32px;
+      background: var(--void);
+      border-top: 1px solid var(--steel-line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3rem;
+      font-family: var(--font-sys);
+      font-size: 0.65rem;
+      color: var(--steel-dim);
+      letter-spacing: 0.15em;
+    }
+    
+    .footer-item.warning {
+      color: var(--nerv-orange);
+    }
+  </style>
+</head>
+<body>
+  <div class="scan-line-overlay"></div>
+  
+  <!-- ACCESS SCREEN -->
+  <div class="access-screen" id="accessScreen">
+    <div class="access-logo">TOBE ENERGY</div>
+    <div class="access-label">Investor Data Room // Secure Access</div>
+    <form class="access-form" id="accessForm">
+      <input type="password" class="access-input" id="accessCode" placeholder="ENTER ACCESS CODE" autocomplete="off">
+      <button type="submit" class="access-button">Authenticate</button>
+      <div class="access-status" id="accessStatus"></div>
+    </form>
+  </div>
+  
+  <!-- MAIN CONSOLE -->
+  <div class="console-wrapper" id="console">
+    <header class="console-header">
+      <div class="header-logo">TOBE ENERGY</div>
+      <div class="header-status">
+        <div class="status-item">SESSION: <span id="sessionId">INV-2026-0310</span></div>
+        <div class="status-item">STATUS: <span>ACTIVE</span></div>
+        <div class="status-item classification">CLASSIFICATION: <span>INVESTOR</span></div>
+      </div>
+    </header>
+    
+    <nav class="console-sidebar">
+      <div class="nav-section">
+        <div class="nav-section-label">System Modules</div>
+        <a href="#overview" class="nav-item active" data-section="overview">
+          <span class="nav-item-number">01</span> Overview
+        </a>
+        <a href="#technology" class="nav-item" data-section="technology">
+          <span class="nav-item-number">02</span> Technology
+        </a>
+        <a href="#business" class="nav-item" data-section="business">
+          <span class="nav-item-number">03</span> Business Model
+        </a>
+        <a href="#financials" class="nav-item" data-section="financials">
+          <span class="nav-item-number">04</span> Financials
+        </a>
+        <a href="#team" class="nav-item" data-section="team">
+          <span class="nav-item-number">05</span> Team
+        </a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-label">Resources</div>
+        <a href="#deck" class="nav-item" data-section="deck">
+          <span class="nav-item-number">06</span> Pitch Deck
+        </a>
+        <a href="#legal" class="nav-item" data-section="legal">
+          <span class="nav-item-number">07</span> Legal & IP
+        </a>
+        <a href="#media" class="nav-item" data-section="media">
+          <span class="nav-item-number">08</span> Media Assets
+        </a>
+      </div>
+    </nav>
+    
+    <main class="console-main">
+      <!-- OVERVIEW SECTION -->
+      <section class="section active" id="overview">
+        <div class="section-header">
+          <span class="section-number">SECTION 01 //</span>
+          <h1 class="section-title">Mission Overview</h1>
+          <span class="section-subtitle">Last Updated: 2026-03-10</span>
+        </div>
+        
+        <div class="metrics-panel">
+          <div class="metrics-grid">
+            <div class="metric">
+              <div class="metric-value">>92%</div>
+              <div class="metric-label">System Efficiency</div>
+            </div>
+            <div class="metric">
+              <div class="metric-value"><$2</div>
+              <div class="metric-label">LCOH ($/kg)</div>
+            </div>
+            <div class="metric">
+              <div class="metric-value">$100M</div>
+              <div class="metric-label">Pipeline</div>
+            </div>
+            <div class="metric">
+              <div class="metric-value">$10M</div>
+              <div class="metric-label">Raising</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="doc-grid">
+          <div class="doc-card">
+            <div class="doc-card-header">
+              <div class="doc-icon">PDF</div>
+              <div class="doc-title">Executive Summary</div>
+            </div>
+            <div class="doc-meta">
+              <span>2.4 MB</span>
+              <span class="doc-classification">INVESTOR-READY</span>
+            </div>
+          </div>
+          <div class="doc-card">
+            <div class="doc-card-header">
+              <div class="doc-icon">PDF</div>
+              <div class="doc-title">Company Overview</div>
+            </div>
+            <div class="doc-meta">
+              <span>1.8 MB</span>
+              <span class="doc-classification">INVESTOR-READY</span>
+            </div>
+          </div>
+          <div class="doc-card">
+            <div class="doc-card-header">
+              <div class="doc-icon">PDF</div>
+              <div class="doc-title">Market Analysis</div>
+            </div>
+            <div class="doc-meta">
+              <span>3.1 MB</span>
+              <span class="doc-classification">INVESTOR-READY</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- TECHNOLOGY SECTION -->
+      <section class="section" id="technology">
+        <div class="section-header">
+          <span class="section-number">SECTION 02 //</span>
+          <h1 class="section-title">Technology</h1>
+          <span class="section-subtitle">Isothermal Electrolysis Platform</span>
+        </div>
+        
+        <div class="metrics-panel">
+          <div class="metrics-grid">
+            <div class="metric">
+              <div class="metric-value">8×</div>
+              <div class="metric-label">Less Heat Loss</div>
+            </div>
+            <div class="metric">
+              <div class="metric-value"><30°C</div>
+              <div class="metric-label">Operating Temp</div>
+            </div>
+            <div class="metric">
+              <div class="metric-value">0</div>
+              <div class="metric-label">Rare Earth Metals</div>
+            </div>
+            <div class="metric">
+              <div class="metric-value">95%</div>
+              <div class="metric-label">US Sourced</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="doc-grid">
+          <div class="doc-card">
+            <div class="doc-card-header">
+              <div class="doc-icon">PDF</div>
+              <div class="doc-title">Technical White Paper</div>
+            </div>
+            <div class="doc-meta">
+              <span>5.2 MB</span>
+              <span class="doc-classification">CONFIDENTIAL</span>
+            </div>
+          </div>
+          <div class="doc-card">
+            <div class="doc-card-header">
+              <div class="doc-icon">PDF</div>
+              <div class="doc-title">Third-Party Efficiency Report</div>
+            </div>
+            <div class="doc-meta">
+              <span>1.4 MB</span>
+              <span class="doc-classification">VERIFIED</span>
+            </div>
+          </div>
+          <div class="doc-card">
+            <div class="doc-card-header">
+              <div class="doc-icon">MP4</div>
+              <div class="doc-title">System Demo Video</div>
+            </div>
+            <div class="doc-meta">
+              <span>48 MB</span>
+              <span class="doc-classification">MEDIA</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Add more sections as needed -->
+      <section class="section" id="business">
+        <div class="section-header">
+          <span class="section-number">SECTION 03 //</span>
+          <h1 class="section-title">Business Model</h1>
+        </div>
+        <div class="doc-grid">
+          <div class="doc-card">
+            <div class="doc-card-header">
+              <div class="doc-icon">PDF</div>
+              <div class="doc-title">Revenue Model & Unit Economics</div>
+            </div>
+            <div class="doc-meta">
+              <span>2.1 MB</span>
+              <span class="doc-classification">INVESTOR-READY</span>
+            </div>
+          </div>
+          <div class="doc-card">
+            <div class="doc-card-header">
+              <div class="doc-icon">XLS</div>
+              <div class="doc-title">Financial Projections (5-Year)</div>
+            </div>
+            <div class="doc-meta">
+              <span>890 KB</span>
+              <span class="doc-classification">CONFIDENTIAL</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <section class="section" id="financials">
+        <div class="section-header">
+          <span class="section-number">SECTION 04 //</span>
+          <h1 class="section-title">Financials</h1>
+        </div>
+        <div class="doc-grid">
+          <div class="doc-card">
+            <div class="doc-card-header">
+              <div class="doc-icon">PDF</div>
+              <div class="doc-title">Cap Table</div>
+            </div>
+            <div class="doc-meta">
+              <span>450 KB</span>
+              <span class="doc-classification">CONFIDENTIAL</span>
+            </div>
+          </div>
+          <div class="doc-card">
+            <div class="doc-card-header">
+              <div class="doc-icon">PDF</div>
+              <div class="doc-title">Use of Funds</div>
+            </div>
+            <div class="doc-meta">
+              <span>320 KB</span>
+              <span class="doc-classification">INVESTOR-READY</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <section class="section" id="team">
+        <div class="section-header">
+          <span class="section-number">SECTION 05 //</span>
+          <h1 class="section-title">Team</h1>
+        </div>
+        <div class="doc-grid">
+          <div class="doc-card">
+            <div class="doc-card-header">
+              <div class="doc-icon">PDF</div>
+              <div class="doc-title">Founder Bios</div>
+            </div>
+            <div class="doc-meta">
+              <span>1.2 MB</span>
+              <span class="doc-classification">PUBLIC</span>
+            </div>
+          </div>
+          <div class="doc-card">
+            <div class="doc-card-header">
+              <div class="doc-icon">PDF</div>
+              <div class="doc-title">Org Chart & Key Hires</div>
+            </div>
+            <div class="doc-meta">
+              <span>680 KB</span>
+              <span class="doc-classification">INVESTOR-READY</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <section class="section" id="deck">
+        <div class="section-header">
+          <span class="section-number">SECTION 06 //</span>
+          <h1 class="section-title">Pitch Deck</h1>
+        </div>
+        <div class="doc-grid">
+          <div class="doc-card">
+            <div class="doc-card-header">
+              <div class="doc-icon">PDF</div>
+              <div class="doc-title">Investor Deck (March 2026)</div>
+            </div>
+            <div class="doc-meta">
+              <span>8.4 MB</span>
+              <span class="doc-classification">CURRENT</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <section class="section" id="legal">
+        <div class="section-header">
+          <span class="section-number">SECTION 07 //</span>
+          <h1 class="section-title">Legal & IP</h1>
+        </div>
+        <div class="doc-grid">
+          <div class="doc-card">
+            <div class="doc-card-header">
+              <div class="doc-icon">PDF</div>
+              <div class="doc-title">Patent Portfolio Summary</div>
+            </div>
+            <div class="doc-meta">
+              <span>2.8 MB</span>
+              <span class="doc-classification">CONFIDENTIAL</span>
+            </div>
+          </div>
+          <div class="doc-card">
+            <div class="doc-card-header">
+              <div class="doc-icon">PDF</div>
+              <div class="doc-title">Certificate of Incorporation</div>
+            </div>
+            <div class="doc-meta">
+              <span>420 KB</span>
+              <span class="doc-classification">LEGAL</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <section class="section" id="media">
+        <div class="section-header">
+          <span class="section-number">SECTION 08 //</span>
+          <h1 class="section-title">Media Assets</h1>
+        </div>
+        <div class="doc-grid">
+          <div class="doc-card">
+            <div class="doc-card-header">
+              <div class="doc-icon">ZIP</div>
+              <div class="doc-title">Logo Pack (All Formats)</div>
+            </div>
+            <div class="doc-meta">
+              <span>12 MB</span>
+              <span class="doc-classification">MEDIA</span>
+            </div>
+          </div>
+          <div class="doc-card">
+            <div class="doc-card-header">
+              <div class="doc-icon">ZIP</div>
+              <div class="doc-title">Product Photography</div>
+            </div>
+            <div class="doc-meta">
+              <span>85 MB</span>
+              <span class="doc-classification">MEDIA</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    
+    <footer class="console-footer">
+      <span>TOBE ENERGY CORP</span>
+      <span class="footer-item warning">CONFIDENTIAL — INVESTOR USE ONLY</span>
+      <span>OKLAHOMA CITY, USA</span>
+    </footer>
+  </div>
+  
+  <script>
+    // Access Control
+    const ACCESS_CODE = 'tobe2026';
+    const accessScreen = document.getElementById('accessScreen');
+    const accessForm = document.getElementById('accessForm');
+    const accessCode = document.getElementById('accessCode');
+    const accessStatus = document.getElementById('accessStatus');
+    const console_el = document.getElementById('console');
+    
+    accessForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (accessCode.value.toLowerCase() === ACCESS_CODE) {
+        // Show granted message
+        accessForm.innerHTML = '<div class="access-granted-text">ACCESS GRANTED</div>';
+        setTimeout(() => {
+          accessScreen.classList.add('granted');
+          console_el.classList.add('active');
+        }, 1000);
+      } else {
+        accessStatus.textContent = '⚠ INVALID ACCESS CODE';
+        accessCode.value = '';
+        accessCode.focus();
+      }
+    });
+    
+    // Navigation
+    const navItems = document.querySelectorAll('.nav-item');
+    const sections = document.querySelectorAll('.section');
+    
+    navItems.forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        const sectionId = item.dataset.section;
+        
+        // Update nav
+        navItems.forEach(n => n.classList.remove('active'));
+        item.classList.add('active');
+        
+        // Update sections
+        sections.forEach(s => s.classList.remove('active'));
+        document.getElementById(sectionId).classList.add('active');
+      });
+    });
+    
+    // Generate session ID
+    document.getElementById('sessionId').textContent = 
+      'INV-' + new Date().getFullYear() + '-' + 
+      String(new Date().getMonth() + 1).padStart(2, '0') + 
+      String(new Date().getDate()).padStart(2, '0') + '-' +
+      Math.random().toString(36).substr(2, 4).toUpperCase();
+  </script>
+</body>
+</html>

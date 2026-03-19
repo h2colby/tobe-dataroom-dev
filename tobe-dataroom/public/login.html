@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="operational">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>TOBE ENERGY // Secure Access</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Saira+Extra+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/nerv-ui.css">
+<style>
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  .login-box {
+    width: 100%;
+    max-width: 380px;
+    padding: 0 24px;
+    position: relative;
+    z-index: 10;
+  }
+
+  .wordmark {
+    display: block;
+    text-align: center;
+    font-family: var(--font-title);
+    font-weight: 900;
+    font-size: 3rem;
+    color: var(--nerv-orange);
+    transform: scaleX(0.82);
+    letter-spacing: 0.2em;
+    margin-bottom: 0.5rem;
+  }
+
+  .sub-label {
+    text-align: center;
+    font-family: var(--font-sys);
+    font-size: 0.7rem;
+    color: var(--steel-dim);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 3rem;
+  }
+
+  label {
+    display: block;
+    font-family: var(--font-sys);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--nerv-orange);
+    margin-bottom: 0.75rem;
+  }
+
+  input[type="email"] {
+    width: 100%;
+    background: var(--void-panel);
+    border: 1px solid var(--nerv-orange-dim);
+    color: var(--data-green);
+    font-family: var(--font-sys);
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    letter-spacing: 0.05em;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    border-radius: 0;
+  }
+
+  input[type="email"]:focus {
+    border-color: var(--nerv-orange);
+    box-shadow: 0 0 20px rgba(255, 152, 48, 0.2);
+  }
+
+  input[type="email"]::placeholder {
+    color: var(--steel-dim);
+    letter-spacing: 0.1em;
+  }
+
+  button[type="submit"] {
+    width: 100%;
+    margin-top: 1rem;
+    background: transparent;
+    border: 2px solid var(--nerv-orange);
+    color: var(--nerv-orange);
+    font-family: var(--font-sys);
+    font-size: 0.85rem;
+    padding: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 0;
+  }
+
+  button[type="submit"]:hover {
+    background: var(--nerv-orange);
+    color: var(--void);
+  }
+
+  button[type="submit"]:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .error {
+    margin-top: 1rem;
+    font-family: var(--font-sys);
+    font-size: 0.75rem;
+    color: var(--alert-red);
+    text-align: center;
+    display: none;
+    letter-spacing: 0.1em;
+  }
+
+  .success {
+    display: none;
+    text-align: center;
+  }
+
+  .success .icon {
+    font-family: var(--font-stamp);
+    font-size: 3rem;
+    color: var(--data-green);
+    letter-spacing: 0.2em;
+    margin-bottom: 1.5rem;
+  }
+
+  .success h2 {
+    font-family: var(--font-sys);
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--steel);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .success p {
+    font-family: var(--font-sys);
+    font-size: 0.75rem;
+    color: var(--steel-dim);
+    line-height: 1.8;
+  }
+
+  .success .email-highlight {
+    color: var(--data-green);
+    font-family: var(--font-sys);
+  }
+
+  .success .retry {
+    margin-top: 2rem;
+    font-family: var(--font-sys);
+    font-size: 0.7rem;
+  }
+
+  .success .retry a {
+    color: var(--nerv-orange-dim);
+    text-decoration: none;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    transition: color 0.2s;
+  }
+
+  .success .retry a:hover {
+    color: var(--nerv-orange);
+  }
+
+  .footer-line {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-family: var(--font-sys);
+    font-size: 0.6rem;
+    color: var(--steel-dim);
+    letter-spacing: 0.15em;
+    padding: 0.75rem;
+    border-top: 1px solid var(--steel-line);
+  }
+  .footer-line span { color: var(--nerv-orange); }
+</style>
+</head>
+<body>
+<div class="scan-line-overlay"></div>
+
+<div class="login-box">
+  <div class="wordmark">TOBE ENERGY</div>
+  <div class="sub-label">Investor Data Room // Secure Access</div>
+
+  <form id="form">
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" placeholder="you@company.com" autocomplete="email" autofocus>
+    <button type="submit" id="btn">Continue</button>
+    <div class="error" id="err"></div>
+  </form>
+
+  <div class="success" id="success">
+    <div class="icon">LINK SENT</div>
+    <h2>Check your email</h2>
+    <p>We sent a login link to<br><span class="email-highlight" id="sent-email"></span></p>
+    <div class="retry">
+      <a id="retry-link">Try a different email</a>
+    </div>
+  </div>
+</div>
+
+<div class="footer-line">TOBE ENERGY CORP — <span>CONFIDENTIAL</span> — OKLAHOMA CITY, USA</div>
+
+<script>
+const form = document.getElementById('form');
+const success = document.getElementById('success');
+const emailInput = document.getElementById('email');
+const btn = document.getElementById('btn');
+const err = document.getElementById('err');
+const nextParam = new URLSearchParams(window.location.search).get('next');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  err.style.display = 'none';
+  btn.disabled = true;
+  btn.textContent = 'SENDING...';
+
+  try {
+    const payload = { email: emailInput.value.trim() };
+    if (nextParam) payload.next = nextParam;
+    const res = await fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+
+    if (res.ok) {
+      form.style.display = 'none';
+      success.style.display = 'block';
+      document.getElementById('sent-email').textContent = emailInput.value.trim();
+    } else {
+      err.textContent = data.error || 'Something went wrong';
+      err.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'CONTINUE';
+    }
+  } catch {
+    err.textContent = 'Network error — try again';
+    err.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'CONTINUE';
+  }
+});
+
+document.getElementById('retry-link').addEventListener('click', () => {
+  success.style.display = 'none';
+  form.style.display = 'block';
+  emailInput.value = '';
+  emailInput.focus();
+  btn.disabled = false;
+  btn.textContent = 'CONTINUE';
+});
+</script>
+</body>
+</html>

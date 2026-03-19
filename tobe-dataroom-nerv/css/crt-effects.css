@@ -1,0 +1,75 @@
+/* ═══════════════════════════════════════════════════════════════
+   NERV UI — CRT Effects (standalone)
+   Drop this into any dark-background page for CRT monitor feel.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Scanline overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.04) 2px,
+    rgba(0, 0, 0, 0.04) 4px
+  );
+  pointer-events: none;
+  z-index: 10000;
+}
+
+/* Vignette — darkened edges */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 70% 70% at center,
+    transparent 50%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Phosphor flicker — subtle brightness variation */
+@keyframes phosphor-flicker {
+  0%, 100% { opacity: 1; }
+  92% { opacity: 1; }
+  93% { opacity: 0.96; }
+  94% { opacity: 1; }
+}
+body {
+  animation: phosphor-flicker 4s ease-in-out infinite;
+}
+
+/* Moving scan line */
+@keyframes scan-line {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+.scan-line-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(80, 255, 80, 0.15) 20%,
+    rgba(80, 255, 80, 0.3) 50%,
+    rgba(80, 255, 80, 0.15) 80%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 9997;
+  animation: scan-line 4s linear infinite;
+  opacity: 0.5;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  body { animation: none !important; }
+  .scan-line-overlay { animation: none !important; }
+}
