@@ -14,6 +14,7 @@ const navLinks = [
   { href: "/business-model", label: "Business Model" },
   { href: "/team", label: "Team" },
   { href: "/pipeline", label: "Pipeline" },
+  { href: "/tax-credits", label: "Tax Credits" },
   { href: "/hmi", label: "HMI" },
 ];
 
