@@ -20,20 +20,20 @@ const getNodePosition = (opp: Opportunity, index: number): { x: number; y: numbe
   
   const baseDistance = distanceByStatus[opp.status];
   
-  // Angle distribution - group Oklahoma together
+  // Angle distribution - spread out to avoid overlaps
   const angleMap: Record<string, number> = {
-    'cardinal': -90,      // straight up (closest)
-    'refinery': -45,      // OK cluster
-    'forge': -135,        // OK cluster
-    'campus': -60,        // OK cluster  
-    'scholar': -120,      // OK cluster
-    'transit': 150,       // northwest - upper left
-    'phoenix': 170,       // west - left
-    'forge-steel': 30,    // northeast - upper right
-    'vault': 130,         // mountain - left
-    'horizon': -30,       // south - lower right
-    'titan': 10,          // south - right
-    'europa': 60,         // international - far right
+    'cardinal': -90,      // straight up (closest, contracted)
+    'refinery': -35,      // OK cluster - spread right
+    'forge': -145,        // OK cluster - spread left
+    'campus': -55,        // OK cluster  
+    'scholar': 95,        // moved to bottom right area
+    'transit': 200,       // southwest
+    'phoenix': 175,       // west - left
+    'forge-steel': 20,    // east - right
+    'vault': 215,         // southwest
+    'horizon': -15,       // east side
+    'titan': 45,          // southeast
+    'europa': 70,         // southeast lower
   };
   
   const angle = (angleMap[opp.id] ?? index * 30) * (Math.PI / 180);
@@ -289,10 +289,10 @@ export function PipelineNetwork() {
         
         {/* Oklahoma cluster boundary */}
         <motion.ellipse
-          cx={centerX - 30}
-          cy={centerY - 80}
-          rx={120}
-          ry={90}
+          cx={centerX}
+          cy={centerY - 60}
+          rx={130}
+          ry={100}
           fill="rgba(255, 107, 53, 0.03)"
           stroke="#ff6b35"
           strokeWidth={1}
@@ -302,8 +302,8 @@ export function PipelineNetwork() {
           transition={{ delay: 0.8, duration: 1 }}
         />
         <motion.text
-          x={centerX - 30}
-          y={centerY + 25}
+          x={centerX}
+          y={centerY + 55}
           textAnchor="middle"
           className="font-mono text-[9px] fill-[#ff6b35]"
           initial={{ opacity: 0 }}
