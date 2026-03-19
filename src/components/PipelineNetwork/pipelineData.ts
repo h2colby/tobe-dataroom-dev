@@ -17,6 +17,19 @@ export interface Opportunity {
 
 export const opportunities: Opportunity[] = [
   {
+    id: 'showroom',
+    codename: 'SHOWROOM',
+    location: 'Oklahoma',
+    status: 'contracted',
+    value: '$250K',
+    capacity: '50 kW',
+    sector: 'Internal Demo',
+    vertical: 'Internal',
+    region: 'oklahoma',
+    timeline: 'Q2 2026',
+    notes: '50kW containerized showroom unit. Active build.',
+  },
+  {
     id: 'cardinal',
     codename: 'CARDINAL',
     location: 'Oklahoma',
