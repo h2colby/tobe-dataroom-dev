@@ -72,23 +72,48 @@ const Tooltip = ({ opportunity, position }: TooltipProps) => (
       transform: 'translateX(-50%)',
     }}
   >
-    <div className="bg-[#12121a] border border-[#2a2a3a] px-3 py-2 rounded shadow-xl min-w-[180px]">
-      <div className="flex items-center justify-between gap-3 mb-1">
+    <div className="bg-[#12121a] border border-[#2a2a3a] px-4 py-3 rounded shadow-xl min-w-[220px]">
+      {/* Header */}
+      <div className="flex items-center justify-between gap-3 mb-2 pb-2 border-b border-[#2a2a3a]">
         <span className="font-mono text-sm font-bold text-white">{opportunity.codename}</span>
         <span 
-          className="font-mono text-xs font-bold"
+          className="font-mono text-sm font-bold"
           style={{ color: statusColors[opportunity.status] }}
         >
           {opportunity.value || statusLabels[opportunity.status]}
         </span>
       </div>
-      <div className="text-xs text-gray-400 mb-1">{opportunity.location}</div>
-      <div className="text-xs text-gray-500">{opportunity.sector}</div>
+      
+      {/* Vertical & Location */}
+      <div className="flex items-center gap-2 mb-2">
+        <span 
+          className="font-mono text-[10px] px-2 py-0.5 rounded"
+          style={{ 
+            backgroundColor: `${statusColors[opportunity.status]}20`,
+            color: statusColors[opportunity.status]
+          }}
+        >
+          {opportunity.vertical}
+        </span>
+        <span className="text-xs text-gray-400">•</span>
+        <span className="text-xs text-gray-300">{opportunity.location}</span>
+      </div>
+      
+      {/* Sector */}
+      <div className="text-xs text-gray-400 mb-1">{opportunity.sector}</div>
+      
+      {/* Capacity if available */}
       {opportunity.capacity && (
-        <div className="text-xs text-gray-500 mt-1">Capacity: {opportunity.capacity}</div>
+        <div className="text-xs text-gray-500">
+          <span className="text-gray-600">Capacity:</span> {opportunity.capacity}
+        </div>
       )}
+      
+      {/* Notes */}
       {opportunity.notes && (
-        <div className="text-xs text-gray-600 mt-1 italic">{opportunity.notes}</div>
+        <div className="text-[11px] text-gray-500 mt-2 pt-2 border-t border-[#2a2a3a] italic">
+          {opportunity.notes}
+        </div>
       )}
     </div>
   </motion.div>
