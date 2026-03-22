@@ -518,14 +518,14 @@ END OF LOG  |  5-sec intervals  |  22,103 pts`}
                 <div
                   className={`absolute -left-[2.55rem] top-1 h-3 w-3 rounded-full border-2 ${
                     r.status === 'complete'
-                      ? 'border-[#ff6b35] bg-[#ff6b35]'
+                      ? 'border-[#00ff88] bg-[#00ff88]'
                       : r.status === 'active'
                       ? 'border-[#ff6b35] bg-[#ff6b35]'
                       : 'border-white/30 bg-transparent'
                   }`}
                   style={
                     r.status === 'complete'
-                      ? { boxShadow: '0 0 8px rgba(255,107,53,0.5)' }
+                      ? { boxShadow: '0 0 8px rgba(0,255,136,0.5)' }
                       : r.status === 'active'
                       ? { boxShadow: '0 0 8px rgba(255,107,53,0.5)' }
                       : {}
@@ -535,7 +535,7 @@ END OF LOG  |  5-sec intervals  |  22,103 pts`}
                   <span
                     className={`text-sm font-semibold ${
                       r.status === 'complete'
-                        ? 'text-[#ff6b35]'
+                        ? 'text-[#00ff88]'
                         : r.status === 'active'
                         ? 'text-[#ff6b35]'
                         : 'text-white/40'
