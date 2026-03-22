@@ -428,9 +428,9 @@ export default function ComparisonPage() {
                       t.type === 'milestone' ? 'h-4 w-4' : 'h-3 w-3'
                     }`}
                     style={{
-                      borderColor: isTobe ? '#ff6b35' : isStale ? '#ff4444' : '#4a4a5a',
-                      backgroundColor: isTobe ? '#ff6b35' : 'transparent',
-                      boxShadow: isTobe ? '0 0 12px rgba(255,107,53,0.6)' : 'none',
+                      borderColor: isTobe ? '#00ff88' : isStale ? '#ff4444' : '#4a4a5a',
+                      backgroundColor: isTobe ? '#00ff88' : 'transparent',
+                      boxShadow: isTobe ? '0 0 12px rgba(0,255,136,0.5)' : 'none',
                     }}
                   />
 
@@ -477,28 +477,7 @@ export default function ComparisonPage() {
             })}
           </motion.div>
 
-          {/* Compression callout */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            custom={0}
-            variants={fadeUp}
-            className="mt-8 border-l-[3px] border-[#ff6b35] bg-[#ff6b35]/[0.04] px-5 py-4"
-            style={{ borderTop: '1px solid rgba(255,107,53,0.08)', borderRight: '1px solid rgba(255,107,53,0.08)', borderBottom: '1px solid rgba(255,107,53,0.08)' }}
-          >
-            <p className="text-sm text-white/80">
-              <span className="font-bold text-white">Advanced Ionics:</span>{' '}
-              <span className="text-white/50">8 years, $21M raised, lab scale.</span>
-            </p>
-            <p className="text-sm text-white/80 mt-1">
-              <span className="font-bold text-white">Fourier:</span>{' '}
-              <span className="text-white/50">4 years, $24M raised, lab scale.</span>
-            </p>
-            <p className="text-sm text-white mt-2 font-bold">
-              Tobe: 2 years, $1.8M, commercial deployment.
-            </p>
-          </motion.div>
+
         </section>
 
         <SectionDivider />
