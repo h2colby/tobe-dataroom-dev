@@ -318,6 +318,8 @@ function RenPanel() {
           <canvas
             ref={canvasRef}
             onMouseMove={handleMouseMove}
+            aria-label="Animated lightning bolt visualization for Ren AI assistant"
+            role="img"
             className={`absolute inset-0 w-full h-full cursor-pointer transition-all duration-700 ${isHovered ? 'opacity-10 blur-sm scale-95' : 'opacity-100'}`}
           />
           <div className={`absolute inset-0 flex flex-col justify-center px-6 py-6 transition-all duration-700 ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}`}>

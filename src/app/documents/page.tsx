@@ -311,7 +311,7 @@ const sections: Section[] = [
   { name: 'ENGINEERING', folders: folders.filter(f => f.name.startsWith('ENGINEERING')) },
   { name: 'PROJECTS', folders: folders.filter(f => f.name.startsWith('PROJECTS')) },
   { name: 'MARKET', folders: folders.filter(f => f.name.startsWith('MARKET')) },
-  { name: 'PENDING REVIEW', folders: folders.filter(f => f.name.startsWith('PENDING')) },
+  { name: 'LATEST REPORTS', folders: folders.filter(f => f.name.startsWith('PENDING')) },
 ];
 
 function getAllFiles(): DocFile[] {

@@ -94,7 +94,7 @@ function MiniBoltCanvas({ className }: { className?: string }) {
     return () => cancelAnimationFrame(frame);
   }, []);
 
-  return <canvas ref={canvasRef} className={className} />;
+  return <canvas ref={canvasRef} aria-label="Ren AI assistant visual indicator" role="img" className={className} />;
 }
 
 // ── Main Chat Component ──

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Sidebar } from "@/components/Sidebar";
+import { MobileNav } from "@/components/MobileNav";
 import { DataRoomChat } from "@/components/DataRoomChat";
 import "./globals.css";
 
@@ -38,17 +39,23 @@ export default function RootLayout({
 
         {/* Top header bar */}
         <header className="relative z-10 flex h-[52px] shrink-0 items-center justify-between border-b border-[#ff6b35]/20 bg-[#0a0a0f] px-6 font-mono">
-          <Link href="/" className="flex items-center">
-            <img src="/images/tobe-logo.svg" alt="Tobe Energy" className="h-7" />
-          </Link>
-          <div className="flex items-center gap-6">
+          {/* Left side: hamburger spacer on mobile + logo */}
+          <div className="flex items-center">
+            {/* Spacer for hamburger button on mobile so logo doesn't overlap */}
+            <div className="w-8 md:hidden" />
+            <Link href="/" className="flex items-center">
+              <img src="/images/tobe-logo.svg" alt="Tobe Energy" className="h-7" />
+            </Link>
+          </div>
+          {/* Right side: session info — hidden on very small screens */}
+          <div className="hidden sm:flex items-center gap-6">
             <span className="text-[0.65rem] tracking-[0.1em] text-[#6a6a7a]">
               SESSION:{" "}
               <span className="text-[#ff6b35] glow-orange">INV-2026-0318</span>
             </span>
             <span className="text-[0.65rem] tracking-[0.1em] text-[#6a6a7a]">
               STATUS:{" "}
-              <span className="text-[#ff6b35] glow-orange">● ACTIVE</span>
+              <span className="text-[#ff6b35] glow-orange">{"\u25CF"} ACTIVE</span>
             </span>
             <span className="text-[0.65rem] tracking-[0.1em] text-[#6a6a7a]">
               CLASSIFICATION:{" "}
@@ -57,10 +64,13 @@ export default function RootLayout({
           </div>
         </header>
 
+        {/* Mobile navigation (hamburger + drawer) */}
+        <MobileNav />
+
         {/* Sidebar + Content */}
         <div className="relative z-10 flex" style={{ height: "calc(100vh - 52px)" }}>
           <Sidebar />
-          <main className="flex-1 overflow-y-auto">{children}</main>
+          <main className="w-full md:flex-1 overflow-y-auto">{children}</main>
         </div>
         <DataRoomChat />
       </body>
