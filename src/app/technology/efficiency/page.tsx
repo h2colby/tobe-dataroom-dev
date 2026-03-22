@@ -12,10 +12,10 @@ const fadeUp = {
 };
 
 const testRuns = [
-  { run: '6kW Low TDS', power: '6,012', water: 'Low TDS', h2: '0.78', rate: '2.32', sec: '~46.1', lhv: '72.4%' },
-  { run: '6kW High TDS', power: '6,143', water: 'High TDS', h2: '0.78', rate: '2.30', sec: '~47.0', lhv: '70.1%' },
-  { run: '15kW Low TDS', power: '14,972', water: 'Low TDS', h2: '1.94', rate: '5.76', sec: '~46.2', lhv: '72.1%' },
-  { run: '15kW High TDS', power: '15,096', water: 'High TDS', h2: '0.94', rate: '1.39', sec: '\u2014', lhv: '69.1%' },
+  { run: '6kW Low TDS', power: '6,012', water: 'Low TDS', h2: '0.78', rate: '2.32', sec: '~46.1', hhv: '85.5%' },
+  { run: '6kW High TDS', power: '6,143', water: 'High TDS', h2: '0.78', rate: '2.30', sec: '~47.0', hhv: '83.9%' },
+  { run: '15kW Low TDS', power: '14,972', water: 'Low TDS', h2: '1.94', rate: '5.76', sec: '~46.2', hhv: '85.3%' },
+  { run: '15kW High TDS', power: '15,096', water: 'High TDS', h2: '0.94', rate: '1.39', sec: '\u2014', hhv: '\u2014' },
 ];
 
 const comparisonRows = [
@@ -246,7 +246,7 @@ export default function EfficiencyPage() {
                     <th className="whitespace-nowrap px-4 py-3 text-xs tracking-wider text-white/40">H&#x2082; (kg)</th>
                     <th className="whitespace-nowrap px-4 py-3 text-xs tracking-wider text-white/40">kg/day</th>
                     <th className="whitespace-nowrap px-4 py-3 text-xs tracking-wider text-[#00ff88]">SEC (kWh/kg)</th>
-                    <th className="whitespace-nowrap px-4 py-3 text-xs tracking-wider text-[#00d4ff]">LHV Eff.</th>
+                    <th className="whitespace-nowrap px-4 py-3 text-xs tracking-wider text-[#00d4ff]">HHV Eff.</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/5">
@@ -265,7 +265,7 @@ export default function EfficiencyPage() {
                       <td className="whitespace-nowrap px-4 py-3 text-white/50">{r.h2}</td>
                       <td className="whitespace-nowrap px-4 py-3 text-white/50">{r.rate}</td>
                       <td className="whitespace-nowrap px-4 py-3 font-semibold text-[#00ff88]">{r.sec}</td>
-                      <td className="whitespace-nowrap px-4 py-3 text-[#00d4ff]">{r.lhv}</td>
+                      <td className="whitespace-nowrap px-4 py-3 text-[#00d4ff]">{r.hhv}</td>
                     </motion.tr>
                   ))}
                 </tbody>
@@ -290,7 +290,7 @@ export default function EfficiencyPage() {
             <p className="text-sm leading-relaxed text-white/70">
               These results use a <span className="font-semibold text-[#00ff88]">standard DC bench power supply</span> &mdash; the conservative floor.
               The optimized pulsed waveform topology with resonant LLC converter achieves the{' '}
-              <span className="font-bold text-[#00ff88]" style={{ textShadow: '0 0 8px rgba(0,255,136,0.4)' }}>94% HHV (39.6 kWh/kg)</span>{' '}
+              <span className="font-bold text-[#00ff88]" style={{ textShadow: '0 0 8px rgba(0,255,136,0.4)' }}>94.7% HHV (41.6 kWh/kg at stack)</span>{' '}
               demonstrated at stack level.
             </p>
           </motion.div>
@@ -327,8 +327,8 @@ export default function EfficiencyPage() {
               <div className="mb-3 border-b border-red-500/20 pb-2">
                 <span className="text-xs font-bold tracking-[0.2em] text-red-400">DOWNSIDE</span>
               </div>
-              <p className="mb-1 text-2xl font-bold text-red-400">72% LHV</p>
-              <p className="mb-1 text-sm text-white/50">~85% HHV / ~46.5 kWh/kg</p>
+              <p className="mb-1 text-2xl font-bold text-red-400">85.5% HHV</p>
+              <p className="mb-1 text-sm text-white/50">~46 kWh/kg system</p>
               <p className="mt-3 text-xs leading-relaxed text-white/40">
                 Bench power supply, unoptimized, conservative floor
               </p>
@@ -343,7 +343,7 @@ export default function EfficiencyPage() {
               <div className="mb-3 border-b border-[#00d4ff]/20 pb-2">
                 <span className="text-xs font-bold tracking-[0.2em] text-[#00d4ff]">BASE CASE</span>
               </div>
-              <p className="mb-1 text-2xl font-bold text-[#00d4ff]">85% HHV</p>
+              <p className="mb-1 text-2xl font-bold text-[#00d4ff]">&gt;92% HHV</p>
               <p className="mb-1 text-sm text-white/50">~42.8 kWh/kg</p>
               <p className="mt-3 text-xs leading-relaxed text-white/40">
                 Conservative modeling assumption, between measured floor and demonstrated ceiling
@@ -360,7 +360,7 @@ export default function EfficiencyPage() {
                 <span className="text-xs font-bold tracking-[0.2em] text-[#00ff88]">UPSIDE</span>
               </div>
               <p className="mb-1 text-2xl font-bold text-[#00ff88]" style={{ textShadow: '0 0 8px rgba(0,255,136,0.4)' }}>94% HHV</p>
-              <p className="mb-1 text-sm text-white/50">~39.6 kWh/kg</p>
+              <p className="mb-1 text-sm text-white/50">~41.6 kWh/kg stack</p>
               <p className="mt-3 text-xs leading-relaxed text-white/40">
                 Optimized pulsed waveform, clean water, resonant LLC topology, demonstrated at stack level
               </p>
@@ -377,7 +377,7 @@ export default function EfficiencyPage() {
           >
             <p className="text-sm leading-relaxed text-white/70">
               The base case deliberately sits <span className="font-semibold text-[#00d4ff]">below measured performance</span>.
-              If the financial model works at 85% HHV, it only gets better in production.
+              If the financial model works at the conservative 42.8 kWh/kg base case, it only gets better as we optimize the full system.
             </p>
           </motion.div>
         </div>

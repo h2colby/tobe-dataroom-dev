@@ -434,49 +434,49 @@ export default function Home() {
                 </div>
               </motion.div>
 
-              {/* 4. Technology Highlight */}
+              <div className="h-6" />
+
+              {/* 4. Technology — Why It Matters */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
                 className="mb-12"
               >
-                <h2 className="mb-4 text-sm font-bold tracking-[0.2em] text-[#ff6b35] glow-orange">
-                  TECHNOLOGY HIGHLIGHT
+                <h2 className="mb-6 text-sm font-bold tracking-[0.2em] text-[#ff6b35] glow-orange">
+                  THE BREAKTHROUGH
                 </h2>
-                <div className="grid grid-cols-1 gap-6 border border-[#00d4ff]/20 bg-[#0a0a0f]/60 p-6 md:grid-cols-2">
-                  <div className="flex items-center justify-center bg-black/40">
-                    <img
-                      src="/media/manufacturing/cnc-electrolysis-housing-poster.jpg"
-                      alt="CNC machining"
-                      className="h-auto w-full object-cover"
-                    />
+
+                <div className="mb-6 border-l-[3px] border-[#00ff88] bg-[#12121a] px-6 py-5" style={{ borderTop: '1px solid rgba(0,255,136,0.08)', borderRight: '1px solid rgba(0,255,136,0.08)', borderBottom: '1px solid rgba(0,255,136,0.08)' }}>
+                  <p className="font-sans text-[0.95rem] leading-relaxed text-[#b0b0c0]">
+                    Our innovation is two-tiered: a <span className="text-[#00ff88] font-semibold">unique cell geometry</span> designed to maximize the output of our <span className="text-[#00ff88] font-semibold">custom power electronics</span>. The result isn&apos;t just competing with green hydrogen — it&apos;s competing with the entire <span className="text-white font-semibold">$226B grey hydrogen market</span>, constrained by geography and logistics, with the flexibility that small modular facilities afford.
+                  </p>
+                </div>
+
+                <div className="grid gap-4 md:grid-cols-3">
+                  <div className="border-l-[3px] border-[#00d4ff] bg-[#12121a] px-5 py-5" style={{ borderTop: '1px solid rgba(0,212,255,0.08)', borderRight: '1px solid rgba(0,212,255,0.08)', borderBottom: '1px solid rgba(0,212,255,0.08)' }}>
+                    <p className="mb-2 text-[0.65rem] tracking-[0.15em] text-[#00d4ff]">EFFICIENCY IS THE MOAT</p>
+                    <p className="text-2xl font-bold text-[#00d4ff]" style={{ textShadow: '0 0 8px rgba(0,212,255,0.3)' }}>&gt;92% HHV</p>
+                    <p className="mt-2 text-xs text-white/40">System efficiency. PEM competitors run 50-58 kWh/kg. We measured 46. Every kWh/kg is margin.</p>
                   </div>
-                  <div className="flex flex-col justify-center space-y-3">
-                    <div className="grid grid-cols-2 gap-3">
-                      {[
-                        { label: 'Measured Efficiency', value: '46.08 kWh/kg' },
-                        { label: 'Operating Temp', value: '28°C' },
-                        { label: 'Stack Swap', value: '30-min' },
-                        { label: 'Stack Life', value: '80,000+ hr' },
-                      ].map((stat, i) => (
-                        <div key={i}>
-                          <div className="text-lg font-bold text-[#00d4ff]">{stat.value}</div>
-                          <div className="text-xs text-[#6a6a7a]">{stat.label}</div>
-                        </div>
-                      ))}
-                    </div>
-                    <p className="text-sm text-[#9a9ab0]">
-                      Vertically integrated. We CNC our own cells, etch our own PCBs, wind our own transformers.
-                    </p>
-                    <Link
-                      href="/technology"
-                      className="inline-block text-sm text-[#00d4ff] transition-colors hover:text-[#00d4ff]/80"
-                    >
-                      Explore the Technology →
-                    </Link>
+                  <div className="border-l-[3px] border-[#ff6b35] bg-[#12121a] px-5 py-5" style={{ borderTop: '1px solid rgba(255,107,53,0.08)', borderRight: '1px solid rgba(255,107,53,0.08)', borderBottom: '1px solid rgba(255,107,53,0.08)' }}>
+                    <p className="mb-2 text-[0.65rem] tracking-[0.15em] text-[#ff6b35]">AI-EMBEDDED MANUFACTURING</p>
+                    <p className="text-2xl font-bold text-[#ff6b35]" style={{ textShadow: '0 0 8px rgba(255,107,53,0.3)' }}>End to End</p>
+                    <p className="mt-2 text-xs text-white/40">AI woven from first quote through manufacturing to predictive maintenance. Not bolted on — built in from day one.</p>
+                  </div>
+                  <div className="border-l-[3px] border-[#00ff88] bg-[#12121a] px-5 py-5" style={{ borderTop: '1px solid rgba(0,255,136,0.08)', borderRight: '1px solid rgba(0,255,136,0.08)', borderBottom: '1px solid rgba(0,255,136,0.08)' }}>
+                    <p className="mb-2 text-[0.65rem] tracking-[0.15em] text-[#00ff88]">MADE IN AMERICA</p>
+                    <p className="text-2xl font-bold text-[#00ff88]" style={{ textShadow: '0 0 8px rgba(0,255,136,0.3)' }}>Oklahoma</p>
+                    <p className="mt-2 text-xs text-white/40">Vertically integrated. We CNC our cells, etch our PCBs, wind our transformers. 95% U.S.-sourced. BABA compliant.</p>
                   </div>
                 </div>
+
+                <Link
+                  href="/technology"
+                  className="mt-4 inline-block text-sm text-[#00d4ff] transition-colors hover:text-[#00d4ff]/80"
+                >
+                  Explore the Technology →
+                </Link>
               </motion.div>
 
               {/* 5. Financial Snapshot */}
@@ -544,12 +544,21 @@ export default function Home() {
                   </Link>
                   <Link
                     href="/projects/zeeco"
-                    className="group border border-[#00d4ff]/20 bg-[#0a0a0f]/60 p-6 transition-all hover:border-[#00d4ff]/50 hover:bg-[#00d4ff]/5"
+                    className="group border border-[#00d4ff]/20 bg-[#0a0a0f]/60 transition-all hover:border-[#00d4ff]/50 hover:bg-[#00d4ff]/5"
                   >
-                    <h3 className="mb-2 text-base font-bold text-[#00d4ff]">Zeeco ARC</h3>
-                    <p className="text-sm text-[#9a9ab0]">
-                      First commercial deployment. 12× T-25. 600kW. Q4 2026.
-                    </p>
+                    <div className="h-48 overflow-hidden bg-black/40">
+                      <img
+                        src="/images/zeeco-deployment.png"
+                        alt="Zeeco ARC Commercial Deployment"
+                        className="h-full w-full object-cover transition-transform group-hover:scale-105"
+                      />
+                    </div>
+                    <div className="p-4">
+                      <h3 className="mb-1 text-base font-bold text-[#00d4ff]">Zeeco ARC</h3>
+                      <p className="text-sm text-[#9a9ab0]">
+                        First commercial deployment. 12× T-25. 600kW. Q4 2026.
+                      </p>
+                    </div>
                   </Link>
                 </div>
               </motion.div>

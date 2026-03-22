@@ -253,36 +253,53 @@ function SpinningFan({ pwm }: { pwm: number }) {
 }
 
 // ─── ASCII HEADERS ──────────────────────────────────────────────
-const ASCII_HEADERS: Record<Tab, string> = {
-  process: `
-╔══════════════════════════════════════════════════╗
-║  PROCESS CONTROL                                 ║
-║  Electrolyzer Operations // 8 Modbus Slaves      ║
-╚══════════════════════════════════════════════════╝`,
-
-  power: `
-╔══════════════════════════════════════════════════╗
-║  POWER ELECTRONICS                               ║
-║  DDS + Gate Generator // Pulse Waveform Control  ║
-╚══════════════════════════════════════════════════╝`,
-
-  safety: `
-╔══════════════════════════════════════════════════╗
-║  SAFETY SYSTEMS                                  ║
-║  Dual-Redundant Gas Detection // H₂ + O₂        ║
-╚══════════════════════════════════════════════════╝`,
-
-  water: `
-╔══════════════════════════════════════════════════╗
-║  WATER QUALITY                                   ║
-║  Filtration System // Atlas EZO I2C + Hall Flow  ║
-╚══════════════════════════════════════════════════╝`,
-
-  environmental: `
-╔══════════════════════════════════════════════════╗
-║  ENVIRONMENTAL MONITORING                        ║
-║  Ambient Conditions // O₂ + RH + Pressure        ║
-╚══════════════════════════════════════════════════╝`,
+// Block letter ASCII art — rendered without box borders to avoid clipping
+const ASCII_HEADERS: Record<Tab, { art: string; sub: string }> = {
+  process: {
+    art: `██████╗ ██████╗  ██████╗  ██████╗███████╗███████╗███████╗
+██╔══██╗██╔══██╗██╔═══██╗██╔════╝██╔════╝██╔════╝██╔════╝
+██████╔╝██████╔╝██║   ██║██║     █████╗  ███████╗███████╗
+██╔═══╝ ██╔══██╗██║   ██║██║     ██╔══╝  ╚════██║╚════██║
+██║     ██║  ██║╚██████╔╝╚██████╗███████╗███████║███████║
+╚═╝     ╚═╝  ╚═╝ ╚═════╝  ╚═════╝╚══════╝╚══════╝╚══════╝`,
+    sub: 'ELECTROLYZER PROCESS CONTROL // 8 MODBUS SLAVES',
+  },
+  power: {
+    art: `██████╗  ██████╗ ██╗    ██╗███████╗██████╗
+██╔══██╗██╔═══██╗██║    ██║██╔════╝██╔══██╗
+██████╔╝██║   ██║██║ █╗ ██║█████╗  ██████╔╝
+██╔═══╝ ██║   ██║██║███╗██║██╔══╝  ██╔══██╗
+██║     ╚██████╔╝╚███╔███╔╝███████╗██║  ██║
+╚═╝      ╚═════╝  ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝`,
+    sub: 'DDS + GATE GENERATOR // PULSE WAVEFORM CONTROL',
+  },
+  safety: {
+    art: `███████╗ █████╗ ███████╗███████╗████████╗██╗   ██╗
+██╔════╝██╔══██╗██╔════╝██╔════╝╚══██╔══╝╚██╗ ██╔╝
+███████╗███████║█████╗  █████╗     ██║    ╚████╔╝
+╚════██║██╔══██║██╔══╝  ██╔══╝     ██║     ╚██╔╝
+███████║██║  ██║██║     ███████╗   ██║      ██║
+╚══════╝╚═╝  ╚═╝╚═╝     ╚══════╝   ╚═╝      ╚═╝`,
+    sub: 'DUAL-REDUNDANT GAS DETECTION // H₂ + O₂',
+  },
+  water: {
+    art: `██╗    ██╗ █████╗ ████████╗███████╗██████╗
+██║    ██║██╔══██╗╚══██╔══╝██╔════╝██╔══██╗
+██║ █╗ ██║███████║   ██║   █████╗  ██████╔╝
+██║███╗██║██╔══██║   ██║   ██╔══╝  ██╔══██╗
+╚███╔███╔╝██║  ██║   ██║   ███████╗██║  ██║
+ ╚══╝╚══╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝╚═╝  ╚═╝`,
+    sub: 'FILTRATION SYSTEM // ATLAS EZO I2C + HALL FLOW',
+  },
+  environmental: {
+    art: `███████╗███╗   ██╗██╗   ██╗██╗██████╗  ██████╗
+██╔════╝████╗  ██║██║   ██║██║██╔══██╗██╔═══██╗
+█████╗  ██╔██╗ ██║██║   ██║██║██████╔╝██║   ██║
+██╔══╝  ██║╚██╗██║╚██╗ ██╔╝██║██╔══██╗██║   ██║
+███████╗██║ ╚████║ ╚████╔╝ ██║██║  ██║╚██████╔╝
+╚══════╝╚═╝  ╚═══╝  ╚═══╝  ╚═╝╚═╝  ╚═╝ ╚═════╝`,
+    sub: 'ENVIRONMENTAL MONITORING // O₂ + RH + PRESSURE',
+  },
 };
 
 // ─── TAB CONFIG ─────────────────────────────────────────────────
@@ -829,9 +846,14 @@ export default function HMIPage() {
         </div>
 
         {/* ASCII Header — switches with active dashboard tab */}
-        <pre className="mb-6 text-xs sm:text-xs leading-tight text-[#ff6b35]/70 overflow-x-auto whitespace-pre">
-          {ASCII_HEADERS[activeTab]}
-        </pre>
+        <div className="mb-6">
+          <pre className="text-[0.45rem] sm:text-[0.55rem] md:text-xs leading-none text-[#ff6b35]/70 overflow-x-auto" style={{ whiteSpace: 'pre', textShadow: '0 0 8px rgba(255,107,53,0.2)' }}>
+            {ASCII_HEADERS[activeTab].art}
+          </pre>
+          <div className="mt-2 text-[0.65rem] tracking-[0.15em] text-[#ff6b35]/50">
+            {ASCII_HEADERS[activeTab].sub}
+          </div>
+        </div>
 
         {/* ═══ EXPLORE THE DASHBOARDS ═══ */}
         <div className="mb-4 text-[0.7rem] tracking-[0.2em] text-[#ff6b35]" style={{ textShadow: '0 0 8px rgba(255,107,53,0.15)' }}>

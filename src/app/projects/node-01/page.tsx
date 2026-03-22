@@ -347,19 +347,32 @@ export default function Node01Page() {
             variants={fadeUp}
             className="overflow-hidden rounded border border-[#00ff88]/20 bg-[#0a0a0f]"
           >
-            <div className="border-b border-[#00ff88]/20 bg-[#00ff88]/[0.03] px-4 py-2">
+            <div className="border-b border-[#00ff88]/20 bg-[#00ff88]/[0.03] px-4 py-2 flex items-center justify-between">
               <span className="text-xs tracking-[0.15em] text-[#00ff88]">▸ SYSTEM MONITOR — NODE-01</span>
+              <span className="text-[0.6rem] text-[#00ff88]/50">LIVE</span>
             </div>
-            <div className="p-6">
-              <pre className="text-xs leading-loose sm:text-sm" style={{ whiteSpace: 'pre-wrap' }}>
-<span className="text-[#00ff88] font-bold">SYSTEM: NOMINAL</span>
-{`├─ Stack Voltage: 12.4V     `}<span className="text-[#00ff88]">● NORMAL</span>
-{`├─ Flow Rate: 1.04 kg/hr    `}<span className="text-[#00ff88]">● NORMAL</span>
-{`├─ Temperature: 27.8°C      `}<span className="text-[#00ff88]">● NORMAL</span>
-{`├─ Valve V-101:             `}<span className="text-[#ff6b35]">● ATTENTION</span>{` — chatter detected, maintenance window: 14 days`}
-{`├─ Sensor PT-103:           `}<span className="text-yellow-400">● WATCHING</span>{` — 0.3% drift, calibration due: 30 days`}
-{`└─ Efficiency: 93.2% HHV    `}<span className="text-[#00ff88]">● OPTIMAL</span>
-              </pre>
+            <div className="p-5 space-y-2 text-sm font-mono">
+              <div className="mb-3 text-xs font-bold text-[#00ff88]" style={{ textShadow: '0 0 8px rgba(0,255,136,0.3)' }}>SYSTEM: NOMINAL</div>
+              {[
+                { label: 'Stack Voltage', value: '3.2 kV', status: 'NORMAL', color: '#00ff88' },
+                { label: 'H₂ Flow Rate', value: '1.04 kg/hr', status: 'NORMAL', color: '#00ff88' },
+                { label: 'Stack Temperature', value: '27.8°C', status: 'NORMAL', color: '#00ff88' },
+                { label: 'Valve V-101', value: 'Chatter detected', status: 'ATTENTION', color: '#ff6b35', note: 'maintenance window: 14 days' },
+                { label: 'Sensor PT-103', value: '0.3% drift', status: 'WATCHING', color: '#eab308', note: 'calibration due: 30 days' },
+                { label: 'System Efficiency', value: '93.2% HHV', status: 'OPTIMAL', color: '#00ff88' },
+              ].map((row, i, arr) => (
+                <div key={row.label} className="flex items-start gap-3 border-l border-white/10 pl-4" style={{ borderColor: i === arr.length - 1 ? 'transparent' : undefined }}>
+                  <div className="h-2 w-2 mt-1.5 rounded-full shrink-0" style={{ backgroundColor: row.color, boxShadow: `0 0 6px ${row.color}60` }} />
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-baseline justify-between gap-4">
+                      <span className="text-white/40 text-xs">{row.label}</span>
+                      <span className="text-xs font-bold tracking-[0.08em]" style={{ color: row.color }}>{row.status}</span>
+                    </div>
+                    <div className="text-white/80 text-sm">{row.value}</div>
+                    {row.note && <div className="text-[0.65rem] text-white/30 mt-0.5">{row.note}</div>}
+                  </div>
+                </div>
+              ))}
             </div>
           </motion.div>
 
