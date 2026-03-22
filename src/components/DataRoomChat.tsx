@@ -180,11 +180,11 @@ export function DataRoomChat() {
 
   // Expose sendMessage globally so RenPanel can use it
   useEffect(() => {
-    (window as Record<string, unknown>).__renChatSend = sendMessage;
-    (window as Record<string, unknown>).__renChatOpen = () => setIsOpen(true);
+    (window as unknown as Record<string, unknown>).__renChatSend = sendMessage;
+    (window as unknown as Record<string, unknown>).__renChatOpen = () => setIsOpen(true);
     return () => {
-      delete (window as Record<string, unknown>).__renChatSend;
-      delete (window as Record<string, unknown>).__renChatOpen;
+      delete (window as unknown as Record<string, unknown>).__renChatSend;
+      delete (window as unknown as Record<string, unknown>).__renChatOpen;
     };
   }, [sendMessage]);
 

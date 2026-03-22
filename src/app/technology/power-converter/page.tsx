@@ -146,14 +146,7 @@ export default function PowerConverterPage() {
               { src: 'transformer-winding.mp4', caption: 'Transformer Winding', type: 'video' as const },
             ].map((v) => (
               <div key={v.caption} className="overflow-hidden rounded border border-white/10 bg-[#12121a]">
-                {v.type === 'placeholder' ? (
-                  <div className="flex aspect-video items-center justify-center bg-[#0a0a0f]">
-                    <div className="text-center">
-                      <p className="text-2xl text-white/10">🎥</p>
-                      <p className="mt-2 text-[0.65rem] tracking-[0.1em] text-white/20">COMING SOON</p>
-                    </div>
-                  </div>
-                ) : v.type === 'image' ? (
+                {v.type === 'image' ? (
                   <img src={`/media/manufacturing/${v.src}`} alt={v.caption} className="w-full aspect-video object-cover" />
                 ) : (
                   <AutoplayVideo className="w-full aspect-video object-cover" src={`/media/manufacturing/${v.src}`} poster={`/media/manufacturing/${v.src!.replace(".mp4", "-poster.jpg")}`} />
