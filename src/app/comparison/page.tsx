@@ -62,14 +62,14 @@ const startupComparison = [
 ];
 
 const timelineEvents = [
-  { year: '2017', label: 'Advanced Ionics founded', detail: 'Milwaukee, WI', type: 'competitor' as const },
-  { year: '2021', label: 'Fourier + HGen founded', detail: 'San Francisco / Hawthorne', type: 'competitor' as const },
-  { year: '2024', label: 'Tobe Energy founded', detail: 'Oklahoma City, OK', type: 'tobe' as const, amount: null },
-  { year: 'Nov 2024', label: 'Advanced Ionics raises Series A', detail: 'bp Ventures, Mitsubishi Heavy Industries', type: 'competitor' as const, amount: '$16.7M' },
-  { year: 'Dec 2024', label: 'Fourier raises Series A', detail: 'Airbus Ventures, General Catalyst', type: 'competitor' as const, amount: '$18.5M' },
-  { year: '2025', label: 'Tobe raises pre-seed', detail: 'Cortado Ventures, Techstars NYC', type: 'tobe' as const, amount: '$1.8M' },
-  { year: 'Q4 2026', label: 'Tobe deploys 600kW at Zeeco ARC', detail: '12× T-25, 300 kg/day, first commercial isothermal electrolysis', type: 'milestone' as const, amount: null },
-  { year: '2026+', label: 'Advanced Ionics, Fourier, HGen', detail: 'Still at lab scale', type: 'stale' as const, amount: null },
+  { year: '2017', label: 'Advanced Ionics founded', type: 'competitor' as const },
+  { year: '2021', label: 'Fourier + HGen founded', type: 'competitor' as const },
+  { year: '2024', label: 'Tobe Energy founded', type: 'tobe' as const },
+  { year: 'Nov 2024', label: 'Advanced Ionics raises $16.7M Series A', type: 'competitor' as const },
+  { year: 'Dec 2024', label: 'Fourier raises $18.5M Series A', type: 'competitor' as const },
+  { year: '2025', label: 'Tobe raises $1.8M pre-seed', type: 'tobe' as const },
+  { year: 'Q4 2026', label: 'Tobe deploys 600kW commercial system at Zeeco ARC', type: 'milestone' as const },
+  { year: '2026+', label: 'Advanced Ionics, Fourier, HGen — still at lab scale', type: 'stale' as const },
 ];
 
 export default function ComparisonPage() {
@@ -412,66 +412,45 @@ export default function ComparisonPage() {
             className="relative ml-4 border-l-2 border-white/10 pl-8"
           >
             {timelineEvents.map((t, i) => {
-              const isTobe = t.type === 'tobe' || t.type === 'milestone';
-              const isStale = t.type === 'stale';
+              const color = t.type === 'tobe' ? '#00ff88'
+                : t.type === 'milestone' ? '#00ff88'
+                : t.type === 'stale' ? '#ff4444'
+                : '#6a6a7a';
+              const filled = t.type === 'tobe' || t.type === 'milestone';
 
               return (
                 <motion.div
                   key={`${t.year}-${i}`}
                   custom={i}
                   variants={fadeUp}
-                  className={`relative last:mb-0 ${t.type === 'milestone' ? 'mb-6' : 'mb-6'}`}
+                  className="relative mb-8 last:mb-0"
                 >
-                  {/* Node */}
                   <div
-                    className={`absolute -left-[2.55rem] top-1.5 rounded-full border-2 ${
-                      t.type === 'milestone' ? 'h-4 w-4' : 'h-3 w-3'
-                    }`}
+                    className="absolute -left-[2.55rem] top-1 h-3 w-3 rounded-full border-2"
                     style={{
-                      borderColor: isTobe ? '#00ff88' : isStale ? '#ff4444' : '#4a4a5a',
-                      backgroundColor: isTobe ? '#00ff88' : 'transparent',
-                      boxShadow: isTobe ? '0 0 12px rgba(0,255,136,0.5)' : 'none',
+                      borderColor: color,
+                      backgroundColor: filled ? color : 'transparent',
+                      boxShadow: filled ? `0 0 8px ${color}80` : 'none',
                     }}
                   />
-
-                  {/* Tobe events get a left border accent */}
-                  {isTobe ? (
-                    <div className={`border-l-[3px] border-[#ff6b35] bg-[#ff6b35]/[0.04] px-4 py-3 -ml-1 ${
-                      t.type === 'milestone' ? 'border-l-[4px]' : ''
-                    }`}>
-                      <div className="flex flex-wrap items-center gap-3">
-                        <span className="text-sm font-bold text-[#ff6b35]">{t.year}</span>
-                        <span className="text-sm font-bold text-white">{t.label}</span>
-                        {t.amount && (
-                          <span className="text-sm font-bold text-[#ff6b35]" style={{ textShadow: '0 0 8px rgba(255,107,53,0.4)' }}>
-                            {t.amount}
-                          </span>
-                        )}
-                        {t.type === 'milestone' && (
-                          <span className="rounded border border-[#ff6b35]/50 bg-[#ff6b35]/20 px-2 py-0.5 text-[0.6rem] font-bold tracking-[0.15em] text-[#ff6b35]">
-                            COMMERCIAL DEPLOYMENT
-                          </span>
-                        )}
-                      </div>
-                      <p className="mt-1 text-xs text-white/40">{t.detail}</p>
-                    </div>
-                  ) : (
-                    <div className="px-4 py-2 -ml-1">
-                      <div className="flex flex-wrap items-center gap-3">
-                        <span className="text-sm text-white/30">{t.year}</span>
-                        <span className={`text-sm ${isStale ? 'text-white/25 italic' : 'text-white/40'}`}>{t.label}</span>
-                        {t.amount && (
-                          <span className="text-xs text-white/30">{t.amount}</span>
-                        )}
-                        {isStale && (
-                          <span className="rounded border border-[#ff4444]/30 bg-[#ff4444]/10 px-2 py-0.5 text-[0.5rem] font-bold tracking-[0.15em] text-[#ff4444]/60">
-                            LAB SCALE
-                          </span>
-                        )}
-                      </div>
-                      {t.detail && !isStale && <p className="mt-0.5 text-[0.65rem] text-white/20">{t.detail}</p>}
-                    </div>
-                  )}
+                  <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-4">
+                    <span className="text-sm font-bold" style={{ color }}>
+                      {t.year}
+                    </span>
+                    <span className={`text-sm ${t.type === 'stale' ? 'text-white/30 italic' : 'text-white/70'}`}>
+                      {t.label}
+                    </span>
+                    {t.type === 'milestone' && (
+                      <span className="inline-block rounded border border-[#00ff88]/40 bg-[#00ff88]/10 px-2 py-0.5 text-[0.6rem] font-bold tracking-[0.15em] text-[#00ff88]">
+                        COMMERCIAL DEPLOYMENT
+                      </span>
+                    )}
+                    {t.type === 'stale' && (
+                      <span className="inline-block rounded border border-[#ff4444]/30 bg-[#ff4444]/10 px-2 py-0.5 text-[0.6rem] font-bold tracking-[0.15em] text-[#ff4444]/70">
+                        LAB SCALE
+                      </span>
+                    )}
+                  </div>
                 </motion.div>
               );
             })}
