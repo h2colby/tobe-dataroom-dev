@@ -1,299 +1,414 @@
 'use client';
 
-type Sensitivity = 'INVESTOR-READY' | 'CONFIDENTIAL';
-type FileType = 'PDF' | 'XLSX' | 'PNG';
+import { useState } from 'react';
 
-interface Document {
+type FileType = 'PDF' | 'XLSX' | 'PNG' | 'DOCX';
+
+interface DocFile {
   title: string;
   path: string;
   type: FileType;
-  sensitivity: Sensitivity;
 }
 
-interface Category {
+interface SubFolder {
   name: string;
-  docs: Document[];
+  files: DocFile[];
 }
 
-function getFileType(filename: string): FileType {
-  const ext = filename.split('.').pop()?.toLowerCase();
+interface Folder {
+  name: string;
+  description?: string;
+  files?: DocFile[];
+  subfolders?: SubFolder[];
+}
+
+function getType(path: string): FileType {
+  const ext = path.split('.').pop()?.toLowerCase();
   if (ext === 'xlsx') return 'XLSX';
   if (ext === 'png') return 'PNG';
+  if (ext === 'docx') return 'DOCX';
   return 'PDF';
 }
 
-function doc(path: string, sensitivity: Sensitivity, title: string): Document {
-  const filename = path.split('/').pop() || '';
-  return { title, path, type: getFileType(filename), sensitivity };
+function f(path: string, title: string): DocFile {
+  return { title, path, type: getType(path) };
 }
 
-const categories: Category[] = [
+const folders: Folder[] = [
   {
-    name: 'ENGINEERING — SPECIFICATIONS',
-    docs: [
-      doc('/docs/eng/spec/eng-spec-techno-economic-analysis.pdf', 'INVESTOR-READY', 'Techno-Economic Analysis (TEA)'),
-      doc('/docs/eng/spec/eng-spec-technology-overview.pdf', 'INVESTOR-READY', 'Technology Overview'),
-      doc('/docs/eng/spec/eng-spec-project-developer-guide.pdf', 'INVESTOR-READY', 'Project Developer Guide'),
-      doc('/docs/eng/spec/eng-spec-product-roadmap-brochure.pdf', 'INVESTOR-READY', 'Product Roadmap Brochure'),
-      doc('/docs/eng/spec/eng-spec-product-roadmap-technical.pdf', 'INVESTOR-READY', 'Product Roadmap — Technical'),
-      doc('/docs/eng/spec/eng-spec-block-flow-diagram.pdf', 'INVESTOR-READY', 'Block Flow Diagram'),
-      doc('/docs/eng/spec/eng-spec-circuit-efficiency-diagram.pdf', 'INVESTOR-READY', 'Circuit Efficiency Testing Diagram'),
-      doc('/docs/eng/spec/eng-spec-electrolyzer-comparison.pdf', 'INVESTOR-READY', 'Electrolyzer Comparative Analysis'),
-      doc('/docs/eng/spec/eng-spec-maxwell-academic-draft.pdf', 'INVESTOR-READY', 'Maxwell Expansion — Academic Draft'),
-      doc('/docs/eng/spec/eng-spec-testing-framework.pdf', 'INVESTOR-READY', 'Testing Framework'),
-      doc('/docs/eng/spec/eng-spec-provisional-patent-efficiency.pdf', 'INVESTOR-READY', 'Provisional Patent — H2 Efficiency'),
+    name: 'CORPORATE — FORMATION',
+    description: 'Incorporation, bylaws, EIN, state registrations',
+    files: [
+      f('/docs/corp/formation/corp-formation-certificate-of-incorporation.pdf', 'Certificate of Incorporation (as filed)'),
+      f('/docs/corp/formation/corp-formation-bylaws.pdf', 'Bylaws'),
+      f('/docs/corp/formation/corp-formation-action-by-sole-incorporator.pdf', 'Action by Sole Incorporator'),
+      f('/docs/corp/formation/corp-formation-ein.pdf', 'EIN Assignment'),
+      f('/docs/corp/formation/corp-formation-oklahoma-foreign-qualification.pdf', 'Oklahoma Foreign Corp Qualification'),
+      f('/docs/corp/formation/corp-formation-delaware-good-standing.pdf', 'Delaware Certificate of Good Standing'),
     ],
   },
   {
-    name: 'ENGINEERING — TESTING & DATA',
-    docs: [
-      doc('/docs/eng/test/eng-test-efficiency-calculations.xlsx', 'CONFIDENTIAL', 'Efficiency Calculations'),
-      doc('/docs/eng/test/eng-test-sample-operating-data.xlsx', 'CONFIDENTIAL', 'Sample Operating Data'),
-      doc('/docs/eng/test/eng-test-heat-material-balance.xlsx', 'CONFIDENTIAL', 'Heat & Material Balance'),
-      doc('/docs/eng/test/eng-test-framework-comprehensive.pdf', 'CONFIDENTIAL', 'Comprehensive Test Framework'),
+    name: 'CORPORATE — GOVERNANCE',
+    description: 'Board actions, resolutions, stockholder consents',
+    files: [
+      f('/docs/corp/governance/corp-governance-initial-board-action.pdf', 'Initial Board Action'),
+      f('/docs/corp/governance/corp-governance-stockholder-consent-equity-plan.pdf', 'Stockholder Consent — Equity Plan'),
+      f('/docs/corp/governance/corp-governance-board-consent-techstars.pdf', 'Board Consent — Techstars'),
+      f('/docs/corp/governance/corp-governance-board-resolution-vehicle-lease.pdf', 'Board Resolution — Vehicle Lease'),
+      f('/docs/corp/governance/corp-governance-resignation-mounsey.pdf', 'Officer Resignation — Mounsey'),
+      f('/docs/corp/governance/corp-governance-cortado-audit-confirmation.pdf', 'Cortado Audit Confirmation'),
     ],
   },
   {
-    name: 'ENGINEERING — FIGURES',
-    docs: [
-      doc('/docs/eng/fig/eng-fig-showroom-enhanced.png', 'INVESTOR-READY', 'Showroom Render'),
-      doc('/docs/eng/fig/eng-fig-electrolyzer-detail.png', 'INVESTOR-READY', 'Electrolyzer Detail'),
-      doc('/docs/eng/fig/eng-fig-comparison-pem.png', 'INVESTOR-READY', 'PEM Comparison'),
-      doc('/docs/eng/fig/eng-fig-sankey-efficiency.png', 'INVESTOR-READY', 'Sankey Efficiency Diagram'),
-      doc('/docs/eng/fig/eng-fig-commercial-deployment.png', 'INVESTOR-READY', 'Commercial Deployment'),
-      doc('/docs/eng/fig/eng-fig-thermal-comparison.png', 'INVESTOR-READY', 'Thermal Comparison'),
-      doc('/docs/eng/fig/eng-fig-energy-density.png', 'INVESTOR-READY', 'Energy Density'),
-      doc('/docs/eng/fig/eng-fig-cost-trajectory.png', 'INVESTOR-READY', 'Cost Trajectory'),
-      doc('/docs/eng/fig/eng-fig-electrolyzer-comparison.png', 'INVESTOR-READY', 'Electrolyzer Comparison'),
-      doc('/docs/eng/fig/eng-fig-hydrogen-ladder.png', 'INVESTOR-READY', 'Hydrogen Ladder'),
+    name: 'CORPORATE — AGREEMENTS',
+    description: 'Employee and founder agreements',
+    subfolders: [
+      {
+        name: 'Confidential Information & Inventions (CIAA)',
+        files: [
+          f('/docs/corp/agreements/ciaa/corp-agreement-ciaa-colby-deweese.pdf', 'CIAA — Colby DeWeese'),
+          f('/docs/corp/agreements/ciaa/corp-agreement-ciaa-caleb-lareau.pdf', 'CIAA — Caleb Lareau'),
+          f('/docs/corp/agreements/ciaa/corp-agreement-ciaa-louis-mounsey.pdf', 'CIAA — Louis Mounsey'),
+        ],
+      },
+      {
+        name: 'Common Stock Purchase (CSPA)',
+        files: [
+          f('/docs/corp/agreements/cspa/corp-agreement-cspa-colby-deweese.pdf', 'CSPA — Colby DeWeese (9,800,000 shares)'),
+          f('/docs/corp/agreements/cspa/corp-agreement-cspa-caleb-lareau.pdf', 'CSPA — Caleb Lareau (100,000 shares)'),
+          f('/docs/corp/agreements/cspa/corp-agreement-cspa-louis-mounsey.pdf', 'CSPA — Louis Mounsey (100,000 shares)'),
+        ],
+      },
+      {
+        name: 'Indemnification Agreements',
+        files: [
+          f('/docs/corp/agreements/indemnification/corp-agreement-indemnification-colby-deweese.pdf', 'Indemnification — Colby DeWeese'),
+          f('/docs/corp/agreements/indemnification/corp-agreement-indemnification-caleb-lareau.pdf', 'Indemnification — Caleb Lareau'),
+          f('/docs/corp/agreements/indemnification/corp-agreement-indemnification-louis-mounsey.pdf', 'Indemnification — Louis Mounsey'),
+        ],
+      },
+      {
+        name: 'IP Assignment Agreements',
+        files: [
+          f('/docs/corp/agreements/ip-assignment/corp-agreement-ip-assignment-colby-deweese.pdf', 'IP Assignment — Colby DeWeese'),
+          f('/docs/corp/agreements/ip-assignment/corp-agreement-ip-assignment-caleb-lareau.pdf', 'IP Assignment — Caleb Lareau'),
+          f('/docs/corp/agreements/ip-assignment/corp-agreement-ip-assignment-louis-mounsey.pdf', 'IP Assignment — Louis Mounsey'),
+          f('/docs/corp/agreements/ip-assignment/corp-agreement-ip-assignment-ok-to-de-transfer.pdf', 'IP Transfer — OK Corp → DE Corp'),
+        ],
+      },
     ],
   },
   {
-    name: 'ENGINEERING — GRANTS',
-    docs: [
-      doc('/docs/eng/grant/eng-grant-doe-photoelectrolysis-concept.pdf', 'INVESTOR-READY', 'DOE Photoelectrolysis Concept Paper'),
-      doc('/docs/eng/grant/eng-grant-resonantedge-power-electronics.pdf', 'INVESTOR-READY', 'ResonantEdge Power Electronics'),
-      doc('/docs/eng/grant/eng-grant-navy-sbir-n242.pdf', 'INVESTOR-READY', 'Navy SBIR N242-070'),
+    name: 'CORPORATE — INVESTMENTS',
+    description: 'SAFEs, convertible instruments, cap table — $1.95M total',
+    subfolders: [
+      {
+        name: 'SAFEs ($1,830,000)',
+        files: [
+          f('/docs/corp/invest/safe/corp-invest-safe-cortado-ventures-fund-ii.pdf', 'Cortado Ventures Fund II — $400,000'),
+          f('/docs/corp/invest/safe/corp-invest-safe-techstars-ventures.pdf', 'Techstars Ventures 2022 — $500,000'),
+          f('/docs/corp/invest/safe/corp-invest-safe-wavefunction-ventures.pdf', 'Wavefunction Ventures — $350,000'),
+          f('/docs/corp/invest/safe/corp-invest-safe-cortado-ventures-ssbci.pdf', 'Cortado Ventures SSBCI — $200,000'),
+          f('/docs/corp/invest/safe/corp-invest-safe-hurricane-ventures.pdf', 'Hurricane Ventures — $150,000'),
+          f('/docs/corp/invest/safe/corp-invest-safe-scissortail-ventures.pdf', 'Scissortail Ventures — $150,000'),
+          f('/docs/corp/invest/safe/corp-invest-safe-jeff-moore.pdf', 'Jeff Moore — $25,000'),
+          f('/docs/corp/invest/safe/corp-invest-safe-ryan-fathi.pdf', 'Ryan Fathi — $20,000'),
+          f('/docs/corp/invest/safe/corp-invest-safe-david-velasquez.pdf', 'David Velasquez — $15,000'),
+          f('/docs/corp/invest/safe/corp-invest-safe-tianyi-cai.pdf', 'Tianyi Cai — $10,000'),
+          f('/docs/corp/invest/safe/corp-invest-safe-beck-kloss.pdf', 'Beck Kloss — $5,000'),
+          f('/docs/corp/invest/safe/corp-invest-safe-sam-walker.pdf', 'Sam Walker — $5,000'),
+        ],
+      },
+      {
+        name: 'Convertible Instruments ($120,000)',
+        files: [
+          f('/docs/corp/invest/convertible/corp-invest-convertible-note-techstars-accelerator.pdf', 'Convertible Note — Techstars ($100,000)'),
+          f('/docs/corp/invest/convertible/corp-invest-convertible-equity-techstars-accelerator.pdf', 'Convertible Equity — Techstars ($20,000)'),
+        ],
+      },
+      {
+        name: 'Cap Table',
+        files: [
+          f('/docs/corp/invest/corp-invest-cap-table.xlsx', 'Cap Table'),
+        ],
+      },
     ],
   },
   {
-    name: 'FINANCIAL',
-    docs: [
-      doc('/docs/fin/model/fin-model-seed-financial.xlsx', 'CONFIDENTIAL', 'Seed Financial Model'),
-      doc('/docs/fin/model/fin-model-cap-table.xlsx', 'CONFIDENTIAL', 'Cap Table'),
-      doc('/docs/fin/pricing/fin-pricing-platts-h2-report.pdf', 'CONFIDENTIAL', 'Platts H2 Pricing Report'),
+    name: 'CORPORATE — INSURANCE',
+    description: 'Active policies',
+    files: [
+      f('/docs/corp/insurance/corp-insurance-general-liability.pdf', 'General Liability Policy'),
+      f('/docs/corp/insurance/corp-insurance-automobile.pdf', 'Automobile Policy'),
+      f('/docs/corp/insurance/corp-insurance-workers-comp.pdf', 'Workers Compensation Policy'),
+      f('/docs/corp/insurance/corp-insurance-consultant-liability.pdf', 'Consultant Liability Policy'),
     ],
   },
   {
-    name: 'PROJECTS — ZEECO ARC FEED PACKAGE',
-    docs: [
-      doc('/docs/proj/feed/proj-feed-zeeco-package.pdf', 'INVESTOR-READY', 'FEED Package Transmittal'),
-      doc('/docs/proj/feed/proj-feed-zeeco-pfd.pdf', 'INVESTOR-READY', 'Process Flow Diagram'),
-      doc('/docs/proj/feed/proj-feed-zeeco-pid.pdf', 'INVESTOR-READY', 'P&ID Electrolyzer Skid'),
-      doc('/docs/proj/feed/proj-feed-zeeco-electrical.pdf', 'INVESTOR-READY', 'Electrical One-Line Diagram'),
-      doc('/docs/proj/feed/proj-feed-zeeco-general-arrangement.pdf', 'INVESTOR-READY', 'General Arrangement'),
+    name: 'CORPORATE — TAX & FINANCIALS',
+    description: 'Tax filings, franchise reports, financial statements',
+    files: [
+      f('/docs/corp/tax/corp-tax-financials-2025.xlsx', '2025 Financial Statements'),
+      f('/docs/corp/tax/corp-tax-delaware-franchise-report-2025.pdf', 'Delaware Franchise Tax Report TY2025'),
+      f('/docs/corp/tax/corp-tax-delaware-franchise-confirmation.pdf', 'Franchise Tax Filing Confirmation'),
     ],
   },
   {
-    name: 'MARKET — RESEARCH',
-    docs: [
-      doc('/docs/mkt/research/mkt-research-tam-sam-som.pdf', 'INVESTOR-READY', 'TAM / SAM / SOM Analysis'),
-      doc('/docs/mkt/research/mkt-research-competitive-benchmarking.pdf', 'INVESTOR-READY', 'Competitive Benchmarking'),
-      doc('/docs/mkt/research/mkt-research-green-h2-landscape.pdf', 'INVESTOR-READY', 'Green H2 Market Landscape'),
-      doc('/docs/mkt/research/mkt-research-h2-north-america-trends.pdf', 'INVESTOR-READY', 'North America H2 Trends'),
-      doc('/docs/mkt/research/mkt-research-best-us-markets.pdf', 'INVESTOR-READY', 'Best U.S. Markets for Green H2'),
-      doc('/docs/mkt/research/mkt-research-h2-okc-tulsa-survey.pdf', 'INVESTOR-READY', 'OKC/Tulsa Market Survey'),
-      doc('/docs/mkt/research/mkt-research-market-expansion-cost.pdf', 'INVESTOR-READY', 'Market Expansion & Cost Advantage'),
-      doc('/docs/mkt/research/mkt-research-investors-guide-45v.pdf', 'INVESTOR-READY', 'Investors Guide to 45V'),
-      doc('/docs/mkt/research/mkt-research-competitor-acquirer-overview.pdf', 'INVESTOR-READY', 'Competitor & Acquirer Overview'),
-      doc('/docs/mkt/research/mkt-research-go-to-market-branding.pdf', 'INVESTOR-READY', 'Go-To-Market & Branding'),
-      doc('/docs/mkt/research/mkt-research-public-master-plan.pdf', 'INVESTOR-READY', 'Public Master Plan'),
-      doc('/docs/mkt/research/mkt-research-nsf-icorps-presentation.pdf', 'INVESTOR-READY', 'NSF I-Corps Final Presentation'),
-      doc('/docs/mkt/research/mkt-research-ocast-innovation-plan.pdf', 'INVESTOR-READY', 'OCAST Innovation Plan'),
-    ],
-  },
-  {
-    name: 'MARKET — CASE STUDIES',
-    docs: [
-      doc('/docs/mkt/case/mkt-case-ou-iccew-report.pdf', 'INVESTOR-READY', 'OU I-CCEW Case Study'),
-      doc('/docs/mkt/case/mkt-case-ou-iccew-financial-model.xlsx', 'INVESTOR-READY', 'OU Case Study Financial Model'),
-      doc('/docs/mkt/case/mkt-case-onsite-cost-advantage.pdf', 'INVESTOR-READY', 'On-Site Cost Advantage'),
-      doc('/docs/mkt/case/mkt-case-h2-ai-datacenters.pdf', 'INVESTOR-READY', 'H2 for AI Datacenters'),
-      doc('/docs/mkt/case/mkt-case-h2-hospitals.pdf', 'INVESTOR-READY', 'H2 for Hospitals'),
-      doc('/docs/mkt/case/mkt-case-h2-transport-industry.pdf', 'INVESTOR-READY', 'H2 Transport & Industry'),
+    name: 'CORPORATE — FACILITIES',
+    files: [
+      f('/docs/corp/facilities/corp-facilities-lease-1820-se-22nd-okc.pdf', 'Facility Lease — 1820 SE 22nd St, OKC'),
     ],
   },
   {
     name: 'CORPORATE — INTELLECTUAL PROPERTY',
-    docs: [
-      doc('/docs/corp/ip/corp-ip-fortress-overview.pdf', 'CONFIDENTIAL', 'IP Fortress Strategy'),
-      doc('/docs/corp/ip/corp-ip-patent-figures.pdf', 'CONFIDENTIAL', 'Patent Figures'),
-      doc('/docs/corp/ip/corp-ip-patent-specification.pdf', 'CONFIDENTIAL', 'Patent Specification'),
-    ],
-  },
-  {
-    name: 'CORPORATE — ORGANIZATION',
-    docs: [
-      doc('/docs/corp/org/corp-org-leadership-overview.pdf', 'INVESTOR-READY', 'Leadership & Org Structure'),
+    description: 'Patents, IP strategy',
+    files: [
+      f('/docs/corp/ip/corp-ip-fortress-overview.pdf', 'IP Fortress Strategy'),
+      f('/docs/corp/ip/corp-ip-patent-figures.pdf', 'Patent Figures'),
+      f('/docs/corp/ip/corp-ip-patent-specification.pdf', 'Patent Specification'),
     ],
   },
   {
     name: 'CORPORATE — REGULATORY & 45V',
-    docs: [
-      doc('/docs/corp/reg/corp-reg-greet-summary.pdf', 'INVESTOR-READY', 'GREET Analysis Summary'),
-      doc('/docs/corp/reg/corp-reg-lifecycle-ghg-analysis.pdf', 'INVESTOR-READY', 'Lifecycle GHG Analysis'),
-      doc('/docs/corp/reg/corp-reg-sensitivity-analysis.pdf', 'INVESTOR-READY', '45V Sensitivity Analysis'),
-      doc('/docs/corp/reg/corp-reg-45v-compliance-memo.pdf', 'INVESTOR-READY', '45V Compliance Memo'),
-      doc('/docs/corp/reg/corp-reg-45v-ppa-roi-analysis.pdf', 'INVESTOR-READY', 'PPA ROI Analysis'),
+    description: 'GREET analysis, 45V compliance, PPA modeling',
+    files: [
+      f('/docs/corp/reg/corp-reg-greet-summary.pdf', 'GREET Analysis Summary'),
+      f('/docs/corp/reg/corp-reg-lifecycle-ghg-analysis.pdf', 'Lifecycle GHG Analysis'),
+      f('/docs/corp/reg/corp-reg-sensitivity-analysis.pdf', '45V Sensitivity Analysis'),
+      f('/docs/corp/reg/corp-reg-45v-compliance-memo.pdf', '45V Compliance Memo'),
+      f('/docs/corp/reg/corp-reg-45v-ppa-roi-analysis.pdf', 'PPA ROI Analysis'),
+    ],
+  },
+  {
+    name: 'CORPORATE — ORGANIZATION',
+    files: [
+      f('/docs/corp/org/corp-org-leadership-overview.pdf', 'Leadership & Org Structure'),
+    ],
+  },
+  {
+    name: 'FINANCIAL',
+    description: 'Financial models, pricing reports',
+    files: [
+      f('/docs/fin/model/fin-model-seed-financial.xlsx', 'Seed Financial Model'),
+      f('/docs/fin/model/fin-model-cap-table.xlsx', 'Cap Table'),
+      f('/docs/fin/pricing/fin-pricing-platts-h2-report.pdf', 'Platts H2 Pricing Report'),
+    ],
+  },
+  {
+    name: 'ENGINEERING — SPECIFICATIONS',
+    description: 'Technical documentation, roadmaps, analysis',
+    files: [
+      f('/docs/eng/spec/eng-spec-techno-economic-analysis.pdf', 'Techno-Economic Analysis (TEA)'),
+      f('/docs/eng/spec/eng-spec-technology-overview.pdf', 'Technology Overview'),
+      f('/docs/eng/spec/eng-spec-project-developer-guide.pdf', 'Project Developer Guide'),
+      f('/docs/eng/spec/eng-spec-product-roadmap-brochure.pdf', 'Product Roadmap Brochure'),
+      f('/docs/eng/spec/eng-spec-product-roadmap-technical.pdf', 'Product Roadmap — Technical'),
+      f('/docs/eng/spec/eng-spec-block-flow-diagram.pdf', 'Block Flow Diagram'),
+      f('/docs/eng/spec/eng-spec-circuit-efficiency-diagram.pdf', 'Circuit Efficiency Diagram'),
+      f('/docs/eng/spec/eng-spec-electrolyzer-comparison.pdf', 'Electrolyzer Comparative Analysis'),
+      f('/docs/eng/spec/eng-spec-maxwell-academic-draft.pdf', 'Maxwell Expansion — Academic Draft'),
+      f('/docs/eng/spec/eng-spec-testing-framework.pdf', 'Testing Framework'),
+      f('/docs/eng/spec/eng-spec-provisional-patent-efficiency.pdf', 'Provisional Patent — H2 Efficiency'),
+    ],
+  },
+  {
+    name: 'ENGINEERING — TESTING & DATA',
+    files: [
+      f('/docs/eng/test/eng-test-efficiency-calculations.xlsx', 'Efficiency Calculations'),
+      f('/docs/eng/test/eng-test-sample-operating-data.xlsx', 'Sample Operating Data'),
+      f('/docs/eng/test/eng-test-heat-material-balance.xlsx', 'Heat & Material Balance'),
+      f('/docs/eng/test/eng-test-framework-comprehensive.pdf', 'Comprehensive Test Framework'),
+    ],
+  },
+  {
+    name: 'ENGINEERING — GRANTS',
+    files: [
+      f('/docs/eng/grant/eng-grant-doe-photoelectrolysis-concept.pdf', 'DOE Photoelectrolysis Concept'),
+      f('/docs/eng/grant/eng-grant-resonantedge-power-electronics.pdf', 'ResonantEdge Power Electronics'),
+      f('/docs/eng/grant/eng-grant-navy-sbir-n242.pdf', 'Navy SBIR N242-070'),
+    ],
+  },
+  {
+    name: 'PROJECTS — ZEECO ARC FEED PACKAGE',
+    description: 'First commercial deployment engineering documents',
+    files: [
+      f('/docs/proj/feed/proj-feed-zeeco-package.pdf', 'FEED Package Transmittal'),
+      f('/docs/proj/feed/proj-feed-zeeco-pfd.pdf', 'Process Flow Diagram'),
+      f('/docs/proj/feed/proj-feed-zeeco-pid.pdf', 'P&ID Electrolyzer Skid'),
+      f('/docs/proj/feed/proj-feed-zeeco-electrical.pdf', 'Electrical One-Line Diagram'),
+      f('/docs/proj/feed/proj-feed-zeeco-general-arrangement.pdf', 'General Arrangement'),
+    ],
+  },
+  {
+    name: 'MARKET — RESEARCH',
+    description: 'TAM/SAM analysis, competitive benchmarking, regional surveys',
+    files: [
+      f('/docs/mkt/research/mkt-research-tam-sam-som.pdf', 'TAM / SAM / SOM Analysis'),
+      f('/docs/mkt/research/mkt-research-competitive-benchmarking.pdf', 'Competitive Benchmarking'),
+      f('/docs/mkt/research/mkt-research-green-h2-landscape.pdf', 'Green H2 Market Landscape'),
+      f('/docs/mkt/research/mkt-research-h2-north-america-trends.pdf', 'North America H2 Trends'),
+      f('/docs/mkt/research/mkt-research-best-us-markets.pdf', 'Best U.S. Markets'),
+      f('/docs/mkt/research/mkt-research-h2-okc-tulsa-survey.pdf', 'OKC/Tulsa Market Survey'),
+      f('/docs/mkt/research/mkt-research-market-expansion-cost.pdf', 'Market Expansion & Cost Advantage'),
+      f('/docs/mkt/research/mkt-research-investors-guide-45v.pdf', 'Investors Guide to 45V'),
+      f('/docs/mkt/research/mkt-research-competitor-acquirer-overview.pdf', 'Competitor & Acquirer Overview'),
+      f('/docs/mkt/research/mkt-research-go-to-market-branding.pdf', 'Go-To-Market & Branding'),
+      f('/docs/mkt/research/mkt-research-public-master-plan.pdf', 'Public Master Plan'),
+      f('/docs/mkt/research/mkt-research-nsf-icorps-presentation.pdf', 'NSF I-Corps Presentation'),
+      f('/docs/mkt/research/mkt-research-ocast-innovation-plan.pdf', 'OCAST Innovation Plan'),
+    ],
+  },
+  {
+    name: 'MARKET — CASE STUDIES',
+    description: 'Independent validation and market analysis',
+    files: [
+      f('/docs/mkt/case/mkt-case-ou-iccew-report.pdf', 'OU I-CCEW Case Study'),
+      f('/docs/mkt/case/mkt-case-ou-iccew-financial-model.xlsx', 'OU Case Study Financial Model'),
+      f('/docs/mkt/case/mkt-case-onsite-cost-advantage.pdf', 'On-Site Cost Advantage'),
+      f('/docs/mkt/case/mkt-case-h2-ai-datacenters.pdf', 'H2 for AI Datacenters'),
+      f('/docs/mkt/case/mkt-case-h2-hospitals.pdf', 'H2 for Hospitals'),
+      f('/docs/mkt/case/mkt-case-h2-transport-industry.pdf', 'H2 Transport & Industry'),
     ],
   },
 ];
 
-const totalDocs = categories.reduce((sum, cat) => sum + cat.docs.length, 0);
+const totalFiles = folders.reduce((sum, folder) => {
+  let count = folder.files?.length || 0;
+  folder.subfolders?.forEach(sf => count += sf.files.length);
+  return sum + count;
+}, 0);
 
-const fileTypeConfig: Record<FileType, { color: string; bg: string }> = {
-  PDF: { color: '#ff4444', bg: 'rgba(255, 68, 68, 0.12)' },
-  XLSX: { color: '#ff6b35', bg: 'rgba(0, 255, 136, 0.12)' },
-  PNG: { color: '#4488ff', bg: 'rgba(68, 136, 255, 0.12)' },
-};
+// ── Components ──
 
-function FileTypeBadge({ type }: { type: FileType }) {
-  const config = fileTypeConfig[type];
+function FileTypeIcon({ type }: { type: FileType }) {
+  const colors: Record<FileType, string> = {
+    PDF: '#ff6b35',
+    XLSX: 'rgba(255,255,255,0.5)',
+    PNG: 'rgba(255,255,255,0.3)',
+    DOCX: 'rgba(255,255,255,0.5)',
+  };
   return (
-    <span
-      className="inline-flex items-center rounded px-1.5 py-0.5 font-mono text-[0.6rem] font-bold tracking-wider"
-      style={{ color: config.color, backgroundColor: config.bg }}
-    >
+    <span className="text-[0.5rem] font-bold tracking-[0.1em] px-1.5 py-0.5 rounded"
+      style={{ color: colors[type], border: `1px solid ${colors[type]}40` }}>
       {type}
     </span>
   );
 }
 
-function SensitivityBadge({ sensitivity }: { sensitivity: Sensitivity }) {
-  const isConfidential = sensitivity === 'CONFIDENTIAL';
+function FileRow({ file }: { file: DocFile }) {
   return (
-    <span
-      className="inline-flex items-center rounded-full px-2 py-0.5 font-mono text-[0.55rem] font-medium tracking-wider"
-      style={{
-        color: isConfidential ? '#ff6b35' : '#ff6b35',
-        backgroundColor: isConfidential ? 'rgba(255, 107, 53, 0.12)' : 'rgba(0, 255, 136, 0.10)',
-        border: `1px solid ${isConfidential ? 'rgba(255, 107, 53, 0.25)' : 'rgba(0, 255, 136, 0.20)'}`,
-      }}
-    >
-      {sensitivity}
-    </span>
-  );
-}
-
-function DocumentCard({ doc }: { doc: Document }) {
-  const borderColor = fileTypeConfig[doc.type].color;
-  return (
-    <a
-      href={doc.path}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group block rounded border border-white/[0.06] transition-all duration-200 hover:border-white/[0.12] hover:bg-white/[0.02]"
-      style={{
-        backgroundColor: 'rgba(255, 255, 255, 0.02)',
-        borderLeft: `3px solid ${borderColor}`,
-      }}
-    >
-      <div className="p-4">
-        <div className="mb-3 flex items-center justify-between">
-          <FileTypeBadge type={doc.type} />
-          <SensitivityBadge sensitivity={doc.sensitivity} />
-        </div>
-        <h3 className="mb-1.5 font-mono text-sm font-bold text-white/90 group-hover:text-white transition-colors">
-          {doc.title}
-        </h3>
-        <span className="font-mono text-[0.6rem] text-[#ff6b35]/50 opacity-0 transition-opacity group-hover:opacity-100">
-          OPEN
+    <a href={file.path} target="_blank" rel="noopener noreferrer"
+      className="group flex items-center justify-between py-2 px-3 -mx-3 rounded transition-all hover:bg-white/[0.03]">
+      <div className="flex items-center gap-3 min-w-0">
+        <FileTypeIcon type={file.type} />
+        <span className="text-sm text-white/70 group-hover:text-white truncate transition-colors">
+          {file.title}
         </span>
       </div>
+      <span className="text-[0.55rem] text-[#ff6b35]/0 group-hover:text-[#ff6b35]/60 transition-all shrink-0 ml-2">
+        OPEN ↗
+      </span>
     </a>
   );
 }
 
-function CategorySection({ category }: { category: Category }) {
-  const hasConfidential = category.docs.some((d) => d.sensitivity === 'CONFIDENTIAL');
+function SubFolderSection({ subfolder, depth = 0 }: { subfolder: SubFolder; depth?: number }) {
+  const [open, setOpen] = useState(false);
   return (
-    <section className="mb-12">
-      <div className="mb-4">
-        <div className="flex items-center gap-3">
-          <h2 className="font-mono text-xs font-bold tracking-[0.12em] text-[#c0c0c8] uppercase">
-            {category.name}
-          </h2>
-          <div className="flex-1 border-b border-white/[0.06]" />
-          <span className="font-mono text-[0.55rem] text-white/20">
-            {category.docs.length} {category.docs.length === 1 ? 'file' : 'files'}
-          </span>
-          {hasConfidential && (
-            <span className="font-mono text-[0.5rem] tracking-wider text-[#ff6b35]/60">
-              CONFIDENTIAL
-            </span>
-          )}
+    <div className={depth > 0 ? 'ml-4' : ''}>
+      <button onClick={() => setOpen(!open)}
+        className="flex items-center gap-2 w-full py-2 text-left group">
+        <span className="text-[0.6rem] text-white/30 transition-transform" style={{ transform: open ? 'rotate(90deg)' : 'rotate(0deg)' }}>▸</span>
+        <span className="text-xs font-bold text-white/50 group-hover:text-white/70 tracking-[0.05em] transition-colors">
+          {subfolder.name}
+        </span>
+        <span className="text-[0.5rem] text-white/20">{subfolder.files.length}</span>
+      </button>
+      {open && (
+        <div className="ml-4 border-l border-white/5 pl-3">
+          {subfolder.files.map(file => <FileRow key={file.path} file={file} />)}
         </div>
-      </div>
-      <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
-        {category.docs.map((d) => (
-          <DocumentCard key={d.path} doc={d} />
-        ))}
-      </div>
-    </section>
+      )}
+    </div>
   );
 }
 
+function FolderSection({ folder }: { folder: Folder }) {
+  const [open, setOpen] = useState(false);
+  const fileCount = (folder.files?.length || 0) + (folder.subfolders?.reduce((s, sf) => s + sf.files.length, 0) || 0);
+
+  return (
+    <div className="border-b border-white/[0.04]">
+      <button onClick={() => setOpen(!open)}
+        className="flex items-center justify-between w-full py-4 px-1 text-left group">
+        <div className="flex items-center gap-3">
+          <span className="text-xs text-[#ff6b35]/50 transition-transform" style={{ transform: open ? 'rotate(90deg)' : 'rotate(0deg)' }}>▸</span>
+          <div>
+            <span className="text-[0.7rem] font-bold tracking-[0.1em] text-white/80 group-hover:text-white transition-colors">
+              {folder.name}
+            </span>
+            {folder.description && (
+              <p className="text-[0.6rem] text-white/25 mt-0.5">{folder.description}</p>
+            )}
+          </div>
+        </div>
+        <span className="text-[0.55rem] text-white/20 shrink-0">{fileCount} files</span>
+      </button>
+      {open && (
+        <div className="pb-4 px-6">
+          {folder.files?.map(file => <FileRow key={file.path} file={file} />)}
+          {folder.subfolders?.map(sf => <SubFolderSection key={sf.name} subfolder={sf} />)}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Page ──
+
 export default function DocumentsPage() {
   return (
-    <div className="min-h-screen font-mono" style={{ backgroundColor: '#0a0a0f' }}>
-      <div className="mx-auto max-w-6xl px-6 py-16">
-        <div className="mb-12">
-          <h1 className="mb-4 text-2xl font-bold tracking-[0.1em] text-[#c0c0c8] uppercase sm:text-3xl font-mono">
-            Document Library
+    <div className="relative min-h-screen bg-[#0a0a0f] font-mono text-white">
+      {/* Hero */}
+      <section className="border-b border-white/10 px-6 py-16">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-2 text-[0.7rem] tracking-[0.2em] text-[#ff6b35]">
+            ┌─── DOCUMENT LIBRARY ───┐
+          </div>
+          <h1 className="mb-4 text-3xl font-bold tracking-tight">
+            Data Room Documents
           </h1>
-          <p className="max-w-2xl text-sm leading-relaxed text-white/40 font-mono">
-            {totalDocs} documents across {categories.length} categories. Engineering drawings,
-            financial models, market research, and regulatory analysis.
+          <p className="max-w-2xl text-sm leading-relaxed text-white/40">
+            {totalFiles} documents organized for diligence. Corporate formation, governance, investment agreements, insurance, engineering specifications, financial models, and market research. Click any folder to expand.
           </p>
         </div>
+      </section>
 
-        <div className="mb-14 grid grid-cols-2 gap-3 sm:grid-cols-4">
-          {[
-            { value: `${totalDocs}`, label: 'Documents' },
-            { value: `${categories.length}`, label: 'Categories' },
-            { value: 'COMPLETE', label: 'FEED Package' },
-            { value: 'MAR 2026', label: 'TEA Updated' },
-          ].map((stat) => (
-            <div
-              key={stat.label}
-              className="rounded border border-white/[0.06] px-4 py-3"
-              style={{ backgroundColor: 'rgba(255, 255, 255, 0.02)' }}
-            >
-              <div className="font-mono text-lg font-bold text-[#ff6b35]">{stat.value}</div>
-              <div className="font-mono text-[0.6rem] tracking-[0.1em] text-white/30 uppercase">
-                {stat.label}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {categories.map((category) => (
-          <CategorySection key={category.name} category={category} />
-        ))}
-
-        <div className="mt-16 border-t border-white/[0.06] pt-8">
-          <p className="text-center font-mono text-[0.65rem] leading-relaxed text-white/25">
-            Contact{' '}
-            <a
-              href="mailto:colby@tobe.energy"
-              className="text-[#ff6b35]/60 transition-colors hover:text-[#ff6b35]"
-            >
-              colby@tobe.energy
-            </a>{' '}
-            for additional materials
+      {/* Readme callout */}
+      <div className="mx-auto max-w-6xl px-6 pt-6">
+        <div className="border-l-[3px] border-[#ff6b35] bg-[#ff6b35]/[0.04] px-5 py-4 mb-6"
+          style={{ borderTop: '1px solid rgba(255,107,53,0.08)', borderRight: '1px solid rgba(255,107,53,0.08)', borderBottom: '1px solid rgba(255,107,53,0.08)' }}>
+          <p className="text-xs text-white/60 leading-relaxed">
+            <span className="text-[#ff6b35] font-bold">Delaware C-Corp, fully documented.</span> Bylaws, board resolutions, all investment agreements (14 instruments, $1.95M), IP assignments, insurance, tax filings, and engineering documentation. All founder agreements executed via Cooley LLP. For additional materials, contact{' '}
+            <a href="mailto:colby@tobe.energy" className="text-[#ff6b35]/70 hover:text-[#ff6b35]">colby@tobe.energy</a>.
           </p>
         </div>
       </div>
+
+      {/* Folder tree */}
+      <div className="mx-auto max-w-6xl px-6 pb-16">
+        {folders.map(folder => <FolderSection key={folder.name} folder={folder} />)}
+      </div>
+
+      {/* Footer */}
+      <footer className="border-t border-white/10 px-6 py-6">
+        <div className="mx-auto max-w-6xl text-center">
+          <pre className="text-xs text-[#ff6b35]/20" style={{ textShadow: '0 0 6px rgba(255,107,53,0.08)' }}>
+            {`TOBE ENERGY CORP // OKLAHOMA CITY, USA // EST. 2024
+CONFIDENTIAL — AUTHORIZED INVESTOR ACCESS ONLY`}
+          </pre>
+        </div>
+      </footer>
     </div>
   );
 }
