@@ -82,17 +82,17 @@ const bom = {
 // ═══════════════════════════════════════════════════════════
 
 const C = {
-  bg:"#080B10", surface:"#0D1117", card:"#131A24", cardAlt:"#161F2C",
+  bg:"#0a0a0f", surface:"#0f0f17", card:"#12121a", cardAlt:"#16161f",
   border:"#1C2736", borderLight:"#243244",
-  accent:"#00D4AA", accentDim:"rgba(0,212,170,0.08)", accentGlow:"rgba(0,212,170,0.25)",
-  gold:"#D4A843", goldDim:"rgba(212,168,67,0.08)",
-  blue:"#4A9EFF", blueDim:"rgba(74,158,255,0.08)",
-  purple:"#A78BFA", purpleDim:"rgba(167,139,250,0.08)",
+  accent:"#ff6b35", accentDim:"rgba(255,107,53,0.08)", accentGlow:"rgba(255,107,53,0.25)",
+  gold:"#ffffff", goldDim:"rgba(255,255,255,0.06)",
+  blue:"rgba(255,255,255,0.7)", blueDim:"rgba(255,255,255,0.04)",
+  purple:"#ff6b35", purpleDim:"rgba(255,107,53,0.08)",
   red:"#FF6B6B",
   white:"#E8ECF1", text:"#C9D1DB", muted:"#7B8A9E", dim:"#4A5568", faint:"#2A3444",
 };
 
-const UOF_COLORS = [C.blue, C.accent, C.gold, C.purple, C.muted, "#FF8A65"];
+const UOF_COLORS = [C.accent, C.white, "rgba(255,255,255,0.5)", "rgba(255,107,53,0.6)", C.muted, "rgba(255,255,255,0.3)"];
 
 const fmt = (v) => {
   if (v == null) return "—";
