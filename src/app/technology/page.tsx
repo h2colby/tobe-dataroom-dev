@@ -224,6 +224,7 @@ export default function TechnologyPage() {
       </div>
 
       {/* Footer */}
+      <div className="h-16" />
       <footer className="border-t border-white/10 px-6 py-6">
         <div className="mx-auto max-w-6xl text-center">
           <pre className="text-xs text-[#ff6b35]/20" style={{ textShadow: '0 0 6px rgba(255,107,53,0.08)' }}>

@@ -92,13 +92,24 @@ export function DataRoomChat() {
 
   return (
     <>
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full border border-[#ff6b35]/30 bg-[#0a0a0f] font-mono text-lg text-[#ff6b35] shadow-lg transition-all hover:border-[#ff6b35]/60 hover:shadow-[0_0_20px_rgba(255,107,53,0.2)]"
-        style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)' }}
-      >
-        {isOpen ? '✕' : '⚡'}
-      </button>
+      <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3">
+        {!isOpen && (
+          <div 
+            onClick={() => setIsOpen(true)}
+            className="cursor-pointer animate-pulse rounded border border-[#ff6b35]/20 bg-[#0a0a0f]/95 px-4 py-2 font-mono text-xs text-[#ff6b35] shadow-lg backdrop-blur-sm transition-all hover:border-[#ff6b35]/40 hover:shadow-[0_0_15px_rgba(255,107,53,0.15)]"
+            style={{ textShadow: '0 0 8px rgba(255,107,53,0.4)' }}
+          >
+            <span className="text-[#00ff88]">●</span> ASK AI — Questions? I know every number in this data room.
+          </div>
+        )}
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="flex h-14 w-14 items-center justify-center rounded-full border border-[#ff6b35]/30 bg-[#0a0a0f] font-mono text-lg text-[#ff6b35] shadow-lg transition-all hover:border-[#ff6b35]/60 hover:shadow-[0_0_20px_rgba(255,107,53,0.2)]"
+          style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)', boxShadow: '0 0 15px rgba(255,107,53,0.15)' }}
+        >
+          {isOpen ? '✕' : '⚡'}
+        </button>
+      </div>
 
       {isOpen && (
         <div className="fixed bottom-24 right-6 z-50 flex h-[500px] w-[400px] flex-col overflow-hidden rounded border border-white/10 bg-[#0a0a0f] font-mono shadow-2xl">

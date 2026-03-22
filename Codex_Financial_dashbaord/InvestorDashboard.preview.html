@@ -1,0 +1,1178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tobe Energy Investor Dashboard Preview</title>
+    <style>
+      :root {
+        --bg: #0a0a0f;
+        --panel: rgba(255, 255, 255, 0.02);
+        --border: rgba(255, 255, 255, 0.1);
+        --text: rgba(255, 255, 255, 0.92);
+        --muted: rgba(255, 255, 255, 0.62);
+        --faint: rgba(255, 255, 255, 0.38);
+        --orange: #ff6b35;
+        --green: #00ff88;
+        --blue: #00d4ff;
+        --red: #ff4444;
+        --radius: 28px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at 10% 10%, rgba(255, 107, 53, 0.16), transparent 24%),
+          radial-gradient(circle at 90% 10%, rgba(0, 212, 255, 0.1), transparent 18%),
+          linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+          var(--bg);
+        background-size: auto, auto, 56px 56px, 56px 56px, auto;
+        color: var(--text);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .shell {
+        max-width: 1480px;
+        margin: 0 auto;
+        padding: 32px 18px 48px;
+      }
+
+      .panel {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+      }
+
+      .hero {
+        padding: 28px;
+        box-shadow: 0 0 40px rgba(255, 107, 53, 0.08);
+      }
+
+      .eyebrow {
+        margin: 0 0 12px;
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        letter-spacing: 0.32em;
+        color: var(--orange);
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.4fr) minmax(240px, 0.6fr);
+        gap: 24px;
+        align-items: start;
+      }
+
+      .hero-title {
+        font-size: clamp(2rem, 4vw, 4.3rem);
+        line-height: 1.05;
+        font-weight: 700;
+      }
+
+      .hero-copy {
+        margin-top: 14px;
+        max-width: 860px;
+        font-size: 0.98rem;
+        line-height: 1.8;
+        color: var(--muted);
+      }
+
+      .mini-metrics {
+        display: grid;
+        gap: 12px;
+      }
+
+      .mini-metric {
+        padding: 16px 18px;
+        border-radius: 22px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.015);
+      }
+
+      .mini-metric .value {
+        margin-top: 10px;
+        font-size: 1.8rem;
+        font-weight: 700;
+      }
+
+      .tabs {
+        display: flex;
+        gap: 10px;
+        overflow-x: auto;
+        padding: 18px 0 8px;
+      }
+
+      .tab {
+        border: 1px solid var(--border);
+        background: var(--panel);
+        color: var(--muted);
+        padding: 12px 16px;
+        border-radius: 999px;
+        cursor: pointer;
+        white-space: nowrap;
+        font: inherit;
+      }
+
+      .tab.active {
+        border-color: var(--orange);
+        color: white;
+        background: rgba(255, 107, 53, 0.14);
+        box-shadow: 0 0 24px rgba(255, 107, 53, 0.15);
+      }
+
+      .section {
+        display: none;
+        margin-top: 18px;
+        animation: fadeUp 220ms ease-out;
+      }
+
+      .section.active {
+        display: block;
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .section-head {
+        margin-bottom: 20px;
+      }
+
+      .section-head h2 {
+        margin-top: 10px;
+        font-size: clamp(1.65rem, 3vw, 2.6rem);
+        line-height: 1.15;
+      }
+
+      .section-head p:last-child {
+        margin-top: 12px;
+        max-width: 960px;
+        color: var(--muted);
+        line-height: 1.75;
+      }
+
+      .grid {
+        display: grid;
+        gap: 16px;
+      }
+
+      .grid-4 {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .grid-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .grid-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .card {
+        padding: 22px;
+      }
+
+      .metric-card {
+        box-shadow: inset 0 0 0 1px var(--border);
+      }
+
+      .metric-card .big {
+        margin-top: 14px;
+        font-size: clamp(2rem, 3vw, 3rem);
+        font-weight: 700;
+      }
+
+      .muted {
+        color: var(--muted);
+      }
+
+      .faint {
+        color: var(--faint);
+      }
+
+      .orange {
+        color: var(--orange);
+        text-shadow: 0 0 18px rgba(255, 107, 53, 0.4);
+      }
+
+      .green {
+        color: var(--green);
+        text-shadow: 0 0 18px rgba(0, 255, 136, 0.38);
+      }
+
+      .blue {
+        color: var(--blue);
+        text-shadow: 0 0 18px rgba(0, 212, 255, 0.35);
+      }
+
+      .red {
+        color: var(--red);
+        text-shadow: 0 0 18px rgba(255, 68, 68, 0.28);
+      }
+
+      .callouts {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+      }
+
+      .callout {
+        padding: 18px;
+      }
+
+      .callout .value {
+        margin-top: 10px;
+        font-size: 1.18rem;
+        font-weight: 700;
+      }
+
+      .callout p:last-child {
+        margin-top: 10px;
+        color: var(--muted);
+        line-height: 1.65;
+        font-size: 0.92rem;
+      }
+
+      .table-wrap {
+        overflow: auto;
+        border-radius: 22px;
+        border: 1px solid var(--border);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 680px;
+      }
+
+      thead {
+        background: rgba(255, 255, 255, 0.03);
+      }
+
+      th,
+      td {
+        padding: 14px 16px;
+        text-align: left;
+        font-size: 0.92rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      thead th {
+        border-top: 0;
+      }
+
+      .chart-panel {
+        padding: 22px;
+      }
+
+      .chart-title {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        align-items: end;
+        margin-bottom: 18px;
+      }
+
+      .chart-box {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.01);
+      }
+
+      .axis-label {
+        fill: rgba(255, 255, 255, 0.6);
+        font-size: 12px;
+      }
+
+      .note-box {
+        margin-top: 16px;
+        padding: 14px 16px;
+        border-radius: 18px;
+        border: 1px solid var(--border);
+        color: var(--muted);
+        line-height: 1.65;
+        font-size: 0.92rem;
+      }
+
+      .pill-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .pill {
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        padding: 10px 14px;
+        font-size: 0.9rem;
+      }
+
+      .bar-list {
+        display: grid;
+        gap: 14px;
+      }
+
+      .bar-item .label-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 6px;
+        font-size: 0.92rem;
+      }
+
+      .track {
+        height: 10px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 999px;
+        overflow: hidden;
+      }
+
+      .fill {
+        height: 100%;
+        border-radius: 999px;
+      }
+
+      .timeline {
+        display: grid;
+        gap: 14px;
+      }
+
+      .timeline-item {
+        position: relative;
+        padding-left: 22px;
+      }
+
+      .timeline-item::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 7px;
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: var(--orange);
+      }
+
+      .timeline-item.eligible::before {
+        background: var(--green);
+      }
+
+      .timeline-card {
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 14px 16px;
+      }
+
+      .timeline-meta {
+        margin-top: 6px;
+        color: var(--muted);
+        font-size: 0.86rem;
+        line-height: 1.6;
+      }
+
+      .heatmap {
+        display: grid;
+        grid-template-columns: 110px repeat(5, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .heatmap .cell {
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 14px 10px;
+        text-align: center;
+        font-size: 0.9rem;
+      }
+
+      .stack-bar {
+        display: flex;
+        height: 20px;
+        border-radius: 999px;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .stack-segment {
+        height: 100%;
+      }
+
+      .footer-link {
+        margin-top: 28px;
+        text-align: center;
+      }
+
+      .footer-link a {
+        display: inline-block;
+        padding: 14px 18px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        text-decoration: none;
+        color: var(--orange);
+        background: var(--panel);
+      }
+
+      @media (max-width: 1180px) {
+        .grid-4,
+        .callouts {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .hero-grid,
+        .grid-3,
+        .grid-2 {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 760px) {
+        .shell {
+          padding: 18px 12px 28px;
+        }
+
+        .hero,
+        .card,
+        .chart-panel {
+          padding: 18px;
+        }
+
+        .grid-4,
+        .callouts {
+          grid-template-columns: 1fr;
+        }
+
+        .heatmap {
+          grid-template-columns: 92px repeat(5, minmax(90px, 1fr));
+          overflow-x: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <div class="panel hero">
+        <div class="hero-grid">
+          <div>
+            <p class="eyebrow">TOBE ENERGY // INVESTOR DATA ROOM</p>
+            <h1 class="hero-title">Financial Dashboard Preview</h1>
+            <p class="hero-copy">
+              Standalone browser preview using workbook-backed numbers from
+              <strong>Tobe_Energy_Financial_Model_FINAL.xlsx</strong>. This is a static preview so you can inspect the look and layout without wiring the TSX into a Next.js app.
+            </p>
+          </div>
+          <div class="mini-metrics">
+            <div class="mini-metric">
+              <p class="eyebrow">FY7 Revenue</p>
+              <div class="value green">$327.7M</div>
+            </div>
+            <div class="mini-metric">
+              <p class="eyebrow">45V Upside</p>
+              <div class="value blue">$324M</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tabs" id="tabs"></div>
+      <div id="sections"></div>
+
+      <div class="footer-link">
+        <a href="#">[Download Full Financial Model (.xlsx)]</a>
+      </div>
+    </div>
+
+    <script>
+      const formatCompactMoney = (value) => {
+        const sign = value < 0 ? "-" : "";
+        const abs = Math.abs(value);
+        if (abs >= 1e9) return sign + "$" + (abs / 1e9).toFixed(1).replace(/\.0$/, "") + "B";
+        if (abs >= 1e6) return sign + "$" + (abs / 1e6).toFixed(1).replace(/\.0$/, "") + "M";
+        if (abs >= 1e3) return sign + "$" + (abs / 1e3).toFixed(1).replace(/\.0$/, "") + "K";
+        return sign + "$" + abs.toFixed(0);
+      };
+
+      const formatPercent = (value, digits = 1) => (value * 100).toFixed(digits).replace(/\.0$/, "") + "%";
+      const formatKg = (value) => value >= 1e6 ? (value / 1e6).toFixed(1).replace(/\.0$/, "") + "M kg" : (value / 1e3).toFixed(0) + "K kg";
+
+      const years = [
+        { year: "FY1", revenue: 875000, h2: 0, equip: 875000, services: 0, ebitda: -2653197.6, ebitdaMargin: -3.0322258285714287, netIncome: -2783106.6, grossMargin: 0.4, cash: 420830.4, capex: 7375000, nameplate: 0, actual: 0, ptc: 0 },
+        { year: "FY2", revenue: 16140313, h2: 11812500, equip: 4295000, services: 32813, ebitda: 3695245.1908, ebitdaMargin: 0.2289450762695867, netIncome: 2592260.7992840013, grossMargin: 0.7614528850834553, cash: 47075491.799284, capex: 10650000, nameplate: 900000, actual: 472500, ptc: 1417500 },
+        { year: "FY3", revenue: 88314613, h2: 77812500, equip: 10260000, services: 242113, ebitda: 54545917.3732, ebitdaMargin: 0.6176318450628324, netIncome: 44489635.652436, grossMargin: 0.8196436913560388, cash: 76136104.652436, capex: 12150000, nameplate: 3600000, actual: 3112500, ptc: 8887500 },
+        { year: "FY4", revenue: 161180705, h2: 141562500, equip: 18770000, services: 848205, ebitda: 104487910.4964, ebitdaMargin: 0.6482656251962665, netIncome: 81157013.062372, grossMargin: 0.8116707517813624, cash: 287438712.062372, capex: 12150000, nameplate: 3600000, actual: 5662500, ptc: 10800000 },
+        { year: "FY5", revenue: 241979781, h2: 210937500, equip: 28950000, services: 2092281, ebitda: 158169878.0884, ebitdaMargin: 0.653649149671724, netIncome: 118455022.484532, grossMargin: 0.8082612790694278, cash: 305204147.484532, capex: 30450000, nameplate: 5400000, actual: 8437500, ptc: 10800000 },
+        { year: "FY6", revenue: 307709952, h2: 264375000, equip: 39130000, services: 4204952, ebitda: 201719639.5304, ebitdaMargin: 0.6555512365436915, netIncome: 148041087.687192, grossMargin: 0.8021153849453657, cash: 816649771.687192, capex: 9000000, nameplate: 9000000, actual: 10575000, ptc: 10800000 },
+        { year: "FY7", revenue: 327654846, h2: 270000000, equip: 51060000, services: 6594846, ebitda: 209431118.8984, ebitdaMargin: 0.6391821194013411, netIncome: 152475470.765832, grossMargin: 0.7857679504608945, cash: 822003046.765832, capex: 0, nameplate: 10800000, actual: 10800000, ptc: 10800000 }
+      ];
+
+      const pipeline = [
+        ["CARDINAL", "Contracted", "Industrial", 547500],
+        ["REFINERY", "LOI Signed", "Refining", 2737500],
+        ["FORGE", "LOI Signed", "Manufacturing", 1214125],
+        ["CAMPUS", "LOI Signed", "Campus / Institutional", 233600],
+        ["HORIZON", "LOI Signed", "Mobility / Fueling", 2281250],
+        ["PHOENIX", "LOI Signed", "E-Fuels", 11406250],
+        ["TRANSIT", "Proposal", "Public Transit", 4562500],
+        ["FORGE-STEEL", "Quoting", "Steel Mfg ($7M-$49M)", null]
+      ];
+
+      const facilities = [
+        ["F1 - Tulsa (Pilot)", "Tulsa, OK", "Apr 2027", "Tier 1 (24mo)", true],
+        ["F2 - OKC", "Oklahoma City, OK", "Oct 2027", "Tier 2 (18mo)", true],
+        ["F3 - Seattle", "Seattle, WA", "Apr 2028", "Tier 2 (18mo)", true],
+        ["F4 - Spokane", "Spokane, WA", "Jul 2028", "Tier 2 (18mo)", true],
+        ["F5 - Albuquerque", "Albuquerque, NM", "Dec 2028", "Tier 3 (15mo)", false],
+        ["F6 - Des Moines", "Des Moines, IA", "May 2029", "Tier 3 (15mo)", false],
+        ["F7", "TBD", "Aug 2029", "Tier 4 (13mo)", false],
+        ["F8", "TBD", "Dec 2029", "Tier 4 (13mo)", false],
+        ["F9", "TBD", "Apr 2030", "Tier 4 (13mo)", false],
+        ["F10", "TBD", "Aug 2030", "Tier 4 (13mo)", false],
+        ["F11", "TBD", "Dec 2030", "Tier 4 (13mo)", false],
+        ["F12", "TBD", "Apr 2031", "Tier 4 (13mo)", false]
+      ];
+
+      const tabs = [
+        {
+          id: "thesis",
+          label: "01 Investment Thesis",
+          title: "The money shot: profitable growth with visible 45V optionality.",
+          body: "This preview keeps the same structure as the TSX: hero metrics first, then the five reasons the workbook makes the investment case compelling.",
+          render: () => `
+            <div class="grid grid-4">
+              ${metric("FY7 Revenue", "$327.7M", "Operating revenue from the 12-facility base plan.", "green")}
+              ${metric("FY7 EBITDA", "$209.4M", "EBITDA margin: 63.9%.", "orange")}
+              ${metric("FY7 Net Income", "$152.5M", "Net margin: 46.5%.", "blue")}
+              ${metric("10-Year 45V Upside", "$324M", "Full 12-facility qualification case. Base modeled case = $108M.", "green")}
+            </div>
+            <div style="height:16px"></div>
+            <div class="callouts">
+              ${callout("Market Pull", "$226B", "Global TAM with a $9.81B U.S. serviceable market across 32,025 customers.", "orange")}
+              ${callout("Unit Economics", "79.7% @ $25/kg", "$5.08/kg all-in cost. Premium-case margin reaches 89.2% at $47/kg.", "green")}
+              ${callout("Facility Scale", "12 modeled / 436 site-equivalent", "The workbook's domestic market supports much more than the base plan.", "blue")}
+              ${callout("Commercial Traction", "$20M+ LOIs", "$26M+ active quotes across 7 sectors. First modeled in-service date: Apr 2027.", "orange")}
+              ${callout("45V Optionality", "$108M -> $324M", "$3/kg for 10 years. The model works without it; upside is incremental.", "green")}
+            </div>
+            <div style="height:16px"></div>
+            <div class="grid grid-2">
+              <div class="panel card">
+                <p class="eyebrow">Commercial Pipeline</p>
+                <div class="table-wrap" style="margin-top:14px">
+                  <table>
+                    <thead>
+                      <tr><th>Customer</th><th>Status</th><th>Sector</th><th>Annual Revenue</th></tr>
+                    </thead>
+                    <tbody>
+                      ${pipeline.map((row) => `<tr><td>${row[0]}</td><td class="muted">${row[1]}</td><td class="muted">${row[2]}</td><td>${row[3] ? formatCompactMoney(row[3]) : "Quoted range only"}</td></tr>`).join("")}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="panel card">
+                <p class="eyebrow">Strategic Read-Through</p>
+                <div style="display:grid;gap:12px;margin-top:14px">
+                  ${miniPanel("Optimized competitive LCOH", "$2.06/kg", "Workbook upside case from the competitive tab.", "green")}
+                  ${miniPanel("FY7 H2-only margin", "85.8%", "Core H2 margin remains very high even as equipment mix rises.", "blue")}
+                  ${miniPanel("FY7 share of SAM", "3.34%", "FY7 operating revenue as a share of the workbook's $9.81B SAM.", "orange")}
+                </div>
+              </div>
+            </div>
+          `
+        },
+        {
+          id: "revenue",
+          label: "02 Revenue & Growth",
+          title: "Three revenue streams, one dominant H2 curve.",
+          body: "The static chart below approximates the production mix visually so you can inspect the hierarchy and styling in a browser.",
+          render: () => `
+            <div class="panel chart-panel">
+              <div class="chart-title">
+                <div>
+                  <p class="eyebrow">Revenue by Stream</p>
+                  <h3>Approximate stacked view, FY1-FY7</h3>
+                </div>
+                <div class="muted">Revenue CAGR: 168.5%</div>
+              </div>
+              ${stackedRevenueChart(years)}
+            </div>
+            <div style="height:16px"></div>
+            <div class="grid grid-2">
+              <div class="panel card">
+                <p class="eyebrow">FY7 Mix</p>
+                <div style="display:grid;gap:12px;margin-top:18px">
+                  ${miniPanel("H2 Production", "82.4%", "$270.0M", "green")}
+                  ${miniPanel("Equipment Sales", "15.6%", "$51.1M", "orange")}
+                  ${miniPanel("Services", "2.0%", "$6.6M", "blue")}
+                </div>
+              </div>
+              <div class="panel card">
+                <p class="eyebrow">Exit-Year Read</p>
+                <div class="note-box">
+                  Operating revenue grows from ${formatCompactMoney(years[0].revenue)} in FY1 to ${formatCompactMoney(years[6].revenue)} in FY7. By the end of the period, the model is predominantly a hydrogen-production business with equipment and services layered around it.
+                </div>
+              </div>
+            </div>
+          `
+        },
+        {
+          id: "profitability",
+          label: "03 Profitability",
+          title: "EBITDA positive by FY2, then compounding.",
+          body: "This browser preview shows the profitability progression with simple bars and trend lines rather than Recharts.",
+          render: () => `
+            <div class="grid grid-2">
+              <div class="panel chart-panel">
+                <div class="chart-title">
+                  <div>
+                    <p class="eyebrow">EBITDA / Net Income</p>
+                    <h3>Profit ramp through FY7</h3>
+                  </div>
+                  <div class="muted">FY2 EBITDA turns positive</div>
+                </div>
+                ${profitChart(years)}
+              </div>
+              <div class="panel card">
+                <p class="eyebrow">Margin Read</p>
+                <div style="display:grid;gap:12px;margin-top:14px">
+                  ${miniPanel("FY7 gross margin", "78.6%", "Gross margin settles below peak as equipment mix rises.", "orange")}
+                  ${miniPanel("FY7 H2-only margin", "85.8%", "Core H2 production margin remains above 85%.", "blue")}
+                  ${miniPanel("Breakeven", "FY2", "EBITDA positive by FY2 in the workbook.", "green")}
+                </div>
+                <div class="note-box">
+                  Gross margin peaks at 82.0% in FY3 and settles at 78.6% in FY7 as equipment rises to 15.6% of operating revenue.
+                </div>
+              </div>
+            </div>
+          `
+        },
+        {
+          id: "unit",
+          label: "04 Unit Economics",
+          title: "The per-kg math is the core of the case.",
+          body: "Direct Opex sits below $3/kg and all-in cost lands just above $5/kg, leaving strong room across the modeled price ladder.",
+          render: () => `
+            <div class="grid grid-2">
+              <div class="panel card">
+                <p class="eyebrow">Cost Build-Up</p>
+                <div class="bar-list" style="margin-top:16px">
+                  ${barRow("Electricity", 1.7768421052631582, 5.083289512670566, "var(--green)")}
+                  ${barRow("Compression", 0.14, 5.083289512670566, "#55ffb4")}
+                  ${barRow("Transport", 0.9, 5.083289512670566, "var(--orange)")}
+                  ${barRow("Water", 0.05004, 5.083289512670566, "var(--blue)")}
+                  ${barRow("Direct Opex", 2.866882105263158, 5.083289512670566, "#ff9367")}
+                  ${barRow("All-in Cost", 5.083289512670566, 5.083289512670566, "var(--red)")}
+                </div>
+              </div>
+              <div class="panel card">
+                <p class="eyebrow">Positioning</p>
+                <div style="display:grid;gap:12px;margin-top:16px">
+                  ${miniPanel("Tobe on-site", "$5.08/kg", "All-in production cost at nameplate.", "green")}
+                  ${miniPanel("Grey delivered (50-mile)", "$5.25/kg", "Comparable delivered benchmark.", "orange")}
+                  ${miniPanel("Grey delivered (150+ mile)", "$10.30/kg", "Transport-intensive cases move sharply higher.", "blue")}
+                  ${miniPanel("Airgas cylinder benchmark", "$121.31/kg", "High-end spot benchmark in the workbook.", "red")}
+                </div>
+              </div>
+            </div>
+            <div style="height:16px"></div>
+            <div class="panel card">
+              <p class="eyebrow">Modeled Price Ladder</p>
+              <div class="pill-row" style="margin-top:16px">
+                <div class="pill">$15/kg</div>
+                <div class="pill">$20/kg</div>
+                <div class="pill">$25/kg</div>
+                <div class="pill">$30/kg</div>
+                <div class="pill">$47/kg</div>
+                <div class="pill" style="color:var(--orange)">Airgas $121+</div>
+              </div>
+              <div class="table-wrap" style="margin-top:16px">
+                <table>
+                  <thead>
+                    <tr><th>Price</th><th>All-in Cost</th><th>Gross Margin $/kg</th><th>Gross Margin %</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>$15/kg</td><td>$5.08</td><td>$9.92</td><td class="green">66.1%</td></tr>
+                    <tr><td>$20/kg</td><td>$5.08</td><td>$14.92</td><td class="green">74.6%</td></tr>
+                    <tr><td>$25/kg</td><td>$5.08</td><td>$19.92</td><td class="green">79.7%</td></tr>
+                    <tr><td>$30/kg</td><td>$5.08</td><td>$24.92</td><td class="green">83.1%</td></tr>
+                    <tr><td>$47/kg</td><td>$5.08</td><td>$41.92</td><td class="green">89.2%</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          `
+        },
+        {
+          id: "deployment",
+          label: "05 Facility Deployment",
+          title: "A staged 12-facility rollout from Tulsa outward.",
+          body: "The preview keeps the timeline, cumulative build, and capex breakdown visible while staying static and browser-safe.",
+          render: () => `
+            <div class="grid grid-2">
+              <div class="panel card">
+                <p class="eyebrow">Rollout Path</p>
+                <p style="margin-top:12px;line-height:1.75" class="muted">Tulsa, OK -> Oklahoma City, OK -> Seattle, WA -> Spokane, WA -> Albuquerque, NM -> Des Moines, IA -> TBD national rollout</p>
+                <div class="timeline" style="margin-top:18px">
+                  ${facilities.map((f) => `
+                    <div class="timeline-item ${f[4] ? "eligible" : ""}">
+                      <div class="timeline-card">
+                        <div>${f[0]}</div>
+                        <div class="timeline-meta">${f[1]} | ${f[2]} | ${f[3]} | 900K kg/yr nameplate</div>
+                      </div>
+                    </div>
+                  `).join("")}
+                </div>
+              </div>
+              <div class="panel chart-panel">
+                <div class="chart-title">
+                  <div>
+                    <p class="eyebrow">Cumulative Build</p>
+                    <h3>Nameplate vs. actual production</h3>
+                  </div>
+                  <div class="muted">FY7 actual production = 10.8M kg</div>
+                </div>
+                ${capacityChart(years)}
+                <div class="note-box">
+                  Facility row-level capacity cells in the workbook conflict with the rest of the model. This preview uses the workbook's internally consistent 900,000 kg/year per-facility nameplate assumption.
+                </div>
+              </div>
+            </div>
+            <div style="height:16px"></div>
+            <div class="grid grid-3">
+              ${miniMetricCard("Pilot Facility", "$3.3M", "$22.5M annual revenue | 2.21 month payback | $2.7M annual PTC", "green")}
+              ${miniMetricCard("Additional Facility", "$3.075M", "$22.5M annual revenue | 2.06 month payback | standardized build", "blue")}
+              ${miniMetricCard("Network Build", "$37.125M", "12 facilities | 10.8M kg actual FY7 production", "orange")}
+            </div>
+          `
+        },
+        {
+          id: "tax",
+          label: "06 45V Tax Credit",
+          title: "Optional upside, not base-case dependency.",
+          body: "The model qualifies far below the Tier 1 threshold and remains profitable without 45V.",
+          render: () => `
+            <div class="grid grid-2">
+              <div class="panel card">
+                <p class="eyebrow">Tier Qualification</p>
+                <div style="display:grid;gap:18px;margin-top:16px">
+                  ${gauge("Tobe intensity", "0.03 kgCO2e/kg", 6.7, "var(--green)")}
+                  ${gauge("Tier 1 threshold", "0.45 kgCO2e/kg", 100, "var(--orange)")}
+                  ${miniPanel("Relative position", "15x below", "Modeled intensity sits far below the Tier 1 threshold.", "green")}
+                </div>
+              </div>
+              <div class="panel chart-panel">
+                <div class="chart-title">
+                  <div>
+                    <p class="eyebrow">Annual PTC Revenue</p>
+                    <h3>Modeled 45V revenue by year</h3>
+                  </div>
+                  <div class="muted">Base modeled qualification = 4 facilities</div>
+                </div>
+                ${simpleBarChart(years.map((d) => ({ label: d.year, value: d.ptc })), "var(--green)")}
+                <div class="note-box">
+                  PPA ROI: about $1.05M annual electricity cost at a $0.025/kWh wind rate versus $2.7M annual 45V credit per eligible facility, for roughly $1.65M net annual benefit.
+                </div>
+              </div>
+            </div>
+            <div style="height:16px"></div>
+            <div class="grid grid-3">
+              ${metric("Conservative", "$108M", "4 facilities x $27M over 10 years.", "orange")}
+              ${metric("Accelerated", "$216M", "8 facilities x $27M over 10 years.", "blue")}
+              ${metric("Full", "$324M", "12 facilities x $27M over 10 years.", "green")}
+            </div>
+          `
+        },
+        {
+          id: "sensitivity",
+          label: "07 Sensitivity & Scenarios",
+          title: "The model still works at $15/kg. At $25/kg it scales hard.",
+          body: "This preview keeps the scenario table and the price-facility heatmap so you can inspect the decision surfaces quickly.",
+          render: () => `
+            <div class="grid grid-2">
+              <div class="panel card">
+                <p class="eyebrow">LCOH Sensitivity to Electricity Price</p>
+                <div class="bar-list" style="margin-top:18px">
+                  ${deltaRow("$0.025/kWh", -0.72)}
+                  ${deltaRow("$0.030/kWh", -0.48)}
+                  ${deltaRow("$0.035/kWh", -0.24)}
+                  ${deltaRow("$0.040/kWh", 0)}
+                  ${deltaRow("$0.045/kWh", 0.24)}
+                  ${deltaRow("$0.050/kWh", 0.48)}
+                  ${deltaRow("$0.055/kWh", 0.72)}
+                </div>
+              </div>
+              <div class="panel card">
+                <p class="eyebrow">FY7 Scenario Outcomes</p>
+                <div class="table-wrap" style="margin-top:16px">
+                  <table>
+                    <thead>
+                      <tr><th>Case</th><th>Price</th><th>Facilities</th><th>Revenue</th><th>EBITDA</th><th>Net Income</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>Bear</td><td>$15/kg</td><td>6</td><td>$106.5M</td><td>$39.4M</td><td>$21.3M</td></tr>
+                      <tr><td>Base</td><td>$25/kg</td><td>12</td><td>$327.7M</td><td>$209.4M</td><td>$152.5M</td></tr>
+                      <tr><td>Bull</td><td>$35/kg</td><td>12</td><td>$429.1M</td><td>$304.6M</td><td>$223.1M</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div style="height:16px"></div>
+            <div class="panel card">
+              <p class="eyebrow">Price x Facility Matrix</p>
+              <div class="heatmap" style="margin-top:16px">
+                <div class="cell muted"></div>
+                <div class="cell muted">3 fac</div>
+                <div class="cell muted">5 fac</div>
+                <div class="cell muted">7 fac</div>
+                <div class="cell muted">10 fac</div>
+                <div class="cell muted">12 fac</div>
+                ${heatRow("$15/kg", [52.9, 88.2, 123.5, 176.4, 211.7])}
+                ${heatRow("$20/kg", [66.4, 110.7, 155.0, 221.4, 265.7])}
+                ${heatRow("$25/kg", [79.9, 133.2, 186.5, 266.4, 319.7])}
+                ${heatRow("$30/kg", [93.4, 155.7, 218.0, 311.4, 373.7])}
+                ${heatRow("$35/kg", [106.9, 178.2, 249.5, 356.4, 427.7])}
+              </div>
+              <div class="note-box">IRR / NPV were requested in the prompt but are not populated anywhere in the workbook, so this preview leaves that gap explicit.</div>
+            </div>
+          `
+        },
+        {
+          id: "cap",
+          label: "08 Cap Table & Fundraise",
+          title: "Post-seed dilution is modest relative to the modeled scale outcome.",
+          body: "This browser view shows the same post-seed pro forma, use-of-funds, and context note as the TSX component.",
+          render: () => `
+            <div class="grid grid-2">
+              <div class="panel card">
+                <p class="eyebrow">Post-Seed Ownership</p>
+                <div style="display:grid;gap:12px;margin-top:18px">
+                  ${barRow("Founders", 54.73684210526316, 54.73684210526316, "var(--green)")}
+                  ${barRow("Seed Investors (New)", 15.789473684210526, 54.73684210526316, "var(--red)")}
+                  ${barRow("Pre-Seed Investors", 12.463157894736841, 54.73684210526316, "var(--orange)")}
+                  ${barRow("Employee Option Pool", 8.421052631578947, 54.73684210526316, "var(--blue)")}
+                  ${barRow("Techstars", 5.052631578947368, 54.73684210526316, "#7ef7ff")}
+                </div>
+                <div class="note-box">
+                  The workbook provides shareholder classes rather than a named investor roster or SAFE detail schedule.
+                </div>
+              </div>
+              <div class="panel card">
+                <p class="eyebrow">Fundraise Terms</p>
+                <div class="grid grid-2" style="margin-top:16px">
+                  ${miniPanel("Pre-money", "$40M", "", "orange")}
+                  ${miniPanel("Post-money", "$47.5M", "", "green")}
+                  ${miniPanel("Equity", "$7.5M", "", "blue")}
+                  ${miniPanel("Dilution", "15.8%", "", "red")}
+                </div>
+                <p class="eyebrow" style="margin-top:18px">Use of Funds</p>
+                <div class="stack-bar" style="margin-top:12px">
+                  ${stackSeg(11, "var(--orange)")}
+                  ${stackSeg(11.2, "var(--green)")}
+                  ${stackSeg(22.1, "var(--blue)")}
+                  ${stackSeg(4.75, "#ff9b73")}
+                  ${stackSeg(19.1, "#65ffb0")}
+                  ${stackSeg(6.82, "#7ef7ff")}
+                  ${stackSeg(19.5, "var(--red)")}
+                  ${stackSeg(1.49, "#ff8456")}
+                  ${stackSeg(3.99, "#3ee1ff")}
+                </div>
+                <div class="note-box">
+                  Model shows 12 targeted facilities. Domestic market supports roughly 436 site-equivalents at the current per-facility revenue assumption. International expansion is not modeled.
+                </div>
+              </div>
+            </div>
+          `
+        }
+      ];
+
+      function metric(label, value, body, tone) {
+        return `
+          <div class="panel card metric-card">
+            <p class="eyebrow">${label}</p>
+            <div class="big ${tone}">${value}</div>
+            <p class="muted" style="margin-top:12px;line-height:1.7">${body}</p>
+          </div>
+        `;
+      }
+
+      function callout(title, value, body, tone) {
+        return `
+          <div class="panel callout">
+            <p class="eyebrow">${title}</p>
+            <div class="value ${tone}">${value}</div>
+            <p>${body}</p>
+          </div>
+        `;
+      }
+
+      function miniPanel(title, value, subtitle, tone) {
+        return `
+          <div class="panel" style="padding:16px 18px;border-radius:22px">
+            <div class="muted" style="font-size:0.82rem">${title}</div>
+            <div class="${tone}" style="margin-top:8px;font-size:1.55rem;font-weight:700">${value}</div>
+            ${subtitle ? `<div class="muted" style="margin-top:8px;font-size:0.88rem;line-height:1.6">${subtitle}</div>` : ""}
+          </div>
+        `;
+      }
+
+      function miniMetricCard(title, value, body, tone) {
+        return `
+          <div class="panel card">
+            <p class="eyebrow">${title}</p>
+            <div class="${tone}" style="margin-top:14px;font-size:2rem;font-weight:700">${value}</div>
+            <div class="muted" style="margin-top:10px;line-height:1.7">${body}</div>
+          </div>
+        `;
+      }
+
+      function barRow(label, value, max, color) {
+        const width = Math.max(6, (Math.abs(value) / max) * 100);
+        return `
+          <div class="bar-item">
+            <div class="label-row"><span>${label}</span><span>${typeof value === "number" && value > 10 ? value.toFixed(1).replace(/\.0$/, "") + "%" : typeof value === "number" && value > 6 ? "$" + value.toFixed(2) : "$" + value.toFixed(2)}</span></div>
+            <div class="track"><div class="fill" style="width:${width}%;background:${color}"></div></div>
+          </div>
+        `;
+      }
+
+      function deltaRow(label, value) {
+        const width = Math.abs(value) / 0.72 * 100;
+        const color = value <= 0 ? "var(--green)" : "var(--red)";
+        return `
+          <div class="bar-item">
+            <div class="label-row"><span>${label}</span><span style="color:${color}">${value > 0 ? "+" : ""}${value.toFixed(2)}</span></div>
+            <div class="track"><div class="fill" style="width:${width}%;background:${color}"></div></div>
+          </div>
+        `;
+      }
+
+      function gauge(label, value, width, color) {
+        return `
+          <div>
+            <div class="label-row"><span>${label}</span><span>${value}</span></div>
+            <div class="track"><div class="fill" style="width:${width}%;background:${color}"></div></div>
+          </div>
+        `;
+      }
+
+      function stackSeg(width, color) {
+        return `<div class="stack-segment" style="width:${width}%;background:${color}"></div>`;
+      }
+
+      function heatColor(value) {
+        const min = 52.9;
+        const max = 427.7;
+        const ratio = (value - min) / (max - min);
+        const green = 0.14 + ratio * 0.46;
+        const blue = 0.12 + ratio * 0.28;
+        return `linear-gradient(135deg, rgba(0,212,255,${blue}), rgba(0,255,136,${green}))`;
+      }
+
+      function heatRow(label, values) {
+        return `
+          <div class="cell">${label}</div>
+          ${values.map((value) => `<div class="cell" style="background:${heatColor(value)}">${formatCompactMoney(value * 1e6)}</div>`).join("")}
+        `;
+      }
+
+      function stackedRevenueChart(data) {
+        const width = 1160;
+        const height = 340;
+        const left = 70;
+        const right = 30;
+        const top = 20;
+        const bottom = 50;
+        const innerWidth = width - left - right;
+        const innerHeight = height - top - bottom;
+        const max = Math.max(...data.map((d) => d.revenue));
+        const band = innerWidth / data.length;
+        const barWidth = band * 0.64;
+
+        let bars = "";
+        data.forEach((d, i) => {
+          const x = left + i * band + (band - barWidth) / 2;
+          const h2 = d.h2 / max * innerHeight;
+          const equip = d.equip / max * innerHeight;
+          const services = d.services / max * innerHeight;
+          let y = top + innerHeight;
+          y -= h2;
+          bars += `<rect x="${x}" y="${y}" width="${barWidth}" height="${h2}" rx="6" fill="rgba(0,255,136,0.9)"></rect>`;
+          y -= equip;
+          bars += `<rect x="${x}" y="${y}" width="${barWidth}" height="${equip}" rx="6" fill="rgba(255,107,53,0.9)"></rect>`;
+          y -= services;
+          bars += `<rect x="${x}" y="${y}" width="${barWidth}" height="${services}" rx="6" fill="rgba(0,212,255,0.9)"></rect>`;
+          bars += `<text x="${x + barWidth / 2}" y="${height - 18}" text-anchor="middle" class="axis-label">${d.year}</text>`;
+        });
+
+        const guides = [0, 100e6, 200e6, 300e6];
+        const grid = guides.map((value) => {
+          const y = top + innerHeight - value / max * innerHeight;
+          return `
+            <line x1="${left}" y1="${y}" x2="${width - right}" y2="${y}" stroke="rgba(255,255,255,0.06)" stroke-dasharray="4 4"></line>
+            <text x="${left - 10}" y="${y + 4}" text-anchor="end" class="axis-label">${formatCompactMoney(value)}</text>
+          `;
+        }).join("");
+
+        return `
+          <svg viewBox="0 0 ${width} ${height}" class="chart-box" preserveAspectRatio="none">
+            ${grid}
+            ${bars}
+          </svg>
+        `;
+      }
+
+      function profitChart(data) {
+        const width = 1160;
+        const height = 340;
+        const left = 70;
+        const right = 40;
+        const top = 20;
+        const bottom = 50;
+        const innerWidth = width - left - right;
+        const innerHeight = height - top - bottom;
+        const max = Math.max(...data.map((d) => d.ebitda));
+        const min = Math.min(...data.map((d) => Math.min(d.ebitda, d.netIncome)));
+        const range = max - min;
+        const band = innerWidth / data.length;
+        const barWidth = band * 0.48;
+
+        const toY = (value) => top + (max - value) / range * innerHeight;
+        const zeroY = toY(0);
+
+        let bars = "";
+        let netPath = "";
+        let marginPath = "";
+
+        data.forEach((d, i) => {
+          const x = left + i * band + (band - barWidth) / 2;
+          const y = toY(Math.max(0, d.ebitda));
+          const h = Math.abs(toY(d.ebitda) - zeroY);
+          const barY = d.ebitda >= 0 ? y : zeroY;
+          bars += `<rect x="${x}" y="${barY}" width="${barWidth}" height="${h}" rx="6" fill="rgba(0,255,136,0.88)"></rect>`;
+          const cx = left + i * band + band / 2;
+          const ny = toY(d.netIncome);
+          const my = top + innerHeight - d.ebitdaMargin * innerHeight;
+          netPath += `${i === 0 ? "M" : "L"} ${cx} ${ny} `;
+          marginPath += `${i === 0 ? "M" : "L"} ${cx} ${my} `;
+          bars += `<text x="${cx}" y="${height - 18}" text-anchor="middle" class="axis-label">${d.year}</text>`;
+        });
+
+        return `
+          <svg viewBox="0 0 ${width} ${height}" class="chart-box" preserveAspectRatio="none">
+            <line x1="${left}" y1="${zeroY}" x2="${width - right}" y2="${zeroY}" stroke="rgba(255,255,255,0.16)"></line>
+            ${bars}
+            <path d="${netPath}" stroke="rgba(0,212,255,0.9)" stroke-width="4" fill="none"></path>
+            <path d="${marginPath}" stroke="rgba(255,107,53,0.95)" stroke-width="4" fill="none"></path>
+          </svg>
+        `;
+      }
+
+      function capacityChart(data) {
+        const width = 1160;
+        const height = 340;
+        const left = 70;
+        const right = 30;
+        const top = 20;
+        const bottom = 50;
+        const innerWidth = width - left - right;
+        const innerHeight = height - top - bottom;
+        const max = Math.max(...data.map((d) => d.nameplate));
+        const step = innerWidth / (data.length - 1);
+        const toY = (value) => top + innerHeight - value / max * innerHeight;
+        const makePath = (key) => data.map((d, i) => `${i === 0 ? "M" : "L"} ${left + i * step} ${toY(d[key])}`).join(" ");
+        return `
+          <svg viewBox="0 0 ${width} ${height}" class="chart-box" preserveAspectRatio="none">
+            ${[0, 3600000, 7200000, 10800000].map((value) => {
+              const y = toY(value);
+              return `<line x1="${left}" y1="${y}" x2="${width - right}" y2="${y}" stroke="rgba(255,255,255,0.06)" stroke-dasharray="4 4"></line><text x="${left - 10}" y="${y + 4}" text-anchor="end" class="axis-label">${formatKg(value)}</text>`;
+            }).join("")}
+            <path d="${makePath("nameplate")}" stroke="rgba(0,212,255,0.95)" stroke-width="5" fill="none"></path>
+            <path d="${makePath("actual")}" stroke="rgba(0,255,136,0.95)" stroke-width="5" fill="none"></path>
+            ${data.map((d, i) => `<text x="${left + i * step}" y="${height - 18}" text-anchor="middle" class="axis-label">${d.year}</text>`).join("")}
+          </svg>
+        `;
+      }
+
+      function simpleBarChart(data, color) {
+        const width = 1160;
+        const height = 320;
+        const left = 70;
+        const right = 20;
+        const top = 20;
+        const bottom = 50;
+        const innerWidth = width - left - right;
+        const innerHeight = height - top - bottom;
+        const max = Math.max(...data.map((d) => d.value), 1);
+        const band = innerWidth / data.length;
+        const barWidth = band * 0.55;
+        return `
+          <svg viewBox="0 0 ${width} ${height}" class="chart-box" preserveAspectRatio="none">
+            ${data.map((d, i) => {
+              const x = left + i * band + (band - barWidth) / 2;
+              const h = d.value / max * innerHeight;
+              const y = top + innerHeight - h;
+              return `<rect x="${x}" y="${y}" width="${barWidth}" height="${h}" rx="6" fill="${color}"></rect><text x="${x + barWidth / 2}" y="${height - 18}" text-anchor="middle" class="axis-label">${d.label}</text>`;
+            }).join("")}
+          </svg>
+        `;
+      }
+
+      const tabsEl = document.getElementById("tabs");
+      const sectionsEl = document.getElementById("sections");
+
+      tabs.forEach((tab, index) => {
+        const button = document.createElement("button");
+        button.className = "tab" + (index === 0 ? " active" : "");
+        button.textContent = tab.label;
+        button.dataset.id = tab.id;
+        button.addEventListener("click", () => activate(tab.id));
+        tabsEl.appendChild(button);
+
+        const section = document.createElement("section");
+        section.className = "section" + (index === 0 ? " active" : "");
+        section.id = tab.id;
+        section.innerHTML = `
+          <div class="section-head">
+            <p class="eyebrow">${tab.label}</p>
+            <h2>${tab.title}</h2>
+            <p>${tab.body}</p>
+          </div>
+          ${tab.render()}
+        `;
+        sectionsEl.appendChild(section);
+      });
+
+      function activate(id) {
+        document.querySelectorAll(".tab").forEach((el) => {
+          el.classList.toggle("active", el.dataset.id === id);
+        });
+        document.querySelectorAll(".section").forEach((el) => {
+          el.classList.toggle("active", el.id === id);
+        });
+      }
+    </script>
+  </body>
+</html>
