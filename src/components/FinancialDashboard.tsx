@@ -6,7 +6,7 @@ import {
 } from "recharts";
 
 // ═══════════════════════════════════════════════════════════
-// DATA — All values sourced from v8.5.2 model (84-month engine)
+// DATA — All values sourced from v8.5.3 model (84-month engine)
 // ═══════════════════════════════════════════════════════════
 
 const FY = ["FY1","FY2","FY3","FY4","FY5","FY6","FY7"];
@@ -238,6 +238,7 @@ const sections = [
   { id:"funds", label:"USE OF FUNDS" },
   { id:"tax", label:"TAX CREDITS" },
   { id:"learning", label:"AI MANUFACTURING" },
+  { id:"assumptions", label:"ASSUMPTIONS" },
 ];
 
 // ═══════════════════════════════════════════════════════════
@@ -289,7 +290,7 @@ export default function App() {
             Tobe Energy — Financial Model
           </h1>
           <p style={{ fontSize:14, color:C.muted, margin:0, lineHeight:1.6 }}>
-            $10M Seed Round&nbsp;&nbsp;·&nbsp;&nbsp;Green Hydrogen Electrolyzers&nbsp;&nbsp;·&nbsp;&nbsp;92% System Efficiency&nbsp;&nbsp;·&nbsp;&nbsp;v8.5.2 · March 2026
+            $10M Seed Round&nbsp;&nbsp;·&nbsp;&nbsp;Green Hydrogen Electrolyzers&nbsp;&nbsp;·&nbsp;&nbsp;92% System Efficiency&nbsp;&nbsp;·&nbsp;&nbsp;v8.5.3 · March 2026
           </p>
 
           {/* KPI Cards */}
@@ -642,6 +643,44 @@ export default function App() {
           </div>
         </Sec>
 
+        {/* ════════════ ASSUMPTIONS ════════════ */}
+        <Sec id="assumptions" num="7" title="Key Assumptions & Sensitivity Analysis">
+          <p style={{ fontSize:13, color:C.muted, marginBottom:22, lineHeight:1.6 }}>
+            Base-case inputs driving the 7-year financial model. All assumptions are adjustable in the downloadable Excel model.
+          </p>
+          <Table
+            headers={["Assumption","Base Case","Notes"]}
+            rows={[
+              ["Electricity Rate","$0.03/kWh (prod) · $0.10/kWh (PPA)","Oklahoma industrial + 100% renewable PPA"],
+              ["H₂ Selling Price","$25/kg (blended avg)","Range: $15–30/kg across customer segments"],
+              ["Capacity Factor","85%","Conservative; industrial benchmark 90%+"],
+              ["Facility CapEx","$8.5M per site","Containerized T-125 deployment, turnkey"],
+              ["Specific Energy","42.8 kWh/kg","Conservative vs. 46 kWh/kg measured"],
+              ["45V PTC","$3.00/kg for 10 years","100% renewable PPA qualifies for max tier"],
+              ["Equipment Margin","40% gross (Y1) → 45%+ (Y5)","AI/automation learning curve"],
+              ["Annual Escalator","2.5% revenue · 2.0% costs","Built into all multi-year offtakes"],
+              ["Tax Rate","28.5%","Blended federal + Oklahoma state"],
+            ]}
+          />
+
+          {/* Sensitivity table */}
+          <div style={{ marginTop:28 }}>
+            <div style={{ fontSize:11, fontWeight:600, color:C.muted, textTransform:"uppercase", letterSpacing:"0.06em", marginBottom:16 }}>Scenario Analysis — FY3 Impact</div>
+            <Table
+              headers={["Scenario","Revenue","EBITDA","Margin","vs. Base"]}
+              highlight={0}
+              rows={[
+                [{v:"Base Case",bold:true,color:C.accent},"$88.3M",{v:"$54.9M",bold:true,color:C.accent},"62.2%","—"],
+                ["H₂ Price $30/kg","$103.8M","$70.4M","67.8%",{v:"+$15.5M",color:C.accent}],
+                ["H₂ Price $20/kg","$72.8M","$39.4M","54.1%",{v:"-$15.5M",color:C.red}],
+                ["H₂ Price $15/kg","$57.3M","$23.9M","41.7%",{v:"-$31.0M",color:C.red}],
+                ["No 45V Credit","$79.4M","$46.0M","57.9%",{v:"-$8.9M",color:C.gold}],
+                ["8 Facilities (vs. 4)","$176.6M","$109.8M","62.2%",{v:"+$54.9M",color:C.accent}],
+              ]}
+            />
+          </div>
+        </Sec>
+
         {/* ════════════ FOOTER ════════════ */}
         <div style={{ marginTop:72, paddingTop:28, borderTop:`1px solid ${C.border}` }}>
           {/* Download CTA */}
@@ -662,8 +701,8 @@ export default function App() {
               </div>
             </div>
             <a
-              href="/Tobe_Seed_Financial_Model_v852.xlsx"
-              download="Tobe_Seed_Financial_Model_v852.xlsx"
+              href="/Tobe_Seed_Financial_Model_v853.xlsx"
+              download="Tobe_Seed_Financial_Model_v853.xlsx"
               style={{
                 display:"inline-flex", alignItems:"center", gap:8,
                 background:C.accent, color:C.bg, padding:"11px 24px", borderRadius:9,
@@ -682,7 +721,7 @@ export default function App() {
 
           {/* Footer line */}
           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-            <span style={{ fontSize:11, color:C.dim }}>v8.5.2 · March 2026 · Confidential — Prepared for Investor Diligence</span>
+            <span style={{ fontSize:11, color:C.dim }}>v8.5.3 · March 2026 · Confidential — Prepared for Investor Diligence</span>
             <div style={{ display:"flex", alignItems:"center", gap:8 }}>
               <div style={{ width:6, height:6, borderRadius:"50%", background:C.accent, boxShadow:`0 0 10px ${C.accentGlow}` }} />
               <span style={{ fontSize:11, fontWeight:500, color:C.muted }}>All integrity checks passing · 0 formula errors · BS balanced 84/84 months</span>

@@ -1,256 +1,233 @@
-export const metadata = {
-  title: 'Technology | Tobe Energy',
-  description: 'Membrane-free hydrogen electrolysis technology overview',
-};
+'use client';
 
-const stats = [
-  { label: 'System Efficiency', value: '94%', detail: 'Near-theoretical maximum' },
-  { label: 'Membrane Cost', value: '$0', detail: 'Membrane-free architecture' },
-  { label: 'Rare Earth Metals', value: 'Zero', detail: 'No critical mineral dependency' },
-  { label: 'Stack Lifetime', value: '80k+ hrs', detail: 'Reduced degradation pathways' },
-];
+import { useEffect } from 'react';
+import { AutoplayVideo } from '@/components/AutoplayVideo';
+import Link from 'next/link';
 
-const advantages = [
-  {
-    title: 'Membrane-Free Design',
-    description:
-      'Eliminates the most expensive and failure-prone component in conventional electrolyzers. No proton exchange membrane means lower cost, simpler maintenance, and dramatically longer operational life.',
-  },
-  {
-    title: '94% System Efficiency',
-    description:
-      'Our proprietary electrode geometry and flow dynamics achieve near-theoretical energy conversion. More hydrogen per kilowatt-hour means faster payback and lower levelized cost.',
-  },
-  {
-    title: 'No Rare Earth Dependency',
-    description:
-      'Built entirely from abundant, domestically sourced materials. No iridium, no platinum, no supply chain bottlenecks. Scalable without geopolitical risk.',
-  },
-  {
-    title: 'Modular & Scalable',
-    description:
-      'Stack-based architecture scales from kilowatt pilot units to multi-megawatt deployments. Drop-in integration with existing renewable energy and industrial hydrogen infrastructure.',
-  },
-];
+function useAutoplayVideos() {
+  useEffect(() => {
+    const videos = document.querySelectorAll('video[autoplay]');
+    videos.forEach((v) => {
+      const video = v as HTMLVideoElement;
+      video.muted = true;
+      video.play().catch(() => {});
+    });
+    // Also retry on scroll (Safari sometimes needs interaction context)
+    const handleScroll = () => {
+      videos.forEach((v) => {
+        const video = v as HTMLVideoElement;
+        if (video.paused) video.play().catch(() => {});
+      });
+    };
+    window.addEventListener('scroll', handleScroll, { once: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+}
 
 export default function TechnologyPage() {
+  useAutoplayVideos();
   return (
     <div className="relative min-h-screen bg-[#0a0a0f] font-mono text-white">
-      {/* Scanline overlay */}
-      <div
-        className="pointer-events-none fixed inset-0 z-[100]"
-        style={{
-          background:
-            'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px)',
-        }}
-      />
+      <style>{`
+        .tech-card {
+          transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s;
+        }
+        .tech-card:hover {
+          background-color: #14141e;
+          box-shadow: 0 0 20px var(--glow, rgba(255,107,53,0.08));
+        }
+      `}</style>
 
-      {/* Grid background */}
-      <div
-        className="pointer-events-none fixed inset-0"
-        style={{
-          backgroundImage:
-            'linear-gradient(rgba(255,107,53,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,107,53,0.03) 1px, transparent 1px)',
-          backgroundSize: '40px 40px',
-        }}
-      />
-
-      {/* Hero */}
-      <section className="relative border-b border-white/10 px-6 py-20">
-        <div className="mx-auto max-w-5xl">
-          <pre className="mb-6 text-xs leading-tight text-[#ff6b35]/70 sm:text-sm" style={{ whiteSpace: 'pre' }}>
-{`┌─── SECTION 01 ─── TECHNOLOGY OVERVIEW ──────────────────┐`}
-          </pre>
-          <p className="mb-3 text-sm tracking-widest text-[#ff6b35] uppercase">
-            ▸ Technology Overview
-          </p>
-          <h1 className="mb-4 text-4xl font-bold tracking-tight md:text-5xl">
-            Membrane-Free{' '}
-            <span className="text-[#00d4ff]" style={{ textShadow: '0 0 10px rgba(0,212,255,0.5)' }}>
-              Hydrogen Electrolysis
-            </span>
-          </h1>
-          <p className="max-w-2xl text-lg text-white/60">
-            A fundamentally simpler path to green hydrogen — higher efficiency,
-            lower cost, zero critical mineral dependency.
-          </p>
-
-          {/* ASCII electrolyzer diagram */}
-          <pre className="mt-8 text-[0.6rem] leading-tight text-[#00d4ff]/60 sm:text-xs" style={{ whiteSpace: 'pre' }}>
-{`          ╔══════════════════════════════╗
-          ║    MEMBRANE-FREE STACK       ║
-          ║                              ║
-  H₂O ──▶ ║  ┌──────┐    ┌──────┐       ║ ──▶ H₂
-          ║  │ANODE │    │CATH- │       ║
-          ║  │  (+) │    │ODE(-)│       ║ ──▶ O₂
-          ║  └──────┘    └──────┘       ║
-          ║     NO MEMBRANE BARRIER     ║
-          ╚══════════════════════════════╝
-             94% HHV  ·  ~25°C  ·  $0 PEM`}
-          </pre>
+      <div className="mx-auto max-w-6xl px-6 py-10">
+        {/* ═══ HEADER ═══ */}
+        <div className="mb-4 text-[0.7rem] tracking-[0.2em] text-[#00d4ff] glow-cyan">
+          ┌─── THE TECHNOLOGY ───┐
         </div>
-      </section>
 
-      {/* Stats Row */}
-      <section className="border-b border-white/10 px-6 py-12">
-        <div className="mx-auto max-w-5xl">
-          <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
-{`┌─── SECTION 02 ─── KEY METRICS ──────────────────────────┐`}
-          </pre>
-          <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
-            {stats.map((s) => (
-              <div
-                key={s.label}
-                className="rounded border border-white/10 bg-white/[0.02] p-5"
-              >
-                <p className="text-xs text-white/30">▸ {s.label}</p>
-                <p
-                  className="mt-1 text-3xl font-bold text-[#00d4ff]"
-                  style={{ textShadow: '0 0 10px rgba(0,212,255,0.5)' }}
-                >
-                  {s.value}
-                </p>
-                <p className="mt-1 text-xs text-white/40">{s.detail}</p>
-              </div>
-            ))}
+        {/* ═══ HERO SECTION ═══ */}
+        <h1 className="mb-3 text-2xl font-bold tracking-tight text-white/90 sm:text-3xl"
+          style={{ textShadow: '0 0 12px rgba(255,107,53,0.15)' }}>
+          Vertically Integrated. First Principle to Finished Product.
+        </h1>
+        <p className="mb-8 max-w-3xl font-sans text-[0.95rem] leading-relaxed text-[#8a8a9a]">
+          All in-house. From engineering to manufacturing. Entering serialized production to support our first 1MW deployment. Building the container of the future.
+        </p>
+
+        {/* ═══ VISUAL HERO ROW ═══ */}
+        <div className="mb-10 grid gap-4 sm:grid-cols-2">
+          {/* CNC Video */}
+          <div className="overflow-hidden rounded border border-white/10 bg-[#12121a]">
+            <AutoplayVideo src="/media/manufacturing/cnc-electrolysis-housing.mp4" poster="/media/manufacturing/cnc-electrolysis-housing-poster.jpg" className="w-full aspect-video object-cover" />
+            <div className="px-4 py-3">
+              <p className="text-[0.65rem] tracking-[0.15em] text-[#ff6b35]">CNC MACHINING — Cell Housing</p>
+              <p className="mt-1 text-xs text-white/40">304 stainless steel, machined in-house on Langmuir MR-1</p>
+            </div>
           </div>
-        </div>
-      </section>
 
-      {/* Advantages */}
-      <section className="border-b border-white/10 px-6 py-16">
-        <div className="mx-auto max-w-5xl">
-          <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
-{`┌─── SECTION 03 ─── CORE ADVANTAGES ──────────────────────┐`}
-          </pre>
-          <div className="grid gap-8 md:grid-cols-2">
-            {advantages.map((a, i) => (
-              <div
-                key={a.title}
-                className="rounded border border-white/10 bg-white/[0.02] p-6"
-              >
-                <pre className="mb-3 text-[0.65rem] text-white/20" style={{ whiteSpace: 'pre' }}>
-{`╔${'═'.repeat(46)}╗`}
-                </pre>
-                <div className="mb-3 flex items-center gap-3">
-                  <span className="text-xs text-white/30">
-                    ║ {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <h3
-                    className="text-lg font-semibold text-[#ff6b35]"
-                    style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)' }}
-                  >
-                    {a.title}
-                  </h3>
-                </div>
-                <p className="text-sm leading-relaxed text-white/60">
-                  {a.description}
-                </p>
-                <pre className="mt-3 text-[0.65rem] text-white/20" style={{ whiteSpace: 'pre' }}>
-{`╚${'═'.repeat(46)}╝`}
-                </pre>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works */}
-      <section className="border-b border-white/10 px-6 py-16">
-        <div className="mx-auto max-w-5xl">
-          <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
-{`┌─── SECTION 04 ─── PROCESS FLOW ─────────────────────────┐`}
-          </pre>
-
-          {/* ASCII process flow */}
-          <pre className="mb-8 text-[0.6rem] leading-tight text-[#00ff88]/50 sm:text-xs" style={{ whiteSpace: 'pre' }}>
-{`    ┌─────────┐      ┌──────────────┐      ┌──────────┐
-    │ WATER   │ ───▶ │ ELECTROLYSIS │ ───▶ │ H₂ OUT   │
-    │  INPUT  │      │   94% HHV    │      │ 99.999%  │
-    └─────────┘      └──────────────┘      └──────────┘
-         │                  │                    │
-    Standard         No membrane           High-purity
-    feedwater         barrier              compressed`}
-          </pre>
-
-          <div className="grid gap-6 md:grid-cols-3">
-            {[
-              {
-                step: '01',
-                title: 'Water In',
-                text: 'Standard feedwater enters the electrolyzer stack — no ultra-pure water requirements.',
-                status: '● ACTIVE',
-              },
-              {
-                step: '02',
-                title: 'Electrolysis',
-                text: 'Proprietary electrode geometry splits H₂O at 94% efficiency without a membrane barrier.',
-                status: '● ACTIVE',
-              },
-              {
-                step: '03',
-                title: 'Hydrogen Out',
-                text: 'High-purity hydrogen is separated, compressed, and delivered to point of use.',
-                status: '● ACTIVE',
-              },
-            ].map((s) => (
-              <div
-                key={s.step}
-                className="rounded border border-white/10 bg-white/[0.02] p-6"
-              >
-                <div className="mb-2 flex items-center justify-between">
-                  <span
-                    className="text-3xl font-bold text-[#00d4ff]/30"
-                    style={{ textShadow: '0 0 10px rgba(0,212,255,0.3)' }}
-                  >
-                    {s.step}
-                  </span>
-                  <span className="text-[0.65rem] text-[#00ff88]">{s.status}</span>
-                </div>
-                <h3 className="mt-2 font-semibold text-white">
-                  ▸ {s.title}
-                </h3>
-                <p className="mt-2 text-sm text-white/50">{s.text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Comparison */}
-      <section className="px-6 py-16">
-        <div className="mx-auto max-w-5xl">
-          <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
-{`┌─── SECTION 05 ─── TOBE vs CONVENTIONAL ─────────────────┐`}
-          </pre>
-
-          <div className="rounded border border-white/10 bg-white/[0.02] p-6">
-            <pre className="overflow-x-auto text-[0.6rem] leading-relaxed text-white/70 sm:text-xs" style={{ whiteSpace: 'pre' }}>
-{`╔═══════════════════╦════════════════╦════════════════════╗
-║     METRIC        ║  CONVENTIONAL  ║   TOBE ENERGY      ║
-╠═══════════════════╬════════════════╬════════════════════╣
-║ Membrane          ║  PEM / AEM     ║   NONE             ║
-║ Rare Earths       ║  Ir, Pt, etc.  ║   ZERO             ║
-║ System Efficiency ║  60-75%        ║   94% HHV          ║
-║ Operating Temp    ║  60-80°C       ║   ~25°C            ║
-║ Stack Lifetime    ║  40-60k hrs    ║   80k+ hrs         ║
-║ LCOH Target       ║  $4-8/kg      ║   <$3/kg           ║
-╚═══════════════════╩════════════════╩════════════════════╝`}
-            </pre>
-
-            <div className="mt-4 flex items-center gap-2 text-xs text-[#00ff88]">
-              <span>●</span>
-              <span>TOBE ADVANTAGE: Lower cost, longer life, simpler system</span>
+          {/* PCB Video */}
+          <div className="overflow-hidden rounded border border-white/10 bg-[#12121a]">
+            <AutoplayVideo src="/media/manufacturing/pcb-mfg-11.mp4" poster="/media/manufacturing/pcb-mfg-11-poster.jpg" className="w-full aspect-video object-cover" />
+            <div className="px-4 py-3">
+              <p className="text-[0.65rem] tracking-[0.15em] text-[#ff6b35]">PCB FABRICATION — Power Electronics</p>
+              <p className="mt-1 text-xs text-white/40">Designed in KiCad, laser-etched and assembled on-site</p>
             </div>
           </div>
         </div>
-      </section>
+
+        {/* ═══ 4 ASCII ART MODULE CARDS ═══ */}
+        <div className="mb-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {/* CELL */}
+          <Link
+            href="/technology/cell"
+            className="tech-card block border border-[#00ff88]/15 bg-[#12121a] px-5 py-5"
+            style={{ '--glow': 'rgba(0,255,136,0.1)' } as React.CSSProperties}
+          >
+            <pre className="mb-3 text-[0.6rem] leading-[1.3] text-[#00ff88]/50">{`  ┌─┬─┬─┐
+  │ │ │ │
+  │H₂│O₂│
+  └─┴─┴─┘`}</pre>
+            <div className="mb-1 text-base font-bold text-[#00ff88]"
+              style={{ textShadow: '0 0 6px rgba(0,255,136,0.2)' }}>
+              CELL
+            </div>
+            <div className="text-xs text-[#8a8a9a]">
+              Membrane-free. No rare earths.
+            </div>
+            <div className="mt-2 text-xs text-[#00ff88]/50">────→</div>
+          </Link>
+
+          {/* CONVERTER */}
+          <Link
+            href="/technology/power-converter"
+            className="tech-card block border border-[#00d4ff]/15 bg-[#12121a] px-5 py-5"
+            style={{ '--glow': 'rgba(0,212,255,0.1)' } as React.CSSProperties}
+          >
+            <pre className="mb-3 text-[0.6rem] leading-[1.3] text-[#00d4ff]/50">{`  ╔═══╗
+  ║ ~ ║
+  ╠═╦═╣
+  ║▓║▓║`}</pre>
+            <div className="mb-1 text-base font-bold text-[#00d4ff]"
+              style={{ textShadow: '0 0 6px rgba(0,212,255,0.2)' }}>
+              CONVERTER
+            </div>
+            <div className="text-xs text-[#8a8a9a]">
+              Custom LLC resonant topology.
+            </div>
+            <div className="mt-2 text-xs text-[#00d4ff]/50">────→</div>
+          </Link>
+
+          {/* CONTROLS */}
+          <Link
+            href="/technology/controls"
+            className="tech-card block border border-[#ff6b35]/15 bg-[#12121a] px-5 py-5"
+            style={{ '--glow': 'rgba(255,107,53,0.1)' } as React.CSSProperties}
+          >
+            <pre className="mb-3 text-[0.6rem] leading-[1.3] text-[#ff6b35]/50">{`  ┌──────┐
+  │ >_   │
+  │ T:28 │
+  │ P:25 │`}</pre>
+            <div className="mb-1 text-base font-bold text-[#ff6b35]"
+              style={{ textShadow: '0 0 6px rgba(255,107,53,0.2)' }}>
+              CONTROLS
+            </div>
+            <div className="text-xs text-[#8a8a9a]">
+              Real-time HMI. 100 cloud variables.
+            </div>
+            <div className="mt-2 text-xs text-[#ff6b35]/50">────→</div>
+          </Link>
+
+          {/* TESTING */}
+          <Link
+            href="/technology/efficiency"
+            className="tech-card block border border-white/10 bg-[#12121a] px-5 py-5"
+            style={{ '--glow': 'rgba(255,255,255,0.05)' } as React.CSSProperties}
+          >
+            <pre className="mb-3 text-[0.6rem] leading-[1.3] text-white/30">{`  ▁▂▃▅▆▇
+  ▔▔▔▔▔▔
+  46 kWh
+  /kg H₂`}</pre>
+            <div className="mb-1 text-base font-bold text-white/80">
+              TESTING
+            </div>
+            <div className="text-xs text-[#8a8a9a]">
+              46 kWh/kg measured. Beating stated 92%.
+            </div>
+            <div className="mt-2 text-xs text-white/30">────→</div>
+          </Link>
+        </div>
+
+        {/* ═══ STATS ROW ═══ */}
+        <div className="mb-6 flex flex-wrap items-baseline justify-center gap-x-4 gap-y-2 text-center">
+          <span className="text-2xl font-bold text-[#00ff88]" style={{ textShadow: '0 0 8px rgba(0,255,136,0.25)' }}>
+            {'>'}92% EFFICIENCY
+          </span>
+          <span className="text-lg text-[#3a3a4a]">·</span>
+          <span className="text-2xl font-bold text-[#00d4ff]" style={{ textShadow: '0 0 8px rgba(0,212,255,0.25)' }}>
+            {'<'}30°C OPERATING
+          </span>
+          <span className="text-lg text-[#3a3a4a]">·</span>
+          <span className="text-2xl font-bold text-[#ff6b35]" style={{ textShadow: '0 0 8px rgba(255,107,53,0.25)' }}>
+            ZERO RARE EARTHS
+          </span>
+          <span className="text-lg text-[#3a3a4a]">·</span>
+          <span className="text-2xl font-bold text-white/80">
+            80K+ HOUR STACK LIFE
+          </span>
+        </div>
+
+        {/* One paragraph */}
+        <div className="mx-auto mb-10 max-w-3xl border-l-[3px] border-[#ff6b35] pl-5">
+          <p className="font-sans text-[0.95rem] leading-relaxed text-[#b0b0c0]">
+            Two fundamental differences: a capacitive cell that splits water
+            without membranes or precious metals, and a pulsed power converter
+            that eliminates waste heat at the source. The result is a system
+            already exceeding its 92% efficiency target on the production unit.
+            Everything above is the proof.
+          </p>
+        </div>
+
+        {/* ═══ DIVIDER ═══ */}
+        <div className="my-8 flex items-center gap-4">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#ff6b35]/20 to-transparent" />
+          <span className="text-xs tracking-[0.3em] text-[#ff6b35]/30"
+            style={{ textShadow: '0 0 8px rgba(255,107,53,0.15)' }}>═══════</span>
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#ff6b35]/20 to-transparent" />
+        </div>
+
+        {/* ═══ COMPARISON TABLE ═══ */}
+        <div className="mb-6 text-[0.7rem] tracking-[0.2em] text-[#00d4ff] glow-cyan">
+          ┌─── TOBE vs CONVENTIONAL ───┐
+        </div>
+
+        <div className="overflow-hidden border border-white/5 bg-[#12121a]">
+          <div className="grid grid-cols-3 border-b border-white/10 bg-[#0e0e16]">
+            <div className="px-5 py-3 text-[0.7rem] tracking-[0.15em] text-[#6a6a7a]">METRIC</div>
+            <div className="border-l border-white/5 px-5 py-3 text-[0.7rem] tracking-[0.15em] text-[#ff4444]/60">CONVENTIONAL</div>
+            <div className="border-l border-white/5 px-5 py-3 text-[0.7rem] tracking-[0.15em] text-[#00ff88]">TOBE ENERGY</div>
+          </div>
+          {[
+            ['Membrane', 'PEM / AEM', 'NONE'],
+            ['Rare Earths', 'Ir, Pt required', 'ZERO'],
+            ['System Efficiency', '60–75% HHV', '>92% HHV'],
+            ['Operating Temp', '60–80°C', '<30°C'],
+            ['LCOH', '$4–8/kg', '<$2/kg'],
+            ['Cooling Required', 'Active cooling', 'NONE'],
+          ].map(([metric, conv, tobe], i) => (
+            <div key={metric} className={`grid grid-cols-3 ${i % 2 === 0 ? 'bg-[#12121a]' : 'bg-[#0f0f17]'}`}>
+              <div className="px-5 py-3 text-sm text-white/60">{metric}</div>
+              <div className="border-l border-white/5 px-5 py-3 text-sm text-white/40">{conv}</div>
+              <div className="border-l border-white/5 px-5 py-3 text-sm font-bold text-[#00ff88]"
+                style={{ textShadow: '0 0 6px rgba(0,255,136,0.2)' }}>{tobe}</div>
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* Footer */}
-      <footer className="border-t border-white/10 px-6 py-8">
-        <div className="mx-auto max-w-5xl text-center">
-          <pre className="text-xs text-white/20" style={{ whiteSpace: 'pre' }}>
-{`═══════════════════════════════════════════════════════════
+      <footer className="border-t border-white/10 px-6 py-6">
+        <div className="mx-auto max-w-6xl text-center">
+          <pre className="text-xs text-[#ff6b35]/20" style={{ textShadow: '0 0 6px rgba(255,107,53,0.08)' }}>
+            {`═══════════════════════════════════════════════════════════
  TOBE ENERGY CORP // CONFIDENTIAL // 2026
 ═══════════════════════════════════════════════════════════`}
           </pre>

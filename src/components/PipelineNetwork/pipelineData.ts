@@ -13,6 +13,12 @@ export interface Opportunity {
   region: Region;
   notes?: string;
   timeline?: string;
+  realName?: string;
+  kgPerDay?: number;
+  pricePerKg?: number;
+  contractTerm?: string;
+  annualRevenue?: string;
+  grossMargin?: number;
 }
 
 export const opportunities: Opportunity[] = [
@@ -39,6 +45,11 @@ export const opportunities: Opportunity[] = [
     region: 'oklahoma',
     timeline: 'Q2 2026',
     notes: 'First commercial deployment. Strategic partner.',
+    realName: 'Zeeco',
+    kgPerDay: 50,
+    pricePerKg: 30,
+    contractTerm: '3-year',
+    annualRevenue: '$547K',
   },
   {
     id: 'transit',
@@ -63,6 +74,12 @@ export const opportunities: Opportunity[] = [
     vertical: 'Chemicals',
     region: 'oklahoma',
     notes: '3-year offtake @ $15/kg',
+    realName: 'Regional Refiner',
+    kgPerDay: 500,
+    pricePerKg: 15,
+    contractTerm: '3-year',
+    annualRevenue: '$2.74M',
+    grossMargin: 87,
   },
   {
     id: 'forge-steel',
@@ -98,6 +115,12 @@ export const opportunities: Opportunity[] = [
     vertical: 'Industrial',
     region: 'oklahoma',
     notes: '3-year offtake @ $25/kg',
+    realName: 'Combustion R&D Partner',
+    kgPerDay: 133,
+    pricePerKg: 25,
+    contractTerm: '3-year',
+    annualRevenue: '$1.21M',
+    grossMargin: 92,
   },
   {
     id: 'horizon',
@@ -122,6 +145,12 @@ export const opportunities: Opportunity[] = [
     vertical: 'Academic',
     region: 'oklahoma',
     notes: '3-year offtake @ $20/kg. Currently paying $105/kg.',
+    realName: 'State University',
+    kgPerDay: 32,
+    pricePerKg: 20,
+    contractTerm: '3-year',
+    annualRevenue: '$230K',
+    grossMargin: 90,
   },
   {
     id: 'vault',
@@ -143,7 +172,7 @@ export const opportunities: Opportunity[] = [
     sector: 'International Distribution',
     vertical: 'International',
     region: 'international',
-    notes: 'Website quote request. H2 Core Systems.',
+    notes: 'Website quote request. European distributor.',
   },
   {
     id: 'titan',
@@ -153,7 +182,7 @@ export const opportunities: Opportunity[] = [
     sector: 'EPC / Infrastructure',
     vertical: 'EPC',
     region: 'south',
-    notes: 'Major global EPC. Greentown Labs intro.',
+    notes: 'Major global EPC. Cleantech accelerator intro.',
   },
   {
     id: 'scholar',
@@ -184,5 +213,8 @@ export const statusLabels: Record<OpportunityStatus, string> = {
 export const pipelineStats = {
   totalPipeline: '$100M+',
   activeQuotes: '$32M',
-  opportunities: 12,
+  opportunities: 13,
+  signedCapacity: '2,165 kg/day',
+  sectors: 7,
+  regions: 5,
 };

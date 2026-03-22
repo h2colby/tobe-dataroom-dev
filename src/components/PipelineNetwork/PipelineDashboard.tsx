@@ -32,8 +32,8 @@ const maxSectorValue = Math.max(...sectorData.map(s => s.value));
 // Node positions - distance from center represents deal stage
 const getNodePosition = (opp: Opportunity, index: number): { x: number; y: number } => {
   const centerX = 400;
-  const centerY = 280;
-  
+  const centerY = 220;
+
   const distanceByStatus: Record<OpportunityStatus, number> = {
     contracted: 60,
     loi: 120,
@@ -86,7 +86,7 @@ const sortedOpportunities = [...opportunities].sort((a, b) => {
 export function PipelineDashboard() {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const centerX = 400;
-  const centerY = 280;
+  const centerY = 220;
   
   return (
     <div className="min-h-screen bg-[#0a0a0f] text-white p-4 lg:p-6">
@@ -183,7 +183,7 @@ export function PipelineDashboard() {
             </div>
             
             {/* SVG Network */}
-            <svg viewBox="0 0 800 500" className="w-full h-auto">
+            <svg viewBox="0 0 800 520" className="w-full h-auto">
               {/* Distance rings */}
               {[70, 130, 190, 240].map((r, i) => (
                 <motion.circle

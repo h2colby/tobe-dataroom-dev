@@ -1,7 +1,7 @@
 'use client';
 
-import FinancialDashboard from '@/components/FinancialDashboard';
+import InvestorDashboard from '@/components/InvestorDashboard';
 
 export default function FinancialsPage() {
-  return <FinancialDashboard />;
+  return <InvestorDashboard />;
 }

@@ -54,39 +54,12 @@ export default function TaxCreditsPage() {
 
   return (
     <div className="relative min-h-screen bg-[#0a0a0f] font-mono text-white">
-      {/* Scanline overlay */}
-      <div
-        className="pointer-events-none fixed inset-0 z-[100]"
-        style={{
-          background:
-            'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px)',
-        }}
-      />
-
-      {/* Grid background */}
-      <div
-        className="pointer-events-none fixed inset-0"
-        style={{
-          backgroundImage:
-            'linear-gradient(rgba(255,107,53,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,107,53,0.03) 1px, transparent 1px)',
-          backgroundSize: '40px 40px',
-        }}
-      />
-
       {/* SECTION 1: 45V OVERVIEW */}
       <section className="relative border-b border-white/10 px-6 py-20">
         <div className="mx-auto max-w-5xl">
           <pre className="mb-6 text-xs leading-tight text-[#ff6b35]/70 sm:text-sm" style={{ whiteSpace: 'pre' }}>
-{`┌─── SECTION 06 ─── 45V TAX CREDIT STRATEGY ─────────────┐`}
+{`┌─── 45V TAX CREDIT STRATEGY ─────────────────────────────┐`}
           </pre>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4 }}
-            className="mb-3 text-sm tracking-widest text-[#ff6b35] uppercase"
-          >
-            ▸ Section 06 // Clean Energy Tax Credits
-          </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -172,12 +145,9 @@ export default function TaxCreditsPage() {
       <section className="border-b border-white/10 px-6 py-16">
         <div className="mx-auto max-w-5xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
-{`┌─── SECTION 06.1 ─── OKLAHOMA GRID ANALYSIS ────────────┐`}
+{`┌─── OKLAHOMA GRID ANALYSIS ──────────────────────────────┐`}
           </pre>
-          <div className="mb-4 flex items-baseline gap-3">
-            <span className="text-[0.7rem] tracking-[0.1em] text-[#ff6b35]">01 //</span>
-            <h2 className="text-2xl font-bold tracking-tight">SPP/Plains Grid Emission Profile</h2>
-          </div>
+          <h2 className="mb-4 text-2xl font-bold tracking-tight">SPP/Plains Grid Emission Profile</h2>
 
           <motion.div
             initial="hidden"
@@ -242,12 +212,9 @@ export default function TaxCreditsPage() {
       <section className="border-b border-white/10 px-6 py-16">
         <div className="mx-auto max-w-5xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
-{`┌─── SECTION 06.2 ─── RENEWABLE PPA SCENARIOS ───────────┐`}
+{`┌─── RENEWABLE PPA SCENARIOS ─────────────────────────────┐`}
           </pre>
-          <div className="mb-8 flex items-baseline gap-3">
-            <span className="text-[0.7rem] tracking-[0.1em] text-[#ff6b35]">02 //</span>
-            <h2 className="text-2xl font-bold tracking-tight">Clean Energy Procurement Scenarios</h2>
-          </div>
+          <h2 className="mb-8 text-2xl font-bold tracking-tight">Clean Energy Procurement Scenarios</h2>
 
           {/* Table header */}
           <div className="hidden rounded-t border border-white/10 bg-white/[0.04] px-6 py-3 text-xs tracking-[0.1em] text-[#ff6b35] md:grid md:grid-cols-4 md:gap-4">
@@ -322,12 +289,9 @@ export default function TaxCreditsPage() {
       <section className="border-b border-white/10 px-6 py-16">
         <div className="mx-auto max-w-5xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
-{`┌─── SECTION 06.3 ─── PPA RETURN ON INVESTMENT ──────────┐`}
+{`┌─── PPA RETURN ON INVESTMENT ────────────────────────────┐`}
           </pre>
-          <div className="mb-8 flex items-baseline gap-3">
-            <span className="text-[0.7rem] tracking-[0.1em] text-[#ff6b35]">03 //</span>
-            <h2 className="text-2xl font-bold tracking-tight">The 45V Economics</h2>
-          </div>
+          <h2 className="mb-8 text-2xl font-bold tracking-tight">The 45V Economics</h2>
 
           {/* Big numbers grid */}
           <div className="mb-8 grid gap-6 md:grid-cols-3">
@@ -461,12 +425,9 @@ export default function TaxCreditsPage() {
       <section className="border-b border-white/10 px-6 py-16">
         <div className="mx-auto max-w-5xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
-{`┌─── SECTION 06.4 ─── EFFICIENCY ADVANTAGE ──────────────┐`}
+{`┌─── EFFICIENCY ADVANTAGE ───────────────────────────────┐`}
           </pre>
-          <div className="mb-8 flex items-baseline gap-3">
-            <span className="text-[0.7rem] tracking-[0.1em] text-[#ff6b35]">04 //</span>
-            <h2 className="text-2xl font-bold tracking-tight">Efficiency = Lower PPA = Higher Net</h2>
-          </div>
+          <h2 className="mb-8 text-2xl font-bold tracking-tight">Efficiency = Lower PPA = Higher Net</h2>
 
           {/* Competitor comparison table */}
           <div className="hidden rounded-t border border-white/10 bg-white/[0.04] px-6 py-3 text-xs tracking-[0.1em] text-[#ff6b35] md:grid md:grid-cols-5 md:gap-4">
@@ -573,12 +534,9 @@ export default function TaxCreditsPage() {
       <section className="border-b border-white/10 px-6 py-16">
         <div className="mx-auto max-w-5xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
-{`┌─── SECTION 06.5 ─── RISK FACTORS ──────────────────────┐`}
+{`┌─── RISK FACTORS ───────────────────────────────────────┐`}
           </pre>
-          <div className="mb-8 flex items-baseline gap-3">
-            <span className="text-[0.7rem] tracking-[0.1em] text-[#ff6b35]">05 //</span>
-            <h2 className="text-2xl font-bold tracking-tight">45V Risk Factors</h2>
-          </div>
+          <h2 className="mb-8 text-2xl font-bold tracking-tight">45V Risk Factors</h2>
 
           <div className="grid gap-4 md:grid-cols-2">
             {risks.map((r, i) => (
@@ -607,6 +565,86 @@ export default function TaxCreditsPage() {
           >
             <p className="text-xs text-[#00d4ff]">
               ● MITIGATION: Tobe&apos;s modular design enables rapid begin-construction compliance. Efficiency advantage holds regardless of matching methodology. 10-year credit window provides substantial value even with regulatory changes.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* SECTION 7: WITHOUT 45V SCENARIO */}
+      <section className="border-b border-white/10 px-6 py-16">
+        <div className="mx-auto max-w-5xl">
+          <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
+{`┌─── WITHOUT 45V SCENARIO ──────────────────────────────┐`}
+          </pre>
+          <h2 className="mb-8 text-2xl font-bold tracking-tight">Profitable Without 45V</h2>
+
+          <div className="mb-8 grid gap-6 md:grid-cols-3">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              custom={0}
+              variants={fadeUp}
+              className="rounded border border-[#00ff88]/30 bg-[#00ff88]/[0.05] p-6 text-center"
+            >
+              <p className="mb-1 text-xs tracking-[0.15em] text-[#ff6b35]">▸ WITH 45V</p>
+              <p className="mb-1 text-xs text-white/40">EBITDA</p>
+              <p
+                className="text-3xl font-bold text-[#00ff88]"
+                style={{ textShadow: '0 0 15px rgba(0,255,136,0.5)' }}
+              >
+                $54.9M
+              </p>
+              <p className="mt-2 text-sm text-white/50">Margin: <span className="font-bold text-[#00ff88]">62.2%</span></p>
+              <p className="mt-1 text-xs text-white/30">FY3 Base Case</p>
+            </motion.div>
+
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              custom={1}
+              variants={fadeUp}
+              className="rounded border border-white/10 bg-white/[0.02] p-6 text-center"
+            >
+              <p className="mb-1 text-xs tracking-[0.15em] text-[#ff6b35]">▸ WITHOUT 45V</p>
+              <p className="mb-1 text-xs text-white/40">EBITDA</p>
+              <p className="text-3xl font-bold text-white/70">$46.0M</p>
+              <p className="mt-2 text-sm text-white/50">Margin: <span className="font-bold text-white/70">52.1%</span></p>
+              <p className="mt-1 text-xs text-white/30">FY3 No Credit</p>
+            </motion.div>
+
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              custom={2}
+              variants={fadeUp}
+              className="rounded border border-[#ff6b35]/30 bg-[#ff6b35]/[0.05] p-6 text-center"
+            >
+              <p className="mb-1 text-xs tracking-[0.15em] text-[#ff6b35]">▸ DIFFERENCE</p>
+              <p className="mb-1 text-xs text-white/40">Delta</p>
+              <p
+                className="text-3xl font-bold text-[#ff6b35]"
+                style={{ textShadow: '0 0 15px rgba(255,107,53,0.5)' }}
+              >
+                -$8.9M
+              </p>
+              <p className="mt-2 text-sm text-white/50">Margin: <span className="font-bold text-[#ff6b35]">-10.1pp</span></p>
+              <p className="mt-1 text-xs text-white/30">45V Impact</p>
+            </motion.div>
+          </div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            custom={3}
+            variants={fadeUp}
+            className="rounded border border-[#00ff88]/20 bg-[#00ff88]/[0.03] px-4 py-3"
+          >
+            <p className="text-xs text-[#00ff88]">
+              ● Tobe is profitable on unit economics alone. The 45V credit accelerates growth — it doesn&apos;t create the business.
             </p>
           </motion.div>
         </div>
