@@ -22,9 +22,9 @@ const sectorTotals = opportunities.reduce((acc, opp) => {
 const sectorData = [
   { name: 'Transit', value: 19, color: '#ffcc00' },
   { name: 'Industrial', value: 12, color: '#ff6b35' },
-  { name: 'Steel', value: 7, color: '#a855f7' },
-  { name: 'E-Fuels', value: 6, color: '#00ff88' },
-  { name: 'Mobility', value: 3, color: '#00d4ff' },
+  { name: 'Steel', value: 7, color: '#ff6b35' },
+  { name: 'E-Fuels', value: 6, color: '#ff6b35' },
+  { name: 'Mobility', value: 3, color: '#ff6b35' },
 ];
 
 const maxSectorValue = Math.max(...sectorData.map(s => s.value));
@@ -95,8 +95,8 @@ export function PipelineDashboard() {
         className="fixed inset-0 opacity-30 pointer-events-none"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px)
+            linear-gradient(rgba(255, 107, 53, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 107, 53, 0.03) 1px, transparent 1px)
           `,
           backgroundSize: '40px 40px',
         }}
@@ -109,12 +109,12 @@ export function PipelineDashboard() {
             <h1 className="font-mono text-lg sm:text-xl font-bold tracking-wide">
               TOBE ENERGY // PIPELINE COMMAND
             </h1>
-            <p className="font-mono text-[10px] sm:text-xs text-[#00d4ff] tracking-widest mt-1">
+            <p className="font-mono text-[10px] sm:text-xs text-[#ff6b35] tracking-widest mt-1">
               HYDROGEN INFRASTRUCTURE DEPLOYMENT TRACKER
             </p>
           </div>
           <div className="text-right font-mono text-xs text-gray-500">
-            <div className="text-[#00ff88] animate-pulse">◉ LIVE</div>
+            <div className="text-[#ff6b35] animate-pulse">◉ LIVE</div>
             <div>UPDATED: {new Date().toLocaleDateString()}</div>
           </div>
         </header>
@@ -139,9 +139,9 @@ export function PipelineDashboard() {
                 className="absolute bottom-0 left-0 right-0 h-0.5"
                 style={{ 
                   backgroundColor: stat.color === 'orange' ? '#ff6b35' :
-                    stat.color === 'green' ? '#00ff88' :
+                    stat.color === 'green' ? '#ff6b35' :
                     stat.color === 'yellow' ? '#ffcc00' :
-                    stat.color === 'purple' ? '#a855f7' : '#00d4ff'
+                    stat.color === 'purple' ? '#ff6b35' : '#ff6b35'
                 }}
               />
               <div className="font-mono text-[10px] text-gray-500 tracking-wider mb-2">
@@ -151,9 +151,9 @@ export function PipelineDashboard() {
                 className="font-mono text-xl sm:text-2xl font-bold"
                 style={{ 
                   color: stat.color === 'orange' ? '#ff6b35' :
-                    stat.color === 'green' ? '#00ff88' :
+                    stat.color === 'green' ? '#ff6b35' :
                     stat.color === 'yellow' ? '#ffcc00' :
-                    stat.color === 'purple' ? '#a855f7' : '#00d4ff'
+                    stat.color === 'purple' ? '#ff6b35' : '#ff6b35'
                 }}
               >
                 {stat.value}
@@ -417,7 +417,7 @@ export function PipelineDashboard() {
             
             {/* Sector Breakdown */}
             <div className="bg-[#1a1a24] border border-[#2a2a3a] p-4">
-              <h3 className="font-mono text-xs tracking-wider text-[#00d4ff] mb-4 pb-2 border-b border-[#2a2a3a]">
+              <h3 className="font-mono text-xs tracking-wider text-[#ff6b35] mb-4 pb-2 border-b border-[#2a2a3a]">
                 ◉ PIPELINE BY SECTOR
               </h3>
               <div className="space-y-3">

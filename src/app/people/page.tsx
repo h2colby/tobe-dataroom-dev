@@ -4,26 +4,18 @@ import Link from 'next/link';
 
 const sections = [
   {
-    label: 'VALIDATION & PROGRAMS',
-    href: '/validation',
-    color: '#00d4ff',
-    glow: 'rgba(0,212,255,0.12)',
-    description: 'Federal programs, university research, and industry partnerships that independently validate our technology.',
-    tag: 'OU I-CCEW · NSF I-Corps · UTulsa Physics',
-  },
-  {
-    label: 'BACKED BY',
-    href: '/backed-by',
+    label: 'PROOF',
+    href: '/proof',
     color: '#ff6b35',
     glow: 'rgba(255,107,53,0.12)',
-    description: 'Pre-seed round led by Cortado Ventures. $1.8M raised from top-tier deep-tech investors.',
-    tag: 'Cortado · 46VC · Wavefunction · Techstars',
+    description: 'Investors, institutions, press, and professional networks. The receipts.',
+    tag: 'Cortado · 46VC · Wavefunction · Techstars · OU I-CCEW · NSF I-Corps',
   },
   {
     label: 'THE TEAM',
     href: '/team',
-    color: '#00ff88',
-    glow: 'rgba(0,255,136,0.12)',
+    color: '#ff6b35',
+    glow: 'rgba(255,107,53,0.12)',
     description: 'Engineers who CNC their own PCBs, design power electronics, and write firmware. 2 founders + 7 team members.',
     tag: 'Colby DeWeese · Dr. Caleb Lareau · 7 engineers',
   },
@@ -35,14 +27,14 @@ export default function PeopleIndexPage() {
       {/* ─── PAGE HEADER ─────────────────────────────── */}
       <section className="relative border-b border-white/10 px-6 py-16">
         <div className="mx-auto max-w-6xl">
-          <div className="mb-5 text-[0.7rem] tracking-[0.2em] text-[#00d4ff] glow-cyan">
+          <div className="mb-5 text-[0.7rem] tracking-[0.2em] text-[#ff6b35] glow-orange">
             ┌─── THE PEOPLE ───┐
           </div>
           <h1 className="mb-6 text-4xl font-bold tracking-tight md:text-5xl">
             The Ecosystem Behind{' '}
             <span
-              className="text-[#00d4ff]"
-              style={{ textShadow: '0 0 15px rgba(0,212,255,0.4)' }}
+              className="text-[#ff6b35]"
+              style={{ textShadow: '0 0 15px rgba(255,107,53,0.4)' }}
             >
               Tobe Energy
             </span>
@@ -61,7 +53,7 @@ export default function PeopleIndexPage() {
 
       {/* ─── SECTION CARDS ────────────────────────────── */}
       <div className="mx-auto max-w-6xl px-6 py-12">
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2">
           {sections.map((s) => (
             <Link
               key={s.label}
@@ -104,9 +96,8 @@ export default function PeopleIndexPage() {
             className="text-xs text-[#ff6b35]/20"
             style={{ textShadow: '0 0 6px rgba(255,107,53,0.08)' }}
           >
-            {`═══════════════════════════════════════════════════════════
- TOBE ENERGY CORP // CONFIDENTIAL // 2026
-═══════════════════════════════════════════════════════════`}
+            {`TOBE ENERGY CORP // OKLAHOMA CITY, USA // EST. 2024
+CONFIDENTIAL — AUTHORIZED INVESTOR ACCESS ONLY`}
           </pre>
         </div>
       </footer>

@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Competitive Landscape Report — Tobe Energy</title>
+<style>
+  @page {
+    size: Letter;
+    margin: 0.75in;
+    background: #0a0a0f;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    background: #0a0a0f;
+    color: #e0e0e0;
+    font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.6;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+    color: #ff6b35;
+    letter-spacing: 0.03em;
+  }
+
+  h2 {
+    font-size: 18pt;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 107, 53, 0.3);
+  }
+
+  h3 {
+    font-size: 13pt;
+    margin-bottom: 12px;
+    color: #00d4ff;
+  }
+
+  p {
+    margin-bottom: 12px;
+    orphans: 3;
+    widows: 3;
+  }
+
+  /* COVER PAGE */
+  .cover {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    page-break-after: always;
+    position: relative;
+    background: radial-gradient(ellipse at center, rgba(255,107,53,0.06) 0%, transparent 70%);
+  }
+
+  .cover-logo {
+    width: 320px;
+    margin-bottom: 60px;
+    opacity: 0.95;
+  }
+
+  .cover-title {
+    font-family: 'JetBrains Mono', 'SF Mono', monospace;
+    font-size: 28pt;
+    color: #ff6b35;
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+    text-shadow: 0 0 40px rgba(255, 107, 53, 0.3);
+  }
+
+  .cover-subtitle {
+    font-size: 13pt;
+    color: #00d4ff;
+    letter-spacing: 0.08em;
+    margin-bottom: 60px;
+  }
+
+  .cover-confidential {
+    font-family: 'JetBrains Mono', 'SF Mono', monospace;
+    font-size: 9pt;
+    color: #ff6b35;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border: 1px solid rgba(255, 107, 53, 0.4);
+    padding: 10px 28px;
+    margin-bottom: 20px;
+  }
+
+  .cover-date {
+    font-size: 10pt;
+    color: #666;
+    letter-spacing: 0.1em;
+  }
+
+  .cover-sources {
+    font-size: 8pt;
+    color: #555;
+    margin-top: 30px;
+    max-width: 500px;
+    line-height: 1.5;
+  }
+
+  .cover-corner-tl, .cover-corner-tr, .cover-corner-bl, .cover-corner-br {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-color: rgba(255,107,53,0.25);
+    border-style: solid;
+  }
+  .cover-corner-tl { top: 0; left: 0; border-width: 2px 0 0 2px; }
+  .cover-corner-tr { top: 0; right: 0; border-width: 2px 2px 0 0; }
+  .cover-corner-bl { bottom: 0; left: 0; border-width: 0 0 2px 2px; }
+  .cover-corner-br { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
+
+  /* SECTIONS */
+  .section {
+    page-break-before: always;
+    padding-top: 12px;
+  }
+
+  .section.no-break {
+    page-break-before: auto;
+  }
+
+  /* Keep headers with their following content */
+  h2, h3 {
+    page-break-after: avoid;
+  }
+
+  /* TABLES */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 24px 0;
+    font-size: 9.5pt;
+    page-break-inside: avoid;
+  }
+
+  thead th {
+    background: rgba(255, 107, 53, 0.15);
+    color: #ff6b35;
+    font-family: 'JetBrains Mono', 'SF Mono', monospace;
+    font-size: 8.5pt;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 8px 10px;
+    text-align: left;
+    border-bottom: 2px solid rgba(255, 107, 53, 0.3);
+  }
+
+  tbody td {
+    padding: 7px 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    vertical-align: top;
+  }
+
+  tbody tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  tbody tr:nth-child(odd) {
+    background: rgba(0, 0, 0, 0.15);
+  }
+
+  tr.tobe-row {
+    background: rgba(0, 255, 136, 0.08) !important;
+    border-left: 3px solid #00ff88;
+  }
+
+  tr.tobe-row td {
+    color: #00ff88;
+    font-weight: 600;
+  }
+
+  tr.tobe-row td:first-child {
+    padding-left: 7px;
+  }
+
+  /* Checkmarks and X marks */
+  .check { color: #00ff88; }
+  .xmark { color: #ff4444; }
+
+  /* CALLOUT CARDS */
+  .callout {
+    background: rgba(255, 107, 53, 0.06);
+    border: 1px solid rgba(255, 107, 53, 0.2);
+    border-left: 4px solid #ff6b35;
+    padding: 20px 24px;
+    margin: 24px 0;
+    page-break-inside: avoid;
+  }
+
+  .callout-title {
+    font-family: 'JetBrains Mono', 'SF Mono', monospace;
+    font-size: 10pt;
+    color: #ff6b35;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .callout p {
+    margin-bottom: 0;
+  }
+
+  .insight-card {
+    background: rgba(0, 255, 136, 0.05);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    border-left: 4px solid #00ff88;
+    padding: 20px 24px;
+    margin: 24px 0;
+    page-break-inside: avoid;
+  }
+
+  .insight-card .callout-title {
+    color: #00ff88;
+  }
+
+  /* STAT CARDS */
+  .stat-row {
+    display: flex;
+    gap: 16px;
+    margin: 24px 0;
+    page-break-inside: avoid;
+  }
+
+  .stat-card {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 107, 53, 0.15);
+    padding: 24px 16px;
+    text-align: center;
+    page-break-inside: avoid;
+  }
+
+  .stat-value {
+    font-family: 'JetBrains Mono', 'SF Mono', monospace;
+    font-size: 26pt;
+    font-weight: 700;
+    color: #00ff88;
+    text-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+    margin-bottom: 8px;
+  }
+
+  .stat-value.orange {
+    color: #ff6b35;
+    text-shadow: 0 0 30px rgba(255, 107, 53, 0.3);
+  }
+
+  .stat-value.cyan {
+    color: #00d4ff;
+    text-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+  }
+
+  .stat-label {
+    font-size: 8.5pt;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .stat-note {
+    font-size: 8pt;
+    color: #666;
+    margin-top: 6px;
+  }
+
+  /* COMPANY PROFILE CARDS */
+  .profile-card {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 24px;
+    margin: 20px 0;
+    page-break-inside: avoid;
+  }
+
+  .profile-card h3 {
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+  }
+
+  .profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 24px;
+    margin-bottom: 16px;
+    font-size: 10pt;
+  }
+
+  .profile-grid .label {
+    color: #888;
+  }
+
+  .profile-grid .value {
+    color: #e0e0e0;
+  }
+
+  .profile-takeaway {
+    background: rgba(255, 107, 53, 0.04);
+    border-left: 3px solid rgba(255, 107, 53, 0.3);
+    padding: 12px 16px;
+    font-size: 10pt;
+    color: #bbb;
+    margin-top: 12px;
+  }
+
+  /* TIMELINE */
+  .timeline {
+    position: relative;
+    margin: 24px 0;
+    padding-left: 30px;
+    page-break-inside: avoid;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: rgba(255, 107, 53, 0.2);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 18px;
+    padding-left: 16px;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -26px;
+    top: 6px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ff6b35;
+    border: 2px solid #0a0a0f;
+  }
+
+  .timeline-item.tobe::before {
+    background: #00ff88;
+    box-shadow: 0 0 12px rgba(0, 255, 136, 0.4);
+  }
+
+  .timeline-year {
+    font-family: 'JetBrains Mono', 'SF Mono', monospace;
+    font-size: 10pt;
+    color: #ff6b35;
+    margin-bottom: 2px;
+  }
+
+  .timeline-item.tobe .timeline-year {
+    color: #00ff88;
+  }
+
+  .timeline-desc {
+    font-size: 10pt;
+    color: #bbb;
+  }
+
+  /* BULLET LISTS */
+  ul {
+    margin: 12px 0 16px 0;
+    padding-left: 20px;
+  }
+
+  li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+
+  li strong {
+    color: #00d4ff;
+  }
+
+  /* FOOTER (handled by Playwright) */
+  .print-footer {
+    font-family: 'JetBrains Mono', 'SF Mono', monospace;
+    font-size: 7pt;
+    color: #444;
+    letter-spacing: 0.08em;
+  }
+
+  /* DIVIDER */
+  hr {
+    border: none;
+    border-top: 1px solid rgba(255, 107, 53, 0.15);
+    margin: 32px 0;
+  }
+
+  .section-number {
+    font-family: 'JetBrains Mono', 'SF Mono', monospace;
+    font-size: 9pt;
+    color: #444;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .emphasis {
+    color: #00ff88;
+    font-weight: 600;
+  }
+
+  .muted {
+    color: #888;
+  }
+
+  .small-note {
+    font-size: 9pt;
+    color: #666;
+    margin-top: 16px;
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER PAGE -->
+<div class="cover">
+  <div class="cover-corner-tl"></div>
+  <div class="cover-corner-tr"></div>
+  <div class="cover-corner-bl"></div>
+  <div class="cover-corner-br"></div>
+
+  <svg class="cover-logo" viewBox="0 0 472 63" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M32.4992 31.7366V31.4998M56.7734 55.0267C51.6392 60.0029 36.6094 53.5037 23.2034 40.5102C9.79748 27.5167 3.09188 12.9494 8.22608 7.97317C13.3603 2.99695 28.3901 9.49621 41.796 22.4897C55.202 35.4832 61.9076 50.0505 56.7734 55.0267ZM8.22661 55.0269C3.09241 50.0506 9.798 35.4833 23.204 22.4898C36.6099 9.49636 51.6397 2.99709 56.7739 7.97332C61.9081 12.9495 55.2025 27.5169 41.7965 40.5103C28.3906 53.5038 13.3608 60.0031 8.22661 55.0269Z" stroke="#00AA97" stroke-width="2" stroke-linecap="round"/>
+    <path d="M77.1339 19.1761V13.0909H105.804V19.1761H95.1169V48H87.8214V19.1761H77.1339ZM145.332 30.5455C145.332 34.3523 144.61 37.5909 143.167 40.2614C141.735 42.9318 139.781 44.9716 137.303 46.3807C134.837 47.7784 132.065 48.4773 128.985 48.4773C125.883 48.4773 123.099 47.7727 120.633 46.3636C118.167 44.9545 116.218 42.9148 114.786 40.2443C113.354 37.5739 112.639 34.3409 112.639 30.5455C112.639 26.7386 113.354 23.5 114.786 20.8295C116.218 18.1591 118.167 16.125 120.633 14.7273C123.099 13.3182 125.883 12.6136 128.985 12.6136C132.065 12.6136 134.837 13.3182 137.303 14.7273C139.781 16.125 141.735 18.1591 143.167 20.8295C144.61 23.5 145.332 26.7386 145.332 30.5455ZM137.849 30.5455C137.849 28.0795 137.479 26 136.741 24.3068C136.014 22.6136 134.985 21.3295 133.656 20.4545C132.326 19.5795 130.769 19.142 128.985 19.142C127.201 19.142 125.644 19.5795 124.315 20.4545C122.985 21.3295 121.951 22.6136 121.212 24.3068C120.485 26 120.122 28.0795 120.122 30.5455C120.122 33.0114 120.485 35.0909 121.212 36.7841C121.951 38.4773 122.985 39.7614 124.315 40.6364C125.644 41.5114 127.201 41.9489 128.985 41.9489C130.769 41.9489 132.326 41.5114 133.656 40.6364C134.985 39.7614 136.014 38.4773 136.741 36.7841C137.479 35.0909 137.849 33.0114 137.849 30.5455ZM155.119 48V13.0909H169.096C171.665 13.0909 173.807 13.4716 175.522 14.233C177.238 14.9943 178.528 16.0511 179.392 17.4034C180.255 18.7443 180.687 20.2898 180.687 22.0398C180.687 23.4034 180.415 24.6023 179.869 25.6364C179.324 26.6591 178.574 27.5 177.619 28.1591C176.676 28.8068 175.596 29.267 174.38 29.5398V29.8807C175.71 29.9375 176.954 30.3125 178.113 31.0057C179.284 31.6989 180.233 32.6705 180.96 33.9205C181.687 35.1591 182.051 36.6364 182.051 38.3523C182.051 40.2045 181.591 41.858 180.67 43.3125C179.761 44.7557 178.415 45.8977 176.63 46.7386C174.846 47.5795 172.647 48 170.034 48H155.119ZM162.5 41.9659H168.517C170.574 41.9659 172.074 41.5739 173.017 40.7898C173.96 39.9943 174.432 38.9375 174.432 37.6193C174.432 36.6534 174.199 35.8011 173.733 35.0625C173.267 34.3239 172.602 33.7443 171.738 33.3239C170.886 32.9034 169.869 32.6932 168.687 32.6932H162.5V41.9659ZM162.5 27.6989H167.971C168.983 27.6989 169.88 27.5227 170.665 27.1705C171.46 26.8068 172.085 26.2955 172.54 25.6364C173.005 24.9773 173.238 24.1875 173.238 23.267C173.238 22.0057 172.79 20.9886 171.892 20.2159C171.005 19.4432 169.744 19.0568 168.108 19.0568H162.5V27.6989ZM191.173 48V13.0909H214.696V19.1761H198.554V27.4943H213.486V33.5795H198.554V41.9148H214.764V48H191.173ZM228.992 48.4432C227.867 48.4432 226.901 48.0455 226.094 47.25C225.299 46.4432 224.901 45.4773 224.901 44.3523C224.901 43.2386 225.299 42.2841 226.094 41.4886C226.901 40.6932 227.867 40.2955 228.992 40.2955C230.083 40.2955 231.038 40.6932 231.856 41.4886C232.674 42.2841 233.083 43.2386 233.083 44.3523C233.083 45.1023 232.89 45.7898 232.503 46.4148C232.128 47.0284 231.634 47.5227 231.02 47.8977C230.407 48.2614 229.731 48.4432 228.992 48.4432Z" fill="url(#paint0_linear_cover2)"/>
+    <path d="M257.29 48V13.0909H280.812V19.1761H264.67V27.4943H279.602V33.5795H264.67V41.9148H280.881V48H257.29ZM320.199 13.0909V48H313.824L298.637 26.0284H298.381V48H291V13.0909H297.478L312.546 35.0455H312.853V13.0909H320.199ZM330.617 48V13.0909H354.14V19.1761H337.998V27.4943H352.93V33.5795H337.998V41.9148H354.208V48H330.617ZM364.328 48V13.0909H378.101C380.737 13.0909 382.987 13.5625 384.851 14.5057C386.726 15.4375 388.152 16.7614 389.129 18.4773C390.118 20.1818 390.612 22.1875 390.612 24.4943C390.612 26.8125 390.112 28.8068 389.112 30.4773C388.112 32.1364 386.663 33.4091 384.765 34.2955C382.879 35.1818 380.595 35.625 377.913 35.625H368.691V29.6932H376.72C378.129 29.6932 379.299 29.5 380.231 29.1136C381.163 28.7273 381.856 28.1477 382.311 27.375C382.777 26.6023 383.01 25.642 383.01 24.4943C383.01 23.3352 382.777 22.358 382.311 21.5625C381.856 20.767 381.157 20.1648 380.214 19.7557C379.282 19.3352 378.106 19.125 376.686 19.125H371.709V48H364.328ZM383.18 32.1136L391.856 48H383.709L375.22 32.1136H383.18ZM423.296 24.375C423.057 23.5455 422.722 22.8125 422.29 22.1761C421.858 21.5284 421.33 20.983 420.705 20.5398C420.091 20.0852 419.386 19.7386 418.591 19.5C417.807 19.2614 416.938 19.142 415.983 19.142C414.199 19.142 412.631 19.5852 411.279 20.4716C409.938 21.358 408.892 22.6477 408.142 24.3409C407.392 26.0227 407.017 28.0795 407.017 30.5114C407.017 32.9432 407.386 35.0114 408.125 36.7159C408.864 38.4205 409.909 39.7216 411.261 40.6193C412.614 41.5057 414.21 41.9489 416.051 41.9489C417.722 41.9489 419.148 41.6534 420.33 41.0625C421.523 40.4602 422.432 39.6136 423.057 38.5227C423.693 37.4318 424.011 36.142 424.011 34.6534L425.511 34.875H416.511V29.3182H431.119V33.7159C431.119 36.7841 430.472 39.4205 429.176 41.625C427.881 43.8182 426.097 45.5114 423.824 46.7045C421.551 47.8864 418.949 48.4773 416.017 48.4773C412.744 48.4773 409.869 47.7557 407.392 46.3125C404.915 44.858 402.983 42.7955 401.597 40.125C400.222 37.4432 399.534 34.2614 399.534 30.5795C399.534 27.75 399.943 25.2273 400.761 23.0114C401.591 20.7841 402.75 18.8977 404.239 17.3523C405.727 15.8068 407.46 14.6307 409.438 13.8239C411.415 13.017 413.557 12.6136 415.864 12.6136C417.841 12.6136 419.682 12.9034 421.386 13.483C423.091 14.0511 424.602 14.858 425.921 15.9034C427.25 16.9489 428.335 18.1932 429.176 19.6364C430.017 21.0682 430.557 22.6477 430.796 24.375H423.296ZM437.532 13.0909H445.799L453.759 28.125H454.1L462.06 13.0909H470.327L457.594 35.6591V48H450.265V35.6591L437.532 13.0909Z" fill="white"/>
+    <defs>
+      <linearGradient id="paint0_linear_cover2" x1="60" y1="31" x2="226.736" y2="31" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#00AA97"/>
+        <stop offset="1" stop-color="#0085E3"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <div class="cover-title">COMPETITIVE LANDSCAPE<br>REPORT</div>
+  <div class="cover-subtitle">NON-CONVENTIONAL ELECTROLYSIS STARTUPS &mdash; BENCHMARKING ANALYSIS</div>
+  <div class="cover-confidential"> &mdash; AUTHORIZED INVESTOR ACCESS ONLY</div>
+  <div class="cover-date">MARCH 2026</div>
+  <div class="cover-sources">Sources: PitchBook company profiles, S&amp;P Platts Hydrogen Price Index, company disclosures</div>
+</div>
+
+<!-- SECTION 1: EXECUTIVE SUMMARY -->
+<div class="section">
+  <div class="section-number">SECTION 01</div>
+  <h2>Executive Summary</h2>
+
+  <p>The green hydrogen space has attracted billions in venture capital, but most funding has gone to companies iterating on conventional electrolysis architectures &mdash; PEM, alkaline, and SOEC. A smaller cohort of "non-conventional" startups claims breakthrough approaches.</p>
+
+  <p>This report benchmarks Tobe Energy against the three most comparable non-conventional electrolysis startups: <strong>Advanced Ionics</strong>, <strong>Fourier</strong>, and <strong>HGen</strong>.</p>
+
+  <div class="insight-card">
+    <div class="callout-title">BOTTOM LINE</div>
+    <p>Tobe Energy achieved a more advanced pilot system than all three comparables &mdash; with less capital, fewer employees, and full in-house engineering and manufacturing capability. While competitors are still scaling lab prototypes, Tobe is deploying commercially.</p>
+  </div>
+</div>
+
+<!-- SECTION 2: COMPANY PROFILES -->
+<div class="section">
+  <div class="section-number">SECTION 02</div>
+  <h2>Company Profiles</h2>
+
+  <div class="profile-card">
+    <h3>Advanced Ionics &mdash; Milwaukee, WI</h3>
+    <div class="profile-grid">
+      <span class="label">Founded</span><span class="value">2017 (8 years old)</span>
+      <span class="label">Employees</span><span class="value">26</span>
+      <span class="label">Total Raised</span><span class="value">$21.1M (Seed + $16.7M Series A, Nov 2024)</span>
+      <span class="label">Pre-money Valuation</span><span class="value">$42.3M (Series A)</span>
+      <span class="label">Lead Investors</span><span class="value">bp Ventures, Mitsubishi Heavy Industries</span>
+      <span class="label">Technology</span><span class="value">RSOEC-like vapor-phase electrolysis ("Symbion")</span>
+      <span class="label">Operating Temp</span><span class="value">~300&deg;C</span>
+      <span class="label">Membrane</span><span class="value">None (vapor-phase eliminates traditional membrane)</span>
+      <span class="label">Rare Earths</span><span class="value">Nickel + stainless steel (no Pt/Ir)</span>
+      <span class="label">Efficiency Claim</span><span class="value">35 kWh/kg target (stack only, not demonstrated); ~75% HHV est.</span>
+      <span class="label">Pilot Scale</span><span class="value">800 cm&sup2; active area</span>
+      <span class="label">Pilot Cost</span><span class="value">~$4M</span>
+      <span class="label">Manufacturing</span><span class="value">Partnered scale-up (not in-house)</span>
+      <span class="label">Status</span><span class="value">Pre-revenue, R&amp;D stage</span>
+    </div>
+    <div class="profile-takeaway">
+      Founded in 2017 with $21M raised and 26 employees over 8 years. Still at 800 cm&sup2; lab scale. The vapor-phase approach has theoretical thermodynamic advantages but requires 300&deg;C operating temperature, adding thermal management complexity that offsets efficiency gains at the system level.
+    </div>
+  </div>
+
+  <div class="profile-card">
+    <h3>Fourier &mdash; San Francisco, CA</h3>
+    <div class="profile-grid">
+      <span class="label">Founded</span><span class="value">2021</span>
+      <span class="label">Employees</span><span class="value">5</span>
+      <span class="label">Total Raised</span><span class="value">$23.6M (Seed + $18.5M Series A-1/A-2 + debt, Dec 2024)</span>
+      <span class="label">Pre-money Valuation</span><span class="value">$62M (Series A)</span>
+      <span class="label">Lead Investors</span><span class="value">Airbus Ventures, General Catalyst, Paramark Ventures</span>
+      <span class="label">Technology</span><span class="value">PEM stack (conventional architecture, "modular blade" form factor)</span>
+      <span class="label">Membrane</span><span class="value">Yes &mdash; standard PEM membrane (degrades)</span>
+      <span class="label">Rare Earths</span><span class="value">Yes &mdash; platinum, IrO&#8322;</span>
+      <span class="label">Efficiency</span><span class="value">50&ndash;55% HHV (standard PEM range)</span>
+      <span class="label">Pilot Cost</span><span class="value">~$5M</span>
+      <span class="label">Manufacturing</span><span class="value">Assembly only (components sourced externally)</span>
+      <span class="label">Status</span><span class="value">"Generating Revenue" (PitchBook) &mdash; likely small pilot sales/grants</span>
+    </div>
+    <div class="profile-takeaway">
+      Despite the "non-conventional" positioning, Fourier is essentially a conventional PEM electrolyzer repackaged in a modular form factor. Still requires platinum, iridium, and membranes. $62M pre-money valuation for 5 employees and a small modular PEM system.
+    </div>
+  </div>
+
+  <div class="profile-card">
+    <h3>HGen &mdash; Hawthorne, CA</h3>
+    <div class="profile-grid">
+      <span class="label">Founded</span><span class="value">2021</span>
+      <span class="label">Founders</span><span class="value">Molly Yang (CEO), Colin Ho (CTO)</span>
+      <span class="label">Employees</span><span class="value">6</span>
+      <span class="label">Total Raised</span><span class="value">$7M ($2M Seed Jul 2022 from Founders Fund + $5M Seed-1 Sep 2024 from Seven Seven Six)</span>
+      <span class="label">Post-money Valuation</span><span class="value">$25M</span>
+      <span class="label">Lead Investors</span><span class="value">Founders Fund (Seed), Seven Seven Six (Seed-1)</span>
+      <span class="label">Other Investors</span><span class="value">Breakthrough Energy, Climate Capital, Fontinalis Partners, Yishan Wong (fmr Reddit CEO)</span>
+      <span class="label">Technology</span><span class="value">Modular electrolyzers; SpaceX/Tesla-inspired manufacturing optimization; focuses on optimizing "the entire widget," not just the stack</span>
+      <span class="label">Target Markets</span><span class="value">Steel, ammonia, decarbonization</span>
+      <span class="label">Cap Table</span><span class="value">Seed-2 stock at $1.03/share (16.67% acquired); Seed-1 at $1.50/share (20% acquired); non-participating preferred, weighted avg anti-dilution</span>
+      <span class="label">Status</span><span class="value">"Generating Revenue" (PitchBook) &mdash; no public revenue figures</span>
+    </div>
+    <div class="profile-takeaway">
+      SpaceX/Tesla manufacturing DNA with high-profile investors (Founders Fund, Breakthrough Energy, Ohanian). $25M post-money valuation on $7M total raised with 6 employees. Listed as generating revenue on PitchBook but no public figures. Focuses on full-system optimization rather than novel cell chemistry.
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3: COMPARISON TABLE -->
+<div class="section">
+  <div class="section-number">SECTION 03</div>
+  <h2>Head-to-Head Comparison</h2>
+
+  <table style="page-break-inside: avoid; page-break-before: auto;">
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th style="color: #00ff88;">Tobe Energy</th>
+        <th>Advanced Ionics</th>
+        <th>Fourier</th>
+        <th>HGen</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="tobe-row">
+        <td>Founded</td>
+        <td><strong>2024</strong></td>
+        <td style="color:#e0e0e0;font-weight:400;">2017</td>
+        <td style="color:#e0e0e0;font-weight:400;">2021</td>
+        <td style="color:#e0e0e0;font-weight:400;">2021</td>
+      </tr>
+      <tr>
+        <td>Age at comparable stage</td>
+        <td class="emphasis">&lt;1 year</td>
+        <td>7 years</td>
+        <td>3 years</td>
+        <td>3 years</td>
+      </tr>
+      <tr class="tobe-row">
+        <td>Employees</td>
+        <td><strong>9</strong></td>
+        <td style="color:#e0e0e0;font-weight:400;">26</td>
+        <td style="color:#e0e0e0;font-weight:400;">5</td>
+        <td style="color:#e0e0e0;font-weight:400;">6</td>
+      </tr>
+      <tr>
+        <td>Total raised</td>
+        <td class="emphasis">$1.8M</td>
+        <td>$21.1M</td>
+        <td>$23.6M</td>
+        <td>$7M</td>
+      </tr>
+      <tr>
+        <td>Pre-money valuation</td>
+        <td>&mdash;</td>
+        <td>$42.3M</td>
+        <td>$62M</td>
+        <td>$25M (post)</td>
+      </tr>
+      <tr>
+        <td>Lead investors</td>
+        <td>Cortado Ventures</td>
+        <td>bp, Mitsubishi</td>
+        <td>Airbus, General Catalyst</td>
+        <td>776, Founders Fund</td>
+      </tr>
+      <tr>
+        <td>Electrolysis type</td>
+        <td class="emphasis">Isothermal, low-temp, membrane-free</td>
+        <td>Vapor-phase (RSOEC-like)</td>
+        <td>PEM (conventional)</td>
+        <td>Undisclosed</td>
+      </tr>
+      <tr class="tobe-row">
+        <td>Operating temp</td>
+        <td><strong>&lt;30&deg;C</strong></td>
+        <td style="color:#ff4444;font-weight:400;">~300&deg;C</td>
+        <td style="color:#e0e0e0;font-weight:400;">Unknown (high)</td>
+        <td style="color:#e0e0e0;font-weight:400;">Unknown</td>
+      </tr>
+      <tr>
+        <td>Membrane</td>
+        <td><span class="check">None</span></td>
+        <td>None (vapor)</td>
+        <td><span class="xmark">PEM (degrades)</span></td>
+        <td>Unknown</td>
+      </tr>
+      <tr>
+        <td>Rare earths</td>
+        <td><span class="check">None (304 SS)</span></td>
+        <td>Nickel + SS</td>
+        <td><span class="xmark">Pt, IrO&#8322;</span></td>
+        <td>Unknown</td>
+      </tr>
+      <tr class="tobe-row">
+        <td>System efficiency (HHV)</td>
+        <td><strong>&gt;92% (42 kWh/kg)</strong></td>
+        <td style="color:#e0e0e0;font-weight:400;">~75% est.</td>
+        <td style="color:#e0e0e0;font-weight:400;">50&ndash;55%</td>
+        <td style="color:#e0e0e0;font-weight:400;">Unknown</td>
+      </tr>
+      <tr>
+        <td>Pilot active area</td>
+        <td class="emphasis">6,400 cm&sup2;</td>
+        <td>800 cm&sup2;</td>
+        <td>Small blade</td>
+        <td>Unknown</td>
+      </tr>
+      <tr class="tobe-row">
+        <td>Pilot cost</td>
+        <td><strong>~$300K</strong></td>
+        <td style="color:#e0e0e0;font-weight:400;">~$4M</td>
+        <td style="color:#e0e0e0;font-weight:400;">~$5M</td>
+        <td style="color:#e0e0e0;font-weight:400;">Unknown</td>
+      </tr>
+      <tr>
+        <td>Engineering scope</td>
+        <td class="emphasis">Full-stack (system + cell + circuit + controls)</td>
+        <td>Stack only</td>
+        <td>Off-the-shelf PEM</td>
+        <td>Unknown</td>
+      </tr>
+      <tr>
+        <td>Manufacturing</td>
+        <td class="emphasis">Full in-house (CNC, PCB, transformer)</td>
+        <td>Partnered</td>
+        <td>Assembly only</td>
+        <td>Unknown</td>
+      </tr>
+      <tr class="tobe-row">
+        <td>Commercial deployment</td>
+        <td><strong>Q4 2026 &mdash; 600kW at Zeeco ARC</strong></td>
+        <td style="color:#ff4444;font-weight:400;">Not yet</td>
+        <td style="color:#ff4444;font-weight:400;">Not yet</td>
+        <td style="color:#ff4444;font-weight:400;">Not yet</td>
+      </tr>
+      <tr>
+        <td>Published pricing (Platts)</td>
+        <td><span class="check">Yes &mdash; $7.05/kg delivered</span></td>
+        <td><span class="xmark">No</span></td>
+        <td><span class="xmark">No</span></td>
+        <td><span class="xmark">No</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- SECTION 4: CAPITAL EFFICIENCY -->
+<div class="section no-break">
+  <div class="section-number">SECTION 04</div>
+  <h2>What This Means</h2>
+
+  <h3>1. Capital Efficiency</h3>
+
+  <p>Tobe built a 6,400 cm&sup2; pilot system for $300K. Advanced Ionics spent $4M for an 800 cm&sup2; system. Fourier spent $5M for a small modular blade.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Company</th>
+        <th>Pilot Cost</th>
+        <th>Active Area</th>
+        <th>$/cm&sup2;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="tobe-row">
+        <td><strong>Tobe</strong></td>
+        <td><strong>$300K</strong></td>
+        <td><strong>6,400 cm&sup2;</strong></td>
+        <td><strong>$47/cm&sup2;</strong></td>
+      </tr>
+      <tr>
+        <td>Advanced Ionics</td>
+        <td>$4M</td>
+        <td>800 cm&sup2;</td>
+        <td>$5,000/cm&sup2;</td>
+      </tr>
+      <tr>
+        <td>Fourier</td>
+        <td>$5M</td>
+        <td>~500 cm&sup2; (est.)</td>
+        <td>~$10,000/cm&sup2;</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="stat-value">100x</div>
+      <div class="stat-label">More Capital Efficient</div>
+      <div class="stat-note">vs. Advanced Ionics on $/cm&sup2; basis</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">8x</div>
+      <div class="stat-label">Larger Pilot Area</div>
+      <div class="stat-note">6,400 cm&sup2; vs. 800 cm&sup2;</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value orange">$300K</div>
+      <div class="stat-label">Total Pilot Cost</div>
+      <div class="stat-note">vs. $4M&ndash;5M for competitors</div>
+    </div>
+  </div>
+
+  <div class="insight-card">
+    <div class="callout-title">STRUCTURAL ADVANTAGE</div>
+    <p>Tobe is <span class="emphasis">100x more capital-efficient</span> at the pilot stage. This isn't an incremental advantage &mdash; it's a structural one that comes from vertical integration and in-house engineering.</p>
+  </div>
+
+  <h3>2. Speed of Execution</h3>
+  <ul>
+    <li>Advanced Ionics was founded in <strong>2017</strong> and is still at lab scale after 8 years and $21M.</li>
+    <li>Fourier was founded in <strong>2021</strong> and has a small modular PEM unit after 4 years and $24M.</li>
+    <li>Tobe was founded in <strong>2024</strong> and is deploying a <span class="emphasis">600kW commercial system</span> within 2 years of founding on $1.8M.</li>
+  </ul>
+
+  <h3>3. Technology Differentiation</h3>
+  <p>Advanced Ionics' vapor-phase approach eliminates the membrane but introduces a 300&deg;C operating temperature &mdash; requiring insulation, thermal management, and high-temperature materials that add cost and complexity. Fourier isn't really non-conventional at all &mdash; it's a PEM electrolyzer in a modular package, still dependent on platinum, iridium, and membranes.</p>
+
+  <p>Tobe operates at <span class="emphasis">&lt;30&deg;C</span> with no membrane, no rare earths, and no cooling system. The simplicity of the architecture is the competitive advantage.</p>
+
+  <h3>4. Pricing Transparency</h3>
+  <p>Tobe is the only company in this cohort to publish its hydrogen pricing methodology through an independent third party (S&amp;P Platts). At $7.05/kg delivered with 30% margin and no subsidies, Tobe's pricing is verifiable and competitive with conventional hydrogen delivery.</p>
+</div>
+
+<!-- SECTION 5: TIMELINE -->
+<div class="section no-break">
+  <div class="section-number">SECTION 05</div>
+  <h2>Timeline</h2>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-year">2017</div>
+      <div class="timeline-desc">Advanced Ionics founded in Milwaukee, WI</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">2021</div>
+      <div class="timeline-desc">Fourier founded in San Francisco, CA; HGen founded in Hawthorne, CA</div>
+    </div>
+    <div class="timeline-item tobe">
+      <div class="timeline-year">2024</div>
+      <div class="timeline-desc">Tobe Energy founded in Oklahoma City, OK</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">2024 (NOV)</div>
+      <div class="timeline-desc">Advanced Ionics raises $16.7M Series A &mdash; still at 800 cm&sup2; lab scale</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">2024 (DEC)</div>
+      <div class="timeline-desc">Fourier raises $18.5M Series A &mdash; small modular PEM blade</div>
+    </div>
+    <div class="timeline-item tobe">
+      <div class="timeline-year">2025</div>
+      <div class="timeline-desc">Tobe raises $1.8M pre-seed, builds 6,400 cm&sup2; pilot, publishes Platts pricing</div>
+    </div>
+    <div class="timeline-item tobe">
+      <div class="timeline-year">2026</div>
+      <div class="timeline-desc"><strong>Tobe deploys 600kW commercial system at Zeeco ARC</strong> &mdash; while all three competitors remain in lab/early R&amp;D</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 6: KEY TAKEAWAYS -->
+<div class="section">
+  <div class="section-number">SECTION 06</div>
+  <h2>Key Takeaways</h2>
+
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="stat-value">$1.8M</div>
+      <div class="stat-label">Total Raised</div>
+      <div class="stat-note">vs. $7&ndash;24M for comparables</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value cyan">&lt;2 yrs</div>
+      <div class="stat-label">Founded to Commercial</div>
+      <div class="stat-note">vs. 4&ndash;8+ years for comparables</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">&gt;92%</div>
+      <div class="stat-label">System Efficiency (HHV)</div>
+      <div class="stat-note">vs. 50&ndash;75% for comparables</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">THE CAPITAL EFFICIENCY STORY</div>
+    <p>"$300K pilot with 8x the active area of a $4M system. That's not luck &mdash; that's what happens when you build everything in-house."</p>
+  </div>
+
+  <div class="insight-card">
+    <div class="callout-title">THE DEPLOYMENT STORY</div>
+    <p>Commercial production is the only metric that ultimately matters. While Advanced Ionics iterates on lab prototypes after 8 years, Fourier repackages conventional PEM technology, and HGen remains in stealth &mdash; <span class="emphasis">Tobe is shipping a 600kW system to a paying customer.</span></p>
+  </div>
+
+  <p class="small-note">Sources: PitchBook company profiles (via Stanford GSB access), S&amp;P Platts Hydrogen Price Index, company disclosures. March 2026.</p>
+</div>
+
+</body>
+</html>

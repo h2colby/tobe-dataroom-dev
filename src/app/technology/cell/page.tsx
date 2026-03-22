@@ -16,7 +16,7 @@ function useAutoplayVideos() {
 
 function SectionDivider() {
   return (
-    <div className="my-12 flex items-center gap-4">
+    <div className="my-4 flex items-center gap-4">
       <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#ff6b35]/20 to-transparent" />
       <span className="font-mono text-xs tracking-[0.3em] text-[#ff6b35]/30"
         style={{ textShadow: '0 0 8px rgba(255,107,53,0.15)' }}>═══════</span>
@@ -32,14 +32,14 @@ export default function ElectrolysisCellPage() {
       {/* Hero */}
       <section className="relative border-b border-white/10 px-6 py-16">
         <div className="mx-auto max-w-6xl">
-          <div className="mb-2 text-[0.7rem] tracking-[0.2em] text-[#00d4ff] glow-cyan">
+          <div className="mb-2 text-[0.7rem] tracking-[0.2em] text-[#ff6b35] glow-orange">
             ┌─── TECHNOLOGY / ELECTROLYSIS CELL ───┐
           </div>
           <h1 className="mb-2 text-4xl font-bold tracking-tight md:text-5xl">
             The Capacitive Cell
           </h1>
-          <h2 className="mb-6 text-2xl font-bold tracking-tight text-[#00d4ff] md:text-3xl"
-            style={{ textShadow: '0 0 12px rgba(0,212,255,0.3)' }}>
+          <h2 className="mb-6 text-2xl font-bold tracking-tight text-[#ff6b35] md:text-3xl"
+            style={{ textShadow: '0 0 12px rgba(255,107,53,0.3)' }}>
             Membrane-free by design, not by compromise.
           </h2>
           <p className="max-w-3xl font-sans text-lg leading-relaxed text-white/60">
@@ -80,7 +80,7 @@ export default function ElectrolysisCellPage() {
                 'Capacitive electrolysis with pulsed waveform architecture',
                 'No membrane — eliminates the primary degradation mechanism',
                 'No precious metals — no iridium, platinum, or rare earths',
-                'No cooling system — operates at ~28°C',
+                'No cooling system — operates below 30°C',
                 'Pulse frequency range: 10 kHz – 250 kHz',
                 '304 stainless steel construction',
                 '30-minute field swap demonstrated',
@@ -95,14 +95,14 @@ export default function ElectrolysisCellPage() {
             {/* Operating Conditions */}
             <div className="mt-8 grid grid-cols-2 gap-3">
               {[
-                { label: 'STACK TEMP', value: '27–28°C', note: 'Near-ambient, no cooling required' },
-                { label: 'STACK PRESSURE', value: '2.75 bar', note: '~25 psig operating' },
-                { label: 'H₂ OUTPUT', value: '50 psig', note: '3.08 bar(g) delivery pressure' },
-                { label: 'WATER INPUT', value: 'Municipal', note: 'TDS tolerant, RO + DI polishing' },
+                { label: 'STACK TEMP', value: '<30°C', note: 'Near-ambient, no cooling required' },
+                { label: 'STACK PRESSURE', value: '5.5 bar', note: '~80 psig operating' },
+                { label: 'H₂ OUTPUT', value: 'Up to 700 bar', note: 'High-pressure delivery if required' },
+                { label: 'WATER INPUT', value: 'Municipal or Well', note: 'TDS tolerant — RO system sized to source quality' },
               ].map((c) => (
-                <div key={c.label} className="border-l-2 border-[#00d4ff]/30 bg-[#00d4ff]/[0.03] px-3 py-2">
-                  <p className="text-[0.6rem] tracking-[0.12em] text-[#00d4ff]/70">{c.label}</p>
-                  <p className="text-lg font-bold text-[#00d4ff]" style={{ textShadow: '0 0 8px rgba(0,212,255,0.3)' }}>{c.value}</p>
+                <div key={c.label} className="border-l-2 border-[#ff6b35]/30 bg-[#ff6b35]/[0.03] px-3 py-2">
+                  <p className="text-[0.6rem] tracking-[0.12em] text-[#ff6b35]/70">{c.label}</p>
+                  <p className="text-lg font-bold text-[#ff6b35]" style={{ textShadow: '0 0 8px rgba(255,107,53,0.3)' }}>{c.value}</p>
                   <p className="text-[0.65rem] text-white/40">{c.note}</p>
                 </div>
               ))}
@@ -118,7 +118,7 @@ export default function ElectrolysisCellPage() {
         <SectionDivider />
 
         {/* ═══ HOW IT'S MADE ═══ */}
-        <section className="py-12">
+        <section className="py-6">
           <div className="mb-6 text-[0.7rem] tracking-[0.2em] text-[#ff6b35] glow-orange">
             ┌─── HOW IT&apos;S MADE ───┐
           </div>
@@ -162,8 +162,8 @@ export default function ElectrolysisCellPage() {
         <SectionDivider />
 
         {/* ═══ SPEC TABLE ═══ */}
-        <section className="py-12">
-          <div className="mb-6 text-[0.7rem] tracking-[0.2em] text-[#00d4ff] glow-cyan">
+        <section className="py-6">
+          <div className="mb-6 text-[0.7rem] tracking-[0.2em] text-[#ff6b35] glow-orange">
             ┌─── PERFORMANCE SPECIFICATIONS ───┐
           </div>
 
@@ -180,20 +180,20 @@ export default function ElectrolysisCellPage() {
               ['Specific Energy (stack)', '42.2 kWh/kg', '42.2 kWh/kg'],
               ['Specific Energy (system)', '46 kWh/kg', '46 kWh/kg'],
               ['H₂ Purity (post-purification)', '≥99.99%', '≥99.99%'],
-              ['Operating Temperature', '27–28°C', '27–28°C'],
-              ['Stack Pressure', '2.75 bar(g)', '2.75 bar(g)'],
-              ['H₂ Delivery Pressure', '50 psig', '50 psig'],
-              ['Water Consumption', '10 kg/kg H₂', '10 kg/kg H₂'],
+              ['Operating Temperature', '<30°C', '<30°C'],
+              ['Stack Pressure', '5.5 bar(g)', '5.5 bar(g)'],
+              ['H₂ Delivery Pressure', 'Up to 700 bar', 'Up to 700 bar'],
+              ['Water Consumption', '~11–12 kg/kg H₂', '~11–12 kg/kg H₂'],
               ['Stack Design Life', '80,000+ hrs', '80,000+ hrs'],
               ['Field Swap Time', '30 min', '30 min'],
-              ['Power Supply', '480VAC 3-phase', '480VAC 3-phase'],
+              ['Power Supply', '480VAC 3φ / 1500VDC solar', '480VAC 3φ / 1500VDC solar'],
             ].map(([param, t25, t125], i) => (
               <div key={param} className={`grid grid-cols-3 ${i % 2 === 0 ? 'bg-[#12121a]' : 'bg-[#0f0f17]'}`}>
                 <div className="px-5 py-3 text-sm text-white/60">{param}</div>
-                <div className="border-l border-white/5 px-5 py-3 text-sm font-bold text-[#00ff88]"
-                  style={{ textShadow: '0 0 6px rgba(0,255,136,0.15)' }}>{t25}</div>
-                <div className="border-l border-white/5 px-5 py-3 text-sm font-bold text-[#00ff88]"
-                  style={{ textShadow: '0 0 6px rgba(0,255,136,0.15)' }}>{t125}</div>
+                <div className="border-l border-white/5 px-5 py-3 text-sm font-bold text-[#ff6b35]"
+                  style={{ textShadow: '0 0 6px rgba(255,107,53,0.15)' }}>{t25}</div>
+                <div className="border-l border-white/5 px-5 py-3 text-sm font-bold text-[#ff6b35]"
+                  style={{ textShadow: '0 0 6px rgba(255,107,53,0.15)' }}>{t125}</div>
               </div>
             ))}
           </div>
@@ -207,8 +207,8 @@ export default function ElectrolysisCellPage() {
         <SectionDivider />
 
         {/* ═══ WHY STAINLESS STEEL ═══ */}
-        <section className="py-12">
-          <div className="mb-6 text-[0.7rem] tracking-[0.2em] text-[#00d4ff] glow-cyan">
+        <section className="py-6">
+          <div className="mb-6 text-[0.7rem] tracking-[0.2em] text-[#ff6b35] glow-orange">
             ┌─── MATERIALS ───┐
           </div>
 
@@ -230,14 +230,14 @@ export default function ElectrolysisCellPage() {
             </div>
 
             {/* Tobe */}
-            <div className="border-l-[3px] border-[#00ff88] bg-[#12121a] px-6 py-6"
-              style={{ borderTop: '1px solid rgba(0,255,136,0.08)', borderRight: '1px solid rgba(0,255,136,0.08)', borderBottom: '1px solid rgba(0,255,136,0.08)' }}>
-              <div className="mb-3 text-[0.7rem] tracking-[0.18em] text-[#00ff88]">TOBE ENERGY</div>
+            <div className="border-l-[3px] border-[#ff6b35] bg-[#12121a] px-6 py-6"
+              style={{ borderTop: '1px solid rgba(255,107,53,0.08)', borderRight: '1px solid rgba(255,107,53,0.08)', borderBottom: '1px solid rgba(255,107,53,0.08)' }}>
+              <div className="mb-3 text-[0.7rem] tracking-[0.18em] text-[#ff6b35]">TOBE ENERGY</div>
               <div className="space-y-2 font-sans text-sm text-[#b0b0c0]">
                 <p>304 stainless steel — commodity industrial material, globally abundant</p>
                 <p>No precious metals — zero iridium, zero platinum</p>
                 <p>No membrane — eliminates primary degradation mechanism</p>
-                <p className="pt-2 font-bold text-[#00ff88]">Design stack life: 80,000+ hours</p>
+                <p className="pt-2 font-bold text-[#ff6b35]">Design stack life: 80,000+ hours</p>
               </div>
             </div>
           </div>
@@ -246,7 +246,7 @@ export default function ElectrolysisCellPage() {
         <SectionDivider />
 
         {/* ═══ COMPARISON ═══ */}
-        <section className="py-12">
+        <section className="py-6">
           <div className="mb-6 text-[0.7rem] tracking-[0.2em] text-[#ff6b35] glow-orange">
             ┌─── vs CONVENTIONAL ELECTROLYZERS ───┐
           </div>
@@ -254,13 +254,13 @@ export default function ElectrolysisCellPage() {
           <div className="overflow-hidden border border-white/5 bg-[#12121a]">
             <div className="grid grid-cols-4 border-b border-white/10 bg-[#0e0e16]">
               <div className="px-5 py-3 text-[0.65rem] tracking-[0.15em] text-[#6a6a7a]">PARAMETER</div>
-              <div className="border-l border-white/5 px-5 py-3 text-[0.65rem] tracking-[0.15em] text-[#00ff88]">TOBE</div>
+              <div className="border-l border-white/5 px-5 py-3 text-[0.65rem] tracking-[0.15em] text-[#ff6b35]">TOBE</div>
               <div className="border-l border-white/5 px-5 py-3 text-[0.65rem] tracking-[0.15em] text-[#ff4444]/60">PEM</div>
               <div className="border-l border-white/5 px-5 py-3 text-[0.65rem] tracking-[0.15em] text-[#ff4444]/60">ALKALINE</div>
             </div>
             {[
               ['Specific Energy (kWh/kg)', '42–46', '50–58', '51–56'],
-              ['Operating Temp (°C)', '27–28', '60–80', '60–80'],
+              ['Operating Temp (°C)', '<30', '60–80', '60–80'],
               ['Membrane', 'None', 'PEM (degrades)', 'Diaphragm'],
               ['Precious Metals', 'None', 'Ir, Pt', 'None (KOH)'],
               ['Cooling System', 'Not required', 'Required', 'Required'],
@@ -269,8 +269,8 @@ export default function ElectrolysisCellPage() {
             ].map(([param, tobe, pem, alk], i) => (
               <div key={param} className={`grid grid-cols-4 ${i % 2 === 0 ? 'bg-[#12121a]' : 'bg-[#0f0f17]'}`}>
                 <div className="px-5 py-3 text-sm text-white/60">{param}</div>
-                <div className="border-l border-white/5 px-5 py-3 text-sm font-bold text-[#00ff88]"
-                  style={{ textShadow: '0 0 6px rgba(0,255,136,0.15)' }}>{tobe}</div>
+                <div className="border-l border-white/5 px-5 py-3 text-sm font-bold text-[#ff6b35]"
+                  style={{ textShadow: '0 0 6px rgba(255,107,53,0.15)' }}>{tobe}</div>
                 <div className="border-l border-white/5 px-5 py-3 text-sm text-white/40">{pem}</div>
                 <div className="border-l border-white/5 px-5 py-3 text-sm text-white/40">{alk}</div>
               </div>
@@ -281,11 +281,11 @@ export default function ElectrolysisCellPage() {
         <SectionDivider />
 
         {/* ═══ NAVIGATE ═══ */}
-        <section className="py-12">
+        <section className="py-6">
           <div className="grid gap-4 sm:grid-cols-2">
             <Link href="/technology/power-converter"
-              className="group border-l-[3px] border-[#00d4ff] bg-[#12121a] px-6 py-6 transition-all hover:bg-[#14141e]"
-              style={{ borderTop: '1px solid rgba(0,212,255,0.08)', borderRight: '1px solid rgba(0,212,255,0.08)', borderBottom: '1px solid rgba(0,212,255,0.08)' }}>
+              className="group border-l-[3px] border-[#ff6b35] bg-[#12121a] px-6 py-6 transition-all hover:bg-[#14141e]"
+              style={{ borderTop: '1px solid rgba(255,107,53,0.08)', borderRight: '1px solid rgba(255,107,53,0.08)', borderBottom: '1px solid rgba(255,107,53,0.08)' }}>
               <h3 className="mb-2 text-lg font-bold text-white">Power Converter →</h3>
               <p className="font-sans text-sm text-[#8a8a9a]">
                 Custom resonant LLC topology. From waveform generation to hydrogen output.
@@ -306,9 +306,8 @@ export default function ElectrolysisCellPage() {
       <footer className="border-t border-white/10 px-6 py-6">
         <div className="mx-auto max-w-6xl text-center">
           <pre className="text-xs text-[#ff6b35]/20" style={{ textShadow: '0 0 6px rgba(255,107,53,0.08)' }}>
-            {`═══════════════════════════════════════════════════════════
- TOBE ENERGY CORP // CONFIDENTIAL // 2026
-═══════════════════════════════════════════════════════════`}
+            {`TOBE ENERGY CORP // OKLAHOMA CITY, USA // EST. 2024
+CONFIDENTIAL — AUTHORIZED INVESTOR ACCESS ONLY`}
           </pre>
         </div>
       </footer>

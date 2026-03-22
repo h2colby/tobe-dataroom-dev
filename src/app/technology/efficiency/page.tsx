@@ -61,10 +61,10 @@ export default function EfficiencyPage() {
     <div className="relative min-h-screen bg-[#0a0a0f] font-mono text-white">
 
       {/* ═══ HERO ═══ */}
-      <section className="relative border-b border-white/10 px-6 py-20">
-        <div className="mx-auto max-w-5xl">
+      <section className="relative border-b border-white/10 px-6 py-16">
+        <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs leading-tight text-[#ff6b35]/70 sm:text-sm" style={{ whiteSpace: 'pre' }}>
-{`\u250c\u2500\u2500\u2500 TECHNOLOGY \u2500\u2500\u2500 EFFICIENCY & TEST RESULTS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510`}
+{`┌─── TECHNOLOGY ─── EFFICIENCY & TEST RESULTS ───┐`}
           </pre>
 
           <motion.p
@@ -73,7 +73,7 @@ export default function EfficiencyPage() {
             transition={{ duration: 0.4, delay: 0.05 }}
             className="mb-3 text-sm tracking-widest text-[#ff6b35] uppercase"
           >
-            \u25b8 Measured Performance Data
+            ▸ Measured Performance Data
           </motion.p>
 
           <motion.h1
@@ -83,7 +83,7 @@ export default function EfficiencyPage() {
             className="mb-4 text-4xl font-bold tracking-tight md:text-5xl"
           >
             Efficiency &{' '}
-            <span className="text-[#00ff88]" style={{ textShadow: '0 0 12px rgba(0,255,136,0.5)' }}>
+            <span className="text-[#ff6b35]" style={{ textShadow: '0 0 12px rgba(255,107,53,0.5)' }}>
               Test Results
             </span>
           </motion.h1>
@@ -104,8 +104,8 @@ export default function EfficiencyPage() {
             className="grid grid-cols-1 gap-4 sm:grid-cols-3"
           >
             {[
-              { label: 'MEASURED SEC', value: '46.08', unit: 'kWh/kg', color: '#00ff88' },
-              { label: 'OPERATING TEMP', value: '~28\u00b0C', unit: 'Near Ambient', color: '#00d4ff' },
+              { label: 'MEASURED SEC', value: '46.08', unit: 'kWh/kg', color: '#ff6b35' },
+              { label: 'OPERATING TEMP', value: '~28\u00b0C', unit: 'Near Ambient', color: '#ff6b35' },
               { label: 'DATA POINTS', value: '22,103', unit: 'Logged Samples', color: '#ff6b35' },
             ].map((s, i) => (
               <motion.div
@@ -130,7 +130,7 @@ export default function EfficiencyPage() {
 
       {/* ═══ WALL-TO-PLUG: WHY IT MATTERS ═══ */}
       <section className="border-b border-white/10 px-6 py-16">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
 {`\u250c\u2500\u2500\u2500 WALL-TO-PLUG: WHY IT MATTERS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510`}
           </pre>
@@ -152,7 +152,7 @@ export default function EfficiencyPage() {
               Power conversion losses, balance of plant, compression, controls &mdash; all excluded.
             </p>
             <p>
-              Tobe reports <span className="text-[#00ff88] font-semibold">wall-to-plug efficiency</span>: AC power in, hydrogen out.
+              Tobe reports <span className="text-[#ff6b35] font-semibold">wall-to-plug efficiency</span>: AC power in, hydrogen out.
               The number an operator actually sees on their electric bill.
             </p>
           </motion.div>
@@ -167,7 +167,7 @@ export default function EfficiencyPage() {
             className="overflow-hidden rounded border border-white/10 bg-white/[0.02]"
           >
             <div className="border-b border-white/10 bg-white/[0.03] px-4 py-2">
-              <span className="text-xs tracking-[0.15em] text-[#ff6b35]">\u25b8 EFFICIENCY COMPARISON &mdash; WHAT&apos;S ACTUALLY MEASURED</span>
+              <span className="text-xs tracking-[0.15em] text-[#ff6b35]">▸ EFFICIENCY COMPARISON &mdash; WHAT&apos;S ACTUALLY MEASURED</span>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
@@ -175,24 +175,24 @@ export default function EfficiencyPage() {
                   <tr className="border-b border-white/10 text-left">
                     <th className="px-4 py-3 text-xs tracking-wider text-white/40">What&apos;s Measured</th>
                     <th className="px-4 py-3 text-xs tracking-wider text-white/40">PEM (Industry)</th>
-                    <th className="px-4 py-3 text-xs tracking-wider text-[#00ff88]">Tobe</th>
+                    <th className="px-4 py-3 text-xs tracking-wider text-[#ff6b35]">Tobe</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/5">
                   <tr>
                     <td className="px-4 py-3 text-white/60">Stack only</td>
                     <td className="px-4 py-3 text-white/50">50&ndash;55 kWh/kg</td>
-                    <td className="px-4 py-3 font-semibold text-[#00ff88]">42.2 kWh/kg</td>
+                    <td className="px-4 py-3 font-semibold text-[#ff6b35]">42.2 kWh/kg</td>
                   </tr>
                   <tr>
                     <td className="px-4 py-3 text-white/60">+ BOP &amp; auxiliaries</td>
                     <td className="px-4 py-3 text-white/50">+4&ndash;8 kWh/kg</td>
-                    <td className="px-4 py-3 font-semibold text-[#00ff88]">included</td>
+                    <td className="px-4 py-3 font-semibold text-[#ff6b35]">included</td>
                   </tr>
                   <tr className="bg-white/[0.02]">
                     <td className="px-4 py-3 font-semibold text-white/80">TRUE System (wall-to-plug)</td>
                     <td className="px-4 py-3 text-[#ff6b35]">55&ndash;63 kWh/kg</td>
-                    <td className="px-4 py-3 font-bold text-[#00ff88]" style={{ textShadow: '0 0 8px rgba(0,255,136,0.4)' }}>46.08 kWh/kg</td>
+                    <td className="px-4 py-3 font-bold text-[#ff6b35]" style={{ textShadow: '0 0 8px rgba(255,107,53,0.4)' }}>46.08 kWh/kg</td>
                   </tr>
                   <tr>
                     <td className="px-4 py-3 text-white/60">NREL PEM benchmark</td>
@@ -216,7 +216,7 @@ export default function EfficiencyPage() {
 
       {/* ═══ TEST RESULTS — 4 BENCH RUNS ═══ */}
       <section className="border-b border-white/10 px-6 py-16">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
 {`\u250c\u2500\u2500\u2500 TEST RESULTS \u2500 4 BENCH RUNS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510`}
           </pre>
@@ -234,7 +234,7 @@ export default function EfficiencyPage() {
             className="overflow-hidden rounded border border-white/10 bg-white/[0.02]"
           >
             <div className="border-b border-white/10 bg-white/[0.03] px-4 py-2">
-              <span className="text-xs tracking-[0.15em] text-[#ff6b35]">\u25b8 BENCH TEST DATA &mdash; PROTOTYPE ELECTROLYZER</span>
+              <span className="text-xs tracking-[0.15em] text-[#ff6b35]">▸ BENCH TEST DATA &mdash; PROTOTYPE ELECTROLYZER</span>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
@@ -245,8 +245,8 @@ export default function EfficiencyPage() {
                     <th className="whitespace-nowrap px-4 py-3 text-xs tracking-wider text-white/40">Water</th>
                     <th className="whitespace-nowrap px-4 py-3 text-xs tracking-wider text-white/40">H&#x2082; (kg)</th>
                     <th className="whitespace-nowrap px-4 py-3 text-xs tracking-wider text-white/40">kg/day</th>
-                    <th className="whitespace-nowrap px-4 py-3 text-xs tracking-wider text-[#00ff88]">SEC (kWh/kg)</th>
-                    <th className="whitespace-nowrap px-4 py-3 text-xs tracking-wider text-[#00d4ff]">HHV Eff.</th>
+                    <th className="whitespace-nowrap px-4 py-3 text-xs tracking-wider text-[#ff6b35]">SEC (kWh/kg)</th>
+                    <th className="whitespace-nowrap px-4 py-3 text-xs tracking-wider text-[#ff6b35]">HHV Eff.</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/5">
@@ -264,8 +264,8 @@ export default function EfficiencyPage() {
                       <td className="whitespace-nowrap px-4 py-3 text-white/50">{r.water}</td>
                       <td className="whitespace-nowrap px-4 py-3 text-white/50">{r.h2}</td>
                       <td className="whitespace-nowrap px-4 py-3 text-white/50">{r.rate}</td>
-                      <td className="whitespace-nowrap px-4 py-3 font-semibold text-[#00ff88]">{r.sec}</td>
-                      <td className="whitespace-nowrap px-4 py-3 text-[#00d4ff]">{r.hhv}</td>
+                      <td className="whitespace-nowrap px-4 py-3 font-semibold text-[#ff6b35]">{r.sec}</td>
+                      <td className="whitespace-nowrap px-4 py-3 text-[#ff6b35]">{r.hhv}</td>
                     </motion.tr>
                   ))}
                 </tbody>
@@ -285,12 +285,12 @@ export default function EfficiencyPage() {
             viewport={{ once: true }}
             custom={2}
             variants={fadeUp}
-            className="mt-6 rounded border-l-2 border-[#00ff88]/40 bg-[#00ff88]/[0.03] px-5 py-4"
+            className="mt-6 rounded border-l-2 border-[#ff6b35]/40 bg-[#ff6b35]/[0.03] px-5 py-4"
           >
             <p className="text-sm leading-relaxed text-white/70">
-              These results use a <span className="font-semibold text-[#00ff88]">standard DC bench power supply</span> &mdash; the conservative floor.
+              These results use a <span className="font-semibold text-[#ff6b35]">standard DC bench power supply</span> &mdash; the conservative floor.
               The optimized pulsed waveform topology with resonant LLC converter achieves the{' '}
-              <span className="font-bold text-[#00ff88]" style={{ textShadow: '0 0 8px rgba(0,255,136,0.4)' }}>94.7% HHV (41.6 kWh/kg at stack)</span>{' '}
+              <span className="font-bold text-[#ff6b35]" style={{ textShadow: '0 0 8px rgba(255,107,53,0.4)' }}>94.7% HHV (41.6 kWh/kg at stack)</span>{' '}
               demonstrated at stack level.
             </p>
           </motion.div>
@@ -303,7 +303,7 @@ export default function EfficiencyPage() {
 
       {/* ═══ TEA MODELING SCENARIOS ═══ */}
       <section className="border-b border-white/10 px-6 py-16">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
 {`\u250c\u2500\u2500\u2500 TEA MODELING SCENARIOS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510`}
           </pre>
@@ -338,12 +338,12 @@ export default function EfficiencyPage() {
             <motion.div
               custom={1}
               variants={fadeUp}
-              className="rounded border border-[#00d4ff]/30 bg-[#00d4ff]/[0.03] p-5"
+              className="rounded border border-[#ff6b35]/30 bg-[#ff6b35]/[0.03] p-5"
             >
-              <div className="mb-3 border-b border-[#00d4ff]/20 pb-2">
-                <span className="text-xs font-bold tracking-[0.2em] text-[#00d4ff]">BASE CASE</span>
+              <div className="mb-3 border-b border-[#ff6b35]/20 pb-2">
+                <span className="text-xs font-bold tracking-[0.2em] text-[#ff6b35]">BASE CASE</span>
               </div>
-              <p className="mb-1 text-2xl font-bold text-[#00d4ff]">&gt;92% HHV</p>
+              <p className="mb-1 text-2xl font-bold text-[#ff6b35]">&gt;92% HHV</p>
               <p className="mb-1 text-sm text-white/50">~42.8 kWh/kg</p>
               <p className="mt-3 text-xs leading-relaxed text-white/40">
                 Conservative modeling assumption, between measured floor and demonstrated ceiling
@@ -354,12 +354,12 @@ export default function EfficiencyPage() {
             <motion.div
               custom={2}
               variants={fadeUp}
-              className="rounded border border-[#00ff88]/30 bg-[#00ff88]/[0.03] p-5"
+              className="rounded border border-[#ff6b35]/30 bg-[#ff6b35]/[0.03] p-5"
             >
-              <div className="mb-3 border-b border-[#00ff88]/20 pb-2">
-                <span className="text-xs font-bold tracking-[0.2em] text-[#00ff88]">UPSIDE</span>
+              <div className="mb-3 border-b border-[#ff6b35]/20 pb-2">
+                <span className="text-xs font-bold tracking-[0.2em] text-[#ff6b35]">UPSIDE</span>
               </div>
-              <p className="mb-1 text-2xl font-bold text-[#00ff88]" style={{ textShadow: '0 0 8px rgba(0,255,136,0.4)' }}>94% HHV</p>
+              <p className="mb-1 text-2xl font-bold text-[#ff6b35]" style={{ textShadow: '0 0 8px rgba(255,107,53,0.4)' }}>94% HHV</p>
               <p className="mb-1 text-sm text-white/50">~41.6 kWh/kg stack</p>
               <p className="mt-3 text-xs leading-relaxed text-white/40">
                 Optimized pulsed waveform, clean water, resonant LLC topology, demonstrated at stack level
@@ -373,10 +373,10 @@ export default function EfficiencyPage() {
             viewport={{ once: true }}
             custom={3}
             variants={fadeUp}
-            className="mt-6 rounded border-l-2 border-[#00d4ff]/40 bg-[#00d4ff]/[0.03] px-5 py-4"
+            className="mt-6 rounded border-l-2 border-[#ff6b35]/40 bg-[#ff6b35]/[0.03] px-5 py-4"
           >
             <p className="text-sm leading-relaxed text-white/70">
-              The base case deliberately sits <span className="font-semibold text-[#00d4ff]">below measured performance</span>.
+              The base case deliberately sits <span className="font-semibold text-[#ff6b35]">below measured performance</span>.
               If the financial model works at the conservative 42.8 kWh/kg base case, it only gets better as we optimize the full system.
             </p>
           </motion.div>
@@ -385,7 +385,7 @@ export default function EfficiencyPage() {
 
       {/* ═══ OPERATING DATA SNAPSHOT ═══ */}
       <section className="border-b border-white/10 px-6 py-16">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
 {`\u250c\u2500\u2500\u2500 OPERATING DATA SNAPSHOT \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510`}
           </pre>
@@ -400,15 +400,15 @@ export default function EfficiencyPage() {
             viewport={{ once: true }}
             custom={0}
             variants={fadeUp}
-            className="overflow-hidden rounded border border-[#00ff88]/20 bg-[#0a0a0f]"
+            className="overflow-hidden rounded border border-[#ff6b35]/20 bg-[#0a0a0f]"
           >
-            <div className="border-b border-[#00ff88]/20 bg-[#00ff88]/[0.05] px-4 py-2">
-              <span className="text-xs tracking-[0.15em] text-[#00ff88]">
+            <div className="border-b border-[#ff6b35]/20 bg-[#ff6b35]/[0.05] px-4 py-2">
+              <span className="text-xs tracking-[0.15em] text-[#ff6b35]">
                 &#x25cf; LIVE DATA LOGGER &mdash; RUN 6kW_Low_TDS &mdash; 22,103 SAMPLES
               </span>
             </div>
             <div className="p-4 font-mono text-sm">
-              <pre className="text-[#00ff88]/60 text-[0.6rem]" style={{ whiteSpace: 'pre' }}>
+              <pre className="text-[#ff6b35]/60 text-[0.6rem]" style={{ whiteSpace: 'pre' }}>
 {`\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510
 \u2502  TOBE ENERGY \u2500 DATA ACQUISITION SYSTEM       \u2502
 \u2502  Run: 6kW_Low_TDS  |  Status: COMPLETE         \u2502
@@ -418,15 +418,15 @@ export default function EfficiencyPage() {
                 {operatingData.map((d, i) => (
                   <div key={d.label} className="flex items-center justify-between py-2">
                     <span className="text-[0.65rem] tracking-[0.1em] text-[#ff6b35]">{d.label}</span>
-                    <span className={`text-sm ${i === 4 ? 'font-bold text-[#00ff88]' : 'text-white/70'}`}
-                      style={i === 4 ? { textShadow: '0 0 8px rgba(0,255,136,0.4)' } : {}}
+                    <span className={`text-sm ${i === 4 ? 'font-bold text-[#ff6b35]' : 'text-white/70'}`}
+                      style={i === 4 ? { textShadow: '0 0 8px rgba(255,107,53,0.4)' } : {}}
                     >
                       {d.value}
                     </span>
                   </div>
                 ))}
               </div>
-              <pre className="mt-3 text-[#00ff88]/40 text-[0.6rem]" style={{ whiteSpace: 'pre' }}>
+              <pre className="mt-3 text-[#ff6b35]/40 text-[0.6rem]" style={{ whiteSpace: 'pre' }}>
 {`\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
 END OF LOG  |  5-sec intervals  |  22,103 pts`}
               </pre>
@@ -437,7 +437,7 @@ END OF LOG  |  5-sec intervals  |  22,103 pts`}
 
       {/* ═══ TECHNOLOGY COMPARISON TABLE ═══ */}
       <section className="border-b border-white/10 px-6 py-16">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
 {`\u250c\u2500\u2500\u2500 TECHNOLOGY COMPARISON \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510`}
           </pre>
@@ -455,14 +455,14 @@ END OF LOG  |  5-sec intervals  |  22,103 pts`}
             className="overflow-hidden rounded border border-white/10 bg-white/[0.02]"
           >
             <div className="border-b border-white/10 bg-white/[0.03] px-4 py-2">
-              <span className="text-xs tracking-[0.15em] text-[#ff6b35]">\u25b8 TOBE vs PEM vs ALKALINE</span>
+              <span className="text-xs tracking-[0.15em] text-[#ff6b35]">▸ TOBE vs PEM vs ALKALINE</span>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-white/10 text-left">
                     <th className="whitespace-nowrap px-4 py-3 text-xs tracking-wider text-white/40">Parameter</th>
-                    <th className="whitespace-nowrap px-4 py-3 text-xs tracking-wider text-[#00ff88]">Tobe</th>
+                    <th className="whitespace-nowrap px-4 py-3 text-xs tracking-wider text-[#ff6b35]">Tobe</th>
                     <th className="whitespace-nowrap px-4 py-3 text-xs tracking-wider text-white/40">PEM (Industry)</th>
                     <th className="whitespace-nowrap px-4 py-3 text-xs tracking-wider text-white/40">Alkaline (Industry)</th>
                   </tr>
@@ -478,7 +478,7 @@ END OF LOG  |  5-sec intervals  |  22,103 pts`}
                       variants={fadeUp}
                     >
                       <td className="whitespace-nowrap px-4 py-3 text-white/60">{r.param}</td>
-                      <td className="whitespace-nowrap px-4 py-3 font-semibold text-[#00ff88]">{r.tobe}</td>
+                      <td className="whitespace-nowrap px-4 py-3 font-semibold text-[#ff6b35]">{r.tobe}</td>
                       <td className="whitespace-nowrap px-4 py-3 text-white/50">{r.pem}</td>
                       <td className="whitespace-nowrap px-4 py-3 text-white/50">{r.alk}</td>
                     </motion.tr>
@@ -495,7 +495,7 @@ END OF LOG  |  5-sec intervals  |  22,103 pts`}
 
       {/* ═══ VALIDATION ROADMAP ═══ */}
       <section className="border-b border-white/10 px-6 py-16">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
 {`\u250c\u2500\u2500\u2500 VALIDATION ROADMAP \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510`}
           </pre>
@@ -518,14 +518,14 @@ END OF LOG  |  5-sec intervals  |  22,103 pts`}
                 <div
                   className={`absolute -left-[2.55rem] top-1 h-3 w-3 rounded-full border-2 ${
                     r.status === 'complete'
-                      ? 'border-[#00ff88] bg-[#00ff88]'
+                      ? 'border-[#ff6b35] bg-[#ff6b35]'
                       : r.status === 'active'
                       ? 'border-[#ff6b35] bg-[#ff6b35]'
                       : 'border-white/30 bg-transparent'
                   }`}
                   style={
                     r.status === 'complete'
-                      ? { boxShadow: '0 0 8px rgba(0,255,136,0.5)' }
+                      ? { boxShadow: '0 0 8px rgba(255,107,53,0.5)' }
                       : r.status === 'active'
                       ? { boxShadow: '0 0 8px rgba(255,107,53,0.5)' }
                       : {}
@@ -535,7 +535,7 @@ END OF LOG  |  5-sec intervals  |  22,103 pts`}
                   <span
                     className={`text-sm font-semibold ${
                       r.status === 'complete'
-                        ? 'text-[#00ff88]'
+                        ? 'text-[#ff6b35]'
                         : r.status === 'active'
                         ? 'text-[#ff6b35]'
                         : 'text-white/40'
@@ -554,11 +554,10 @@ END OF LOG  |  5-sec intervals  |  22,103 pts`}
       {/* ═══ FOOTER ═══ */}
       <div className="h-16" />
       <footer className="border-t border-white/10 px-6 py-6">
-        <div className="mx-auto max-w-5xl text-center">
+        <div className="mx-auto max-w-6xl text-center">
           <pre className="text-xs text-[#ff6b35]/20" style={{ textShadow: '0 0 6px rgba(255,107,53,0.08)' }}>
-{`\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
- TOBE ENERGY CORP // CONFIDENTIAL // 2026
-\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550`}
+{`TOBE ENERGY CORP // OKLAHOMA CITY, USA // EST. 2024
+CONFIDENTIAL — AUTHORIZED INVESTOR ACCESS ONLY`}
           </pre>
         </div>
       </footer>

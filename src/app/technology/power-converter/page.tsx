@@ -15,7 +15,7 @@ function useAutoplayVideos() {
 
 function SectionDivider() {
   return (
-    <div className="my-12 flex items-center gap-4">
+    <div className="my-4 flex items-center gap-4">
       <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#ff6b35]/20 to-transparent" />
       <span className="font-mono text-xs tracking-[0.3em] text-[#ff6b35]/30"
         style={{ textShadow: '0 0 8px rgba(255,107,53,0.15)' }}>═══════</span>
@@ -32,7 +32,7 @@ export default function PowerConverterPage() {
       {/* Hero */}
       <section className="relative border-b border-white/10 px-6 py-16">
         <div className="mx-auto max-w-6xl">
-          <div className="mb-2 text-[0.7rem] tracking-[0.2em] text-[#00d4ff] glow-cyan">
+          <div className="mb-2 text-[0.7rem] tracking-[0.2em] text-[#ff6b35] glow-orange">
             ┌─── TECHNOLOGY / POWER CONVERTER ───┐
           </div>
           <h1 className="mb-2 text-4xl font-bold tracking-tight md:text-5xl">
@@ -54,7 +54,7 @@ export default function PowerConverterPage() {
 
       <div className="mx-auto max-w-6xl px-6">
         {/* ═══ PCB HERO — DESIGN + FINISHED SIDE BY SIDE ═══ */}
-        <section className="py-12">
+        <section className="py-6">
           <div className="grid gap-4 sm:grid-cols-2" style={{ height: '450px' }}>
             {/* Left — Schematic (rotated 90°) */}
             <div className="overflow-hidden rounded border border-white/10 bg-[#12121a] flex flex-col">
@@ -72,7 +72,7 @@ export default function PowerConverterPage() {
                 <img src="/media/manufacturing/pcb-mfg-12.jpg" alt="Finished PCB boards" className="w-full h-full object-cover" style={{ objectPosition: 'center 45%' }} />
               </div>
               <div className="px-4 py-3">
-                <p className="text-[0.65rem] tracking-[0.15em] text-[#00ff88]">FINISHED BOARDS</p>
+                <p className="text-[0.65rem] tracking-[0.15em] text-[#ff6b35]">FINISHED BOARDS</p>
                 <p className="mt-1 text-xs text-white/40">From schematic to finished product — designed, etched, populated, and tested in-house.</p>
               </div>
             </div>
@@ -82,8 +82,8 @@ export default function PowerConverterPage() {
         <SectionDivider />
 
         {/* ═══ WHY CUSTOM ═══ */}
-        <section className="py-12">
-          <div className="mb-6 text-[0.7rem] tracking-[0.2em] text-[#00d4ff] glow-cyan">
+        <section className="py-6">
+          <div className="mb-6 text-[0.7rem] tracking-[0.2em] text-[#ff6b35] glow-orange">
             ┌─── WHY CUSTOM POWER ELECTRONICS ───┐
           </div>
 
@@ -103,7 +103,7 @@ export default function PowerConverterPage() {
               {
                 title: 'Dynamic Waveform Control',
                 description: 'Direct Digital Synthesis generates the optimized waveform profile, dynamically adjusting frequency and duty cycle in real-time to maximize efficiency across varying water quality and contaminant concentrations.',
-                accent: '#00d4ff',
+                accent: '#ff6b35',
               },
               {
                 title: 'Purpose-Built Transformers',
@@ -113,7 +113,7 @@ export default function PowerConverterPage() {
               {
                 title: 'SiC Power Stage',
                 description: 'Silicon carbide MOSFETs in a high-voltage switching configuration with isolated gate drivers. Lower switching losses and higher frequency capability than silicon — critical for maintaining efficiency at the voltages we operate at.',
-                accent: '#00ff88',
+                accent: '#ff6b35',
               },
             ].map((a) => (
               <div key={a.title} className="border-l-[3px] bg-[#12121a] px-6 py-6 transition-all hover:bg-[#14141e]"
@@ -133,17 +133,17 @@ export default function PowerConverterPage() {
         <SectionDivider />
 
         {/* ═══ POWER ELECTRONICS MANUFACTURING ═══ */}
-        <section className="py-12">
-          <div className="mb-6 text-[0.7rem] tracking-[0.2em] text-[#00d4ff] glow-cyan">
+        <section className="py-6">
+          <div className="mb-6 text-[0.7rem] tracking-[0.2em] text-[#ff6b35] glow-orange">
             ┌─── POWER ELECTRONICS MANUFACTURING ───┐
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
             {[
-              { src: 'pcb-mfg-11-stable.mp4', caption: 'Laser Etching Circuit Traces', type: 'video' as const },
-              { src: 'pcb-mfg-9-still.jpg', caption: 'Board Fabrication Detail', type: 'image' as const },
-              { src: 'pcb-mfg-7-stable.mp4', caption: 'PCB Manufacturing Process', type: 'video' as const },
-              { src: null, caption: 'TRANSFORMER WINDING — Coming Soon', type: 'placeholder' as const },
+              { src: 'pcb-mfg-11-stable.mp4', caption: 'CNC Trace Isolation', type: 'video' as const },
+              { src: 'pcb-mfg-9-still.jpg', caption: 'UV Solder Mask Curing', type: 'image' as const },
+              { src: 'pcb-mfg-7-stable.mp4', caption: 'Solder Mask Removal', type: 'video' as const },
+              { src: 'transformer-winding.mp4', caption: 'Transformer Winding', type: 'video' as const },
             ].map((v) => (
               <div key={v.caption} className="overflow-hidden rounded border border-white/10 bg-[#12121a]">
                 {v.type === 'placeholder' ? (
@@ -171,7 +171,7 @@ export default function PowerConverterPage() {
         <SectionDivider />
 
         {/* ═══ ARCHITECTURE ═══ */}
-        <section className="py-12">
+        <section className="py-6">
           <div className="mb-6 text-[0.7rem] tracking-[0.2em] text-[#ff6b35] glow-orange">
             ┌─── TWO-STAGE ARCHITECTURE ───┐
           </div>
@@ -185,9 +185,9 @@ export default function PowerConverterPage() {
 
           <div className="grid gap-5 md:grid-cols-2">
             {/* Stage 1 */}
-            <div className="border-l-[3px] border-[#00d4ff] bg-[#12121a] px-6 py-7"
-              style={{ borderTop: '1px solid rgba(0,212,255,0.08)', borderRight: '1px solid rgba(0,212,255,0.08)', borderBottom: '1px solid rgba(0,212,255,0.08)' }}>
-              <div className="mb-2 text-[0.65rem] tracking-[0.15em] text-[#00d4ff]">STAGE 1</div>
+            <div className="border-l-[3px] border-[#ff6b35] bg-[#12121a] px-6 py-7"
+              style={{ borderTop: '1px solid rgba(255,107,53,0.08)', borderRight: '1px solid rgba(255,107,53,0.08)', borderBottom: '1px solid rgba(255,107,53,0.08)' }}>
+              <div className="mb-2 text-[0.65rem] tracking-[0.15em] text-[#ff6b35]">STAGE 1</div>
               <h3 className="mb-3 text-xl font-bold text-white">
                 Resonant Power Conversion
               </h3>
@@ -196,11 +196,11 @@ export default function PowerConverterPage() {
               </p>
               <div className="flex gap-4">
                 <div>
-                  <div className="text-lg font-bold text-[#00d4ff]" style={{ textShadow: '0 0 6px rgba(0,212,255,0.25)' }}>~100 kHz</div>
+                  <div className="text-lg font-bold text-[#ff6b35]" style={{ textShadow: '0 0 6px rgba(255,107,53,0.25)' }}>~100 kHz</div>
                   <div className="text-[0.6rem] tracking-[0.1em] text-[#6a6a7a]">SWITCHING FREQ</div>
                 </div>
                 <div>
-                  <div className="text-lg font-bold text-[#00d4ff]" style={{ textShadow: '0 0 6px rgba(0,212,255,0.25)' }}>480VAC</div>
+                  <div className="text-lg font-bold text-[#ff6b35]" style={{ textShadow: '0 0 6px rgba(255,107,53,0.25)' }}>480VAC</div>
                   <div className="text-[0.6rem] tracking-[0.1em] text-[#6a6a7a]">INPUT</div>
                 </div>
               </div>
@@ -222,7 +222,7 @@ export default function PowerConverterPage() {
                   <div className="text-[0.6rem] tracking-[0.1em] text-[#6a6a7a]">PULSE RANGE</div>
                 </div>
                 <div>
-                  <div className="text-lg font-bold text-[#ff6b35]" style={{ textShadow: '0 0 6px rgba(255,107,53,0.25)' }}>≥5 kV</div>
+                  <div className="text-lg font-bold text-[#ff6b35]" style={{ textShadow: '0 0 6px rgba(255,107,53,0.25)' }}>≥3 kV</div>
                   <div className="text-[0.6rem] tracking-[0.1em] text-[#6a6a7a]">OUTPUT</div>
                 </div>
               </div>
@@ -235,7 +235,7 @@ export default function PowerConverterPage() {
         
 
         {/* ═══ VERTICAL INTEGRATION ═══ */}
-        <section className="py-12">
+        <section className="py-6">
           <div className="mb-6 text-[0.7rem] tracking-[0.2em] text-[#ff6b35] glow-orange">
             ┌─── VERTICAL INTEGRATION ───┐
           </div>
@@ -261,16 +261,16 @@ export default function PowerConverterPage() {
             </div>
             <div className="grid md:grid-cols-2">
             <div>
-            <div className="border-b border-white/10 bg-[#0e0e16] px-5 py-2 text-[0.65rem] tracking-[0.1em] text-[#00d4ff]">AC MAINS PATH</div>
+            <div className="border-b border-white/10 bg-[#0e0e16] px-5 py-2 text-[0.65rem] tracking-[0.1em] text-[#ff6b35]">AC MAINS PATH</div>
             {[
               { step: '01', name: '480VAC 3-Phase Input', detail: 'Utility grid connection', color: '#6a6a7a' },
-              { step: '02', name: 'Resonant Power Conversion', detail: 'Soft-switched AC/DC conversion, ~100 kHz', color: '#00d4ff' },
+              { step: '02', name: 'Resonant Power Conversion', detail: 'Soft-switched AC/DC conversion, ~100 kHz', color: '#ff6b35' },
               { step: '03', name: 'Isolated HV DC Bus', detail: 'High-voltage intermediate rail', color: '#6a6a7a' },
               { step: '04', name: 'Waveform Controller', detail: 'DDS synthesis, dynamic real-time tuning', color: '#ff6b35' },
               { step: '05', name: 'SiC Half-Bridge Output', detail: 'Pulsed DC delivery to cell, 10–250 kHz', color: '#ff6b35' },
               { step: '06', name: 'Purpose-Built Transformer', detail: 'Epoxy-potted, rated for several times operating voltage', color: '#ff6b35' },
-              { step: '07', name: 'Capacitive Electrolysis Cell', detail: 'H₂O → H₂ + O₂ at 27°C, >92% HHV', color: '#00ff88' },
-              { step: '08', name: 'Gas Separation & Purification', detail: 'DeOx + mole sieve dryer → ≥99.99% H₂', color: '#00ff88' },
+              { step: '07', name: 'Capacitive Electrolysis Cell', detail: 'H₂O → H₂ + O₂ at 27°C, >92% HHV', color: '#ff6b35' },
+              { step: '08', name: 'Gas Separation & Purification', detail: 'DeOx + mole sieve dryer → ≥99.99% H₂', color: '#ff6b35' },
             ].map((s, i) => (
               <div key={s.step} className={`flex items-center gap-4 px-5 py-3 ${i % 2 === 0 ? 'bg-[#12121a]' : 'bg-[#0f0f17]'}`}>
                 <span className="w-8 text-center text-sm font-bold" style={{ color: s.color, textShadow: `0 0 6px ${s.color}30` }}>
@@ -285,16 +285,16 @@ export default function PowerConverterPage() {
             ))}
             </div>
             <div>
-              <div className="border-b border-white/10 bg-[#0e0e16] px-5 py-2 text-[0.65rem] tracking-[0.1em] text-[#00ff88]">SOLAR INTEGRATION PATH</div>
+              <div className="border-b border-white/10 bg-[#0e0e16] px-5 py-2 text-[0.65rem] tracking-[0.1em] text-[#ff6b35]">SOLAR INTEGRATION PATH</div>
               {[
-                { step: '01', name: '1500V DC Solar Bus', detail: 'Standard utility-scale solar string voltage', color: '#00ff88' },
-                { step: '02', name: 'High-Voltage DC Switching', detail: 'Direct DC-DC conversion, no AC intermediate', color: '#00ff88' },
+                { step: '01', name: '1500V DC Solar Bus', detail: 'Standard utility-scale solar string voltage', color: '#ff6b35' },
+                { step: '02', name: 'High-Voltage DC Switching', detail: 'Direct DC-DC conversion, no AC intermediate', color: '#ff6b35' },
                 { step: '03', name: 'Isolated HV DC Bus', detail: 'Matched to electrolyzer operating point', color: '#6a6a7a' },
                 { step: '04', name: 'Waveform Controller', detail: 'DDS synthesis, dynamic real-time tuning', color: '#ff6b35' },
                 { step: '05', name: 'SiC Switching Stage', detail: 'Pulsed DC delivery to cell', color: '#ff6b35' },
                 { step: '06', name: 'Purpose-Built Transformer', detail: 'Epoxy-potted, voltage step-up', color: '#ff6b35' },
-                { step: '07', name: 'Capacitive Electrolysis Cell', detail: 'H₂O → H₂ + O₂ at 27°C, >92% HHV', color: '#00ff88' },
-                { step: '08', name: 'Gas Separation & Purification', detail: 'DeOx + mole sieve dryer → ≥99.99% H₂', color: '#00ff88' },
+                { step: '07', name: 'Capacitive Electrolysis Cell', detail: 'H₂O → H₂ + O₂ at 27°C, >92% HHV', color: '#ff6b35' },
+                { step: '08', name: 'Gas Separation & Purification', detail: 'DeOx + mole sieve dryer → ≥99.99% H₂', color: '#ff6b35' },
               ].map((s, i) => (
                 <div key={`solar-${s.step}`} className={`flex items-center gap-4 px-5 py-3 ${i % 2 === 0 ? 'bg-[#12121a]' : 'bg-[#0f0f17]'}`}>
                   <span className="w-8 text-center text-sm font-bold" style={{ color: s.color, textShadow: `0 0 6px ${s.color}30` }}>
@@ -315,19 +315,19 @@ export default function PowerConverterPage() {
         <SectionDivider />
 
         {/* ═══ NAVIGATE ═══ */}
-        <section className="py-12">
+        <section className="py-6">
           <div className="grid gap-4 sm:grid-cols-2">
             <Link href="/technology/cell"
-              className="group border-l-[3px] border-[#00ff88] bg-[#12121a] px-6 py-6 transition-all hover:bg-[#14141e]"
-              style={{ borderTop: '1px solid rgba(0,255,136,0.08)', borderRight: '1px solid rgba(0,255,136,0.08)', borderBottom: '1px solid rgba(0,255,136,0.08)' }}>
+              className="group border-l-[3px] border-[#ff6b35] bg-[#12121a] px-6 py-6 transition-all hover:bg-[#14141e]"
+              style={{ borderTop: '1px solid rgba(255,107,53,0.08)', borderRight: '1px solid rgba(255,107,53,0.08)', borderBottom: '1px solid rgba(255,107,53,0.08)' }}>
               <h3 className="mb-2 text-lg font-bold text-white">← Electrolysis Cell</h3>
               <p className="font-sans text-sm text-[#8a8a9a]">
                 Capacitive cell design, materials, operating conditions, and performance specs.
               </p>
             </Link>
             <Link href="/technology/controls"
-              className="group border-l-[3px] border-[#00d4ff] bg-[#12121a] px-6 py-6 transition-all hover:bg-[#14141e]"
-              style={{ borderTop: '1px solid rgba(0,212,255,0.08)', borderRight: '1px solid rgba(0,212,255,0.08)', borderBottom: '1px solid rgba(0,212,255,0.08)' }}>
+              className="group border-l-[3px] border-[#ff6b35] bg-[#12121a] px-6 py-6 transition-all hover:bg-[#14141e]"
+              style={{ borderTop: '1px solid rgba(255,107,53,0.08)', borderRight: '1px solid rgba(255,107,53,0.08)', borderBottom: '1px solid rgba(255,107,53,0.08)' }}>
               <h3 className="mb-2 text-lg font-bold text-white">Controls & AI →</h3>
               <p className="font-sans text-sm text-[#8a8a9a]">
                 See how we monitor, optimize, and predict across 100+ cloud variables
@@ -340,9 +340,8 @@ export default function PowerConverterPage() {
       <footer className="border-t border-white/10 px-6 py-6">
         <div className="mx-auto max-w-6xl text-center">
           <pre className="text-xs text-[#ff6b35]/20" style={{ textShadow: '0 0 6px rgba(255,107,53,0.08)' }}>
-            {`═══════════════════════════════════════════════════════════
- TOBE ENERGY CORP // CONFIDENTIAL // 2026
-═══════════════════════════════════════════════════════════`}
+            {`TOBE ENERGY CORP // OKLAHOMA CITY, USA // EST. 2024
+CONFIDENTIAL — AUTHORIZED INVESTOR ACCESS ONLY`}
           </pre>
         </div>
       </footer>

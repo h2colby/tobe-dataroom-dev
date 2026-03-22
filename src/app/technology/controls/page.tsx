@@ -56,7 +56,7 @@ function Cursor() {
 }
 
 // ─── TERMINAL READOUT ───────────────────────────────────────────
-function TerminalReadout({ label, value, unit, color = '#00d4ff', decimals = 1 }: {
+function TerminalReadout({ label, value, unit, color = '#ff6b35', decimals = 1 }: {
   label: string; value: number; unit: string; color?: string; decimals?: number;
 }) {
   return (
@@ -92,7 +92,7 @@ function TerminalBar({ label, value, max, unit, color = '#ff6b35' }: {
 }
 
 // ─── GAUGE COMPONENT ────────────────────────────────────────────
-function Gauge({ label, value, max, unit, safeMin, safeMax, color = '#00ff88', size = 120 }: {
+function Gauge({ label, value, max, unit, safeMin, safeMax, color = '#ff6b35', size = 120 }: {
   label: string; value: number; max: number; unit: string;
   safeMin?: number; safeMax?: number; color?: string; size?: number;
 }) {
@@ -203,8 +203,8 @@ function Oscilloscope({ frequency }: { frequency: number; waveform: string }) {
         {/* Center line */}
         <line x1={0} y1={50} x2={w} y2={50} stroke="#ff6b35" strokeOpacity={0.2} strokeDasharray="4,4" />
         {/* Waveform */}
-        <polyline points={points.join(' ')} fill="none" stroke="#00d4ff" strokeWidth={1.5}
-          style={{ filter: 'drop-shadow(0 0 4px #00d4ff)' }} />
+        <polyline points={points.join(' ')} fill="none" stroke="#ff6b35" strokeWidth={1.5}
+          style={{ filter: 'drop-shadow(0 0 4px #ff6b35)' }} />
       </svg>
     </div>
   );
@@ -245,7 +245,7 @@ function SpinningFan({ pwm }: { pwm: number }) {
       animate={{ rotate: 360 }}
       transition={{ duration: speed, repeat: Infinity, ease: 'linear' }}
       className="inline-block text-lg"
-      style={{ color: '#00d4ff' }}
+      style={{ color: '#ff6b35' }}
     >
       ⟳
     </motion.span>
@@ -335,15 +335,15 @@ function ProcessControl() {
     <div className="space-y-4">
       <div className="font-mono text-xs text-white/50 flex items-center gap-4">
         <span>RS-485 BUS</span>
-        <span className="text-[#00ff88]">● CONNECTED</span>
+        <span className="text-[#ff6b35]">● CONNECTED</span>
         <span>POLL CYCLE: 1.5s</span>
         <span>SLAVES: 8/8 ONLINE</span>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <SectionFrame title="PRESSURE">
-          <TerminalReadout label="p_kpa" value={p_kpa} unit="kPa" color="#00d4ff" />
-          <TerminalReadout label="p_psi" value={p_psi} unit="PSI" color="#00d4ff" />
+          <TerminalReadout label="p_kpa" value={p_kpa} unit="kPa" color="#ff6b35" />
+          <TerminalReadout label="p_psi" value={p_psi} unit="PSI" color="#ff6b35" />
           <div className="mt-2 font-mono text-xs text-white/40 flex items-center gap-2">
             <span className="text-[#ff6b35]">◆</span> TARE: ZEROED
           </div>
@@ -355,41 +355,41 @@ function ProcessControl() {
         </SectionFrame>
 
         <SectionFrame title="NOISE LEVEL">
-          <TerminalReadout label="noise_dba" value={noise} unit="dBA" color="#00d4ff" />
+          <TerminalReadout label="noise_dba" value={noise} unit="dBA" color="#ff6b35" />
           <TerminalBar label="AMBIENT" value={noise} max={100} unit="dBA" />
         </SectionFrame>
 
         <SectionFrame title="CONDUCTIVITY">
-          <TerminalReadout label="ec_uScm" value={ec} unit="µS/cm" color="#00d4ff" decimals={0} />
+          <TerminalReadout label="ec_uScm" value={ec} unit="µS/cm" color="#ff6b35" decimals={0} />
           <TerminalBar label="EC" value={ec} max={500} unit="µS/cm" />
         </SectionFrame>
 
         <SectionFrame title="pH">
-          <TerminalReadout label="ph" value={ph} unit="pH" color="#00ff88" decimals={2} />
+          <TerminalReadout label="ph" value={ph} unit="pH" color="#ff6b35" decimals={2} />
           <TerminalReadout label="ph_tempC" value={phTemp} unit="°C" color="#ff6b35" />
         </SectionFrame>
 
         <SectionFrame title="DISSOLVED OXYGEN">
-          <TerminalReadout label="do_mgl" value={doMgl} unit="mg/L" color="#00d4ff" />
-          <TerminalReadout label="do_pct" value={doPct} unit="%" color="#00d4ff" />
+          <TerminalReadout label="do_mgl" value={doMgl} unit="mg/L" color="#ff6b35" />
+          <TerminalReadout label="do_pct" value={doPct} unit="%" color="#ff6b35" />
           <TerminalReadout label="do_tempC" value={doTemp} unit="°C" color="#ff6b35" />
         </SectionFrame>
 
         <SectionFrame title="OZONE">
-          <TerminalReadout label="o3_ppm" value={o3} unit="ppm" color="#00ff88" decimals={3} />
-          <TerminalBar label="O3 LEVEL" value={o3} max={0.1} unit="ppm" color="#00ff88" />
+          <TerminalReadout label="o3_ppm" value={o3} unit="ppm" color="#ff6b35" decimals={3} />
+          <TerminalBar label="O3 LEVEL" value={o3} max={0.1} unit="ppm" color="#ff6b35" />
         </SectionFrame>
 
         <SectionFrame title="MASS FLOW">
-          <TerminalReadout label="flow" value={flow} unit="L/min" color="#00d4ff" decimals={2} />
+          <TerminalReadout label="flow" value={flow} unit="L/min" color="#ff6b35" decimals={2} />
           <TerminalReadout label="flow_tempC" value={flowTemp} unit="°C" color="#ff6b35" />
-          <TerminalReadout label="total" value={total} unit="L" color="#00d4ff" decimals={0} />
+          <TerminalReadout label="total" value={total} unit="L" color="#ff6b35" decimals={0} />
           <div className="mt-1 font-mono text-xs text-white/40">↑ CUMULATIVE TOTALIZER</div>
         </SectionFrame>
 
         <SectionFrame title="BUS HEALTH">
-          <TerminalReadout label="err_total" value={Math.round(errTotal)} unit="errs" color={errTotal > 2 ? '#ff3333' : '#00ff88'} decimals={0} />
-          <div className="mt-2 font-mono text-xs text-[#00ff88]">
+          <TerminalReadout label="err_total" value={Math.round(errTotal)} unit="errs" color={errTotal > 2 ? '#ff3333' : '#ff6b35'} decimals={0} />
+          <div className="mt-2 font-mono text-xs text-[#ff6b35]">
             STATUS: ALL_SENSORS_OK <Cursor />
           </div>
         </SectionFrame>
@@ -429,13 +429,13 @@ function PowerElectronics() {
     <div className="space-y-4">
       <div className="font-mono text-xs text-white/50 flex items-center gap-4">
         <span>DDS + GATE GENERATOR</span>
-        <span className="text-[#00ff88]">● ACTIVE</span>
+        <span className="text-[#ff6b35]">● ACTIVE</span>
         <span>CURRENT SENSING: DUAL CH</span>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <SectionFrame title="DDS FREQUENCY SYNTHESIZER">
-          <TerminalReadout label="currentFrequencyHz" value={freq} unit="Hz" color="#00d4ff" decimals={1} />
+          <TerminalReadout label="currentFrequencyHz" value={freq} unit="Hz" color="#ff6b35" decimals={1} />
           <div className="mt-2 font-mono text-xs text-white/50">
             RANGE: 0.1 Hz → 1 MHz
           </div>
@@ -453,18 +453,18 @@ function PowerElectronics() {
         </SectionFrame>
 
         <SectionFrame title="DUTY CYCLE">
-          <TerminalReadout label="dutyPct" value={dutyPct} unit="%" color="#00d4ff" />
-          <TerminalReadout label="actualDutyPct" value={actualDuty} unit="%" color="#00d4ff" />
+          <TerminalReadout label="dutyPct" value={dutyPct} unit="%" color="#ff6b35" />
+          <TerminalReadout label="actualDutyPct" value={actualDuty} unit="%" color="#ff6b35" />
           <TerminalReadout label="thresholdV" value={thresholdV} unit="V" color="#ff6b35" />
-          <TerminalBar label="DUTY" value={dutyPct} max={100} unit="%" color="#00d4ff" />
+          <TerminalBar label="DUTY" value={dutyPct} max={100} unit="%" color="#ff6b35" />
         </SectionFrame>
 
         <SectionFrame title="FREQUENCY SWEEP">
           <TerminalReadout label="rampStartHz" value={rampStart} unit="Hz" color="#ff6b35" decimals={0} />
           <TerminalReadout label="rampStopHz" value={rampStop} unit="Hz" color="#ff6b35" decimals={0} />
-          <TerminalReadout label="rampDurationSec" value={rampDuration} unit="s" color="#00d4ff" />
+          <TerminalReadout label="rampDurationSec" value={rampDuration} unit="s" color="#ff6b35" />
           <div className="mt-2 font-mono text-xs text-white/40">
-            rampLog: <span className="text-[#00ff88]">LOGARITHMIC SWEEP</span>
+            rampLog: <span className="text-[#ff6b35]">LOGARITHMIC SWEEP</span>
           </div>
           <motion.div
             className="mt-1 h-1 rounded-full bg-[#ff6b35]"
@@ -476,11 +476,11 @@ function PowerElectronics() {
 
         <SectionFrame title="CURRENT SENSING">
           <div className="font-mono text-xs text-white/45 mb-1">── CHANNEL 0 ──</div>
-          <TerminalReadout label="curr0_A" value={curr0A} unit="A" color="#00d4ff" decimals={2} />
-          <TerminalReadout label="curr0_V" value={curr0V} unit="V" color="#00d4ff" />
+          <TerminalReadout label="curr0_A" value={curr0A} unit="A" color="#ff6b35" decimals={2} />
+          <TerminalReadout label="curr0_V" value={curr0V} unit="V" color="#ff6b35" />
           <div className="font-mono text-xs text-white/45 mt-2 mb-1">── CHANNEL 1 ──</div>
-          <TerminalReadout label="curr1_A" value={curr1A} unit="A" color="#00d4ff" decimals={2} />
-          <TerminalReadout label="curr1_V" value={curr1V} unit="V" color="#00d4ff" />
+          <TerminalReadout label="curr1_A" value={curr1A} unit="A" color="#ff6b35" decimals={2} />
+          <TerminalReadout label="curr1_V" value={curr1V} unit="V" color="#ff6b35" />
           <div className="mt-2 font-mono text-xs text-white/40">
             P_total: <span className="text-[#ff6b35]">{(curr0A * curr0V + curr1A * curr1V).toFixed(1)} W</span>
           </div>
@@ -491,14 +491,14 @@ function PowerElectronics() {
           <TerminalBar label="HEATSINK" value={tempC} max={85} unit="°C" color={tempC > 55 ? '#ff3333' : '#ff6b35'} />
           <div className="mt-2 flex items-center gap-2 font-mono text-xs">
             <span className="text-white/50">OVERTEMP LATCH:</span>
-            <span className="text-[#00ff88]">CLEAR</span>
+            <span className="text-[#ff6b35]">CLEAR</span>
           </div>
           <div className="mt-2 flex items-center gap-2 font-mono text-xs">
             <span className="text-white/50">fan_pwm_pct:</span>
-            <span className="text-[#00d4ff]">{fanPwm.toFixed(0)}%</span>
+            <span className="text-[#ff6b35]">{fanPwm.toFixed(0)}%</span>
             <SpinningFan pwm={fanPwm} />
           </div>
-          <TerminalBar label="FAN" value={fanPwm} max={100} unit="%" color="#00d4ff" />
+          <TerminalBar label="FAN" value={fanPwm} max={100} unit="%" color="#ff6b35" />
         </SectionFrame>
       </div>
 
@@ -525,16 +525,16 @@ function SafetySystems() {
   return (
     <div className="space-y-4">
       {/* BIG STATUS INDICATOR */}
-      <div className="flex flex-col items-center gap-3 py-6 rounded border border-[#00ff88]/20 bg-[#00ff88]/5">
+      <div className="flex flex-col items-center gap-3 py-6 rounded border border-[#ff6b35]/20 bg-[#ff6b35]/5">
         <motion.div
           animate={{ opacity: [0.6, 1, 0.6], scale: [0.98, 1.02, 0.98] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="font-mono text-4xl font-bold text-[#00ff88]"
-          style={{ textShadow: '0 0 20px #00ff8860, 0 0 40px #00ff8830' }}
+          className="font-mono text-4xl font-bold text-[#ff6b35]"
+          style={{ textShadow: '0 0 20px #ff6b3560, 0 0 40px #ff6b3530' }}
         >
           STATUS: SAFE
         </motion.div>
-        <StatusBadge status="MONITORING" color="#00ff88" />
+        <StatusBadge status="MONITORING" color="#ff6b35" />
         <div className="font-mono text-xs text-white/50">
           DUAL-REDUNDANT // CONTINUOUS // ADAPTIVE PROTOCOL
         </div>
@@ -544,51 +544,51 @@ function SafetySystems() {
         {/* H2 Sensor A */}
         <SectionFrame title="H2 SENSOR A (PRIMARY)">
           <div className="flex justify-center py-2">
-            <Gauge label="h2a_ppm" value={h2a} max={200} unit="ppm" safeMax={50} color="#00ff88" size={140} />
+            <Gauge label="h2a_ppm" value={h2a} max={200} unit="ppm" safeMax={50} color="#ff6b35" size={140} />
           </div>
-          <TerminalReadout label="h2a_ppm" value={h2a} unit="ppm" color="#00ff88" />
+          <TerminalReadout label="h2a_ppm" value={h2a} unit="ppm" color="#ff6b35" />
           <div className="mt-2 font-mono text-xs text-white/40">
             errs_h2a: <span className="text-white/40">{Math.round(errsH2a)}</span>
           </div>
           <div className="font-mono text-xs text-white/40">
-            fc_h2a: <span className="text-[#00d4ff]">FC{Math.round(fcH2a)}</span> AUTO-LEARN
+            fc_h2a: <span className="text-[#ff6b35]">FC{Math.round(fcH2a)}</span> AUTO-LEARN
           </div>
         </SectionFrame>
 
         {/* H2 Sensor B */}
         <SectionFrame title="H2 SENSOR B (REDUNDANT)">
           <div className="flex justify-center py-2">
-            <Gauge label="h2b_ppm" value={h2b} max={200} unit="ppm" safeMax={50} color="#00ff88" size={140} />
+            <Gauge label="h2b_ppm" value={h2b} max={200} unit="ppm" safeMax={50} color="#ff6b35" size={140} />
           </div>
-          <TerminalReadout label="h2b_ppm" value={h2b} unit="ppm" color="#00ff88" />
+          <TerminalReadout label="h2b_ppm" value={h2b} unit="ppm" color="#ff6b35" />
           <div className="mt-2 font-mono text-xs text-white/40">
             errs_h2b: <span className="text-white/40">{Math.round(errsH2b)}</span>
           </div>
           <div className="font-mono text-xs text-white/40">
-            fc_h2b: <span className="text-[#00d4ff]">FC{Math.round(fcH2b)}</span> AUTO-LEARN
+            fc_h2b: <span className="text-[#ff6b35]">FC{Math.round(fcH2b)}</span> AUTO-LEARN
           </div>
         </SectionFrame>
 
         {/* O2 */}
         <SectionFrame title="O2 MONITOR">
           <div className="flex justify-center py-2">
-            <Gauge label="o2_pct" value={o2} max={25} unit="%" safeMin={19.5} safeMax={23.5} color="#00ff88" size={140} />
+            <Gauge label="o2_pct" value={o2} max={25} unit="%" safeMin={19.5} safeMax={23.5} color="#ff6b35" size={140} />
           </div>
-          <TerminalReadout label="o2_pct" value={o2} unit="%" color="#00ff88" decimals={1} />
+          <TerminalReadout label="o2_pct" value={o2} unit="%" color="#ff6b35" decimals={1} />
           <div className="mt-2 font-mono text-xs text-white/40">
             errs_o2: <span className="text-white/40">{Math.round(errsO2)}</span>
           </div>
           <div className="font-mono text-xs text-white/40">
-            fc_o2: <span className="text-[#00d4ff]">FC{Math.round(fcO2)}</span> AUTO-LEARN
+            fc_o2: <span className="text-[#ff6b35]">FC{Math.round(fcO2)}</span> AUTO-LEARN
           </div>
-          <div className="mt-1 font-mono text-xs text-[#00ff88]">
+          <div className="mt-1 font-mono text-xs text-[#ff6b35]">
             NOMINAL: 20.9% <Cursor />
           </div>
         </SectionFrame>
       </div>
 
       <SectionFrame title="SYSTEM STATUS">
-        <div className="font-mono text-xs text-[#00ff88]">
+        <div className="font-mono text-xs text-[#ff6b35]">
           status_txt: <span className="text-white/60">ALL_CLEAR // NO_ALARMS // SENSORS_NOMINAL</span> <Cursor />
         </div>
         <div className="mt-2 font-mono text-xs text-white/40">
@@ -620,7 +620,7 @@ function WaterQuality() {
     <div className="space-y-4">
       <div className="font-mono text-xs text-white/50 flex flex-wrap items-center gap-4">
         <span>ATLAS EZO I2C BUS</span>
-        <span className="text-[#00ff88]">● ALL SENSORS OK</span>
+        <span className="text-[#ff6b35]">● ALL SENSORS OK</span>
         <span>PT100 RTD (MAX31865)</span>
         <span>4-20mA PRESSURE</span>
         <span>HALL EFFECT FLOW</span>
@@ -628,9 +628,9 @@ function WaterQuality() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <SectionFrame title="FLOW (HALL EFFECT)">
-          <TerminalReadout label="flowLpm" value={flowLpm} unit="L/min" color="#00d4ff" decimals={2} />
-          <TerminalReadout label="totalLiters" value={totalLiters} unit="L" color="#00d4ff" decimals={0} />
-          <TerminalBar label="FLOW RATE" value={flowLpm} max={10} unit="L/min" color="#00d4ff" />
+          <TerminalReadout label="flowLpm" value={flowLpm} unit="L/min" color="#ff6b35" decimals={2} />
+          <TerminalReadout label="totalLiters" value={totalLiters} unit="L" color="#ff6b35" decimals={0} />
+          <TerminalBar label="FLOW RATE" value={flowLpm} max={10} unit="L/min" color="#ff6b35" />
           <div className="mt-1 font-mono text-xs text-white/40">
             EMA SMOOTHING: <span className="text-[#ff6b35]">α = 0.15</span>
           </div>
@@ -645,7 +645,7 @@ function WaterQuality() {
         </SectionFrame>
 
         <SectionFrame title="PRESSURE (4-20mA)">
-          <TerminalReadout label="pressurePsi" value={pressurePsi} unit="PSI" color="#00d4ff" />
+          <TerminalReadout label="pressurePsi" value={pressurePsi} unit="PSI" color="#ff6b35" />
           <TerminalBar label="LINE PRESSURE" value={pressurePsi} max={80} unit="PSI" />
           <div className="mt-1 font-mono text-xs text-white/40">
             TRANSDUCER: 0-100 PSI
@@ -654,31 +654,31 @@ function WaterQuality() {
 
         <SectionFrame title="pH (ATLAS EZO)">
           <div className="flex justify-center py-2">
-            <Gauge label="pH" value={pH} max={14} unit="pH" safeMin={6.5} safeMax={8.5} color="#00ff88" />
+            <Gauge label="pH" value={pH} max={14} unit="pH" safeMin={6.5} safeMax={8.5} color="#ff6b35" />
           </div>
-          <TerminalReadout label="pH" value={pH} unit="pH" color="#00ff88" decimals={2} />
+          <TerminalReadout label="pH" value={pH} unit="pH" color="#ff6b35" decimals={2} />
         </SectionFrame>
 
         <SectionFrame title="ORP (ATLAS EZO)">
-          <TerminalReadout label="orp_mV" value={orp} unit="mV" color="#00d4ff" decimals={0} />
-          <TerminalBar label="ORP" value={orp} max={600} unit="mV" color="#00d4ff" />
+          <TerminalReadout label="orp_mV" value={orp} unit="mV" color="#ff6b35" decimals={0} />
+          <TerminalBar label="ORP" value={orp} max={600} unit="mV" color="#ff6b35" />
         </SectionFrame>
 
         <SectionFrame title="DISSOLVED OXYGEN">
-          <TerminalReadout label="do_mgL" value={doMgL} unit="mg/L" color="#00d4ff" />
-          <TerminalReadout label="do_pct" value={doPct} unit="%" color="#00d4ff" />
+          <TerminalReadout label="do_mgL" value={doMgL} unit="mg/L" color="#ff6b35" />
+          <TerminalReadout label="do_pct" value={doPct} unit="%" color="#ff6b35" />
         </SectionFrame>
 
         <SectionFrame title="CONDUCTIVITY">
-          <TerminalReadout label="ec_uScm" value={ec} unit="µS/cm" color="#00d4ff" decimals={0} />
-          <TerminalReadout label="tds_ppm" value={tds} unit="ppm" color="#00d4ff" decimals={0} />
-          <TerminalReadout label="sal_psu" value={sal} unit="PSU" color="#00d4ff" decimals={3} />
-          <TerminalReadout label="sg" value={sg} unit="" color="#00d4ff" decimals={4} />
+          <TerminalReadout label="ec_uScm" value={ec} unit="µS/cm" color="#ff6b35" decimals={0} />
+          <TerminalReadout label="tds_ppm" value={tds} unit="ppm" color="#ff6b35" decimals={0} />
+          <TerminalReadout label="sal_psu" value={sal} unit="PSU" color="#ff6b35" decimals={3} />
+          <TerminalReadout label="sg" value={sg} unit="" color="#ff6b35" decimals={4} />
         </SectionFrame>
       </div>
 
       <SectionFrame title="SENSOR STATUS">
-        <div className="font-mono text-xs text-[#00ff88]">
+        <div className="font-mono text-xs text-[#ff6b35]">
           sensor_ok: <span className="text-white/60">TRUE // ALL EZO CIRCUITS RESPONDING</span> <Cursor />
         </div>
       </SectionFrame>
@@ -699,36 +699,36 @@ function Environmental() {
     <div className="space-y-4">
       <div className="font-mono text-xs text-white/50 flex items-center gap-4">
         <span>AMBIENT MONITORING</span>
-        <span className="text-[#00ff88]">● ACTIVE</span>
+        <span className="text-[#ff6b35]">● ACTIVE</span>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <SectionFrame title="OXYGEN">
           <div className="flex justify-center py-4">
-            <Gauge label="o2_pct" value={o2} max={25} unit="%" safeMin={19.5} safeMax={23.5} color="#00ff88" size={160} />
+            <Gauge label="o2_pct" value={o2} max={25} unit="%" safeMin={19.5} safeMax={23.5} color="#ff6b35" size={160} />
           </div>
-          <TerminalReadout label="o2_pct" value={o2} unit="%" color="#00ff88" decimals={1} />
-          <TerminalBar label="O2 LEVEL" value={o2} max={25} unit="%" color="#00ff88" />
+          <TerminalReadout label="o2_pct" value={o2} unit="%" color="#ff6b35" decimals={1} />
+          <TerminalBar label="O2 LEVEL" value={o2} max={25} unit="%" color="#ff6b35" />
           <div className="mt-2 font-mono text-xs text-white/40">
-            o2SampleSec: <span className="text-[#00d4ff]">{o2Sample.toFixed(1)}s</span>
+            o2SampleSec: <span className="text-[#ff6b35]">{o2Sample.toFixed(1)}s</span>
           </div>
-          <div className="font-mono text-xs text-[#00ff88]">NOMINAL: 20.9%</div>
+          <div className="font-mono text-xs text-[#ff6b35]">NOMINAL: 20.9%</div>
         </SectionFrame>
 
         <SectionFrame title="HUMIDITY">
           <div className="flex justify-center py-4">
-            <Gauge label="rh_pct" value={rh} max={100} unit="%" safeMin={20} safeMax={80} color="#00d4ff" size={160} />
+            <Gauge label="rh_pct" value={rh} max={100} unit="%" safeMin={20} safeMax={80} color="#ff6b35" size={160} />
           </div>
-          <TerminalReadout label="rh_pct" value={rh} unit="%" color="#00d4ff" />
-          <TerminalBar label="RELATIVE HUMIDITY" value={rh} max={100} unit="%" color="#00d4ff" />
+          <TerminalReadout label="rh_pct" value={rh} unit="%" color="#ff6b35" />
+          <TerminalBar label="RELATIVE HUMIDITY" value={rh} max={100} unit="%" color="#ff6b35" />
           <div className="mt-2 font-mono text-xs text-white/40">
-            rhSampleSec: <span className="text-[#00d4ff]">{rhSample.toFixed(1)}s</span>
+            rhSampleSec: <span className="text-[#ff6b35]">{rhSample.toFixed(1)}s</span>
           </div>
         </SectionFrame>
       </div>
 
       <SectionFrame title="ENVIRONMENT STATUS">
-        <div className="font-mono text-xs text-[#00ff88]">
+        <div className="font-mono text-xs text-[#ff6b35]">
           ALL PARAMETERS WITHIN SAFE OPERATING ENVELOPE <Cursor />
         </div>
         <div className="mt-2 grid grid-cols-2 gap-2 font-mono text-xs">
@@ -783,10 +783,10 @@ export default function HMIPage() {
               </div>
             </div>
             <div className="text-right">
-              <div className="text-sm text-[#00d4ff] tabular-nums" style={{ textShadow: '0 0 8px #00d4ff40' }}>
+              <div className="text-sm text-[#ff6b35] tabular-nums" style={{ textShadow: '0 0 8px #ff6b3540' }}>
                 {clock}
               </div>
-              <StatusBadge status="ALL SYSTEMS NOMINAL" color="#00ff88" />
+              <StatusBadge status="ALL SYSTEMS NOMINAL" color="#ff6b35" />
             </div>
           </div>
 
@@ -794,7 +794,7 @@ export default function HMIPage() {
 
         {/* ═══ INTELLIGENCE LAYER OVERVIEW ═══ */}
         <div className="mb-10">
-          <div className="mb-4 text-[0.7rem] tracking-[0.2em] text-[#00d4ff]" style={{ textShadow: '0 0 8px rgba(0,212,255,0.3)' }}>
+          <div className="mb-4 text-[0.7rem] tracking-[0.2em] text-[#ff6b35]" style={{ textShadow: '0 0 8px rgba(255,107,53,0.3)' }}>
             ┌─── INTELLIGENCE LAYER ───┐
           </div>
 
@@ -806,8 +806,8 @@ export default function HMIPage() {
           <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
               { title: 'CUSTOM FIRMWARE', desc: "Thousands of lines of purpose-built code controlling every parameter — voltage, current, temperature, pressure, flow, timing. Not off-the-shelf PLCs.", color: '#ff6b35' },
-              { title: 'CLOUD MONITORING', desc: '100+ variables streamed to the cloud in real time. Every electrolyzer in the fleet, every sensor, every actuator — visible from anywhere.', color: '#00d4ff' },
-              { title: 'PREDICTIVE AI', desc: 'Machine learning layered on top of process data. Detects valve chatter, sensor calibration drift, and efficiency trends. Maintenance is planned, never emergency.', color: '#00ff88' },
+              { title: 'CLOUD MONITORING', desc: '100+ variables streamed to the cloud in real time. Every electrolyzer in the fleet, every sensor, every actuator — visible from anywhere.', color: '#ff6b35' },
+              { title: 'PREDICTIVE AI', desc: 'Machine learning layered on top of process data. Detects valve chatter, sensor calibration drift, and efficiency trends. Maintenance is planned, never emergency.', color: '#ff6b35' },
               { title: 'CUSTOM HARDWARE', desc: 'Built on PCBs we designed and manufactured in-house. See the Power Converter section for our full PCB fabrication process.', color: '#ff6b35' },
             ].map((card) => (
               <div key={card.title} className="border-l-[3px] bg-[#12121a] px-5 py-5"
@@ -825,14 +825,14 @@ export default function HMIPage() {
 
           {/* Terminal-style system status readout */}
           <div className="mb-8 overflow-hidden rounded border border-white/10 bg-black/40 px-5 py-4 font-mono text-sm">
-            <div className="mb-3 text-[0.65rem] tracking-[0.15em] text-[#ff6b35]">SYSTEM STATUS: <span className="text-[#00ff88]">● NOMINAL</span></div>
+            <div className="mb-3 text-[0.65rem] tracking-[0.15em] text-[#ff6b35]">SYSTEM STATUS: <span className="text-[#ff6b35]">● NOMINAL</span></div>
             <div className="space-y-1 text-white/70">
-              <div>├─ Stack Voltage: <span className="text-[#00d4ff]">3.2 kV</span>         <span className="text-[#00ff88]">● NORMAL</span></div>
-              <div>├─ H₂ Flow Rate: <span className="text-[#00d4ff]">1.04 kg/hr</span>     <span className="text-[#00ff88]">● NORMAL</span></div>
-              <div>├─ Stack Temp: <span className="text-[#00d4ff]">27.8°C</span>            <span className="text-[#00ff88]">● NORMAL</span></div>
-              <div>├─ Valve V-101: <span className="text-[#00d4ff]">chatter detected</span> <span className="text-[#ff6b35]">● ATTENTION</span> — maintenance window: 14 days</div>
-              <div>├─ Sensor PT-103: <span className="text-[#00d4ff]">0.3% drift</span>     <span className="text-[#ff6b35]">● WATCHING</span> — calibration due: 30 days</div>
-              <div>└─ System Efficiency: <span className="text-[#00d4ff]">93.2% HHV</span>  <span className="text-[#00ff88]">● OPTIMAL</span></div>
+              <div>├─ Stack Voltage: <span className="text-[#ff6b35]">3.2 kV</span>         <span className="text-[#ff6b35]">● NORMAL</span></div>
+              <div>├─ H₂ Flow Rate: <span className="text-[#ff6b35]">1.04 kg/hr</span>     <span className="text-[#ff6b35]">● NORMAL</span></div>
+              <div>├─ Stack Temp: <span className="text-[#ff6b35]">27.8°C</span>            <span className="text-[#ff6b35]">● NORMAL</span></div>
+              <div>├─ Valve V-101: <span className="text-[#ff6b35]">chatter detected</span> <span className="text-[#ff6b35]">● ATTENTION</span> — maintenance window: 14 days</div>
+              <div>├─ Sensor PT-103: <span className="text-[#ff6b35]">0.3% drift</span>     <span className="text-[#ff6b35]">● WATCHING</span> — calibration due: 30 days</div>
+              <div>└─ System Efficiency: <span className="text-[#ff6b35]">93.2% HHV</span>  <span className="text-[#ff6b35]">● OPTIMAL</span></div>
             </div>
           </div>
 
@@ -898,9 +898,9 @@ export default function HMIPage() {
             <div className="flex flex-wrap items-center gap-2 sm:gap-4 justify-center">
               <span className="text-[#ff6b35]">100 CLOUD VARIABLES</span>
               <span className="text-white/30">//</span>
-              <span className="text-[#00d4ff]">5 CONTROL BOARDS</span>
+              <span className="text-[#ff6b35]">5 CONTROL BOARDS</span>
               <span className="text-white/30">//</span>
-              <span className="text-[#00ff88]">8 MODBUS SLAVES</span>
+              <span className="text-[#ff6b35]">8 MODBUS SLAVES</span>
               <span className="text-white/30">//</span>
               <span className="text-[#ff6b35]">REAL-TIME</span>
             </div>

@@ -40,12 +40,12 @@ const experienceCards = [
   {
     title: 'Interactive LED Process Flow',
     desc: 'LED lighting traces the hydrogen production process through the container in real-time. Visitors see water become hydrogen, visually, as it happens. Color changes indicate system state.',
-    color: '#00ff88',
+    color: '#ff6b35',
   },
   {
     title: 'Live Stack Changeout Demo',
     desc: 'Watch a T-25 electrolyzer stack get swapped in under 30 minutes. No cranes. No specialists. Just field-serviceable simplicity.',
-    color: '#00d4ff',
+    color: '#ff6b35',
   },
   {
     title: 'One-Button Commissioning',
@@ -55,12 +55,12 @@ const experienceCards = [
   {
     title: 'Solar-to-Hydrogen, Live',
     desc: '2.5 kW of solar hits panels → power flows through the Anker SOLIX E10 → electrolyzer splits water → pure hydrogen output. Grid backup ensures continuous operation. The entire clean energy chain, visible and tangible.',
-    color: '#00ff88',
+    color: '#ff6b35',
   },
   {
     title: 'AI Copilot Interface',
     desc: "A display showing the AI reading process data in real-time, making predictions, generating insights. Not a dashboard — an intelligence.",
-    color: '#00d4ff',
+    color: '#ff6b35',
   },
   {
     title: "The 'Year 3000' Aesthetic",
@@ -98,7 +98,7 @@ export default function Node01Page() {
 
         {/* Content overlay */}
         <div className="absolute inset-0 flex items-end">
-          <div className="mx-auto w-full max-w-5xl px-6 pb-16">
+          <div className="mx-auto w-full max-w-6xl px-6 pb-16">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -123,8 +123,8 @@ export default function Node01Page() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="mb-4 text-xl text-[#00d4ff] md:text-2xl"
-              style={{ textShadow: '0 0 20px rgba(0,212,255,0.3)' }}
+              className="mb-4 text-xl text-[#ff6b35] md:text-2xl"
+              style={{ textShadow: '0 0 20px rgba(255,107,53,0.3)' }}
             >
               The Future of Hydrogen Production, Containerized
             </motion.p>
@@ -145,10 +145,7 @@ export default function Node01Page() {
 
       {/* ═══ WHAT IS NODE-01 ═══ */}
       <section className="border-b border-white/10 px-6 py-16">
-        <div className="mx-auto max-w-5xl">
-          <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
-{`┌─── WHAT IS NODE-01 ─────────────────────┐`}
-          </pre>
+        <div className="mx-auto max-w-6xl">
           <div className="mb-4 flex items-baseline gap-3">
             <span className="text-[0.7rem] tracking-[0.1em] text-[#ff6b35]">01 //</span>
             <h2 className="text-2xl font-bold tracking-tight">What Is NODE-01</h2>
@@ -165,9 +162,9 @@ export default function Node01Page() {
             <p>
               NODE-01 is Tobe Energy&apos;s containerized demonstration unit — a fully self-contained,
               solar-powered hydrogen production system inside a standard{' '}
-              <span className="text-[#00ff88]">20-foot shipping container</span>. But it&apos;s more than
+              <span className="text-[#ff6b35]">20-foot shipping container</span>. But it&apos;s more than
               a demo. It&apos;s a proof of concept for how Tobe deploys:{' '}
-              <span className="text-[#00d4ff]">AI-first, zero-complexity, beautiful</span>.
+              <span className="text-[#ff6b35]">AI-first, zero-complexity, beautiful</span>.
             </p>
           </motion.div>
 
@@ -195,7 +192,7 @@ export default function Node01Page() {
                   className="flex items-center justify-between px-4 py-3"
                 >
                   <span className="text-sm text-white/50">{s.param}</span>
-                  <span className="text-right text-sm font-semibold text-[#00ff88]">{s.value}</span>
+                  <span className="text-right text-sm font-semibold text-[#ff6b35]">{s.value}</span>
                 </motion.div>
               ))}
             </div>
@@ -205,10 +202,7 @@ export default function Node01Page() {
 
       {/* ═══ AI-POWERED QUOTING ENGINE ═══ */}
       <section className="border-b border-white/10 px-6 py-16">
-        <div className="mx-auto max-w-5xl">
-          <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
-{`┌─── AI-POWERED QUOTING ENGINE ───────────┐`}
-          </pre>
+        <div className="mx-auto max-w-6xl">
           <div className="mb-4 flex items-baseline gap-3">
             <span className="text-[0.7rem] tracking-[0.1em] text-[#ff6b35]">02 //</span>
             <h2 className="text-2xl font-bold tracking-tight">AI-Powered Quoting Engine</h2>
@@ -220,8 +214,8 @@ export default function Node01Page() {
             viewport={{ once: true }}
             custom={0}
             variants={fadeUp}
-            className="mb-8 text-lg font-semibold text-[#00d4ff]"
-            style={{ textShadow: '0 0 15px rgba(0,212,255,0.3)' }}
+            className="mb-8 text-lg font-semibold text-[#ff6b35]"
+            style={{ textShadow: '0 0 15px rgba(255,107,53,0.3)' }}
           >
             ▸ WALK IN WITH A QUESTION. WALK OUT WITH A PROJECT.
           </motion.p>
@@ -235,7 +229,7 @@ export default function Node01Page() {
             className="mb-8 space-y-4 text-sm leading-relaxed text-white/70"
           >
             <p>
-              When a potential customer tours NODE-01, an <span className="text-[#00ff88]">AI agent</span> accompanies
+              When a potential customer tours NODE-01, an <span className="text-[#ff6b35]">AI agent</span> accompanies
               them through the experience. As they walk through the container and discuss their project,
               the AI is working in the background — gathering requirements through natural conversation,
               generating engineering deliverables, and building a complete project specification.
@@ -249,16 +243,16 @@ export default function Node01Page() {
             viewport={{ once: true }}
             custom={2}
             variants={fadeUp}
-            className="overflow-hidden rounded border border-[#00ff88]/20 bg-[#0a0a0f]"
+            className="overflow-hidden rounded border border-[#ff6b35]/20 bg-[#0a0a0f]"
           >
-            <div className="border-b border-[#00ff88]/20 bg-[#00ff88]/[0.03] px-4 py-2">
-              <span className="text-xs tracking-[0.15em] text-[#00ff88]">▸ AI QUOTING ENGINE — LIVE PROCESS</span>
+            <div className="border-b border-[#ff6b35]/20 bg-[#ff6b35]/[0.03] px-4 py-2">
+              <span className="text-xs tracking-[0.15em] text-[#ff6b35]">▸ AI QUOTING ENGINE — LIVE PROCESS</span>
             </div>
             <div className="p-6">
-              <pre className="text-xs leading-loose text-[#00ff88]/80 sm:text-sm" style={{ whiteSpace: 'pre-wrap' }}>
+              <pre className="text-xs leading-loose text-[#ff6b35]/80 sm:text-sm" style={{ whiteSpace: 'pre-wrap' }}>
 {`VISITOR ENTERS → `}<span className="text-[#ff6b35]">AI AGENT ACTIVATES</span>{` → CONVERSATION BEGINS`}
               </pre>
-              <div className="my-4 space-y-2 border-l-2 border-[#00ff88]/20 pl-4">
+              <div className="my-4 space-y-2 border-l-2 border-[#ff6b35]/20 pl-4">
                 {quotingSteps.map((step, i) => (
                   <motion.div
                     key={step.label}
@@ -270,11 +264,11 @@ export default function Node01Page() {
                     className="flex items-center justify-between font-mono text-xs sm:text-sm"
                   >
                     <span className="text-white/60">→ {step.label}</span>
-                    <span className="text-[#00ff88]">[{step.status}]</span>
+                    <span className="text-[#ff6b35]">[{step.status}]</span>
                   </motion.div>
                 ))}
               </div>
-              <pre className="text-xs leading-loose text-[#00ff88]/80 sm:text-sm" style={{ whiteSpace: 'pre-wrap' }}>
+              <pre className="text-xs leading-loose text-[#ff6b35]/80 sm:text-sm" style={{ whiteSpace: 'pre-wrap' }}>
 {`VISITOR EXITS → `}<span className="text-[#ff6b35] font-bold">COMPLETE PROJECT SPECIFICATION IN HAND</span>
               </pre>
             </div>
@@ -301,10 +295,7 @@ export default function Node01Page() {
 
       {/* ═══ PREDICTIVE MAINTENANCE AI ═══ */}
       <section className="border-b border-white/10 px-6 py-16">
-        <div className="mx-auto max-w-5xl">
-          <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
-{`┌─── PREDICTIVE MAINTENANCE AI ───────────┐`}
-          </pre>
+        <div className="mx-auto max-w-6xl">
           <div className="mb-4 flex items-baseline gap-3">
             <span className="text-[0.7rem] tracking-[0.1em] text-[#ff6b35]">03 //</span>
             <h2 className="text-2xl font-bold tracking-tight">Predictive Maintenance AI</h2>
@@ -316,8 +307,8 @@ export default function Node01Page() {
             viewport={{ once: true }}
             custom={0}
             variants={fadeUp}
-            className="mb-8 text-lg font-semibold text-[#00d4ff]"
-            style={{ textShadow: '0 0 15px rgba(0,212,255,0.3)' }}
+            className="mb-8 text-lg font-semibold text-[#ff6b35]"
+            style={{ textShadow: '0 0 15px rgba(255,107,53,0.3)' }}
           >
             ▸ NO MORE FAILED ENERGY PROJECTS
           </motion.p>
@@ -332,7 +323,7 @@ export default function Node01Page() {
           >
             <p>
               The AI doesn&apos;t stop at quoting. Every NODE runs a{' '}
-              <span className="text-[#00ff88]">persistent intelligence layer</span> that reads live
+              <span className="text-[#ff6b35]">persistent intelligence layer</span> that reads live
               process data from every sensor in real-time, detects failures before they happen,
               and enables planned maintenance — never emergency maintenance.
             </p>
@@ -345,21 +336,21 @@ export default function Node01Page() {
             viewport={{ once: true }}
             custom={2}
             variants={fadeUp}
-            className="overflow-hidden rounded border border-[#00ff88]/20 bg-[#0a0a0f]"
+            className="overflow-hidden rounded border border-[#ff6b35]/20 bg-[#0a0a0f]"
           >
-            <div className="border-b border-[#00ff88]/20 bg-[#00ff88]/[0.03] px-4 py-2 flex items-center justify-between">
-              <span className="text-xs tracking-[0.15em] text-[#00ff88]">▸ SYSTEM MONITOR — NODE-01</span>
-              <span className="text-[0.6rem] text-[#00ff88]/50">LIVE</span>
+            <div className="border-b border-[#ff6b35]/20 bg-[#ff6b35]/[0.03] px-4 py-2 flex items-center justify-between">
+              <span className="text-xs tracking-[0.15em] text-[#ff6b35]">▸ SYSTEM MONITOR — NODE-01</span>
+              <span className="text-[0.6rem] text-[#ff6b35]/50">LIVE</span>
             </div>
             <div className="p-5 space-y-2 text-sm font-mono">
-              <div className="mb-3 text-xs font-bold text-[#00ff88]" style={{ textShadow: '0 0 8px rgba(0,255,136,0.3)' }}>SYSTEM: NOMINAL</div>
+              <div className="mb-3 text-xs font-bold text-[#ff6b35]" style={{ textShadow: '0 0 8px rgba(255,107,53,0.3)' }}>SYSTEM: NOMINAL</div>
               {[
-                { label: 'Stack Voltage', value: '3.2 kV', status: 'NORMAL', color: '#00ff88' },
-                { label: 'H₂ Flow Rate', value: '1.04 kg/hr', status: 'NORMAL', color: '#00ff88' },
-                { label: 'Stack Temperature', value: '27.8°C', status: 'NORMAL', color: '#00ff88' },
+                { label: 'Stack Voltage', value: '3.2 kV', status: 'NORMAL', color: '#ff6b35' },
+                { label: 'H₂ Flow Rate', value: '1.04 kg/hr', status: 'NORMAL', color: '#ff6b35' },
+                { label: 'Stack Temperature', value: '27.8°C', status: 'NORMAL', color: '#ff6b35' },
                 { label: 'Valve V-101', value: 'Chatter detected', status: 'ATTENTION', color: '#ff6b35', note: 'maintenance window: 14 days' },
                 { label: 'Sensor PT-103', value: '0.3% drift', status: 'WATCHING', color: '#eab308', note: 'calibration due: 30 days' },
-                { label: 'System Efficiency', value: '93.2% HHV', status: 'OPTIMAL', color: '#00ff88' },
+                { label: 'System Efficiency', value: '93.2% HHV', status: 'OPTIMAL', color: '#ff6b35' },
               ].map((row, i, arr) => (
                 <div key={row.label} className="flex items-start gap-3 border-l border-white/10 pl-4" style={{ borderColor: i === arr.length - 1 ? 'transparent' : undefined }}>
                   <div className="h-2 w-2 mt-1.5 rounded-full shrink-0" style={{ backgroundColor: row.color, boxShadow: `0 0 6px ${row.color}60` }} />
@@ -395,7 +386,7 @@ export default function Node01Page() {
               'Learns from every operating hour across the entire fleet',
             ].map((item, i) => (
               <div key={i} className="flex items-start gap-2 text-sm text-white/60">
-                <span className="mt-0.5 text-[#00ff88]">▸</span>
+                <span className="mt-0.5 text-[#ff6b35]">▸</span>
                 <span>{item}</span>
               </div>
             ))}
@@ -408,10 +399,10 @@ export default function Node01Page() {
             viewport={{ once: true }}
             custom={4}
             variants={fadeUp}
-            className="mt-8 rounded border border-[#00d4ff]/30 bg-[#00d4ff]/[0.05] p-6"
+            className="mt-8 rounded border border-[#ff6b35]/30 bg-[#ff6b35]/[0.05] p-6"
           >
-            <p className="text-center text-sm font-semibold text-[#00d4ff] md:text-base"
-              style={{ textShadow: '0 0 12px rgba(0,212,255,0.3)' }}
+            <p className="text-center text-sm font-semibold text-[#ff6b35] md:text-base"
+              style={{ textShadow: '0 0 12px rgba(255,107,53,0.3)' }}
             >
               Energy projects don&apos;t fail because of technology.
               They fail because of complexity. NODE-01 eliminates complexity.
@@ -422,10 +413,7 @@ export default function Node01Page() {
 
       {/* ═══ THE EXPERIENCE ═══ */}
       <section className="border-b border-white/10 px-6 py-16">
-        <div className="mx-auto max-w-5xl">
-          <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
-{`┌─── THE EXPERIENCE ──────────────────────┐`}
-          </pre>
+        <div className="mx-auto max-w-6xl">
           <div className="mb-4 flex items-baseline gap-3">
             <span className="text-[0.7rem] tracking-[0.1em] text-[#ff6b35]">04 //</span>
             <h2 className="text-2xl font-bold tracking-tight">The Experience</h2>
@@ -437,8 +425,8 @@ export default function Node01Page() {
             viewport={{ once: true }}
             custom={0}
             variants={fadeUp}
-            className="mb-8 text-lg font-semibold text-[#00d4ff]"
-            style={{ textShadow: '0 0 15px rgba(0,212,255,0.3)' }}
+            className="mb-8 text-lg font-semibold text-[#ff6b35]"
+            style={{ textShadow: '0 0 15px rgba(255,107,53,0.3)' }}
           >
             ▸ DESIGNED TO INSPIRE
           </motion.p>
@@ -468,10 +456,7 @@ export default function Node01Page() {
 
       {/* ═══ WHY THIS MATTERS ═══ */}
       <section className="border-b border-white/10 px-6 py-16">
-        <div className="mx-auto max-w-5xl">
-          <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
-{`┌─── WHY THIS MATTERS ────────────────────┐`}
-          </pre>
+        <div className="mx-auto max-w-6xl">
           <div className="mb-6 flex items-baseline gap-3">
             <span className="text-[0.7rem] tracking-[0.1em] text-[#ff6b35]">05 //</span>
             <h2 className="text-2xl font-bold tracking-tight">Why This Matters</h2>
@@ -518,11 +503,10 @@ export default function Node01Page() {
 
       {/* ═══ FOOTER ═══ */}
       <footer className="border-t border-white/10 px-6 py-6">
-        <div className="mx-auto max-w-5xl text-center">
+        <div className="mx-auto max-w-6xl text-center">
           <pre className="text-xs text-[#ff6b35]/20" style={{ textShadow: '0 0 6px rgba(255,107,53,0.08)' }}>
-{`═══════════════════════════════════════════════════════════
- TOBE ENERGY CORP // CONFIDENTIAL // 2026
-═══════════════════════════════════════════════════════════`}
+{`TOBE ENERGY CORP // OKLAHOMA CITY, USA // EST. 2024
+CONFIDENTIAL — AUTHORIZED INVESTOR ACCESS ONLY`}
           </pre>
         </div>
       </footer>

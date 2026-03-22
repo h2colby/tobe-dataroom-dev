@@ -16,9 +16,9 @@ const COLORS = {
   bg: '#0a0a0f',
   card: 'rgba(255,255,255,0.02)',
   cardBorder: 'rgba(255,255,255,0.1)',
-  green: '#00ff88',
+  green: '#ff6b35',
   orange: '#ff6b35',
-  blue: '#00d4ff',
+  blue: '#ff6b35',
   red: '#ff4444',
   white: '#ffffff',
   white60: 'rgba(255,255,255,0.6)',
@@ -1004,7 +1004,7 @@ const SensitivityTab = () => {
                         padding: 8, textAlign: 'center',
                         color: isBase ? COLORS.green : COLORS.white,
                         fontWeight: isBase ? 700 : 400,
-                        background: `rgba(0, 255, 136, ${intensity * 0.15})`,
+                        background: `rgba(255, 107, 53, ${intensity * 0.15})`,
                         border: isBase ? `1px solid ${COLORS.green}50` : 'none',
                       }}>
                         ${val.toFixed(1)}M

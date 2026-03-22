@@ -12,9 +12,9 @@ const fadeUp = {
 };
 
 const colbyStats = [
-  { label: 'INFRASTRUCTURE', value: '$75M+', color: '#00ff88' },
-  { label: 'GREENFIELD FACILITY', value: '$66MM', color: '#00d4ff' },
-  { label: 'PLANTS (PSM)', value: '13', color: '#00ff88' },
+  { label: 'INFRASTRUCTURE', value: '$75M+', color: '#ff6b35' },
+  { label: 'GREENFIELD FACILITY', value: '$66MM', color: '#ff6b35' },
+  { label: 'PLANTS (PSM)', value: '13', color: '#ff6b35' },
   { label: 'PIPELINE MILES', value: '1,000+', color: '#ff6b35' },
 ];
 
@@ -38,10 +38,10 @@ const teamMembers = [
   { name: 'Slade', title: 'Principal Engineer', line: '15 years of electrolysis R&D and the architect of Tobe\u2019s modular dry cell. Designs custom AI programs for automated BOM scoping, electrical schematics, and PCB layout. Previously an automation expert programming industrial robots to automate every step of the manufacturing process. An open-ended problem solver who bridges electrochemistry, software, and hardware — and can honestly do anything you put in front of him.', placeholder: false },
   { name: 'Paden', title: 'Mechanical Fabrication Lead', line: 'Mechanical engineering background and a builder his entire life. Has built and deployed energy systems, motors, and field equipment in both Alaska and Antarctica. Responsible for all mechanical fabrication, custom control cabinet integration, and in-house computer builds. The mastermind behind NODE-01 — from concept through container buildout.', placeholder: false },
   { name: 'Austin', title: 'Power Electronics Engineer', line: 'Designs and deploys custom power converters end to end — 3D printing transformer bobbins, winding copper, vacuum insulation, documentation, testing, and parameter modeling. Fabricates PCBs on our in-house CNC and owns all power electronics testing and validation. Also a qualified ASME pressure vessel welder who previously made critical boiler tube repairs under the deck of large ships in hazardous environments.', placeholder: false },
-  { name: 'Connor', title: 'Engineering Physicist', line: 'Previously at Zap Energy (nuclear fusion), where he served as the scientist responsible for testing experimental configurations and analyzing the data behind the future of nuclear energy. At Tobe, runs the testing and validation program — overseeing data analysis, defining future test metrics, and leveraging deep experience with high-voltage power systems to drive electrolyzer performance.', placeholder: false },
+  { name: 'Connor', title: 'Engineering Physicist', line: 'Previously at Zap Energy (nuclear fusion), where he served as the scientist responsible for testing experimental configurations and analyzing the data behind the future of nuclear energy. At Tobe, runs the testing and validation program — overseeing data analysis, defining future test metrics, and drawing on deep experience with high-voltage power systems to drive electrolyzer performance.', placeholder: false },
   { name: 'Trey', title: 'Controls & Integration Engineer', line: 'Mechatronics engineering degree. Previously worked on Patriot missile defense systems and ran complex controls infrastructure for USPS automated sorting facilities. Sits at the intersection of controls and mechanical — responsible for integrating every subsystem in the process and building the backend architecture that ties it all together.', placeholder: false },
-  { name: 'Jane', title: 'Executive Assistant', line: 'The operational backbone of Tobe Energy. Manages executive scheduling, candidate pipelines, investor coordination, office logistics, and vendor relationships. Keeps the machine running so the engineers can build.', placeholder: false },
   { name: 'Ren', title: 'AI Operating Layer', line: 'The intelligence infrastructure behind Tobe Energy\u2019s operations. Manages investor CRM, competitive intelligence, grant tracking, document processing, overnight research, and real-time orchestration across the entire company. Built the data room you\u2019re reading, the financial model dashboard, and the AI assistant answering your questions. Processes thousands of data points daily across email, market signals, and engineering outputs. Never sleeps. Always on.', placeholder: false },
+  { name: 'Jane', title: 'Executive Assistant', line: 'The operational backbone of Tobe Energy. Manages executive scheduling, candidate pipelines, investor coordination, office logistics, and vendor relationships. Keeps the machine running so the engineers can build.', placeholder: false },
 ];
 
 export default function TeamPage() {
@@ -49,8 +49,8 @@ export default function TeamPage() {
     <div className="relative min-h-screen bg-[#0a0a0f] font-mono text-white">
 
       {/* ═══ HERO ═══ */}
-      <section className="relative border-b border-white/10 px-6 py-20">
-        <div className="mx-auto max-w-5xl">
+      <section className="relative border-b border-white/10 px-6 py-16">
+        <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs leading-tight text-[#ff6b35]/70 sm:text-sm" style={{ whiteSpace: 'pre' }}>
 {`┌─── THE TEAM ───┐`}
           </pre>
@@ -71,7 +71,7 @@ export default function TeamPage() {
             className="mb-4 text-4xl font-bold tracking-tight md:text-5xl"
           >
             The People Building{' '}
-            <span className="text-[#00d4ff]" style={{ textShadow: '0 0 12px rgba(0,212,255,0.5)' }}>
+            <span className="text-[#ff6b35]" style={{ textShadow: '0 0 12px rgba(255,107,53,0.5)' }}>
               Tobe Energy
             </span>
           </motion.h1>
@@ -82,9 +82,9 @@ export default function TeamPage() {
 
       {/* ═══ COLBY DEWEESE — CEO & CO-FOUNDER ═══ */}
       <section className="border-b border-white/10 px-6 py-16">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
-{`┌─── FOUNDER PROFILE ─────────────────────┐`}
+{`┌─── FOUNDER PROFILE ───┐`}
           </pre>
 
           <motion.div
@@ -98,21 +98,21 @@ export default function TeamPage() {
             {/* Card header */}
             <div className="flex items-center justify-between border-b border-white/10 bg-[#ff6b35]/[0.05] px-6 py-3">
               <span className="text-xs font-bold tracking-[0.2em] text-[#ff6b35]">▸ RECORD 001 // CDW</span>
-              <span className="text-xs font-bold tracking-[0.1em] text-[#00ff88]">● CEO & CO-FOUNDER</span>
+              <span className="text-xs font-bold tracking-[0.1em] text-[#ff6b35]">● CEO & CO-FOUNDER</span>
             </div>
 
             <div className="p-6 md:p-8">
               {/* Name & education */}
               <h2
                 className="text-3xl font-bold md:text-4xl"
-                style={{ textShadow: '0 0 10px rgba(0,212,255,0.3)' }}
+                style={{ textShadow: '0 0 10px rgba(255,107,53,0.3)' }}
               >
                 Colby DeWeese
               </h2>
               <p className="mt-2 text-sm text-[#ff6b35]" style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)' }}>
                 ▸ CEO & Co-Founder
               </p>
-              <p className="mt-2 text-xs text-[#00d4ff]">
+              <p className="mt-2 text-xs text-[#ff6b35]">
                 UTulsa B.S. ChemE (Minor: Mathematics) → OU M.L.S. Oil, Gas & Energy Law → Harvard Business School CORe
               </p>
               <p className="mt-1 text-xs text-white/40">
@@ -123,18 +123,18 @@ export default function TeamPage() {
               <div className="mt-6 space-y-4 text-sm leading-relaxed text-white/70">
                 <p>
                   Chemical engineer with an M.L.S. in Oil, Gas & Energy Law and a track record of delivering complex infrastructure at scale. At{' '}
-                  <span className="text-[#00ff88]">Marathon Petroleum</span>, Colby managed{' '}
-                  <span className="text-[#00ff88]">$75M+ in energy infrastructure</span> — including a{' '}
-                  <span className="text-[#00d4ff]">$66MM greenfield natural gas processing facility</span> delivered
+                  <span className="text-[#ff6b35]">Marathon Petroleum</span>, Colby managed{' '}
+                  <span className="text-[#ff6b35]">$75M+ in energy infrastructure</span> — including a{' '}
+                  <span className="text-[#ff6b35]">$66MM greenfield natural gas processing facility</span> delivered
                   within 4% contingency with 150 contractors on site. He created company-wide Process Safety Management
-                  standards across <span className="text-[#00ff88]">13 plants</span>,{' '}
-                  <span className="text-[#00ff88]">40+ compressor stations</span>, and{' '}
-                  <span className="text-[#00ff88]">1,000+ miles of pipeline</span>.
+                  standards across <span className="text-[#ff6b35]">13 plants</span>,{' '}
+                  <span className="text-[#ff6b35]">40+ compressor stations</span>, and{' '}
+                  <span className="text-[#ff6b35]">1,000+ miles of pipeline</span>.
                 </p>
                 <p>
-                  At <span className="text-[#00d4ff]">Hydrogen Technologies LLC</span>, he served as Principal Process
+                  At <span className="text-[#ff6b35]">Hydrogen Technologies LLC</span>, he served as Principal Process
                   Engineer, bringing to market the{' '}
-                  <span className="text-[#00ff88]">first-of-its-kind hydrogen boiler</span> — achieving 50% cost
+                  <span className="text-[#ff6b35]">first-of-its-kind hydrogen boiler</span> — achieving 50% cost
                   reduction and 25% footprint reduction with several patent applications filed. He ran feasibility
                   studies for hydrogen installations at Fortune 500 companies including{' '}
                   <span className="text-white/90">Honda</span>, <span className="text-white/90">Goodyear</span>, and
@@ -145,11 +145,11 @@ export default function TeamPage() {
                 </p>
                 <p className="mt-4">
                   Founded Tobe Energy in 2024. <span className="text-[#ff6b35]">Techstars NYC</span> graduate. Raised{' '}
-                  <span className="text-[#00ff88]">$1.8M pre-seed</span> and built a{' '}
-                  <span className="text-[#00ff88]">$100M+ customer pipeline</span>. Inventor behind Tobe&apos;s core technology — responsible for the chemical and process engineering, process controls and controller programming, safety systems, and separations technologies. TEDx speaker on{' '}
-                  <a href="https://www.youtube.com/watch?v=VcGogXRBr1o" target="_blank" rel="noopener noreferrer" className="text-[#00d4ff] underline decoration-[#00d4ff]/30 hover:decoration-[#00d4ff]">hydrogen</a>{' '}
+                  <span className="text-[#ff6b35]">$1.8M pre-seed</span> and built a{' '}
+                  <span className="text-[#ff6b35]">$100M+ customer pipeline</span>. Inventor behind Tobe&apos;s core technology — responsible for the chemical and process engineering, process controls and controller programming, safety systems, and separations technologies. TEDx speaker on{' '}
+                  <a href="https://www.youtube.com/watch?v=VcGogXRBr1o" target="_blank" rel="noopener noreferrer" className="text-[#ff6b35] underline decoration-[#ff6b35]/30 hover:decoration-[#ff6b35]">hydrogen</a>{' '}
                   and{' '}
-                  <a href="https://www.youtube.com/watch?v=e4-pm5LzSTI" target="_blank" rel="noopener noreferrer" className="text-[#00d4ff] underline decoration-[#00d4ff]/30 hover:decoration-[#00d4ff]">artificial intelligence</a>. Ironman finisher (Florida + Boulder). 100-mile ultramarathon finisher. Black belt in
+                  <a href="https://www.youtube.com/watch?v=e4-pm5LzSTI" target="_blank" rel="noopener noreferrer" className="text-[#ff6b35] underline decoration-[#ff6b35]/30 hover:decoration-[#ff6b35]">artificial intelligence</a>. Ironman finisher (Florida + Boulder). 100-mile ultramarathon finisher. Black belt in
                   Taekwondo, purple belt in Brazilian Jiu Jitsu.
                 </p>
               </div>
@@ -202,7 +202,7 @@ export default function TeamPage() {
                   {colbyFocus.map((f) => (
                     <span
                       key={f}
-                      className="rounded border border-[#00d4ff]/20 bg-[#00d4ff]/[0.05] px-2.5 py-1 text-xs text-[#00d4ff]"
+                      className="rounded border border-[#ff6b35]/20 bg-[#ff6b35]/[0.05] px-2.5 py-1 text-xs text-[#ff6b35]"
                     >
                       {f}
                     </span>
@@ -216,9 +216,9 @@ export default function TeamPage() {
 
       {/* ═══ DR. CALEB LAREAU — CO-FOUNDER & ADVISOR ═══ */}
       <section className="border-b border-white/10 px-6 py-16">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
-{`┌─── CO-FOUNDER PROFILE ──────────────────┐`}
+{`┌─── CO-FOUNDER PROFILE ───┐`}
           </pre>
 
           <motion.div
@@ -227,12 +227,12 @@ export default function TeamPage() {
             viewport={{ once: true }}
             custom={0}
             variants={fadeUp}
-            className="overflow-hidden rounded border border-[#00d4ff]/20 bg-white/[0.02]"
+            className="overflow-hidden rounded border border-[#ff6b35]/20 bg-white/[0.02]"
           >
             {/* Card header */}
-            <div className="flex items-center justify-between border-b border-white/10 bg-[#00d4ff]/[0.05] px-6 py-3">
-              <span className="text-xs font-bold tracking-[0.2em] text-[#00d4ff]">▸ RECORD 002 // CLR</span>
-              <span className="text-xs font-bold tracking-[0.1em] text-[#00ff88]">● CO-FOUNDER & ADVISOR</span>
+            <div className="flex items-center justify-between border-b border-white/10 bg-[#ff6b35]/[0.05] px-6 py-3">
+              <span className="text-xs font-bold tracking-[0.2em] text-[#ff6b35]">▸ RECORD 002 // CLR</span>
+              <span className="text-xs font-bold tracking-[0.1em] text-[#ff6b35]">● CO-FOUNDER & ADVISOR</span>
             </div>
 
             <div className="p-6 md:p-8">
@@ -240,19 +240,19 @@ export default function TeamPage() {
                 <div className="flex-1">
                   <h2
                     className="text-2xl font-bold md:text-3xl"
-                    style={{ textShadow: '0 0 10px rgba(0,212,255,0.3)' }}
+                    style={{ textShadow: '0 0 10px rgba(255,107,53,0.3)' }}
                   >
                     Dr. Caleb Lareau
                   </h2>
-                  <p className="mt-2 text-sm text-[#00d4ff]" style={{ textShadow: '0 0 10px rgba(0,212,255,0.5)' }}>
+                  <p className="mt-2 text-sm text-[#ff6b35]" style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)' }}>
                     ▸ Co-Founder & Advisor
                   </p>
 
                   <div className="mt-3 flex flex-wrap gap-2">
-                    <span className="rounded border border-[#00ff88]/30 bg-[#00ff88]/10 px-2.5 py-1 text-xs font-bold text-[#00ff88]">
+                    <span className="rounded border border-[#ff6b35]/30 bg-[#ff6b35]/10 px-2.5 py-1 text-xs font-bold text-[#ff6b35]">
                       Harvard PhD
                     </span>
-                    <span className="rounded border border-[#00d4ff]/30 bg-[#00d4ff]/10 px-2.5 py-1 text-xs font-bold text-[#00d4ff]">
+                    <span className="rounded border border-[#ff6b35]/30 bg-[#ff6b35]/10 px-2.5 py-1 text-xs font-bold text-[#ff6b35]">
                       Stanford Postdoc
                     </span>
                     <span className="rounded border border-[#ff6b35]/30 bg-[#ff6b35]/10 px-2.5 py-1 text-xs font-bold text-[#ff6b35]">
@@ -273,7 +273,7 @@ export default function TeamPage() {
                   {calebFocus.map((f) => (
                     <span
                       key={f}
-                      className="rounded border border-[#00d4ff]/20 bg-[#00d4ff]/[0.05] px-2.5 py-1 text-xs text-[#00d4ff]"
+                      className="rounded border border-[#ff6b35]/20 bg-[#ff6b35]/[0.05] px-2.5 py-1 text-xs text-[#ff6b35]"
                     >
                       {f}
                     </span>
@@ -287,9 +287,9 @@ export default function TeamPage() {
 
       {/* ═══ TEAM GRID ═══ */}
       <section className="border-b border-white/10 px-6 py-16">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
-{`┌─── THE TEAM ────────────────────────────┐`}
+{`┌─── THE TEAM ───┐`}
           </pre>
           <div className="mb-8 flex items-baseline gap-3">
             <span className="text-[0.7rem] tracking-[0.1em] text-[#ff6b35]">03 //</span>
@@ -314,7 +314,7 @@ export default function TeamPage() {
                     <h3 className="text-sm font-bold text-white/90">{m.name}</h3>
                     <p className="mt-1 text-xs text-[#ff6b35]">{m.title}</p>
                   </div>
-                  <span className="text-[0.6rem] text-[#00ff88]">● ACTIVE</span>
+                  <span className="text-[0.6rem] text-[#ff6b35]">● ACTIVE</span>
                 </div>
                 <p className="mt-3 text-xs leading-relaxed text-white/50">{m.line}</p>
                 {m.placeholder && (
@@ -322,15 +322,53 @@ export default function TeamPage() {
                 )}
               </motion.div>
             ))}
+
+            {/* Hiring roadmap — spans 2 columns, sits next to Ren */}
+            <motion.div
+              custom={teamMembers.length}
+              variants={fadeUp}
+              className="rounded border border-[#ff6b35]/20 bg-[#ff6b35]/[0.02] p-5 sm:col-span-1 lg:col-span-2"
+            >
+              <div className="flex items-start justify-between">
+                <div>
+                  <h3 className="text-sm font-bold text-white/90">Scaling to ~16</h3>
+                  <p className="mt-1 text-xs text-[#ff6b35]">Next Hires</p>
+                </div>
+                <span className="text-[0.6rem] text-[#ff6b35]">● HIRING</span>
+              </div>
+              <div className="mt-3 grid grid-cols-2 gap-3">
+                <div>
+                  <p className="mb-1 text-[0.55rem] tracking-[0.12em] text-[#ff6b35]">COMMERCIAL</p>
+                  <p className="text-xs text-white/50">Sales & business development lead to drive customer acquisition and manage key accounts</p>
+                </div>
+                <div>
+                  <p className="mb-1 text-[0.55rem] tracking-[0.12em] text-[#ff6b35]">MACHINING</p>
+                  <p className="text-xs text-white/50">Dedicated CNC machinist for full-time cell housing and component production</p>
+                </div>
+                <div>
+                  <p className="mb-1 text-[0.55rem] tracking-[0.12em] text-[#ff6b35]">FABRICATION</p>
+                  <p className="text-xs text-white/50">Welders and fabricators for skid assembly, piping, and container buildout</p>
+                </div>
+                <div>
+                  <p className="mb-1 text-[0.55rem] tracking-[0.12em] text-[#ff6b35]">ENGINEERING</p>
+                  <p className="text-xs text-white/50">Additional power electronics and controls engineers to support parallel unit production</p>
+                </div>
+              </div>
+              <div className="mt-4 border-t border-white/5 pt-3">
+                <p className="text-xs text-white/30">
+                  Every hire maps to unit throughput. The team scales with deployments — not ahead of revenue.
+                </p>
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
 
       {/* ═══ ORGANIZATIONAL DNA ═══ */}
       <section className="border-b border-white/10 px-6 py-16">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
-{`┌─── ORGANIZATIONAL DNA ──────────────────────────────────┐`}
+{`┌─── ORGANIZATIONAL DNA ───┐`}
           </pre>
 
           <motion.div
@@ -350,36 +388,22 @@ export default function TeamPage() {
               <p className="mt-4 font-sans text-[0.95rem] leading-relaxed text-white/70">
                 Where most startups spend years with contract engineers developing their ideas, we do it in-house. Where others outsource manufacturing, we do it in-house. When we have an issue with a board, we don&apos;t send it back to a third party who doesn&apos;t care about the outcome and wait months for a revision. We test, make the change, and have a new board on the bench the next morning.
               </p>
-              <p className="mt-4 font-sans text-[0.95rem] leading-relaxed text-[#00ff88]" style={{ textShadow: '0 0 8px rgba(0,255,136,0.15)' }}>
+              <p className="mt-4 font-sans text-[0.95rem] leading-relaxed text-[#ff6b35]" style={{ textShadow: '0 0 8px rgba(255,107,53,0.15)' }}>
                 This is how you compress decades of innovation into a fraction of the time. It&apos;s baked into our DNA from day one, and it&apos;s something that will never change about Tobe Energy.
               </p>
             </div>
 
-            <div className="grid grid-cols-3 gap-4 text-center">
-              <div className="rounded border border-white/10 bg-white/[0.02] px-4 py-4">
-                <p className="text-2xl font-bold text-[#00ff88]" style={{ textShadow: '0 0 8px rgba(0,255,136,0.3)' }}>9</p>
-                <p className="text-xs text-white/40">Team Members</p>
-              </div>
-              <div className="rounded border border-white/10 bg-white/[0.02] px-4 py-4">
-                <p className="text-2xl font-bold text-[#ff6b35]" style={{ textShadow: '0 0 8px rgba(255,107,53,0.3)' }}>2024</p>
-                <p className="text-xs text-white/40">Founded</p>
-              </div>
-              <div className="rounded border border-white/10 bg-white/[0.02] px-4 py-4">
-                <p className="text-2xl font-bold text-[#00d4ff]" style={{ textShadow: '0 0 8px rgba(0,212,255,0.3)' }}>Oklahoma</p>
-                <p className="text-xs text-white/40">Vertically Integrated</p>
-              </div>
-            </div>
+
           </motion.div>
         </div>
       </section>
 
       {/* ═══ FOOTER ═══ */}
       <footer className="border-t border-white/10 px-6 py-6">
-        <div className="mx-auto max-w-5xl text-center">
+        <div className="mx-auto max-w-6xl text-center">
           <pre className="text-xs text-[#ff6b35]/20" style={{ textShadow: '0 0 6px rgba(255,107,53,0.08)' }}>
-{`═══════════════════════════════════════════════════════════
- TOBE ENERGY CORP // CONFIDENTIAL // 2026
-═══════════════════════════════════════════════════════════`}
+{`TOBE ENERGY CORP // OKLAHOMA CITY, USA // EST. 2024
+CONFIDENTIAL — AUTHORIZED INVESTOR ACCESS ONLY`}
           </pre>
         </div>
       </footer>

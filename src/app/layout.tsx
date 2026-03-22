@@ -38,21 +38,17 @@ export default function RootLayout({
 
         {/* Top header bar */}
         <header className="relative z-10 flex h-[52px] shrink-0 items-center justify-between border-b border-[#ff6b35]/20 bg-[#0a0a0f] px-6 font-mono">
-          <Link
-            href="/"
-            className="text-sm font-bold tracking-[0.15em] text-[#ff6b35] glow-orange"
-            style={{ transform: "scaleX(0.85)" }}
-          >
-            TOBE ENERGY
+          <Link href="/" className="flex items-center">
+            <img src="/images/tobe-logo.svg" alt="Tobe Energy" className="h-7" />
           </Link>
           <div className="flex items-center gap-6">
             <span className="text-[0.65rem] tracking-[0.1em] text-[#6a6a7a]">
               SESSION:{" "}
-              <span className="text-[#00ff88] glow-green">INV-2026-0318</span>
+              <span className="text-[#ff6b35] glow-orange">INV-2026-0318</span>
             </span>
             <span className="text-[0.65rem] tracking-[0.1em] text-[#6a6a7a]">
               STATUS:{" "}
-              <span className="text-[#00ff88] glow-green">● ACTIVE</span>
+              <span className="text-[#ff6b35] glow-orange">● ACTIVE</span>
             </span>
             <span className="text-[0.65rem] tracking-[0.1em] text-[#6a6a7a]">
               CLASSIFICATION:{" "}

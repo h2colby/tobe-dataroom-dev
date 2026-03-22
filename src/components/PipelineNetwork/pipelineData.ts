@@ -197,10 +197,10 @@ export const opportunities: Opportunity[] = [
 ];
 
 export const statusColors: Record<OpportunityStatus, string> = {
-  contracted: '#00ff88',
+  contracted: '#ff6b35',
   loi: '#ff6b35',
   quoting: '#ffcc00',
-  interest: '#00d4ff',
+  interest: '#ff6b35',
 };
 
 export const statusLabels: Record<OpportunityStatus, string> = {

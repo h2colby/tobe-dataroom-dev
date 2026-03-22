@@ -219,8 +219,8 @@ export function PipelineNetwork() {
         className="absolute inset-0 opacity-30"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px)
+            linear-gradient(rgba(255, 107, 53, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 107, 53, 0.03) 1px, transparent 1px)
           `,
           backgroundSize: '40px 40px',
         }}
@@ -238,7 +238,7 @@ export function PipelineNetwork() {
       <div className="absolute top-4 left-4 right-4 z-10">
         <div className="flex flex-col sm:flex-row justify-between items-start gap-3">
           <div>
-            <h3 className="font-mono text-xs text-[#00d4ff] tracking-widest mb-1">PIPELINE NETWORK</h3>
+            <h3 className="font-mono text-xs text-[#ff6b35] tracking-widest mb-1">PIPELINE NETWORK</h3>
             <p className="font-mono text-[10px] text-gray-500 hidden sm:block">Real-time opportunity visualization</p>
           </div>
           <div className="flex gap-4 sm:gap-6 flex-wrap">
@@ -252,7 +252,7 @@ export function PipelineNetwork() {
             </div>
             <div className="text-left sm:text-right">
               <div className="font-mono text-[9px] sm:text-[10px] text-gray-500 tracking-wider">OPPS</div>
-              <div className="font-mono text-base sm:text-lg font-bold text-[#00d4ff]">{pipelineStats.opportunities}</div>
+              <div className="font-mono text-base sm:text-lg font-bold text-[#ff6b35]">{pipelineStats.opportunities}</div>
             </div>
           </div>
         </div>

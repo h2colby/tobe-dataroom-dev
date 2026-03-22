@@ -40,7 +40,7 @@ export default function TechnologyPage() {
 
       <div className="mx-auto max-w-6xl px-6 py-10">
         {/* ═══ HEADER ═══ */}
-        <div className="mb-4 text-[0.7rem] tracking-[0.2em] text-[#00d4ff] glow-cyan">
+        <div className="mb-4 text-[0.7rem] tracking-[0.2em] text-[#ff6b35] glow-orange">
           ┌─── THE TECHNOLOGY ───┐
         </div>
 
@@ -79,41 +79,41 @@ export default function TechnologyPage() {
           {/* CELL */}
           <Link
             href="/technology/cell"
-            className="tech-card block border border-[#00ff88]/15 bg-[#12121a] px-5 py-5"
-            style={{ '--glow': 'rgba(0,255,136,0.1)' } as React.CSSProperties}
+            className="tech-card block border border-[#ff6b35]/15 bg-[#12121a] px-5 py-5"
+            style={{ '--glow': 'rgba(255,107,53,0.1)' } as React.CSSProperties}
           >
-            <pre className="mb-3 text-[0.6rem] leading-[1.3] text-[#00ff88]/50">{`  ┌─┬─┬─┐
+            <pre className="mb-3 text-[0.6rem] leading-[1.3] text-[#ff6b35]/50">{`  ┌─┬─┬─┐
   │ │ │ │
   │H₂│O₂│
   └─┴─┴─┘`}</pre>
-            <div className="mb-1 text-base font-bold text-[#00ff88]"
-              style={{ textShadow: '0 0 6px rgba(0,255,136,0.2)' }}>
+            <div className="mb-1 text-base font-bold text-[#ff6b35]"
+              style={{ textShadow: '0 0 6px rgba(255,107,53,0.2)' }}>
               CELL
             </div>
             <div className="text-xs text-[#8a8a9a]">
               Membrane-free. No rare earths.
             </div>
-            <div className="mt-2 text-xs text-[#00ff88]/50">────→</div>
+            <div className="mt-2 text-xs text-[#ff6b35]/50">────→</div>
           </Link>
 
           {/* CONVERTER */}
           <Link
             href="/technology/power-converter"
-            className="tech-card block border border-[#00d4ff]/15 bg-[#12121a] px-5 py-5"
-            style={{ '--glow': 'rgba(0,212,255,0.1)' } as React.CSSProperties}
+            className="tech-card block border border-[#ff6b35]/15 bg-[#12121a] px-5 py-5"
+            style={{ '--glow': 'rgba(255,107,53,0.1)' } as React.CSSProperties}
           >
-            <pre className="mb-3 text-[0.6rem] leading-[1.3] text-[#00d4ff]/50">{`  ╔═══╗
+            <pre className="mb-3 text-[0.6rem] leading-[1.3] text-[#ff6b35]/50">{`  ╔═══╗
   ║ ~ ║
   ╠═╦═╣
   ║▓║▓║`}</pre>
-            <div className="mb-1 text-base font-bold text-[#00d4ff]"
-              style={{ textShadow: '0 0 6px rgba(0,212,255,0.2)' }}>
+            <div className="mb-1 text-base font-bold text-[#ff6b35]"
+              style={{ textShadow: '0 0 6px rgba(255,107,53,0.2)' }}>
               CONVERTER
             </div>
             <div className="text-xs text-[#8a8a9a]">
               Custom LLC resonant topology.
             </div>
-            <div className="mt-2 text-xs text-[#00d4ff]/50">────→</div>
+            <div className="mt-2 text-xs text-[#ff6b35]/50">────→</div>
           </Link>
 
           {/* CONTROLS */}
@@ -158,11 +158,11 @@ export default function TechnologyPage() {
 
         {/* ═══ STATS ROW ═══ */}
         <div className="mb-6 flex flex-wrap items-baseline justify-center gap-x-4 gap-y-2 text-center">
-          <span className="text-2xl font-bold text-[#00ff88]" style={{ textShadow: '0 0 8px rgba(0,255,136,0.25)' }}>
+          <span className="text-2xl font-bold text-[#ff6b35]" style={{ textShadow: '0 0 8px rgba(255,107,53,0.25)' }}>
             {'>'}92% EFFICIENCY
           </span>
           <span className="text-lg text-[#3a3a4a]">·</span>
-          <span className="text-2xl font-bold text-[#00d4ff]" style={{ textShadow: '0 0 8px rgba(0,212,255,0.25)' }}>
+          <span className="text-2xl font-bold text-[#ff6b35]" style={{ textShadow: '0 0 8px rgba(255,107,53,0.25)' }}>
             {'<'}30°C OPERATING
           </span>
           <span className="text-lg text-[#3a3a4a]">·</span>
@@ -195,7 +195,7 @@ export default function TechnologyPage() {
         </div>
 
         {/* ═══ COMPARISON TABLE ═══ */}
-        <div className="mb-6 text-[0.7rem] tracking-[0.2em] text-[#00d4ff] glow-cyan">
+        <div className="mb-6 text-[0.7rem] tracking-[0.2em] text-[#ff6b35] glow-orange">
           ┌─── TOBE vs CONVENTIONAL ───┐
         </div>
 
@@ -203,7 +203,7 @@ export default function TechnologyPage() {
           <div className="grid grid-cols-3 border-b border-white/10 bg-[#0e0e16]">
             <div className="px-5 py-3 text-[0.7rem] tracking-[0.15em] text-[#6a6a7a]">METRIC</div>
             <div className="border-l border-white/5 px-5 py-3 text-[0.7rem] tracking-[0.15em] text-[#ff4444]/60">CONVENTIONAL</div>
-            <div className="border-l border-white/5 px-5 py-3 text-[0.7rem] tracking-[0.15em] text-[#00ff88]">TOBE ENERGY</div>
+            <div className="border-l border-white/5 px-5 py-3 text-[0.7rem] tracking-[0.15em] text-[#ff6b35]">TOBE ENERGY</div>
           </div>
           {[
             ['Membrane', 'PEM / AEM', 'NONE'],
@@ -216,8 +216,8 @@ export default function TechnologyPage() {
             <div key={metric} className={`grid grid-cols-3 ${i % 2 === 0 ? 'bg-[#12121a]' : 'bg-[#0f0f17]'}`}>
               <div className="px-5 py-3 text-sm text-white/60">{metric}</div>
               <div className="border-l border-white/5 px-5 py-3 text-sm text-white/40">{conv}</div>
-              <div className="border-l border-white/5 px-5 py-3 text-sm font-bold text-[#00ff88]"
-                style={{ textShadow: '0 0 6px rgba(0,255,136,0.2)' }}>{tobe}</div>
+              <div className="border-l border-white/5 px-5 py-3 text-sm font-bold text-[#ff6b35]"
+                style={{ textShadow: '0 0 6px rgba(255,107,53,0.2)' }}>{tobe}</div>
             </div>
           ))}
         </div>
@@ -235,21 +235,21 @@ export default function TechnologyPage() {
           </div>
           <div className="mb-4 space-y-3 text-sm">
             <div className="flex gap-3">
-              <span className="text-[#00ff88]">●</span>
+              <span className="text-[#ff6b35]">●</span>
               <div>
                 <span className="font-bold text-white/80">U.S. Provisional 63/570,102</span>
                 <span className="text-white/40"> — March 2024. Capacitively coupled resonant electrolysis.</span>
               </div>
             </div>
             <div className="flex gap-3">
-              <span className="text-[#00ff88]">●</span>
+              <span className="text-[#ff6b35]">●</span>
               <div>
                 <span className="font-bold text-white/80">U.S. Non-Provisional 19/088,007</span>
                 <span className="text-white/40"> — March 2025. Advanced resonant electrolysis system.</span>
               </div>
             </div>
             <div className="flex gap-3">
-              <span className="text-[#00d4ff]">●</span>
+              <span className="text-[#ff6b35]">●</span>
               <div>
                 <span className="font-bold text-white/80">CIP Application (TOBE-CIP-001)</span>
                 <span className="text-white/40"> — Filing imminent. 14 figures. Expanded claims.</span>
@@ -274,9 +274,8 @@ export default function TechnologyPage() {
       <footer className="border-t border-white/10 px-6 py-6">
         <div className="mx-auto max-w-6xl text-center">
           <pre className="text-xs text-[#ff6b35]/20" style={{ textShadow: '0 0 6px rgba(255,107,53,0.08)' }}>
-            {`═══════════════════════════════════════════════════════════
- TOBE ENERGY CORP // CONFIDENTIAL // 2026
-═══════════════════════════════════════════════════════════`}
+            {`TOBE ENERGY CORP // OKLAHOMA CITY, USA // EST. 2024
+CONFIDENTIAL — AUTHORIZED INVESTOR ACCESS ONLY`}
           </pre>
         </div>
       </footer>

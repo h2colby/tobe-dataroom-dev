@@ -18,9 +18,10 @@ const navCategories: NavCategory[] = [
     id: '02',
     label: 'BUSINESS',
     items: [
+      { label: 'Comparison', href: '/comparison' },
       { label: 'Business Model', href: '/business-model' },
-      { label: 'Customers', href: '/customers' },
       { label: 'Financial Model', href: '/financials' },
+      { label: 'Customers', href: '/customers' },
       { label: 'Tax Credits', href: '/tax-credits' },
     ],
   },
@@ -32,24 +33,34 @@ const navCategories: NavCategory[] = [
       { label: 'Electrolysis Cell', href: '/technology/cell' },
       { label: 'Power Converter', href: '/technology/power-converter' },
       { label: 'Controls', href: '/technology/controls' },
-      { label: 'Efficiency & Testing', href: '/technology/efficiency' },
+      { label: 'Efficiency', href: '/technology/efficiency' },
     ],
   },
   {
     id: '04',
-    label: 'PEOPLE & PROJECTS',
+    label: 'PROJECTS',
     items: [
       { label: 'NODE-01', href: '/projects/node-01' },
-      { label: 'Zeeco ARC Deployment', href: '/projects/zeeco' },
-      { label: 'Validation & Programs', href: '/validation' },
-      { label: 'Backed By', href: '/backed-by' },
-      { label: 'Team', href: '/team' },
+      { label: 'Zeeco ARC', href: '/projects/zeeco' },
     ],
   },
   {
     id: '05',
+    label: 'PEOPLE',
+    items: [
+      { label: 'Proof', href: '/proof' },
+      { label: 'Team', href: '/team' },
+    ],
+  },
+  {
+    id: '06',
     label: 'DOCUMENTS',
-    items: [{ label: 'Document Library', href: '/documents' }],
+    href: '/documents',
+  },
+  {
+    id: '07',
+    label: 'ASK REN',
+    href: '#ask-ai',
   },
 ];
 
@@ -175,7 +186,7 @@ export default function Home() {
                 i < bootStage ? 'opacity-100' : 'opacity-0'
               } ${
                 line.includes('VERIFIED')
-                  ? 'text-[#00ff88] glow-green'
+                  ? 'text-[#ff6b35] glow-orange'
                   : line.includes('READY')
                     ? 'text-[#ff6b35] glow-orange'
                     : 'text-[#6a6a7a]'
@@ -210,15 +221,15 @@ export default function Home() {
 
       {/* TOP HEADER BAR */}
       <header className="relative z-10 flex h-[52px] shrink-0 items-center justify-between border-b border-[#ff6b35]/20 bg-[#0a0a0f] px-6">
-        <div className="text-sm font-bold tracking-[0.15em] text-[#ff6b35] glow-orange" style={{ transform: 'scaleX(0.85)' }}>
-          TOBE ENERGY
-        </div>
+        <Link href="/" className="flex items-center">
+          <img src="/images/tobe-logo.svg" alt="Tobe Energy" className="h-7" />
+        </Link>
         <div className="flex items-center gap-6">
           <span className="text-[0.65rem] tracking-[0.1em] text-[#6a6a7a]">
-            SESSION: <span className="text-[#00ff88] glow-green">INV-2026-0318</span>
+            SESSION: <span className="text-[#ff6b35] glow-orange">INV-2026-0318</span>
           </span>
           <span className="text-[0.65rem] tracking-[0.1em] text-[#6a6a7a]">
-            STATUS: <span className="text-[#00ff88] glow-green">● ACTIVE</span>
+            STATUS: <span className="text-[#ff6b35] glow-orange">● ACTIVE</span>
           </span>
           <span className="text-[0.65rem] tracking-[0.1em] text-[#6a6a7a]">
             CLASSIFICATION: <span className="text-[#ff6b35] glow-orange">INVESTOR</span>
@@ -238,7 +249,7 @@ export default function Home() {
             const isExpanded = expandedNav.has(cat.id);
             const hasItems = !!cat.items;
             const isLastCat = catIdx === navCategories.length - 1;
-            const catBranch = isLastCat ? '└──' : '├──';
+            const catBranch = isLastCat ? '└─' : '├─';
 
             return (
               <div key={cat.id}>
@@ -248,35 +259,52 @@ export default function Home() {
                     onClick={() => toggleCategory(cat.id)}
                     onMouseEnter={() => setHoveredNav(cat.id)}
                     onMouseLeave={() => setHoveredNav(null)}
-                    className={`group flex w-full items-center px-4 py-2 text-left text-[0.875rem] tracking-[0.05em] transition-all ${
-                      isHovered ? 'bg-[#00d4ff]/8 text-[#00d4ff]' : 'text-[#b0b0bc]'
+                    className={`group flex w-full items-center px-4 py-2 text-left text-[0.825rem] tracking-[0.05em] transition-all ${
+                      isHovered ? 'bg-[#ff6b35]/8 text-[#ff6b35]' : 'text-[#b0b0bc]'
                     }`}
                   >
-                    <span className="mr-1.5 text-[0.7rem] text-[#5a5a6a]">{catBranch}</span>
-                    <span className="mr-1.5 text-[0.65rem] text-[#6a6a7a]">{isExpanded ? '▾' : '▸'}</span>
-                    <span className="mr-2 text-[#6a6a7a]">{cat.id}</span>
-                    {cat.label}
+                    <span className="mr-1.5 text-[0.7rem] text-[#5a5a6a] shrink-0">{catBranch}</span>
+                    <span className={`mr-2 shrink-0 text-[#6a6a7a]`}>{cat.id}</span>
+                    <span className="truncate">{cat.label}</span>
+                  </button>
+                ) : cat.href === '#ask-ai' ? (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const chatBtn = document.querySelector('[class*="fixed bottom-6 right-6"] button') as HTMLElement;
+                      if (chatBtn) chatBtn.click();
+                    }}
+                    onMouseEnter={() => setHoveredNav(cat.id)}
+                    onMouseLeave={() => setHoveredNav(null)}
+                    className={`group flex w-full items-center px-4 py-2 text-left text-[0.825rem] tracking-[0.05em] transition-all ${
+                      isHovered
+                        ? 'bg-[#ff6b35]/8 text-[#ff6b35]'
+                        : 'text-[#ff6b35]/70'
+                    }`}
+                  >
+                    <span className="mr-1.5 text-[0.7rem] text-[#5a5a6a] shrink-0">└─</span>
+                    <span className="mr-2 text-[#6a6a7a] shrink-0">{cat.id}</span>
+                    <span className="truncate">{cat.label}</span>
                   </button>
                 ) : (
                   <Link
                     href={cat.href!}
                     onMouseEnter={() => setHoveredNav(cat.id)}
                     onMouseLeave={() => setHoveredNav(null)}
-                    className={`group flex items-center px-4 py-2 text-[0.875rem] tracking-[0.05em] transition-all ${
+                    className={`group flex items-center px-4 py-2 text-[0.825rem] tracking-[0.05em] transition-all ${
                       isActive
                         ? 'bg-[#ff6b35]/12 font-bold text-[#ff6b35]'
                         : isHovered
-                          ? 'bg-[#00d4ff]/8 text-[#00d4ff]'
+                          ? 'bg-[#ff6b35]/8 text-[#ff6b35]'
                           : 'text-[#b0b0bc]'
                     }`}
                   >
-                    <span className={`mr-1.5 text-[0.7rem] ${isActive ? 'text-[#ff6b35]/50' : 'text-[#5a5a6a]'}`}>
+                    <span className={`mr-1.5 text-[0.7rem] shrink-0 ${isActive ? 'text-[#ff6b35]/50' : 'text-[#5a5a6a]'}`}>
                       {catBranch}
                     </span>
-                    {isActive && <span className="mr-1 text-[#ff6b35]">{'>'}</span>}
-                    <span className={`mr-2 ${isActive ? 'text-[#ff6b35]/70' : 'text-[#6a6a7a]'}`}>{cat.id}</span>
-                    {cat.label}
-                    {isActive && <span className="ml-1 animate-blink text-[#ff6b35]">█</span>}
+                    <span className={`mr-2 shrink-0 ${isActive ? 'text-[#ff6b35]/70' : 'text-[#6a6a7a]'}`}>{cat.id}</span>
+                    <span className="truncate">{cat.label}</span>
+                    {isActive && <span className="ml-1 animate-blink text-[#ff6b35] shrink-0">█</span>}
                   </Link>
                 )}
 
@@ -286,19 +314,19 @@ export default function Home() {
                       const isSubHovered = hoveredNav === `${cat.id}-${i}`;
                       const isLastItem = i === cat.items!.length - 1;
                       const vertLine = isLastCat ? ' ' : '│';
-                      const subBranch = isLastItem ? '└──' : '├──';
+                      const subBranch = isLastItem ? '└─' : '├─';
                       return (
                         <Link
                           key={item.label}
                           href={item.href}
                           onMouseEnter={() => setHoveredNav(`${cat.id}-${i}`)}
                           onMouseLeave={() => setHoveredNav(null)}
-                          className={`group flex items-center py-1.5 pl-9 pr-4 text-[0.825rem] tracking-[0.03em] transition-all ${
-                            isSubHovered ? 'bg-[#00d4ff]/8 text-[#00d4ff]' : 'text-[#9a9ab0]'
+                          className={`group flex items-center py-1.5 pl-9 pr-4 text-[0.775rem] tracking-[0.03em] transition-all ${
+                            isSubHovered ? 'bg-[#ff6b35]/8 text-[#ff6b35]' : 'text-[#9a9ab0]'
                           }`}
                         >
-                          <span className="mr-1.5 text-[0.65rem] text-[#4a4a5a]">{vertLine} {subBranch}</span>
-                          {item.label}
+                          <span className="mr-1.5 text-[0.6rem] shrink-0 text-[#4a4a5a]">{vertLine} {subBranch}</span>
+                          <span className="truncate">{item.label}</span>
                         </Link>
                       );
                     })}
@@ -361,25 +389,25 @@ export default function Home() {
                 {/* Headline */}
                 <h2 className="mb-6 text-2xl font-bold leading-tight text-white md:text-3xl">
                   We make the cheapest hydrogen, and do it{' '}
-                  <span className="text-[#00ff88]" style={{ textShadow: '0 0 12px rgba(0,255,136,0.4)' }}>on site.</span>
+                  <span className="text-[#ff6b35]" style={{ textShadow: '0 0 12px rgba(255,107,53,0.4)' }}>on site.</span>
                 </h2>
 
                 {/* Problem → Solution */}
                 <p className="mb-8 font-sans text-[0.95rem] leading-relaxed text-white/50">
-                  Industrial hydrogen is a <span className="text-white font-semibold">$226B market</span> — and it&apos;s grey. Made from natural gas, trucked hundreds of miles. That supply chain is expensive and fragile. We make hydrogen from water, on or near site. Delivered cheaper and more reliably than grey — with <span className="text-[#00ff88] font-semibold">margins &gt;70%</span> in most markets. Our economics are so good we can <span className="text-[#00ff88] font-semibold">compete directly with grey hydrogen and win</span>.
+                  Industrial hydrogen is a <span className="text-white font-semibold">$226B market</span> — and it&apos;s grey. Made from natural gas, trucked hundreds of miles. That supply chain is expensive and fragile. We make hydrogen from water, on or near site. Delivered cheaper and more reliably than grey — with <span className="text-[#ff6b35] font-semibold">margins &gt;70%</span> in most markets. Our economics are so good we can <span className="text-[#ff6b35] font-semibold">compete directly with grey hydrogen and win</span>.
                 </p>
 
                 {/* Where We Are + Team — matched cards */}
                 <div className="grid gap-4 md:grid-cols-2">
-                  <div className="border-l-[3px] border-[#00ff88] bg-[#12121a] px-5 py-4" style={{ borderTop: '1px solid rgba(0,255,136,0.08)', borderRight: '1px solid rgba(0,255,136,0.08)', borderBottom: '1px solid rgba(0,255,136,0.08)' }}>
-                    <p className="mb-3 text-[0.7rem] font-bold tracking-[0.2em] text-[#00ff88]">WHERE WE ARE</p>
+                  <div className="border-l-[3px] border-[#ff6b35] bg-[#12121a] px-5 py-4" style={{ borderTop: '1px solid rgba(255,107,53,0.08)', borderRight: '1px solid rgba(255,107,53,0.08)', borderBottom: '1px solid rgba(255,107,53,0.08)' }}>
+                    <p className="mb-3 text-[0.7rem] font-bold tracking-[0.2em] text-[#ff6b35]">WHERE WE ARE</p>
                     <div className="space-y-2 font-sans text-sm text-white/60">
                       <p>▸ Producing hydrogen for the last year</p>
                       <p>▸ 50kW system in multi-unit production</p>
                       <p className="ml-4 text-white/40">Vertically integrated, Oklahoma, BABA compliant</p>
-                      <p>▸ First deployment Q4 2026 → <span className="text-[#00ff88]">$250k/mo revenue</span></p>
+                      <p>▸ First deployment Q4 2026 → <span className="text-[#ff6b35]">$250k/mo revenue</span></p>
                       <p>▸ MW-scale contracted (world&apos;s largest combustion R&amp;D facility)</p>
-                      <p>▸ <span className="text-[#00ff88]">$100M pipeline</span>, $20M signed LOIs</p>
+                      <p>▸ <span className="text-[#ff6b35]">$100M pipeline</span>, $20M signed LOIs</p>
                     </div>
                   </div>
                   <div className="border-l-[3px] border-[#ff6b35] bg-[#12121a] px-5 py-4" style={{ borderTop: '1px solid rgba(255,107,53,0.08)', borderRight: '1px solid rgba(255,107,53,0.08)', borderBottom: '1px solid rgba(255,107,53,0.08)' }}>
@@ -402,7 +430,7 @@ export default function Home() {
               >
                 {/* AI Assistant */}
                 <div
-                  className="rounded border border-[#ff6b35]/30 bg-gradient-to-r from-[#ff6b35]/[0.08] to-[#00ff88]/[0.05] px-6 py-5 cursor-pointer transition-all hover:border-[#ff6b35]/50 hover:shadow-[0_0_20px_rgba(255,107,53,0.1)]"
+                  className="rounded border border-[#ff6b35]/30 bg-gradient-to-r from-[#ff6b35]/[0.08] to-[#ff6b35]/[0.05] px-6 py-5 cursor-pointer transition-all hover:border-[#ff6b35]/50 hover:shadow-[0_0_20px_rgba(255,107,53,0.1)]"
                   onClick={() => {
                     const chatBtn = document.querySelector('[class*="fixed bottom-6 right-6"] button') as HTMLElement;
                     if (chatBtn) chatBtn.click();
@@ -414,7 +442,7 @@ export default function Home() {
                     </div>
                     <div>
                       <p className="text-sm font-bold text-[#ff6b35]" style={{ textShadow: '0 0 8px rgba(255,107,53,0.3)' }}>
-                        AI ASSISTANT
+                        ASK REN
                       </p>
                       <p className="mt-1 text-xs text-white/50">
                         Trained on this data room. Every number, every spec. Ask anything.
@@ -426,14 +454,14 @@ export default function Home() {
                 {/* Documents */}
                 <Link
                   href="/documents"
-                  className="rounded border border-[#00d4ff]/20 bg-gradient-to-r from-[#00d4ff]/[0.05] to-transparent px-6 py-5 transition-all hover:border-[#00d4ff]/40 hover:shadow-[0_0_20px_rgba(0,212,255,0.08)]"
+                  className="rounded border border-[#ff6b35]/20 bg-gradient-to-r from-[#ff6b35]/[0.05] to-transparent px-6 py-5 transition-all hover:border-[#ff6b35]/40 hover:shadow-[0_0_20px_rgba(255,107,53,0.08)]"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#00d4ff]/40 bg-[#00d4ff]/10">
-                      <span className="text-xl text-[#00d4ff]">📄</span>
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#ff6b35]/40 bg-[#ff6b35]/10">
+                      <span className="text-xl text-[#ff6b35]">📄</span>
                     </div>
                     <div>
-                      <p className="text-sm font-bold text-[#00d4ff]" style={{ textShadow: '0 0 8px rgba(0,212,255,0.3)' }}>
+                      <p className="text-sm font-bold text-[#ff6b35]" style={{ textShadow: '0 0 8px rgba(255,107,53,0.3)' }}>
                         DOCUMENT LIBRARY
                       </p>
                       <p className="mt-1 text-xs text-white/50">
@@ -475,9 +503,9 @@ export default function Home() {
                     <Link
                       key={i}
                       href="/business-model"
-                      className="group border border-[#00ff88]/20 bg-[#0a0a0f]/60 p-5 transition-all hover:border-[#00ff88]/50 hover:bg-[#00ff88]/5"
+                      className="group border border-[#ff6b35]/20 bg-[#0a0a0f]/60 p-5 transition-all hover:border-[#ff6b35]/50 hover:bg-[#ff6b35]/5"
                     >
-                      <h3 className="mb-1 text-base font-bold text-[#00ff88] transition-colors group-hover:text-[#00ff88]">
+                      <h3 className="mb-1 text-base font-bold text-[#ff6b35] transition-colors group-hover:text-[#ff6b35]">
                         {engine.title}
                       </h3>
                       <div className="mb-2 text-xs text-[#ff6b35]">{engine.subtitle}</div>
@@ -498,16 +526,19 @@ export default function Home() {
                   THE BREAKTHROUGH
                 </h2>
 
-                <div className="mb-6 border-l-[3px] border-[#00ff88] bg-[#12121a] px-6 py-5" style={{ borderTop: '1px solid rgba(0,255,136,0.08)', borderRight: '1px solid rgba(0,255,136,0.08)', borderBottom: '1px solid rgba(0,255,136,0.08)' }}>
+                <div className="mb-6 border-l-[3px] border-[#ff6b35] bg-[#12121a] px-6 py-5" style={{ borderTop: '1px solid rgba(255,107,53,0.08)', borderRight: '1px solid rgba(255,107,53,0.08)', borderBottom: '1px solid rgba(255,107,53,0.08)' }}>
                   <p className="font-sans text-[0.95rem] leading-relaxed text-[#b0b0c0]">
-                    Our innovation is two-tiered: a <span className="text-[#00ff88] font-semibold">unique cell geometry</span> designed to maximize the output of our <span className="text-[#00ff88] font-semibold">purpose-built power electronics optimized specifically for hydrogen production</span>. The result isn&apos;t just competing with green hydrogen — it&apos;s competing with the entire <span className="text-white font-semibold">$226B grey hydrogen market</span>, constrained by geography and logistics, with the flexibility that small modular facilities afford.
+                    Our innovation is two-tiered: a <span className="text-[#ff6b35] font-semibold">unique cell geometry</span> designed to maximize the output of our <span className="text-[#ff6b35] font-semibold">purpose-built power electronics optimized specifically for hydrogen production</span>. The result isn&apos;t just competing with green hydrogen — it&apos;s competing with the entire <span className="text-white font-semibold">$226B grey hydrogen market</span>, constrained by geography and logistics, with the flexibility that small modular facilities afford.
+                    {' '}<Link href="/technology#ip" className="text-xs tracking-[0.1em] text-[#ff6b35]/70 transition-colors hover:text-[#ff6b35]">
+                    2 patents filed, 1 in progress, registered trademark →
+                  </Link>
                   </p>
                 </div>
 
                 <div className="grid gap-4 md:grid-cols-3">
-                  <div className="border-l-[3px] border-[#00d4ff] bg-[#12121a] px-5 py-5" style={{ borderTop: '1px solid rgba(0,212,255,0.08)', borderRight: '1px solid rgba(0,212,255,0.08)', borderBottom: '1px solid rgba(0,212,255,0.08)' }}>
-                    <p className="mb-2 text-[0.65rem] tracking-[0.15em] text-[#00d4ff]">EFFICIENCY IS THE MOAT</p>
-                    <p className="text-2xl font-bold text-[#00d4ff]" style={{ textShadow: '0 0 8px rgba(0,212,255,0.3)' }}>&gt;92% HHV</p>
+                  <div className="border-l-[3px] border-[#ff6b35] bg-[#12121a] px-5 py-5" style={{ borderTop: '1px solid rgba(255,107,53,0.08)', borderRight: '1px solid rgba(255,107,53,0.08)', borderBottom: '1px solid rgba(255,107,53,0.08)' }}>
+                    <p className="mb-2 text-[0.65rem] tracking-[0.15em] text-[#ff6b35]">EFFICIENCY IS THE MOAT</p>
+                    <p className="text-2xl font-bold text-[#ff6b35]" style={{ textShadow: '0 0 8px rgba(255,107,53,0.3)' }}>&gt;92% HHV</p>
                     <p className="mt-2 text-xs text-white/40">System efficiency. PEM competitors run 50-58 kWh/kg. We measured 46. Every kWh/kg is margin.</p>
                   </div>
                   <div className="border-l-[3px] border-[#ff6b35] bg-[#12121a] px-5 py-5" style={{ borderTop: '1px solid rgba(255,107,53,0.08)', borderRight: '1px solid rgba(255,107,53,0.08)', borderBottom: '1px solid rgba(255,107,53,0.08)' }}>
@@ -515,26 +546,19 @@ export default function Home() {
                     <p className="text-2xl font-bold text-[#ff6b35]" style={{ textShadow: '0 0 8px rgba(255,107,53,0.3)' }}>End to End</p>
                     <p className="mt-2 text-xs text-white/40">AI woven from first quote through manufacturing to predictive maintenance. Not bolted on — built in from day one.</p>
                   </div>
-                  <div className="border-l-[3px] border-[#00ff88] bg-[#12121a] px-5 py-5" style={{ borderTop: '1px solid rgba(0,255,136,0.08)', borderRight: '1px solid rgba(0,255,136,0.08)', borderBottom: '1px solid rgba(0,255,136,0.08)' }}>
-                    <p className="mb-2 text-[0.65rem] tracking-[0.15em] text-[#00ff88]">MADE IN AMERICA</p>
-                    <p className="text-2xl font-bold text-[#00ff88]" style={{ textShadow: '0 0 8px rgba(0,255,136,0.3)' }}>Oklahoma</p>
+                  <div className="border-l-[3px] border-[#ff6b35] bg-[#12121a] px-5 py-5" style={{ borderTop: '1px solid rgba(255,107,53,0.08)', borderRight: '1px solid rgba(255,107,53,0.08)', borderBottom: '1px solid rgba(255,107,53,0.08)' }}>
+                    <p className="mb-2 text-[0.65rem] tracking-[0.15em] text-[#ff6b35]">MADE IN AMERICA</p>
+                    <p className="text-2xl font-bold text-[#ff6b35]" style={{ textShadow: '0 0 8px rgba(255,107,53,0.3)' }}>Oklahoma</p>
                     <p className="mt-2 text-xs text-white/40">Vertically integrated. We CNC our cells, etch our PCBs, wind our transformers. 95% U.S.-sourced. BABA compliant.</p>
                   </div>
                 </div>
 
-                <div className="mt-4 flex items-center gap-6">
+                <div className="mt-4">
                   <Link
                     href="/technology"
-                    className="text-sm text-[#00d4ff] transition-colors hover:text-[#00d4ff]/80"
+                    className="text-sm text-[#ff6b35] transition-colors hover:text-[#ff6b35]/80"
                   >
                     Explore the Technology →
-                  </Link>
-                  <span className="text-xs text-white/20">|</span>
-                  <Link
-                    href="/technology#ip"
-                    className="text-xs text-[#ff6b35]/60 transition-colors hover:text-[#ff6b35]"
-                  >
-                    Wholly owned IP — not shared with any other entity →
                   </Link>
                 </div>
               </motion.div>
@@ -549,24 +573,40 @@ export default function Home() {
                 <h2 className="mb-4 text-sm font-bold tracking-[0.2em] text-[#ff6b35] glow-orange">
                   FINANCIAL SNAPSHOT
                 </h2>
-                <div className="border border-[#00ff88]/20 bg-[#0a0a0f]/60 p-6">
-                  <div className="mb-4 grid grid-cols-2 gap-4 md:grid-cols-4">
-                    {[
-                      { label: 'FY7 Revenue', value: '$327.7M' },
-                      { label: 'FY7 EBITDA', value: '$209.4M', sub: '63.9% margin' },
-                      { label: 'FY7 Net Income', value: '$152.5M' },
-                      { label: '45V PTC Upside', value: '$108M-$324M', sub: 'cumulative' },
-                    ].map((metric, i) => (
-                      <div key={i}>
-                        <div className="text-xl font-bold text-[#00ff88]">{metric.value}</div>
-                        <div className="text-xs text-[#6a6a7a]">{metric.label}</div>
-                        {metric.sub && <div className="text-xs text-[#6a6a7a]/60">{metric.sub}</div>}
-                      </div>
-                    ))}
+                <div className="border border-[#ff6b35]/20 bg-[#0a0a0f]/60 p-6">
+                  <div className="mb-6 grid gap-4 md:grid-cols-2">
+                    {/* HaaS */}
+                    <div className="border-l-[3px] border-[#ff6b35] bg-[#0a0a0f]/60 px-5 py-4" style={{ borderTop: '1px solid rgba(255,107,53,0.06)', borderRight: '1px solid rgba(255,107,53,0.06)', borderBottom: '1px solid rgba(255,107,53,0.06)' }}>
+                      <p className="mb-1 text-[0.65rem] tracking-[0.15em] text-[#ff6b35]">HYDROGEN AS A SERVICE</p>
+                      <p className="text-2xl font-bold text-[#ff6b35]" style={{ textShadow: '0 0 8px rgba(255,107,53,0.3)' }}>~$22.5M/yr</p>
+                      <p className="mt-1 text-xs text-white/40">Average annual revenue per HaaS site</p>
+                      <p className="mt-1 text-xs text-white/30">Recurring, high-margin, long-term offtake</p>
+                    </div>
+                    {/* Equipment + Services */}
+                    <div className="border-l-[3px] border-[#ff6b35] bg-[#0a0a0f]/60 px-5 py-4" style={{ borderTop: '1px solid rgba(255,107,53,0.06)', borderRight: '1px solid rgba(255,107,53,0.06)', borderBottom: '1px solid rgba(255,107,53,0.06)' }}>
+                      <p className="mb-1 text-[0.65rem] tracking-[0.15em] text-[#ff6b35]">EQUIPMENT &amp; SERVICES</p>
+                      <p className="text-2xl font-bold text-[#ff6b35]" style={{ textShadow: '0 0 8px rgba(255,107,53,0.3)' }}>$197M</p>
+                      <p className="mt-1 text-xs text-white/40">FY7 equipment sales + AI services revenue</p>
+                      <p className="mt-1 text-xs text-white/30">Direct sales, maintenance, predictive AI</p>
+                    </div>
+                    {/* Scale */}
+                    <div className="border-l-[3px] border-[#ff6b35] bg-[#0a0a0f]/60 px-5 py-4" style={{ borderTop: '1px solid rgba(255,107,53,0.06)', borderRight: '1px solid rgba(255,107,53,0.06)', borderBottom: '1px solid rgba(255,107,53,0.06)' }}>
+                      <p className="mb-1 text-[0.65rem] tracking-[0.15em] text-[#ff6b35]">DEPLOYMENT SCALE</p>
+                      <p className="text-2xl font-bold text-[#ff6b35]" style={{ textShadow: '0 0 8px rgba(255,107,53,0.3)' }}>12 sites modeled</p>
+                      <p className="mt-1 text-xs text-white/40">Hundreds more available across North America</p>
+                      <p className="mt-1 text-xs text-white/30">Every grey hydrogen delivery point is a target</p>
+                    </div>
+                    {/* 45V PTC */}
+                    <div className="border-l-[3px] border-[#ff6b35] bg-[#0a0a0f]/60 px-5 py-4" style={{ borderTop: '1px solid rgba(255,107,53,0.06)', borderRight: '1px solid rgba(255,107,53,0.06)', borderBottom: '1px solid rgba(255,107,53,0.06)' }}>
+                      <p className="mb-1 text-[0.65rem] tracking-[0.15em] text-[#ff6b35]">45V PRODUCTION TAX CREDIT</p>
+                      <p className="text-2xl font-bold text-[#ff6b35]" style={{ textShadow: '0 0 8px rgba(255,107,53,0.3)' }}>~$27M lifetime</p>
+                      <p className="mt-1 text-xs text-white/40">Per qualifying site ($3/kg × 10 years)</p>
+                      <p className="mt-1 text-xs text-white/30">The faster we deploy, the more sites qualify — pure margin upside</p>
+                    </div>
                   </div>
                   <Link
                     href="/financials"
-                    className="inline-block text-sm text-[#00ff88] transition-colors hover:text-[#00ff88]/80"
+                    className="inline-block text-sm text-[#ff6b35] transition-colors hover:text-[#ff6b35]/80"
                   >
                     View Financial Model →
                   </Link>
@@ -586,7 +626,7 @@ export default function Home() {
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   <Link
                     href="/projects/node-01"
-                    className="group border border-[#00d4ff]/20 bg-[#0a0a0f]/60 transition-all hover:border-[#00d4ff]/50 hover:bg-[#00d4ff]/5"
+                    className="group border border-[#ff6b35]/20 bg-[#0a0a0f]/60 transition-all hover:border-[#ff6b35]/50 hover:bg-[#ff6b35]/5"
                   >
                     <div className="h-48 overflow-hidden bg-black/40">
                       <img
@@ -596,7 +636,7 @@ export default function Home() {
                       />
                     </div>
                     <div className="p-4">
-                      <h3 className="mb-1 text-base font-bold text-[#00d4ff]">NODE-01</h3>
+                      <h3 className="mb-1 text-base font-bold text-[#ff6b35]">NODE-01</h3>
                       <p className="text-sm text-[#9a9ab0]">
                         AI-integrated containerized showroom. Completion: April 2026.
                       </p>
@@ -604,7 +644,7 @@ export default function Home() {
                   </Link>
                   <Link
                     href="/projects/zeeco"
-                    className="group border border-[#00d4ff]/20 bg-[#0a0a0f]/60 transition-all hover:border-[#00d4ff]/50 hover:bg-[#00d4ff]/5"
+                    className="group border border-[#ff6b35]/20 bg-[#0a0a0f]/60 transition-all hover:border-[#ff6b35]/50 hover:bg-[#ff6b35]/5"
                   >
                     <div className="h-48 overflow-hidden bg-black/40">
                       <img
@@ -614,7 +654,7 @@ export default function Home() {
                       />
                     </div>
                     <div className="p-4">
-                      <h3 className="mb-1 text-base font-bold text-[#00d4ff]">Zeeco ARC</h3>
+                      <h3 className="mb-1 text-base font-bold text-[#ff6b35]">Zeeco ARC</h3>
                       <p className="text-sm text-[#9a9ab0]">
                         First commercial deployment. 12× T-25. 600kW. Q4 2026.
                       </p>
@@ -639,7 +679,7 @@ export default function Home() {
                     {[
                       {
                         title: 'BUSINESS',
-                        color: '#00ff88',
+                        color: '#ff6b35',
                         items: [
                           { name: 'Business Model', href: '/business-model' },
                           { name: 'Customers', href: '/customers' },
@@ -649,7 +689,7 @@ export default function Home() {
                       },
                       {
                         title: 'TECHNOLOGY',
-                        color: '#00d4ff',
+                        color: '#ff6b35',
                         items: [
                           { name: 'Overview', href: '/technology' },
                           { name: 'Cell', href: '/technology/cell' },
@@ -664,8 +704,7 @@ export default function Home() {
                         items: [
                           { name: 'NODE-01', href: '/projects/node-01' },
                           { name: 'Zeeco ARC', href: '/projects/zeeco' },
-                          { name: 'Validation', href: '/validation' },
-                          { name: 'Backed By', href: '/backed-by' },
+                          { name: 'Proof', href: '/proof' },
                           { name: 'Team', href: '/team' },
                         ],
                       },

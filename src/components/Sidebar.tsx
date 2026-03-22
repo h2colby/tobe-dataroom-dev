@@ -17,9 +17,10 @@ const navCategories: NavCategory[] = [
     id: '02',
     label: 'BUSINESS',
     items: [
+      { label: 'Comparison', href: '/comparison' },
       { label: 'Business Model', href: '/business-model' },
-      { label: 'Customers', href: '/customers' },
       { label: 'Financial Model', href: '/financials' },
+      { label: 'Customers', href: '/customers' },
       { label: 'Tax Credits', href: '/tax-credits' },
     ],
   },
@@ -31,28 +32,33 @@ const navCategories: NavCategory[] = [
       { label: 'Electrolysis Cell', href: '/technology/cell' },
       { label: 'Power Converter', href: '/technology/power-converter' },
       { label: 'Controls', href: '/technology/controls' },
-      { label: 'Efficiency & Testing', href: '/technology/efficiency' },
+      { label: 'Efficiency', href: '/technology/efficiency' },
     ],
   },
   {
     id: '04',
-    label: 'PEOPLE & PROJECTS',
+    label: 'PROJECTS',
     items: [
       { label: 'NODE-01', href: '/projects/node-01' },
-      { label: 'Zeeco ARC Deployment', href: '/projects/zeeco' },
-      { label: 'Validation & Programs', href: '/validation' },
-      { label: 'Backed By', href: '/backed-by' },
-      { label: 'Team', href: '/team' },
+      { label: 'Zeeco ARC', href: '/projects/zeeco' },
     ],
   },
   {
     id: '05',
+    label: 'PEOPLE',
+    items: [
+      { label: 'Proof', href: '/proof' },
+      { label: 'Team', href: '/team' },
+    ],
+  },
+  {
+    id: '06',
     label: 'DOCUMENTS',
     href: '/documents',
   },
   {
-    id: '06',
-    label: 'ASK AI',
+    id: '07',
+    label: 'ASK REN',
     href: '#ask-ai',
   },
 ];
@@ -61,7 +67,6 @@ export function Sidebar() {
   const pathname = usePathname();
   const [hoveredNav, setHoveredNav] = useState<string | null>(null);
   const [expandedNav, setExpandedNav] = useState<Set<string>>(() => {
-    // Auto-expand all categories by default
     const initial = new Set<string>();
     for (const cat of navCategories) {
       if (cat.items) {
@@ -81,10 +86,9 @@ export function Sidebar() {
   };
 
   const isActive = (href: string) => pathname === href;
-  const isSubActive = (href: string) => pathname === href;
 
   return (
-    <nav className="flex w-[240px] shrink-0 flex-col border-r border-white/5 bg-[#0a0a0f]/80 py-5 font-mono">
+    <nav className="flex w-[240px] shrink-0 flex-col border-r border-white/5 bg-[#0a0a0f]/80 py-5 font-mono overflow-y-auto">
       <div className="mb-2 px-5 text-[0.65rem] font-bold tracking-[0.2em] text-[#ff6b35] glow-orange">
         SYSTEM MODULES
       </div>
@@ -94,7 +98,17 @@ export function Sidebar() {
         const expanded = expandedNav.has(cat.id);
         const hasItems = !!cat.items;
         const isLastCat = catIdx === navCategories.length - 1;
-        const catBranch = isLastCat ? '└──' : '├──';
+        const catBranch = isLastCat ? '└─' : '├─';
+        const isAskAi = cat.href === '#ask-ai';
+
+        const catContent = (
+          <>
+            <span className="mr-1.5 text-[0.7rem] text-[#5a5a6a] shrink-0">{catBranch}</span>
+            <span className={`mr-2 shrink-0 ${active ? 'text-[#ff6b35]/70' : isAskAi ? 'text-[#6a6a7a]' : 'text-[#6a6a7a]'}`}>{cat.id}</span>
+            <span className="truncate">{cat.label}</span>
+            {active && <span className="ml-1 animate-blink text-[#ff6b35] shrink-0">█</span>}
+          </>
+        );
 
         return (
           <div key={cat.id}>
@@ -104,22 +118,13 @@ export function Sidebar() {
                 onClick={() => toggleCategory(cat.id)}
                 onMouseEnter={() => setHoveredNav(cat.id)}
                 onMouseLeave={() => setHoveredNav(null)}
-                className={`group flex w-full items-center px-4 py-2 text-left text-[0.875rem] tracking-[0.05em] transition-all ${
-                  hovered
-                    ? 'bg-[#00d4ff]/8 text-[#00d4ff]'
-                    : 'text-[#b0b0bc]'
+                className={`group flex w-full items-center px-4 py-2 text-left text-[0.825rem] tracking-[0.05em] transition-all ${
+                  hovered ? 'bg-[#ff6b35]/8 text-[#ff6b35]' : 'text-[#b0b0bc]'
                 }`}
               >
-                <span className="mr-1.5 text-[0.7rem] text-[#5a5a6a]">
-                  {catBranch}
-                </span>
-                <span className="mr-1.5 text-[0.65rem] text-[#6a6a7a]">
-                  {expanded ? '▾' : '▸'}
-                </span>
-                <span className="mr-2 text-[#6a6a7a]">{cat.id}</span>
-                {cat.label}
+                {catContent}
               </button>
-            ) : cat.href === '#ask-ai' ? (
+            ) : isAskAi ? (
               <button
                 type="button"
                 onClick={() => {
@@ -128,49 +133,26 @@ export function Sidebar() {
                 }}
                 onMouseEnter={() => setHoveredNav(cat.id)}
                 onMouseLeave={() => setHoveredNav(null)}
-                className={`group flex w-full items-center px-4 py-2 text-left text-[0.875rem] tracking-[0.05em] transition-all ${
-                  hovered
-                    ? 'bg-[#ff6b35]/8 text-[#ff6b35]'
-                    : 'text-[#ff6b35]/70'
+                className={`group flex w-full items-center px-4 py-2 text-left text-[0.825rem] tracking-[0.05em] transition-all ${
+                  hovered ? 'bg-[#ff6b35]/8 text-[#ff6b35]' : 'text-[#ff6b35]/70'
                 }`}
               >
-                <span className="mr-1.5 text-[0.7rem] text-[#5a5a6a]">└──</span>
-                <span className="mr-1 text-[#00ff88] text-xs">●</span>
-                <span className="mr-2 text-[#6a6a7a]">{cat.id}</span>
-                {cat.label}
+                {catContent}
               </button>
             ) : (
               <Link
                 href={cat.href!}
                 onMouseEnter={() => setHoveredNav(cat.id)}
                 onMouseLeave={() => setHoveredNav(null)}
-                className={`group flex items-center px-4 py-2 text-[0.875rem] tracking-[0.05em] transition-all ${
+                className={`group flex items-center px-4 py-2 text-[0.825rem] tracking-[0.05em] transition-all ${
                   active
                     ? 'bg-[#ff6b35]/12 text-[#ff6b35] font-bold'
                     : hovered
-                      ? 'bg-[#00d4ff]/8 text-[#00d4ff]'
+                      ? 'bg-[#ff6b35]/8 text-[#ff6b35]'
                       : 'text-[#b0b0bc]'
                 }`}
               >
-                <span
-                  className={`mr-1.5 text-[0.7rem] ${active ? 'text-[#ff6b35]/50' : 'text-[#5a5a6a]'}`}
-                >
-                  {catBranch}
-                </span>
-                {active && (
-                  <span className="mr-1 text-[#ff6b35]">{'>'}</span>
-                )}
-                <span
-                  className={`mr-2 ${active ? 'text-[#ff6b35]/70' : 'text-[#6a6a7a]'}`}
-                >
-                  {cat.id}
-                </span>
-                {cat.label}
-                {active && (
-                  <span className="ml-1 animate-blink text-[#ff6b35]">
-                    █
-                  </span>
-                )}
+                {catContent}
               </Link>
             )}
 
@@ -178,32 +160,28 @@ export function Sidebar() {
               <div className="overflow-hidden">
                 {cat.items!.map((item, i) => {
                   const subHovered = hoveredNav === `${cat.id}-${i}`;
-                  const subActive = isSubActive(item.href);
+                  const subActive = isActive(item.href);
                   const isLastItem = i === cat.items!.length - 1;
                   const vertLine = isLastCat ? ' ' : '│';
-                  const subBranch = isLastItem ? '└──' : '├──';
+                  const subBranch = isLastItem ? '└─' : '├─';
                   return (
                     <Link
                       key={item.label}
                       href={item.href}
-                      onMouseEnter={() =>
-                        setHoveredNav(`${cat.id}-${i}`)
-                      }
+                      onMouseEnter={() => setHoveredNav(`${cat.id}-${i}`)}
                       onMouseLeave={() => setHoveredNav(null)}
-                      className={`group flex items-center py-1.5 pl-9 pr-4 text-[0.825rem] tracking-[0.03em] transition-all ${
+                      className={`group flex items-center py-1.5 pl-9 pr-4 text-[0.775rem] tracking-[0.03em] transition-all ${
                         subActive
                           ? 'bg-[#ff6b35]/12 text-[#ff6b35] font-bold'
                           : subHovered
-                            ? 'bg-[#00d4ff]/8 text-[#00d4ff]'
+                            ? 'bg-[#ff6b35]/8 text-[#ff6b35]'
                             : 'text-[#9a9ab0]'
                       }`}
                     >
-                      <span
-                        className={`mr-1.5 text-[0.65rem] ${subActive ? 'text-[#ff6b35]/40' : 'text-[#4a4a5a]'}`}
-                      >
+                      <span className={`mr-1.5 text-[0.6rem] shrink-0 ${subActive ? 'text-[#ff6b35]/40' : 'text-[#4a4a5a]'}`}>
                         {vertLine} {subBranch}
                       </span>
-                      {item.label}
+                      <span className="truncate">{item.label}</span>
                     </Link>
                   );
                 })}
@@ -212,7 +190,6 @@ export function Sidebar() {
           </div>
         );
       })}
-
     </nav>
   );
 }

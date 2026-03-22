@@ -24,9 +24,9 @@ const unitEconomics = {
 };
 
 const revenueStreams = [
-  { label: 'Hydrogen as a Service', pct: 82, desc: 'We own and operate electrolyzers near industrial end users. More capital intensive upfront, but generates recurring, high-margin revenue with long-term offtake agreements. The core of the business.', color: '#00d4ff' },
+  { label: 'Hydrogen as a Service', pct: 82, desc: 'We own and operate electrolyzers near industrial end users. More capital intensive upfront, but generates recurring, high-margin revenue with long-term offtake agreements. The core of the business.', color: '#ff6b35' },
   { label: 'Equipment Sales', pct: 16, desc: 'Direct sale of T-25 and T-125 electrolyzer systems to support industry-defining projects — making steel production, ammonia synthesis, and refining more renewable. Customer owns the asset.', color: '#ff6b35' },
-  { label: 'AI Services & Maintenance', pct: 2, desc: 'Preventive and predictive maintenance powered by AI — valve chatter detection, sensor drift analysis, efficiency optimization. Plus traditional service contracts. Stacked on every deployment.', color: '#00ff88' },
+  { label: 'AI Services & Maintenance', pct: 2, desc: 'Preventive and predictive maintenance powered by AI — valve chatter detection, sensor drift analysis, efficiency optimization. Plus traditional service contracts. Stacked on every deployment.', color: '#ff6b35' },
 ];
 
 const financials = [
@@ -103,7 +103,7 @@ function StickyNav() {
 
   return (
     <nav className="sticky top-0 z-50 border-b border-white/10 bg-[#0a0a0f]/80 backdrop-blur-md">
-      <div className="mx-auto flex max-w-5xl gap-1 overflow-x-auto px-6 py-2 scrollbar-hide">
+      <div className="mx-auto flex max-w-6xl gap-1 overflow-x-auto px-6 py-2 scrollbar-hide">
         {sectionNav.map((s) => (
           <button
             key={s.id}
@@ -128,10 +128,10 @@ export default function BusinessModelPage() {
   return (
     <div className="relative min-h-screen bg-[#0a0a0f] font-mono text-white">
       {/* Hero */}
-      <section className="relative border-b border-white/10 px-6 py-20">
-        <div className="mx-auto max-w-5xl">
+      <section className="relative border-b border-white/10 px-6 py-16">
+        <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs leading-tight text-[#ff6b35]/70 sm:text-sm" style={{ whiteSpace: 'pre' }}>
-{`┌─── BUSINESS MODEL ──────────────────────────────────────┐`}
+{`┌─── BUSINESS MODEL ───┐`}
           </pre>
           <motion.h1
             initial={{ opacity: 0, y: 10 }}
@@ -140,7 +140,7 @@ export default function BusinessModelPage() {
             className="mb-4 text-4xl font-bold tracking-tight md:text-5xl"
           >
             How Tobe{' '}
-            <span className="text-[#00ff88]" style={{ textShadow: '0 0 10px rgba(0,255,136,0.5)' }}>
+            <span className="text-[#ff6b35]" style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)' }}>
               Makes Money
             </span>
           </motion.h1>
@@ -159,13 +159,13 @@ export default function BusinessModelPage() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="rounded border-l-[3px] border-[#00d4ff] bg-[#12121a] px-5 py-6"
-              style={{ borderTop: '1px solid rgba(0,212,255,0.1)', borderRight: '1px solid rgba(0,212,255,0.1)', borderBottom: '1px solid rgba(0,212,255,0.1)' }}
+              className="border-l-[3px] border-[#ff6b35] bg-[#12121a] px-5 py-6"
+              style={{ borderTop: '1px solid rgba(255,107,53,0.1)', borderRight: '1px solid rgba(255,107,53,0.1)', borderBottom: '1px solid rgba(255,107,53,0.1)' }}
             >
-              <p className="mb-1 text-[0.65rem] tracking-[0.15em] text-[#00d4ff]">ENGINE 01</p>
+              <p className="mb-1 text-[0.65rem] tracking-[0.15em] text-[#ff6b35]">ENGINE 01</p>
               <h3 className="mb-2 text-xl font-bold text-white">Hydrogen as a Service</h3>
               <p className="mb-3 text-sm text-white/50">Own &amp; operate electrolyzers near industrial end users. Long-term offtake agreements. Recurring, high-margin revenue.</p>
-              <p className="text-3xl font-bold text-[#00d4ff]" style={{ textShadow: '0 0 10px rgba(0,212,255,0.5)' }}>82%</p>
+              <p className="text-3xl font-bold text-[#ff6b35]" style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)' }}>82%</p>
               <p className="text-[0.6rem] text-white/30">OF FY7 REVENUE</p>
             </motion.div>
 
@@ -173,7 +173,7 @@ export default function BusinessModelPage() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="rounded border-l-[3px] border-[#ff6b35] bg-[#12121a] px-5 py-6"
+              className="border-l-[3px] border-[#ff6b35] bg-[#12121a] px-5 py-6"
               style={{ borderTop: '1px solid rgba(255,107,53,0.1)', borderRight: '1px solid rgba(255,107,53,0.1)', borderBottom: '1px solid rgba(255,107,53,0.1)' }}
             >
               <p className="mb-1 text-[0.65rem] tracking-[0.15em] text-[#ff6b35]">ENGINE 02</p>
@@ -187,13 +187,13 @@ export default function BusinessModelPage() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.5 }}
-              className="rounded border-l-[3px] border-[#00ff88] bg-[#12121a] px-5 py-6"
-              style={{ borderTop: '1px solid rgba(0,255,136,0.08)', borderRight: '1px solid rgba(0,255,136,0.08)', borderBottom: '1px solid rgba(0,255,136,0.08)' }}
+              className="border-l-[3px] border-[#ff6b35] bg-[#12121a] px-5 py-6"
+              style={{ borderTop: '1px solid rgba(255,107,53,0.08)', borderRight: '1px solid rgba(255,107,53,0.08)', borderBottom: '1px solid rgba(255,107,53,0.08)' }}
             >
-              <p className="mb-1 text-[0.65rem] tracking-[0.15em] text-[#00ff88]">ENGINE 03</p>
+              <p className="mb-1 text-[0.65rem] tracking-[0.15em] text-[#ff6b35]">ENGINE 03</p>
               <h3 className="mb-2 text-xl font-bold text-white">AI Services &amp; Maintenance</h3>
               <p className="mb-3 text-sm text-white/50">Predictive maintenance AI — valve chatter, sensor drift, efficiency optimization. Plus service contracts. Stacked on every deployment.</p>
-              <p className="text-3xl font-bold text-[#00ff88]" style={{ textShadow: '0 0 10px rgba(0,255,136,0.5)' }}>2%</p>
+              <p className="text-3xl font-bold text-[#ff6b35]" style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)' }}>2%</p>
               <p className="text-[0.6rem] text-white/30">OF FY7 REVENUE (GROWING)</p>
             </motion.div>
           </div>
@@ -203,43 +203,13 @@ export default function BusinessModelPage() {
       {/* Sticky Section Nav */}
       <StickyNav />
 
-      {/* CUSTOMER TRACTION STATS */}
-      <section className="border-b border-white/10 px-6 py-8">
-        <div className="mx-auto max-w-5xl">
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-            {[
-              { label: 'PIPELINE VALUE', value: '$100M+', color: '#00ff88' },
-              { label: 'OPPORTUNITIES', value: '11', color: '#00d4ff' },
-              { label: 'SECTORS', value: '7', color: '#00d4ff' },
-              { label: 'SIGNED LOIs', value: '6', color: '#ff6b35' },
-            ].map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                custom={i}
-                variants={fadeUp}
-                className="rounded border border-white/10 bg-white/[0.02] p-4 text-center"
-              >
-                <p className="mb-1 text-[0.6rem] tracking-[0.15em] text-[#ff6b35]">▸ {stat.label}</p>
-                <p
-                  className="text-2xl font-bold md:text-3xl"
-                  style={{ color: stat.color, textShadow: `0 0 10px ${stat.color}80` }}
-                >
-                  {stat.value}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+
 
       {/* UNIT ECONOMICS */}
       <section id="unit-economics" className="scroll-mt-16 border-b border-white/10 px-6 py-12">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
-{`┌─── UNIT ECONOMICS ──────────────────────────────────────┐`}
+{`┌─── UNIT ECONOMICS ───┐`}
           </pre>
 
           <div className="mb-8 grid gap-6 md:grid-cols-2">
@@ -250,12 +220,12 @@ export default function BusinessModelPage() {
               viewport={{ once: true }}
               custom={0}
               variants={fadeUp}
-              className="rounded border border-[#00ff88]/20 bg-[#00ff88]/[0.03] p-6"
+              className="rounded border border-[#ff6b35]/20 bg-[#ff6b35]/[0.03] p-6"
             >
               <p className="mb-1 text-xs tracking-[0.15em] text-[#ff6b35]">▸ TOBE DIRECT VARIABLE COST</p>
               <p
-                className="text-5xl font-bold text-[#00ff88]"
-                style={{ textShadow: '0 0 10px rgba(0,255,136,0.5)' }}
+                className="text-5xl font-bold text-[#ff6b35]"
+                style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)' }}
               >
                 {unitEconomics.directCost}
               </p>
@@ -269,12 +239,12 @@ export default function BusinessModelPage() {
               viewport={{ once: true }}
               custom={1}
               variants={fadeUp}
-              className="rounded border border-[#00d4ff]/20 bg-[#00d4ff]/[0.03] p-6"
+              className="rounded border border-[#ff6b35]/20 bg-[#ff6b35]/[0.03] p-6"
             >
               <p className="mb-1 text-xs tracking-[0.15em] text-[#ff6b35]">▸ GROSS MARGIN AT SCALE</p>
               <p
-                className="text-5xl font-bold text-[#00d4ff]"
-                style={{ textShadow: '0 0 10px rgba(0,212,255,0.5)' }}
+                className="text-5xl font-bold text-[#ff6b35]"
+                style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)' }}
               >
                 80%+
               </p>
@@ -316,8 +286,8 @@ export default function BusinessModelPage() {
                     <p className="text-xs text-white/40">{p.note}</p>
                   </div>
                   <p
-                    className="text-xl font-bold text-[#00d4ff]"
-                    style={{ textShadow: '0 0 10px rgba(0,212,255,0.5)' }}
+                    className="text-xl font-bold text-[#ff6b35]"
+                    style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)' }}
                   >
                     {p.price}
                   </p>
@@ -335,9 +305,9 @@ export default function BusinessModelPage() {
 
       {/* WHY ON-SITE WINS */}
       <section id="on-site" className="scroll-mt-16 border-b border-white/10 px-6 py-12">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
-{`┌─── WHY ON-SITE WINS ───────────────────────────────────┐`}
+{`┌─── WHY ON-SITE WINS ───┐`}
           </pre>
 
           {/* DOE stat callout */}
@@ -401,15 +371,15 @@ export default function BusinessModelPage() {
               viewport={{ once: true }}
               custom={2}
               variants={fadeUp}
-              className="rounded border border-[#00ff88]/20 bg-[#00ff88]/[0.03] p-6"
+              className="rounded border border-[#ff6b35]/20 bg-[#ff6b35]/[0.03] p-6"
             >
-              <p className="mb-4 text-xs tracking-[0.15em] text-[#00ff88]">▸ TOBE — ON OR NEAR SITE</p>
+              <p className="mb-4 text-xs tracking-[0.15em] text-[#ff6b35]">▸ TOBE — ON OR NEAR SITE</p>
               <div className="space-y-3">
                 {[
-                  { label: 'Production (electricity + water)', cost: '$2.57', width: '50%', color: 'bg-[#00ff88]/60' },
-                  { label: 'Compression (included)', cost: '$0.17', width: '3%', color: 'bg-[#00ff88]/40' },
-                  { label: 'Short-distance transport (included)', cost: '$0.91', width: '18%', color: 'bg-[#00ff88]/40' },
-                  { label: 'All-in delivered', cost: '$5.08', width: '100%', color: 'bg-[#00ff88]/80' },
+                  { label: 'Production (electricity + water)', cost: '$2.57', width: '50%', color: 'bg-[#ff6b35]/60' },
+                  { label: 'Compression (included)', cost: '$0.17', width: '3%', color: 'bg-[#ff6b35]/40' },
+                  { label: 'Short-distance transport (included)', cost: '$0.91', width: '18%', color: 'bg-[#ff6b35]/40' },
+                  { label: 'All-in delivered', cost: '$5.08', width: '100%', color: 'bg-[#ff6b35]/80' },
                 ].map((item) => (
                   <div key={item.label}>
                     <div className="mb-1 flex justify-between text-sm">
@@ -423,12 +393,12 @@ export default function BusinessModelPage() {
                     </div>
                   </div>
                 ))}
-                <div className="mt-2 border-t border-[#00ff88]/20 pt-3">
+                <div className="mt-2 border-t border-[#ff6b35]/20 pt-3">
                   <div className="flex justify-between">
-                    <span className="text-sm font-bold text-[#00ff88]">ALL-IN ON-SITE</span>
+                    <span className="text-sm font-bold text-[#ff6b35]">ALL-IN ON-SITE</span>
                     <span
-                      className="text-xl font-bold text-[#00ff88]"
-                      style={{ textShadow: '0 0 10px rgba(0,255,136,0.5)' }}
+                      className="text-xl font-bold text-[#ff6b35]"
+                      style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)' }}
                     >
                       $5.08/kg
                     </span>
@@ -446,11 +416,11 @@ export default function BusinessModelPage() {
             viewport={{ once: true }}
             custom={3}
             variants={fadeUp}
-            className="rounded border border-[#00ff88]/30 bg-[#00ff88]/[0.05] p-6 text-center"
+            className="rounded border border-[#ff6b35]/30 bg-[#ff6b35]/[0.05] p-6 text-center"
           >
             <p
-              className="text-lg font-bold text-[#00ff88] md:text-xl"
-              style={{ textShadow: '0 0 10px rgba(0,255,136,0.5)' }}
+              className="text-lg font-bold text-[#ff6b35] md:text-xl"
+              style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)' }}
             >
               Tobe eliminates the 75-85% of cost that isn&apos;t hydrogen.
             </p>
@@ -461,12 +431,12 @@ export default function BusinessModelPage() {
 
       {/* DOWNSTREAM IMPACT */}
       <section className="scroll-mt-16 border-b border-white/10 px-6 py-12">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
-{`┌─── DOWNSTREAM IMPACT ───────────────────────────────────┐`}
+{`┌─── DOWNSTREAM IMPACT ───┐`}
           </pre>
 
-          <div className="mb-6 border-l-[3px] border-[#00ff88] bg-[#12121a] px-6 py-5" style={{ borderTop: '1px solid rgba(0,255,136,0.08)', borderRight: '1px solid rgba(0,255,136,0.08)', borderBottom: '1px solid rgba(0,255,136,0.08)' }}>
+          <div className="mb-6 border-l-[3px] border-[#ff6b35] bg-[#12121a] px-6 py-5" style={{ borderTop: '1px solid rgba(255,107,53,0.08)', borderRight: '1px solid rgba(255,107,53,0.08)', borderBottom: '1px solid rgba(255,107,53,0.08)' }}>
             <p className="font-sans text-lg leading-relaxed text-white/80">
               We&apos;re your favorite e-fuels startup&apos;s favorite green hydrogen provider.
             </p>
@@ -478,14 +448,14 @@ export default function BusinessModelPage() {
 
           <div className="mb-8 grid gap-4 md:grid-cols-3">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp}
-              className="rounded border border-[#00ff88]/20 bg-[#00ff88]/[0.03] p-6">
-              <p className="mb-2 text-4xl font-bold text-[#00ff88]" style={{ textShadow: '0 0 10px rgba(0,255,136,0.4)' }}>30%</p>
+              className="rounded border border-[#ff6b35]/20 bg-[#ff6b35]/[0.03] p-6">
+              <p className="mb-2 text-4xl font-bold text-[#ff6b35]" style={{ textShadow: '0 0 10px rgba(255,107,53,0.4)' }}>30%</p>
               <p className="mb-1 text-sm font-semibold text-[#ff6b35]">▸ Sustainable Aviation Fuel &amp; E-Fuels</p>
               <p className="text-sm text-white/50">Hydrogen is the largest cost input in synthetic fuel production. Tobe reduces that cost by up to 30%, bringing SAF closer to jet fuel parity and making e-fuels commercially viable at scale.</p>
             </motion.div>
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={1} variants={fadeUp}
-              className="rounded border border-[#00d4ff]/20 bg-[#00d4ff]/[0.03] p-6">
-              <p className="mb-2 text-4xl font-bold text-[#00d4ff]" style={{ textShadow: '0 0 10px rgba(0,212,255,0.4)' }}>40%</p>
+              className="rounded border border-[#ff6b35]/20 bg-[#ff6b35]/[0.03] p-6">
+              <p className="mb-2 text-4xl font-bold text-[#ff6b35]" style={{ textShadow: '0 0 10px rgba(255,107,53,0.4)' }}>40%</p>
               <p className="mb-1 text-sm font-semibold text-[#ff6b35]">▸ Green Ammonia &amp; Fertilizer</p>
               <p className="text-sm text-white/50">Ammonia production consumes 1-2% of global energy. Green ammonia from Tobe hydrogen cuts feedstock costs by up to 40%, enabling price parity with fossil-based fertilizer production for the first time.</p>
             </motion.div>
@@ -507,9 +477,9 @@ export default function BusinessModelPage() {
 
       {/* REVENUE STREAMS */}
       <section id="revenue" className="scroll-mt-16 border-b border-white/10 px-6 py-12">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
-{`┌─── REVENUE STREAMS ─────────────────────────────────────┐`}
+{`┌─── REVENUE STREAMS ───┐`}
           </pre>
 
           <div className="grid gap-6 md:grid-cols-3">
@@ -545,9 +515,9 @@ export default function BusinessModelPage() {
 
       {/* FINANCIAL TRAJECTORY */}
       <section id="financials" className="scroll-mt-16 border-b border-white/10 px-6 py-12">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
-{`┌─── FINANCIAL TRAJECTORY ────────────────────────────────┐`}
+{`┌─── FINANCIAL TRAJECTORY ───┐`}
           </pre>
 
           {/* Revenue Growth Chart */}
@@ -566,14 +536,14 @@ export default function BusinessModelPage() {
                 const ebitdaHeight = f.ebitdaNum > 0 ? Math.max(Math.round((f.ebitdaNum / maxRev) * 180), 4) : 0;
                 return (
                   <div key={f.year} className="flex flex-1 flex-col items-center justify-end gap-1">
-                    <span className="text-[0.55rem] font-bold text-[#00ff88]">{f.revenue}</span>
+                    <span className="text-[0.55rem] font-bold text-[#ff6b35]">{f.revenue}</span>
                     <div className="relative flex w-full justify-center gap-0.5">
                       <div
                         className="w-1/2 rounded-t"
                         style={{
                           height: `${revHeight}px`,
-                          backgroundColor: '#00ff88',
-                          boxShadow: '0 0 8px rgba(0,255,136,0.4)',
+                          backgroundColor: '#ff6b35',
+                          boxShadow: '0 0 8px rgba(255,107,53,0.4)',
                         }}
                       />
                       {ebitdaHeight > 0 && (
@@ -581,8 +551,8 @@ export default function BusinessModelPage() {
                           className="w-1/2 rounded-t"
                           style={{
                             height: `${ebitdaHeight}px`,
-                            backgroundColor: '#00d4ff',
-                            boxShadow: '0 0 8px rgba(0,212,255,0.4)',
+                            backgroundColor: '#ff6b35',
+                            boxShadow: '0 0 8px rgba(255,107,53,0.4)',
                           }}
                         />
                       )}
@@ -593,8 +563,8 @@ export default function BusinessModelPage() {
               })}
             </div>
             <div className="mt-4 flex gap-6 text-[0.65rem] text-white/40">
-              <span><span className="mr-1 inline-block h-2 w-2 rounded" style={{ backgroundColor: '#00ff88' }} /> Revenue</span>
-              <span><span className="mr-1 inline-block h-2 w-2 rounded" style={{ backgroundColor: '#00d4ff' }} /> EBITDA</span>
+              <span><span className="mr-1 inline-block h-2 w-2 rounded" style={{ backgroundColor: '#ff6b35' }} /> Revenue</span>
+              <span><span className="mr-1 inline-block h-2 w-2 rounded" style={{ backgroundColor: '#ff6b35' }} /> EBITDA</span>
             </div>
           </motion.div>
 
@@ -625,8 +595,8 @@ export default function BusinessModelPage() {
               <div>
                 <span className="text-xs text-white/30 md:hidden">REV </span>
                 <span
-                  className="font-bold text-[#00ff88]"
-                  style={{ textShadow: '0 0 10px rgba(0,255,136,0.5)' }}
+                  className="font-bold text-[#ff6b35]"
+                  style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)' }}
                 >
                   {f.revenue}
                 </span>
@@ -634,8 +604,8 @@ export default function BusinessModelPage() {
               <div>
                 <span className="text-xs text-white/30 md:hidden">EBITDA </span>
                 <span
-                  className="text-[#00d4ff]"
-                  style={{ textShadow: '0 0 10px rgba(0,212,255,0.5)' }}
+                  className="text-[#ff6b35]"
+                  style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)' }}
                 >
                   {f.ebitda}
                 </span>
@@ -656,9 +626,9 @@ export default function BusinessModelPage() {
             viewport={{ once: true }}
             custom={5}
             variants={fadeUp}
-            className="mt-4 rounded border border-[#00ff88]/20 bg-[#00ff88]/[0.03] px-4 py-3"
+            className="mt-4 rounded border border-[#ff6b35]/20 bg-[#ff6b35]/[0.03] px-4 py-3"
           >
-            <p className="text-xs text-[#00ff88]">
+            <p className="text-xs text-[#ff6b35]">
               ● EBITDA POSITIVE BY YEAR 2. 63.9% MARGIN AT SCALE. $327.7M FY7 REVENUE.
             </p>
           </motion.div>
@@ -667,9 +637,9 @@ export default function BusinessModelPage() {
 
       {/* FUNDING ROADMAP */}
       <section id="funding" className="scroll-mt-16 border-b border-white/10 px-6 py-12">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
-{`┌─── FUNDING ROADMAP ─────────────────────────────────────┐`}
+{`┌─── FUNDING ROADMAP ───┐`}
           </pre>
 
           <div className="mb-8 grid gap-6 md:grid-cols-2">
@@ -688,7 +658,7 @@ export default function BusinessModelPage() {
                   <span
                     className={`rounded px-2 py-0.5 text-[0.65rem] font-bold tracking-wider ${
                       f.status === 'CLOSED'
-                        ? 'bg-[#00ff88]/10 text-[#00ff88]'
+                        ? 'bg-[#ff6b35]/10 text-[#ff6b35]'
                         : 'bg-[#ff6b35]/10 text-[#ff6b35]'
                     }`}
                   >
@@ -696,8 +666,8 @@ export default function BusinessModelPage() {
                   </span>
                 </div>
                 <p
-                  className="text-3xl font-bold text-[#00d4ff]"
-                  style={{ textShadow: '0 0 10px rgba(0,212,255,0.5)' }}
+                  className="text-3xl font-bold text-[#ff6b35]"
+                  style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)' }}
                 >
                   {f.amount}
                 </p>
@@ -722,14 +692,14 @@ export default function BusinessModelPage() {
                   <div className="mb-1 flex items-center justify-between">
                     <span className="text-sm text-white/70">{s.label}</span>
                     <span
-                      className="text-sm font-bold text-[#00d4ff]"
-                      style={{ textShadow: '0 0 10px rgba(0,212,255,0.5)' }}
+                      className="text-sm font-bold text-[#ff6b35]"
+                      style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)' }}
                     >
                       {s.pct}%
                     </span>
                   </div>
                   {/* Terminal-style progress bar */}
-                  <pre className="text-[0.6rem] text-[#00d4ff]" style={{ whiteSpace: 'pre' }}>
+                  <pre className="text-[0.6rem] text-[#ff6b35]" style={{ whiteSpace: 'pre' }}>
 {`[${'█'.repeat(Math.round(s.pct / 5))}${'░'.repeat(20 - Math.round(s.pct / 5))}]`}
                   </pre>
                 </div>
@@ -741,9 +711,9 @@ export default function BusinessModelPage() {
 
       {/* GO-TO-MARKET STRATEGY */}
       <section id="gtm" className="scroll-mt-16 border-b border-white/10 px-6 py-12">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
-{`┌─── GO-TO-MARKET STRATEGY ───────────────────────────────┐`}
+{`┌─── GO-TO-MARKET STRATEGY ───┐`}
           </pre>
 
           {/* Phase cards */}
@@ -753,7 +723,7 @@ export default function BusinessModelPage() {
                 phase: 'Phase 1: Oklahoma Anchor',
                 timeline: 'FY1\u2013FY2',
                 facilities: '1\u20132 facilities',
-                color: '#00ff88',
+                color: '#ff6b35',
                 items: [
                   'First commercial deployment — prove unit economics with anchor HaaS customer',
                   'University research contract (CAMPUS) \u2014 academic validation',
@@ -765,7 +735,7 @@ export default function BusinessModelPage() {
                 phase: 'Phase 2: Regional Scale',
                 timeline: 'FY2\u2013FY4',
                 facilities: '4 facilities across Central US',
-                color: '#00d4ff',
+                color: '#ff6b35',
                 items: [
                   'Target industrial corridors with cheap electricity + wind PPAs',
                   'Expand to Texas (HORIZON), California (PHOENIX), Oregon (TRANSIT)',
@@ -825,8 +795,8 @@ export default function BusinessModelPage() {
             <p className="mb-4 text-sm font-semibold text-[#ff6b35]">▸ CUSTOMER ACQUISITION</p>
             <div className="space-y-4">
               {[
-                { label: 'Inbound (Fortune 500 + major industrials via website, conferences, RFPs)', pct: 40, color: '#00d4ff' },
-                { label: 'Referral (partner network, customer-to-customer)', pct: 35, color: '#00ff88' },
+                { label: 'Inbound (Fortune 500 + major industrials via website, conferences, RFPs)', pct: 40, color: '#ff6b35' },
+                { label: 'Referral (partner network, customer-to-customer)', pct: 35, color: '#ff6b35' },
                 { label: 'Direct Outbound (BD team)', pct: 25, color: '#ff6b35' },
               ].map((ch) => (
                 <div key={ch.label}>
@@ -866,8 +836,8 @@ export default function BusinessModelPage() {
                   className="border-r border-white/5 bg-white/[0.02] px-3 py-3 last:border-r-0"
                 >
                   <span
-                    className="text-lg font-bold text-[#00ff88]"
-                    style={{ textShadow: '0 0 10px rgba(0,255,136,0.5)' }}
+                    className="text-lg font-bold text-[#ff6b35]"
+                    style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)' }}
                   >
                     {n}
                   </span>
@@ -880,9 +850,9 @@ export default function BusinessModelPage() {
 
       {/* TAM / SAM / SOM */}
       <section id="market" className="scroll-mt-16 border-b border-white/10 px-6 py-12">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
-{`┌─── ADDRESSABLE MARKET ──────────────────────────────────┐`}
+{`┌─── ADDRESSABLE MARKET ───┐`}
           </pre>
 
           <div className="grid gap-6 md:grid-cols-3">
@@ -902,8 +872,8 @@ export default function BusinessModelPage() {
               >
                 <p className="mb-1 text-xs tracking-[0.1em] text-[#ff6b35]">▸ {item.title}</p>
                 <p
-                  className="text-2xl font-bold text-[#00d4ff]"
-                  style={{ textShadow: '0 0 10px rgba(0,212,255,0.5)' }}
+                  className="text-2xl font-bold text-[#ff6b35]"
+                  style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)' }}
                 >
                   {item.value}
                 </p>
@@ -927,7 +897,7 @@ export default function BusinessModelPage() {
                 className="rounded border border-white/10 bg-white/[0.02] p-6"
               >
                 <p className="mb-1 text-xs tracking-[0.1em] text-[#ff6b35]">▸ {item.title}</p>
-                <p className="text-2xl font-bold text-[#00d4ff]" style={{ textShadow: '0 0 10px rgba(0,212,255,0.5)' }}>{item.value}</p>
+                <p className="text-2xl font-bold text-[#ff6b35]" style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)' }}>{item.value}</p>
                 <p className="mt-2 text-sm leading-relaxed text-white/50">{item.desc}</p>
               </motion.div>
             ))}
@@ -939,9 +909,9 @@ export default function BusinessModelPage() {
             viewport={{ once: true }}
             custom={4}
             variants={fadeUp}
-            className="mt-4 rounded border border-[#00d4ff]/20 bg-[#00d4ff]/[0.03] px-4 py-3"
+            className="mt-4 rounded border border-[#ff6b35]/20 bg-[#ff6b35]/[0.03] px-4 py-3"
           >
-            <p className="text-xs text-[#00d4ff]">
+            <p className="text-xs text-[#ff6b35]">
               ● Oklahoma electricity at $0.10/kWh (PPA) translates to ~$1/kg production electricity cost. Combined with zero membrane costs, Tobe achieves structural cost advantage in the SAM.
             </p>
           </motion.div>
@@ -986,9 +956,9 @@ export default function BusinessModelPage() {
 
       {/* COMPETITIVE LANDSCAPE */}
       <section id="competitive" className="scroll-mt-16 border-b border-white/10 px-6 py-12">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
-{`┌─── COMPETITIVE LANDSCAPE ───────────────────────────────┐`}
+{`┌─── COMPETITIVE LANDSCAPE ───┐`}
           </pre>
 
           {/* Comparison table */}
@@ -1016,15 +986,15 @@ export default function BusinessModelPage() {
                     key={c.name}
                     className={`border-b border-white/5 ${
                       c.highlight
-                        ? 'bg-[#00ff88]/[0.06] border-l-2 border-l-[#00ff88]'
+                        ? 'bg-[#ff6b35]/[0.06] border-l-2 border-l-[#ff6b35]'
                         : 'bg-white/[0.02]'
                     }`}
                   >
-                    <td className={`px-4 py-3 font-bold ${c.highlight ? 'text-[#00ff88]' : 'text-white/70'}`}>
+                    <td className={`px-4 py-3 font-bold ${c.highlight ? 'text-[#ff6b35]' : 'text-white/70'}`}>
                       {c.highlight && '▸ '}{c.name}
                     </td>
-                    <td className={`px-4 py-3 ${c.highlight ? 'font-bold text-[#00ff88]' : 'text-white/60'}`}>{c.tech}</td>
-                    <td className={`px-4 py-3 ${c.highlight ? 'font-bold text-[#00ff88]' : 'text-white/60'}`}>{c.eff}</td>
+                    <td className={`px-4 py-3 ${c.highlight ? 'font-bold text-[#ff6b35]' : 'text-white/60'}`}>{c.tech}</td>
+                    <td className={`px-4 py-3 ${c.highlight ? 'font-bold text-[#ff6b35]' : 'text-white/60'}`}>{c.eff}</td>
                     <td className="px-4 py-3 text-white/60">{c.funding}</td>
                     <td className="px-4 py-3 text-white/50 text-xs">{c.weakness}</td>
                   </tr>
@@ -1042,11 +1012,11 @@ export default function BusinessModelPage() {
             viewport={{ once: true }}
             custom={1}
             variants={fadeUp}
-            className="mt-6 rounded border border-[#00ff88]/30 bg-[#00ff88]/[0.05] p-6 text-center"
+            className="mt-6 rounded border border-[#ff6b35]/30 bg-[#ff6b35]/[0.05] p-6 text-center"
           >
             <p
-              className="text-sm font-bold leading-relaxed text-[#00ff88] md:text-base"
-              style={{ textShadow: '0 0 10px rgba(0,255,136,0.5)' }}
+              className="text-sm font-bold leading-relaxed text-[#ff6b35] md:text-base"
+              style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)' }}
             >
               Every competitor above uses membranes. Every membrane degrades.
               <br />
@@ -1073,9 +1043,9 @@ export default function BusinessModelPage() {
 
       {/* COMPETITIVE MOAT */}
       <section id="moat" className="scroll-mt-16 border-b border-white/10 px-6 py-12">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
-{`┌─── COMPETITIVE MOAT ───────────────────────────────────┐`}
+{`┌─── COMPETITIVE MOAT ───┐`}
           </pre>
 
           <div className="grid gap-6 md:grid-cols-2">
@@ -1091,8 +1061,8 @@ export default function BusinessModelPage() {
               >
                 <div className="mb-3 flex items-center gap-4">
                   <span
-                    className="text-3xl font-bold text-[#00d4ff]"
-                    style={{ textShadow: '0 0 10px rgba(0,212,255,0.5)' }}
+                    className="text-3xl font-bold text-[#ff6b35]"
+                    style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)' }}
                   >
                     {m.stat}
                   </span>
@@ -1131,9 +1101,9 @@ export default function BusinessModelPage() {
 
       {/* DETAILED COST BUILD-UP */}
       <section className="border-b border-white/10 px-6 py-12">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
-{`┌─── DETAILED COST BUILD-UP ──────────────────────────────┐`}
+{`┌─── DETAILED COST BUILD-UP ───┐`}
           </pre>
 
           {/* Cost table */}
@@ -1163,16 +1133,16 @@ export default function BusinessModelPage() {
                   key={item.label}
                   className={`flex items-center justify-between px-4 py-2 ${
                     item.sub
-                      ? 'rounded border border-[#00ff88]/20 bg-[#00ff88]/[0.03]'
+                      ? 'rounded border border-[#ff6b35]/20 bg-[#ff6b35]/[0.03]'
                       : 'border-b border-white/5'
                   }`}
                 >
-                  <span className={`text-sm ${item.sub ? 'font-bold text-[#00ff88]' : 'text-white/60'}`}>
+                  <span className={`text-sm ${item.sub ? 'font-bold text-[#ff6b35]' : 'text-white/60'}`}>
                     {item.sub ? '▸ ' : '  '}{item.label}
                   </span>
                   <span
-                    className={`font-mono text-sm ${item.sub ? 'font-bold text-[#00ff88]' : 'text-white/80'}`}
-                    style={item.sub ? { textShadow: '0 0 10px rgba(0,255,136,0.5)' } : {}}
+                    className={`font-mono text-sm ${item.sub ? 'font-bold text-[#ff6b35]' : 'text-white/80'}`}
+                    style={item.sub ? { textShadow: '0 0 10px rgba(255,107,53,0.5)' } : {}}
                   >
                     {item.cost}
                   </span>
@@ -1184,11 +1154,11 @@ export default function BusinessModelPage() {
           {/* Anchor returns grid */}
           <div className="mt-8 grid gap-6 md:grid-cols-5">
             {[
-              { label: 'SELLING PRICE', value: '$25/kg', color: '#00d4ff' },
-              { label: 'GROSS MARGIN', value: '89.5%', color: '#00ff88' },
-              { label: 'SITE EBITDA', value: '$16.5M/yr', color: '#00ff88' },
-              { label: 'PROJECT IRR', value: '217.7%', color: '#00ff88' },
-              { label: 'PAYBACK', value: '<18 mo', color: '#00d4ff' },
+              { label: 'SELLING PRICE', value: '$25/kg', color: '#ff6b35' },
+              { label: 'GROSS MARGIN', value: '89.5%', color: '#ff6b35' },
+              { label: 'SITE EBITDA', value: '$16.5M/yr', color: '#ff6b35' },
+              { label: 'PROJECT IRR', value: '217.7%', color: '#ff6b35' },
+              { label: 'PAYBACK', value: '<18 mo', color: '#ff6b35' },
             ].map((item, i) => (
               <motion.div
                 key={item.label}
@@ -1213,12 +1183,11 @@ export default function BusinessModelPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-white/10 px-6 py-8">
-        <div className="mx-auto max-w-5xl text-center">
-          <pre className="text-xs text-white/20" style={{ whiteSpace: 'pre' }}>
-{`═══════════════════════════════════════════════════════════
- TOBE ENERGY CORP // CONFIDENTIAL // 2026
-═══════════════════════════════════════════════════════════`}
+      <footer className="border-t border-white/10 px-6 py-6">
+        <div className="mx-auto max-w-6xl text-center">
+          <pre className="text-xs text-[#ff6b35]/20" style={{ textShadow: '0 0 6px rgba(255,107,53,0.08)' }}>
+{`TOBE ENERGY CORP // OKLAHOMA CITY, USA // EST. 2024
+CONFIDENTIAL — AUTHORIZED INVESTOR ACCESS ONLY`}
           </pre>
         </div>
       </footer>

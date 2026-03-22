@@ -74,9 +74,9 @@ const milestones: Milestone[] = [
 ];
 
 const statusColors: Record<MilestoneStatus, string> = {
-  contracted: '#00ff88',
+  contracted: '#ff6b35',
   future: '#ff6b35',
-  speculative: '#00d4ff',
+  speculative: '#ff6b35',
 };
 
 const statusLabels: Record<MilestoneStatus, string> = {
@@ -118,23 +118,23 @@ export default function DeploymentTimeline() {
             <span className="text-white/30">{'       \u2502            \u2502             \u2502            \u2502            \u2502            \u2502'}</span>
 {`
 `}
-            <span className="text-[#00ff88]">{'\u2500\u2500\u2500\u2500\u2500\u2500\u25CF'}</span>
-            <span className="text-[#00ff88]">{'\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF'}</span>
-            <span className="text-[#00ff88]">{'\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF'}</span>
+            <span className="text-[#ff6b35]">{'\u2500\u2500\u2500\u2500\u2500\u2500\u25CF'}</span>
+            <span className="text-[#ff6b35]">{'\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF'}</span>
+            <span className="text-[#ff6b35]">{'\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF'}</span>
             <span className="text-[#ff6b35]">{'\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF'}</span>
             <span className="text-[#ff6b35]">{'\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF'}</span>
-            <span className="text-[#00d4ff]">{'\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500'}</span>
+            <span className="text-[#ff6b35]">{'\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500'}</span>
 {`
 `}
             <span className="text-white/30">{'       \u2502            \u2502             \u2502            \u2502            \u2502            \u2502'}</span>
 {`
 `}
-            <span className="text-[#00ff88]">{'   CARDINAL'}</span>
-            <span className="text-[#00ff88]">{'      CAMPUS'}</span>
-            <span className="text-[#00ff88]">{'      REFINERY'}</span>
+            <span className="text-[#ff6b35]">{'   CARDINAL'}</span>
+            <span className="text-[#ff6b35]">{'      CAMPUS'}</span>
+            <span className="text-[#ff6b35]">{'      REFINERY'}</span>
             <span className="text-[#ff6b35]">{'     PHOENIX'}</span>
             <span className="text-[#ff6b35]">{'      TRANSIT'}</span>
-            <span className="text-[#00d4ff]">{'   FORGE-STEEL'}</span>
+            <span className="text-[#ff6b35]">{'   FORGE-STEEL'}</span>
           </pre>
         </motion.div>
 
@@ -148,7 +148,7 @@ export default function DeploymentTimeline() {
           className="mb-8 flex flex-wrap gap-6 text-xs"
         >
           <div className="flex items-center gap-2">
-            <span className="inline-block h-2 w-6 rounded-sm bg-[#00ff88]" />
+            <span className="inline-block h-2 w-6 rounded-sm bg-[#ff6b35]" />
             <span className="text-white/50">Contracted / Active</span>
           </div>
           <div className="flex items-center gap-2">
@@ -156,7 +156,7 @@ export default function DeploymentTimeline() {
             <span className="text-white/50">In Pipeline</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="inline-block h-2 w-6 rounded-sm bg-[#00d4ff]" />
+            <span className="inline-block h-2 w-6 rounded-sm bg-[#ff6b35]" />
             <span className="text-white/50">Speculative</span>
           </div>
         </motion.div>
