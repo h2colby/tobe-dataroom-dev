@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 type FileType = 'PDF' | 'XLSX' | 'PNG' | 'DOCX';
 
@@ -272,92 +272,185 @@ const folders: Folder[] = [
   },
 ];
 
-const totalFiles = folders.reduce((sum, folder) => {
-  let count = folder.files?.length || 0;
-  folder.subfolders?.forEach(sf => count += sf.files.length);
-  return sum + count;
-}, 0);
+// Build flat list for viewer navigation
+function getAllFiles(): DocFile[] {
+  const all: DocFile[] = [];
+  folders.forEach(folder => {
+    folder.files?.forEach(file => all.push(file));
+    folder.subfolders?.forEach(sf => sf.files.forEach(file => all.push(file)));
+  });
+  return all;
+}
+
+const totalFiles = getAllFiles().length;
+
+// ── Inline Document Viewer ──
+
+function DocumentViewer({ file, allFiles, onClose, onNavigate }: {
+  file: DocFile;
+  allFiles: DocFile[];
+  onClose: () => void;
+  onNavigate: (file: DocFile) => void;
+}) {
+  const currentIndex = allFiles.findIndex(f => f.path === file.path);
+  const canPrev = currentIndex > 0;
+  const canNext = currentIndex < allFiles.length - 1;
+  const isPDF = file.type === 'PDF';
+  const isPNG = file.type === 'PNG';
+
+  const goPrev = useCallback(() => {
+    if (canPrev) onNavigate(allFiles[currentIndex - 1]);
+  }, [canPrev, currentIndex, allFiles, onNavigate]);
+
+  const goNext = useCallback(() => {
+    if (canNext) onNavigate(allFiles[currentIndex + 1]);
+  }, [canNext, currentIndex, allFiles, onNavigate]);
+
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); goPrev(); }
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); goNext(); }
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, [goPrev, goNext, onClose]);
+
+  return (
+    <div className="fixed inset-0 z-[200] flex flex-col bg-[#0a0a0f]">
+      {/* Header bar */}
+      <div className="flex items-center justify-between border-b border-white/10 bg-[#12121a] px-4 py-2 shrink-0">
+        <div className="flex items-center gap-3 min-w-0">
+          <span className="text-[0.55rem] font-bold tracking-[0.1em] px-1.5 py-0.5 rounded text-[#ff6b35]"
+            style={{ border: '1px solid rgba(255,107,53,0.3)' }}>
+            {file.type}
+          </span>
+          <span className="text-sm text-white/80 truncate">{file.title}</span>
+          <span className="text-[0.55rem] text-white/20 shrink-0">{currentIndex + 1} / {allFiles.length}</span>
+        </div>
+        <div className="flex items-center gap-2 shrink-0">
+          <button onClick={goPrev} disabled={!canPrev}
+            className="px-2 py-1 text-xs text-white/40 hover:text-white disabled:opacity-20 transition-colors"
+            title="Previous (←)">
+            ← Prev
+          </button>
+          <button onClick={goNext} disabled={!canNext}
+            className="px-2 py-1 text-xs text-white/40 hover:text-white disabled:opacity-20 transition-colors"
+            title="Next (→)">
+            Next →
+          </button>
+          <a href={file.path} target="_blank" rel="noopener noreferrer"
+            className="px-2 py-1 text-xs text-[#ff6b35]/60 hover:text-[#ff6b35] transition-colors">
+            Open ↗
+          </a>
+          <button onClick={onClose}
+            className="px-2 py-1 text-xs text-white/40 hover:text-white transition-colors"
+            title="Close (Esc)">
+            ✕
+          </button>
+        </div>
+      </div>
+
+      {/* Document content */}
+      <div className="flex-1 overflow-hidden">
+        {isPDF ? (
+          <iframe src={`${file.path}#toolbar=1`} className="w-full h-full border-0" title={file.title} />
+        ) : isPNG ? (
+          <div className="w-full h-full flex items-center justify-center p-8 overflow-auto">
+            <img src={file.path} alt={file.title} className="max-w-full max-h-full object-contain" />
+          </div>
+        ) : (
+          <div className="w-full h-full flex items-center justify-center">
+            <div className="text-center">
+              <p className="text-white/40 text-sm mb-4">{file.type} files cannot be previewed inline</p>
+              <a href={file.path} target="_blank" rel="noopener noreferrer"
+                className="px-4 py-2 text-sm text-[#ff6b35] border border-[#ff6b35]/30 rounded hover:bg-[#ff6b35]/10 transition-colors">
+                Download {file.title}
+              </a>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
 
 // ── Components ──
 
 function FileTypeIcon({ type }: { type: FileType }) {
-  const colors: Record<FileType, string> = {
-    PDF: '#ff6b35',
-    XLSX: 'rgba(255,255,255,0.5)',
-    PNG: 'rgba(255,255,255,0.3)',
-    DOCX: 'rgba(255,255,255,0.5)',
-  };
   return (
-    <span className="text-[0.5rem] font-bold tracking-[0.1em] px-1.5 py-0.5 rounded"
-      style={{ color: colors[type], border: `1px solid ${colors[type]}40` }}>
+    <span className="text-[0.55rem] font-bold tracking-[0.1em] px-1.5 py-0.5 rounded text-[#ff6b35] shrink-0"
+      style={{ border: '1px solid rgba(255,107,53,0.25)' }}>
       {type}
     </span>
   );
 }
 
-function FileRow({ file }: { file: DocFile }) {
+function FileRow({ file, onClick }: { file: DocFile; onClick: (f: DocFile) => void }) {
   return (
-    <a href={file.path} target="_blank" rel="noopener noreferrer"
-      className="group flex items-center justify-between py-2 px-3 -mx-3 rounded transition-all hover:bg-white/[0.03]">
+    <button onClick={() => onClick(file)}
+      className="group flex items-center justify-between w-full py-2.5 px-3 -mx-3 rounded transition-all hover:bg-white/[0.04] text-left">
       <div className="flex items-center gap-3 min-w-0">
         <FileTypeIcon type={file.type} />
-        <span className="text-sm text-white/70 group-hover:text-white truncate transition-colors">
+        <span className="text-[0.85rem] text-white/80 group-hover:text-white truncate transition-colors">
           {file.title}
         </span>
       </div>
-      <span className="text-[0.55rem] text-[#ff6b35]/0 group-hover:text-[#ff6b35]/60 transition-all shrink-0 ml-2">
-        OPEN ↗
+      <span className="text-[0.6rem] text-[#ff6b35]/0 group-hover:text-[#ff6b35]/60 transition-all shrink-0 ml-3">
+        VIEW
       </span>
-    </a>
+    </button>
   );
 }
 
-function SubFolderSection({ subfolder, depth = 0 }: { subfolder: SubFolder; depth?: number }) {
+function SubFolderSection({ subfolder, onFileClick }: { subfolder: SubFolder; onFileClick: (f: DocFile) => void }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className={depth > 0 ? 'ml-4' : ''}>
+    <div>
       <button onClick={() => setOpen(!open)}
-        className="flex items-center gap-2 w-full py-2 text-left group">
-        <span className="text-[0.6rem] text-white/30 transition-transform" style={{ transform: open ? 'rotate(90deg)' : 'rotate(0deg)' }}>▸</span>
-        <span className="text-xs font-bold text-white/50 group-hover:text-white/70 tracking-[0.05em] transition-colors">
+        className="flex items-center gap-2.5 w-full py-2.5 text-left group">
+        <span className="text-xs text-[#ff6b35]/40 transition-transform shrink-0"
+          style={{ transform: open ? 'rotate(90deg)' : 'rotate(0deg)' }}>▸</span>
+        <span className="text-[0.8rem] font-semibold text-white/70 group-hover:text-white/90 transition-colors">
           {subfolder.name}
         </span>
-        <span className="text-[0.5rem] text-white/20">{subfolder.files.length}</span>
+        <span className="text-[0.55rem] text-white/30">{subfolder.files.length}</span>
       </button>
       {open && (
-        <div className="ml-4 border-l border-white/5 pl-3">
-          {subfolder.files.map(file => <FileRow key={file.path} file={file} />)}
+        <div className="ml-5 border-l border-white/[0.06] pl-4">
+          {subfolder.files.map(file => <FileRow key={file.path} file={file} onClick={onFileClick} />)}
         </div>
       )}
     </div>
   );
 }
 
-function FolderSection({ folder }: { folder: Folder }) {
+function FolderSection({ folder, onFileClick }: { folder: Folder; onFileClick: (f: DocFile) => void }) {
   const [open, setOpen] = useState(false);
   const fileCount = (folder.files?.length || 0) + (folder.subfolders?.reduce((s, sf) => s + sf.files.length, 0) || 0);
 
   return (
-    <div className="border-b border-white/[0.04]">
+    <div className="border-b border-white/[0.05]">
       <button onClick={() => setOpen(!open)}
         className="flex items-center justify-between w-full py-4 px-1 text-left group">
         <div className="flex items-center gap-3">
-          <span className="text-xs text-[#ff6b35]/50 transition-transform" style={{ transform: open ? 'rotate(90deg)' : 'rotate(0deg)' }}>▸</span>
+          <span className="text-sm text-[#ff6b35]/50 transition-transform shrink-0"
+            style={{ transform: open ? 'rotate(90deg)' : 'rotate(0deg)' }}>▸</span>
           <div>
-            <span className="text-[0.7rem] font-bold tracking-[0.1em] text-white/80 group-hover:text-white transition-colors">
+            <span className="text-[0.8rem] font-bold tracking-[0.08em] text-white/90 group-hover:text-white transition-colors">
               {folder.name}
             </span>
             {folder.description && (
-              <p className="text-[0.6rem] text-white/25 mt-0.5">{folder.description}</p>
+              <p className="text-[0.7rem] text-white/40 mt-0.5">{folder.description}</p>
             )}
           </div>
         </div>
-        <span className="text-[0.55rem] text-white/20 shrink-0">{fileCount} files</span>
+        <span className="text-[0.6rem] text-white/25 shrink-0">{fileCount} files</span>
       </button>
       {open && (
-        <div className="pb-4 px-6">
-          {folder.files?.map(file => <FileRow key={file.path} file={file} />)}
-          {folder.subfolders?.map(sf => <SubFolderSection key={sf.name} subfolder={sf} />)}
+        <div className="pb-4 px-7">
+          {folder.files?.map(file => <FileRow key={file.path} file={file} onClick={onFileClick} />)}
+          {folder.subfolders?.map(sf => <SubFolderSection key={sf.name} subfolder={sf} onFileClick={onFileClick} />)}
         </div>
       )}
     </div>
@@ -367,8 +460,21 @@ function FolderSection({ folder }: { folder: Folder }) {
 // ── Page ──
 
 export default function DocumentsPage() {
+  const [viewingFile, setViewingFile] = useState<DocFile | null>(null);
+  const allFiles = getAllFiles();
+
   return (
     <div className="relative min-h-screen bg-[#0a0a0f] font-mono text-white">
+      {/* Inline viewer overlay */}
+      {viewingFile && (
+        <DocumentViewer
+          file={viewingFile}
+          allFiles={allFiles}
+          onClose={() => setViewingFile(null)}
+          onNavigate={setViewingFile}
+        />
+      )}
+
       {/* Hero */}
       <section className="border-b border-white/10 px-6 py-16">
         <div className="mx-auto max-w-6xl">
@@ -378,8 +484,8 @@ export default function DocumentsPage() {
           <h1 className="mb-4 text-3xl font-bold tracking-tight">
             Data Room Documents
           </h1>
-          <p className="max-w-2xl text-sm leading-relaxed text-white/40">
-            {totalFiles} documents organized for diligence. Corporate formation, governance, investment agreements, insurance, engineering specifications, financial models, and market research. Click any folder to expand.
+          <p className="max-w-2xl text-sm leading-relaxed text-white/50">
+            {totalFiles} documents organized for diligence. Click any file to preview inline — use arrow keys to navigate between documents, Esc to close.
           </p>
         </div>
       </section>
@@ -388,7 +494,7 @@ export default function DocumentsPage() {
       <div className="mx-auto max-w-6xl px-6 pt-6">
         <div className="border-l-[3px] border-[#ff6b35] bg-[#ff6b35]/[0.04] px-5 py-4 mb-6"
           style={{ borderTop: '1px solid rgba(255,107,53,0.08)', borderRight: '1px solid rgba(255,107,53,0.08)', borderBottom: '1px solid rgba(255,107,53,0.08)' }}>
-          <p className="text-xs text-white/60 leading-relaxed">
+          <p className="text-sm text-white/70 leading-relaxed">
             <span className="text-[#ff6b35] font-bold">Delaware C-Corp, fully documented.</span> Bylaws, board resolutions, all investment agreements (14 instruments, $1.95M), IP assignments, insurance, tax filings, and engineering documentation. All founder agreements executed via Cooley LLP. For additional materials, contact{' '}
             <a href="mailto:colby@tobe.energy" className="text-[#ff6b35]/70 hover:text-[#ff6b35]">colby@tobe.energy</a>.
           </p>
@@ -397,15 +503,14 @@ export default function DocumentsPage() {
 
       {/* Folder tree */}
       <div className="mx-auto max-w-6xl px-6 pb-16">
-        {folders.map(folder => <FolderSection key={folder.name} folder={folder} />)}
+        {folders.map(folder => <FolderSection key={folder.name} folder={folder} onFileClick={setViewingFile} />)}
       </div>
 
       {/* Footer */}
       <footer className="border-t border-white/10 px-6 py-6">
         <div className="mx-auto max-w-6xl text-center">
           <pre className="text-xs text-[#ff6b35]/20" style={{ textShadow: '0 0 6px rgba(255,107,53,0.08)' }}>
-            {`TOBE ENERGY CORP // OKLAHOMA CITY, USA // EST. 2024
-CONFIDENTIAL — AUTHORIZED INVESTOR ACCESS ONLY`}
+            {`TOBE ENERGY CORP // OKLAHOMA CITY, USA // EST. 2024`}
           </pre>
         </div>
       </footer>
