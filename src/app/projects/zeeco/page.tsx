@@ -86,7 +86,7 @@ export default function ZeecoPage() {
             transition={{ duration: 0.4 }}
             className="mb-4 inline-block rounded border border-[#ff6b35]/40 bg-[#ff6b35]/10 px-3 py-1"
           >
-            <span className="text-xs font-bold tracking-[0.2em] text-[#ff6b35]">● CONTRACTED</span>
+            <span className="text-xs font-bold tracking-[0.2em] text-[#00ff88]">● CONTRACTED</span>
           </motion.div>
 
           <motion.p
@@ -456,14 +456,14 @@ export default function ZeecoPage() {
                 <div
                   className={`absolute -left-[2.55rem] top-1 h-3 w-3 rounded-full border-2 ${
                     t.status === 'complete'
-                      ? 'border-[#ff6b35] bg-[#ff6b35]'
+                      ? 'border-[#00ff88] bg-[#00ff88]'
                       : t.status === 'active'
                       ? 'border-[#ff6b35] bg-[#ff6b35]'
                       : 'border-white/30 bg-transparent'
                   }`}
                   style={
                     t.status === 'complete'
-                      ? { boxShadow: '0 0 8px rgba(255,107,53,0.5)' }
+                      ? { boxShadow: '0 0 8px rgba(0,255,136,0.5)' }
                       : t.status === 'active'
                       ? { boxShadow: '0 0 8px rgba(255,107,53,0.5)' }
                       : {}
@@ -473,7 +473,7 @@ export default function ZeecoPage() {
                   <span
                     className={`text-sm font-bold ${
                       t.status === 'complete'
-                        ? 'text-[#ff6b35]'
+                        ? 'text-[#00ff88]'
                         : t.status === 'active'
                         ? 'text-[#ff6b35]'
                         : 'text-white/40'
@@ -483,7 +483,7 @@ export default function ZeecoPage() {
                   </span>
                   <span className="text-sm text-white/70">{t.label}</span>
                   {t.status === 'complete' && (
-                    <span className="text-xs font-bold tracking-[0.1em] text-[#ff6b35]">✓ COMPLETE</span>
+                    <span className="text-xs font-bold tracking-[0.1em] text-[#00ff88]">✓ COMPLETE</span>
                   )}
                   {t.status === 'active' && (
                     <span className="text-xs font-bold tracking-[0.1em] text-[#ff6b35]">▸ IN PROGRESS</span>

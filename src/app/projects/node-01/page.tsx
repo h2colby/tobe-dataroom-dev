@@ -264,7 +264,7 @@ export default function Node01Page() {
                     className="flex items-center justify-between font-mono text-xs sm:text-sm"
                   >
                     <span className="text-white/60">→ {step.label}</span>
-                    <span className="text-[#ff6b35]">[{step.status}]</span>
+                    <span className={step.status === "COMPLETE" ? "text-[#00ff88]" : "text-[#ff6b35]"}>[{step.status}]</span>
                   </motion.div>
                 ))}
               </div>
@@ -343,14 +343,14 @@ export default function Node01Page() {
               <span className="text-[0.6rem] text-[#ff6b35]/50">LIVE</span>
             </div>
             <div className="p-5 space-y-2 text-sm font-mono">
-              <div className="mb-3 text-xs font-bold text-[#ff6b35]" style={{ textShadow: '0 0 8px rgba(255,107,53,0.3)' }}>SYSTEM: NOMINAL</div>
+              <div className="mb-3 text-xs font-bold text-[#00ff88]" style={{ textShadow: '0 0 8px rgba(0,255,136,0.3)' }}>SYSTEM: NOMINAL</div>
               {[
-                { label: 'Stack Voltage', value: '3.2 kV', status: 'NORMAL', color: '#ff6b35' },
-                { label: 'H₂ Flow Rate', value: '1.04 kg/hr', status: 'NORMAL', color: '#ff6b35' },
-                { label: 'Stack Temperature', value: '27.8°C', status: 'NORMAL', color: '#ff6b35' },
-                { label: 'Valve V-101', value: 'Chatter detected', status: 'ATTENTION', color: '#ff6b35', note: 'maintenance window: 14 days' },
+                { label: 'Stack Voltage', value: '3.2 kV', status: 'NORMAL', color: '#00ff88' },
+                { label: 'H₂ Flow Rate', value: '1.04 kg/hr', status: 'NORMAL', color: '#00ff88' },
+                { label: 'Stack Temperature', value: '27.8°C', status: 'NORMAL', color: '#00ff88' },
+                { label: 'Valve V-101', value: 'Chatter detected', status: 'ATTENTION', color: '#f59e0b', note: 'maintenance window: 14 days' },
                 { label: 'Sensor PT-103', value: '0.3% drift', status: 'WATCHING', color: '#eab308', note: 'calibration due: 30 days' },
-                { label: 'System Efficiency', value: '93.2% HHV', status: 'OPTIMAL', color: '#ff6b35' },
+                { label: 'System Efficiency', value: '93.2% HHV', status: 'OPTIMAL', color: '#00ff88' },
               ].map((row, i, arr) => (
                 <div key={row.label} className="flex items-start gap-3 border-l border-white/10 pl-4" style={{ borderColor: i === arr.length - 1 ? 'transparent' : undefined }}>
                   <div className="h-2 w-2 mt-1.5 rounded-full shrink-0" style={{ backgroundColor: row.color, boxShadow: `0 0 6px ${row.color}60` }} />

@@ -335,7 +335,7 @@ function ProcessControl() {
     <div className="space-y-4">
       <div className="font-mono text-xs text-white/50 flex items-center gap-4">
         <span>RS-485 BUS</span>
-        <span className="text-[#ff6b35]">● CONNECTED</span>
+        <span className="text-[#00ff88]">● CONNECTED</span>
         <span>POLL CYCLE: 1.5s</span>
         <span>SLAVES: 8/8 ONLINE</span>
       </div>
