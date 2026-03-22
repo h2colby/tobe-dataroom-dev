@@ -272,7 +272,19 @@ const folders: Folder[] = [
   },
 ];
 
-// Build flat list for viewer navigation
+interface Section {
+  name: string;
+  folders: Folder[];
+}
+
+const sections: Section[] = [
+  { name: 'CORPORATE', folders: folders.filter(f => f.name.startsWith('CORPORATE')) },
+  { name: 'FINANCIAL', folders: folders.filter(f => f.name === 'FINANCIAL') },
+  { name: 'ENGINEERING', folders: folders.filter(f => f.name.startsWith('ENGINEERING')) },
+  { name: 'PROJECTS', folders: folders.filter(f => f.name.startsWith('PROJECTS')) },
+  { name: 'MARKET', folders: folders.filter(f => f.name.startsWith('MARKET')) },
+];
+
 function getAllFiles(): DocFile[] {
   const all: DocFile[] = [];
   folders.forEach(folder => {
@@ -428,29 +440,59 @@ function SubFolderSection({ subfolder, onFileClick }: { subfolder: SubFolder; on
 function FolderSection({ folder, onFileClick }: { folder: Folder; onFileClick: (f: DocFile) => void }) {
   const [open, setOpen] = useState(false);
   const fileCount = (folder.files?.length || 0) + (folder.subfolders?.reduce((s, sf) => s + sf.files.length, 0) || 0);
+  // Strip the "CORPORATE — " / "ENGINEERING — " prefix since the section provides context
+  const displayName = folder.name.includes(' — ') ? folder.name.split(' — ')[1] : folder.name;
 
   return (
-    <div className="border-b border-white/[0.05]">
+    <div className="border-b border-white/[0.04]">
       <button onClick={() => setOpen(!open)}
-        className="flex items-center justify-between w-full py-4 px-1 text-left group">
-        <div className="flex items-center gap-3">
-          <span className="text-sm text-[#ff6b35]/50 transition-transform shrink-0"
+        className="flex items-center justify-between w-full py-3 px-2 text-left group">
+        <div className="flex items-center gap-2.5">
+          <span className="text-xs text-[#ff6b35]/40 transition-transform shrink-0"
             style={{ transform: open ? 'rotate(90deg)' : 'rotate(0deg)' }}>▸</span>
           <div>
-            <span className="text-[0.8rem] font-bold tracking-[0.08em] text-white/90 group-hover:text-white transition-colors">
-              {folder.name}
+            <span className="text-[0.8rem] font-semibold text-white/80 group-hover:text-white transition-colors">
+              {displayName}
             </span>
             {folder.description && (
-              <p className="text-[0.7rem] text-white/40 mt-0.5">{folder.description}</p>
+              <p className="text-[0.65rem] text-white/35 mt-0.5">{folder.description}</p>
             )}
           </div>
         </div>
-        <span className="text-[0.6rem] text-white/25 shrink-0">{fileCount} files</span>
+        <span className="text-[0.55rem] text-white/20 shrink-0">{fileCount}</span>
       </button>
       {open && (
-        <div className="pb-4 px-7">
+        <div className="pb-3 px-8">
           {folder.files?.map(file => <FileRow key={file.path} file={file} onClick={onFileClick} />)}
           {folder.subfolders?.map(sf => <SubFolderSection key={sf.name} subfolder={sf} onFileClick={onFileClick} />)}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function SectionGroup({ section, onFileClick }: { section: Section; onFileClick: (f: DocFile) => void }) {
+  const [open, setOpen] = useState(false);
+  const totalCount = section.folders.reduce((sum, folder) => {
+    return sum + (folder.files?.length || 0) + (folder.subfolders?.reduce((s, sf) => s + sf.files.length, 0) || 0);
+  }, 0);
+
+  return (
+    <div className="mb-1">
+      <button onClick={() => setOpen(!open)}
+        className="flex items-center justify-between w-full py-4 px-1 text-left group border-b border-white/[0.06]">
+        <div className="flex items-center gap-3">
+          <span className="text-sm text-[#ff6b35] transition-transform shrink-0"
+            style={{ transform: open ? 'rotate(90deg)' : 'rotate(0deg)' }}>▸</span>
+          <span className="text-[0.85rem] font-bold tracking-[0.12em] text-white group-hover:text-[#ff6b35] transition-colors">
+            {section.name}
+          </span>
+        </div>
+        <span className="text-[0.6rem] text-white/25 shrink-0">{totalCount} files</span>
+      </button>
+      {open && (
+        <div className="ml-5 border-l border-[#ff6b35]/10">
+          {section.folders.map(folder => <FolderSection key={folder.name} folder={folder} onFileClick={onFileClick} />)}
         </div>
       )}
     </div>
@@ -503,7 +545,7 @@ export default function DocumentsPage() {
 
       {/* Folder tree */}
       <div className="mx-auto max-w-6xl px-6 pb-16">
-        {folders.map(folder => <FolderSection key={folder.name} folder={folder} onFileClick={setViewingFile} />)}
+        {sections.map(section => <SectionGroup key={section.name} section={section} onFileClick={setViewingFile} />)}
       </div>
 
       {/* Footer */}
