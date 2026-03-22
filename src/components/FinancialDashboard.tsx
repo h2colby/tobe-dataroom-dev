@@ -85,9 +85,9 @@ const C = {
   bg:"#0a0a0f", surface:"#0f0f17", card:"#12121a", cardAlt:"#16161f",
   border:"#1C2736", borderLight:"#243244",
   accent:"#ff6b35", accentDim:"rgba(255,107,53,0.08)", accentGlow:"rgba(255,107,53,0.25)",
-  gold:"#ffffff", goldDim:"rgba(255,255,255,0.06)",
-  blue:"rgba(255,255,255,0.7)", blueDim:"rgba(255,255,255,0.04)",
-  purple:"#ff6b35", purpleDim:"rgba(255,107,53,0.08)",
+  gold:"#FFB380", goldDim:"rgba(255,179,128,0.08)",
+  blue:"#ffffff", blueDim:"rgba(255,255,255,0.04)",
+  purple:"rgba(255,255,255,0.5)", purpleDim:"rgba(255,255,255,0.04)",
   red:"#FF6B6B",
   white:"#E8ECF1", text:"#C9D1DB", muted:"#7B8A9E", dim:"#4A5568", faint:"#2A3444",
 };
@@ -260,7 +260,7 @@ export default function App() {
   const revChart = FY.map((fy,i) => ({ fy, h2:pnl.h2Rev[i]/1e6, equip:pnl.eqRev[i]/1e6, svc:pnl.svcRev[i]/1e6 }));
   const profChart = FY.map((fy,i) => ({ fy, ebitda:pnl.ebitda[i]/1e6, ni:pnl.ni[i]/1e6, margin:pnl.ebitdaM[i] }));
   const cashChart = FY.map((fy,i) => ({ fy, cash:pnl.cash[i]/1e6 }));
-  const fy7Pie = [{ name:"H₂ Production", value:270, color:C.accent },{ name:"Equipment", value:186.06, color:C.blue },{ name:"Services", value:10.86, color:C.gold }];
+  const fy7Pie = [{ name:"H₂ Production", value:270, color:C.accent },{ name:"Equipment", value:186.06, color:"#ffffff" },{ name:"Services", value:10.86, color:"#FFB380" }];
   const opexChart = FY.map((fy,i) => ({ fy, people:(pnl.salaries[i]+pnl.benefits[i])/1e6, leases:pnl.leases[i]/1e6, profFees:pnl.profFees[i]/1e6, rd:pnl.rdOther[i]/1e6 }));
   const costComp = unitEcon.costStack.map(c => ({ name:c.name, "Tobe (On-Site)":c.tobe, "Grey H₂ (Delivered)":c.grey }));
   const valChart = fundraising.map(f => ({ round:f.round.replace(" ★",""), post:f.postMoney/1e6 }));
@@ -305,7 +305,7 @@ export default function App() {
           <ChartCard title="Revenue Growth — Stacked by Stream ($M)" height={300}>
             <AreaChart data={revChart} margin={{ top:10,right:12,left:12,bottom:0 }}>
               <defs>
-                {[["H2",C.accent],["Eq",C.blue],["Sv",C.gold]].map(([id,c]) => (
+                {[["H2",C.accent],["Eq","#ffffff"],["Sv","#FFB380"]].map(([id,c]) => (
                   <linearGradient key={id} id={`g${id}`} x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%" stopColor={c} stopOpacity={0.35}/>
                     <stop offset="100%" stopColor={c} stopOpacity={0.02}/>
@@ -317,8 +317,8 @@ export default function App() {
               <YAxis tick={axTick} axisLine={noLine} tickLine={false} tickFormatter={v=>`$${v}M`} />
               <Tooltip content={<Tip valFmt={v=>fmt(v*1e6)} />} />
               <Area type="monotone" dataKey="h2" name="H₂ Production" stackId="1" stroke={C.accent} fill="url(#gH2)" strokeWidth={2} />
-              <Area type="monotone" dataKey="equip" name="Equipment Sales" stackId="1" stroke={C.blue} fill="url(#gEq)" strokeWidth={2} />
-              <Area type="monotone" dataKey="svc" name="Services" stackId="1" stroke={C.gold} fill="url(#gSv)" strokeWidth={2} />
+              <Area type="monotone" dataKey="equip" name="Equipment Sales" stackId="1" stroke="#ffffff" fill="url(#gEq)" strokeWidth={2} />
+              <Area type="monotone" dataKey="svc" name="Services" stackId="1" stroke="#FFB380" fill="url(#gSv)" strokeWidth={2} />
               <Legend wrapperStyle={{ fontSize:11, paddingTop:10 }} />
             </AreaChart>
           </ChartCard>
