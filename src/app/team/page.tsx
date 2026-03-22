@@ -169,8 +169,9 @@ export default function TeamPage() {
                   Founded Tobe Energy in 2024. <span className="text-[#ff6b35]">Techstars NYC</span> graduate. Raised{' '}
                   <span className="text-[#00ff88]">$1.8M pre-seed</span> and built a{' '}
                   <span className="text-[#00ff88]">$100M+ customer pipeline</span>. Personally runs CNC machines,
-                  designs PCBs in KiCad, programs firmware, and tests every unit that ships. TEDx speaker on AI and
-                  genomics. Ironman finisher (Florida + Boulder). 100-mile ultramarathon finisher. Black belt in
+                  designs PCBs in KiCad, programs firmware, and tests every unit that ships. TEDx speaker on{' '}
+                  <a href="https://www.youtube.com/watch?v=VcGogXRBr1o" target="_blank" rel="noopener noreferrer" className="text-[#00d4ff] underline decoration-[#00d4ff]/30 hover:decoration-[#00d4ff]">hydrogen</a>{' '}
+                  and AI/genomics. Ironman finisher (Florida + Boulder). 100-mile ultramarathon finisher. Black belt in
                   Taekwondo, blue belt in Brazilian Jiu Jitsu.
                 </p>
               </div>

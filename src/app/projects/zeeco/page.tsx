@@ -353,7 +353,7 @@ export default function ZeecoPage() {
           <div className="relative ml-4 border-l-2 border-white/10 pl-8">
             {timeline.map((t, i) => (
               <motion.div
-                key={t.date}
+                key={`${t.date}-${i}`}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}

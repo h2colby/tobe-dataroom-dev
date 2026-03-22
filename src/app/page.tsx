@@ -416,6 +416,24 @@ export default function Home() {
                 </div>
               </motion.div>
 
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.35 }}
+                className="border border-[#00d4ff]/20 bg-[#0a0a0f]/60 p-6"
+              >
+                <div className="mb-3 text-xs tracking-[0.15em] text-[#00d4ff]">
+                  AI ASSISTANT AVAILABLE
+                </div>
+                <p className="mb-4 text-sm text-[#9a9ab0]">
+                  AI assistant available on every page — ask anything about Tobe Energy.
+                </p>
+                <div className="flex items-center gap-2 border border-[#00d4ff]/20 bg-black/40 px-4 py-2">
+                  <span className="text-sm text-[#6a6a7a]">{'>'}</span>
+                  <span className="animate-blink text-sm text-[#00d4ff]">█</span>
+                </div>
+              </motion.div>
+
               {/* 4. Technology Highlight */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -636,23 +654,7 @@ export default function Home() {
               </motion.div>
 
               {/* 9. AI Assistant placeholder */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.9 }}
-                className="border border-[#00d4ff]/20 bg-[#0a0a0f]/60 p-6"
-              >
-                <div className="mb-3 text-xs tracking-[0.15em] text-[#00d4ff]">
-                  AI ASSISTANT AVAILABLE
-                </div>
-                <p className="mb-4 text-sm text-[#9a9ab0]">
-                  AI assistant available on every page — ask anything about Tobe Energy.
-                </p>
-                <div className="flex items-center gap-2 border border-[#00d4ff]/20 bg-black/40 px-4 py-2">
-                  <span className="text-sm text-[#6a6a7a]">{'>'}</span>
-                  <span className="animate-blink text-sm text-[#00d4ff]">█</span>
-                </div>
-              </motion.div>
+              
             </>
           )}
         </main>
