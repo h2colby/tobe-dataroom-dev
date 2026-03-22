@@ -223,6 +223,52 @@ export default function TechnologyPage() {
         </div>
       </div>
 
+      {/* ═══ INTELLECTUAL PROPERTY ═══ */}
+      <section className="mx-auto max-w-6xl px-6 py-12">
+        <div className="mb-6 text-[0.7rem] tracking-[0.2em] text-[#ff6b35] glow-orange">
+          ┌─── INTELLECTUAL PROPERTY ───┐
+        </div>
+        <div className="border-l-2 border-[#ff6b35]/30 bg-[#12121a] px-6 py-5"
+          style={{ borderTop: '1px solid rgba(255,107,53,0.06)', borderRight: '1px solid rgba(255,107,53,0.06)', borderBottom: '1px solid rgba(255,107,53,0.06)' }}>
+          <div className="mb-4 text-[0.65rem] tracking-[0.15em] text-[#ff6b35]/60">
+            WHOLLY OWNED — NOT SHARED WITH ANY OTHER ENTITY
+          </div>
+          <div className="mb-4 space-y-3 text-sm">
+            <div className="flex gap-3">
+              <span className="text-[#00ff88]">●</span>
+              <div>
+                <span className="font-bold text-white/80">U.S. Provisional 63/570,102</span>
+                <span className="text-white/40"> — March 2024. Capacitively coupled resonant electrolysis.</span>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <span className="text-[#00ff88]">●</span>
+              <div>
+                <span className="font-bold text-white/80">U.S. Non-Provisional 19/088,007</span>
+                <span className="text-white/40"> — March 2025. Advanced resonant electrolysis system.</span>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <span className="text-[#00d4ff]">●</span>
+              <div>
+                <span className="font-bold text-white/80">CIP Application (TOBE-CIP-001)</span>
+                <span className="text-white/40"> — Filing imminent. 14 figures. Expanded claims.</span>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <span className="text-[#ff6b35]">●</span>
+              <div>
+                <span className="font-bold text-white/80">TOBE ENERGY&trade; Trademark</span>
+                <span className="text-white/40"> — Application No. 99537135, December 2025.</span>
+              </div>
+            </div>
+          </div>
+          <p className="text-xs leading-relaxed text-white/30">
+            Specific waveform parameters, converter tuning ratios, and control algorithms are maintained as trade secrets.
+          </p>
+        </div>
+      </section>
+
       {/* Footer */}
       <div className="h-16" />
       <footer className="border-t border-white/10 px-6 py-6">

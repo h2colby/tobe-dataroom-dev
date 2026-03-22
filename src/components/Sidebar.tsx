@@ -50,6 +50,11 @@ const navCategories: NavCategory[] = [
     label: 'DOCUMENTS',
     href: '/documents',
   },
+  {
+    id: '06',
+    label: 'ASK AI',
+    href: '#ask-ai',
+  },
 ];
 
 export function Sidebar() {
@@ -111,6 +116,26 @@ export function Sidebar() {
                 <span className="mr-1.5 text-[0.65rem] text-[#6a6a7a]">
                   {expanded ? '▾' : '▸'}
                 </span>
+                <span className="mr-2 text-[#6a6a7a]">{cat.id}</span>
+                {cat.label}
+              </button>
+            ) : cat.href === '#ask-ai' ? (
+              <button
+                type="button"
+                onClick={() => {
+                  const chatBtn = document.querySelector('[class*="fixed bottom-6 right-6"] button') as HTMLElement;
+                  if (chatBtn) chatBtn.click();
+                }}
+                onMouseEnter={() => setHoveredNav(cat.id)}
+                onMouseLeave={() => setHoveredNav(null)}
+                className={`group flex w-full items-center px-4 py-2 text-left text-[0.875rem] tracking-[0.05em] transition-all ${
+                  hovered
+                    ? 'bg-[#ff6b35]/8 text-[#ff6b35]'
+                    : 'text-[#ff6b35]/70'
+                }`}
+              >
+                <span className="mr-1.5 text-[0.7rem] text-[#5a5a6a]">└──</span>
+                <span className="mr-1 text-[#00ff88] text-xs">●</span>
                 <span className="mr-2 text-[#6a6a7a]">{cat.id}</span>
                 {cat.label}
               </button>
@@ -187,6 +212,7 @@ export function Sidebar() {
           </div>
         );
       })}
+
     </nav>
   );
 }

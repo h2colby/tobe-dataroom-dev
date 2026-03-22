@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import RenPanel from '@/components/RenPanel';
 
 type NavCategory = {
   id: string;
@@ -333,32 +334,21 @@ export default function Home() {
           {/* Overview content (shows after header is done) */}
           {headerChars >= ASCII_HEADER.length && (
             <>
-              {/* 1. Hero Stats Row */}
+              {/* 1. Hero Statement */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="mb-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"
+                className="mb-12"
               >
-                {[
-                  { number: '$226B', label: 'Market Size' },
-                  { number: '>92%', label: 'System Efficiency' },
-                  { number: '$5.08/kg', label: 'All-In Cost' },
-                  { number: '6', label: 'Signed LOIs' },
-                ].map((stat, i) => (
-                  <div
-                    key={i}
-                    className="border border-[#ff6b35]/20 bg-[#0a0a0f]/60 p-5 text-center transition-all hover:border-[#ff6b35]/50 hover:bg-[#ff6b35]/5"
-                  >
-                    <div
-                      className="mb-1 text-3xl font-bold text-[#ff6b35]"
-                      style={{ textShadow: '0 0 12px rgba(255,107,53,0.4)' }}
-                    >
-                      {stat.number}
-                    </div>
-                    <div className="text-xs tracking-[0.1em] text-[#6a6a7a]">{stat.label}</div>
-                  </div>
-                ))}
+                <h2 className="text-3xl font-bold leading-tight tracking-tight text-white md:text-5xl">
+                  THE BIGGEST DROP IN<br />
+                  GREEN HYDROGEN COSTS.<br />
+                  <span className="glitch inline-block text-[#ff6b35]" data-text="EVER." style={{ textShadow: '0 0 15px rgba(255,107,53,0.5)' }}>EVER.</span>
+                </h2>
+                <p className="mt-6 max-w-2xl font-sans text-lg leading-relaxed text-white/50">
+                  And how that translates into disrupting the industrial gas monopoly — with category-defining profit potential, scalable to hundreds of markets, and deployable anywhere in the world.
+                </p>
               </motion.div>
 
               {/* 2. The Pitch */}
@@ -366,11 +356,92 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="mb-12 border-l-4 border-[#00ff88] pl-6"
+                className="mb-12"
               >
-                <p className="text-lg leading-relaxed text-[#00ff88]" style={{ textShadow: '0 0 8px rgba(0,255,136,0.15)' }}>
-                  Tobe Energy produces hydrogen on or near site using membrane-free electrolysis. No precious metals. No membranes. No rare earths. No cooling system. First electrolyzer under DOE's $2/kg target at industrial electricity rates. Three revenue engines: Hydrogen as a Service, equipment sales, and AI-powered maintenance.
+                {/* Headline */}
+                <h2 className="mb-6 text-2xl font-bold leading-tight text-white md:text-3xl">
+                  We make the cheapest hydrogen, and do it{' '}
+                  <span className="text-[#00ff88]" style={{ textShadow: '0 0 12px rgba(0,255,136,0.4)' }}>on site.</span>
+                </h2>
+
+                {/* Problem → Solution */}
+                <p className="mb-8 font-sans text-[0.95rem] leading-relaxed text-white/50">
+                  Industrial hydrogen is a <span className="text-white font-semibold">$226B market</span> — and it&apos;s grey. Made from natural gas, trucked hundreds of miles. That supply chain is expensive and fragile. We make hydrogen from water, on or near site. Delivered cheaper and more reliably than grey — with <span className="text-[#00ff88] font-semibold">margins &gt;70%</span> in most markets. Our economics are so good we can <span className="text-[#00ff88] font-semibold">compete directly with grey hydrogen and win</span>.
                 </p>
+
+                {/* Where We Are + Team — matched cards */}
+                <div className="grid gap-4 md:grid-cols-2">
+                  <div className="border-l-[3px] border-[#00ff88] bg-[#12121a] px-5 py-4" style={{ borderTop: '1px solid rgba(0,255,136,0.08)', borderRight: '1px solid rgba(0,255,136,0.08)', borderBottom: '1px solid rgba(0,255,136,0.08)' }}>
+                    <p className="mb-3 text-[0.7rem] font-bold tracking-[0.2em] text-[#00ff88]">WHERE WE ARE</p>
+                    <div className="space-y-2 font-sans text-sm text-white/60">
+                      <p>▸ Producing hydrogen for the last year</p>
+                      <p>▸ 50kW system in multi-unit production</p>
+                      <p className="ml-4 text-white/40">Vertically integrated, Oklahoma, BABA compliant</p>
+                      <p>▸ First deployment Q4 2026 → <span className="text-[#00ff88]">$250k/mo revenue</span></p>
+                      <p>▸ MW-scale contracted (world&apos;s largest combustion R&amp;D facility)</p>
+                      <p>▸ <span className="text-[#00ff88]">$100M pipeline</span>, $20M signed LOIs</p>
+                    </div>
+                  </div>
+                  <div className="border-l-[3px] border-[#ff6b35] bg-[#12121a] px-5 py-4" style={{ borderTop: '1px solid rgba(255,107,53,0.08)', borderRight: '1px solid rgba(255,107,53,0.08)', borderBottom: '1px solid rgba(255,107,53,0.08)' }}>
+                    <p className="mb-3 text-[0.7rem] font-bold tracking-[0.2em] text-[#ff6b35]">TEAM</p>
+                    <p className="mb-3 font-sans text-sm leading-relaxed text-white/60">
+                      Colby DeWeese (CEO) managed $75M+ in energy infra and first-of-a-kind hydrogen combustion tech. Behind him: 20+ years electrolyzer R&amp;D, Patriot missile defense engineers, equipment deployed from Antarctica to Alaska, and a shop where the welders CNC their own PCBs.
+                    </p>
+                    <Link href="/team" className="text-sm text-[#ff6b35] transition-colors hover:text-[#ff6b35]/80">Meet the Team →</Link>
+                  </div>
+                </div>
+
+              </motion.div>
+
+              {/* AI + Documents — two column */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.35 }}
+                className="mb-10 grid gap-4 md:grid-cols-2"
+              >
+                {/* AI Assistant */}
+                <div
+                  className="rounded border border-[#ff6b35]/30 bg-gradient-to-r from-[#ff6b35]/[0.08] to-[#00ff88]/[0.05] px-6 py-5 cursor-pointer transition-all hover:border-[#ff6b35]/50 hover:shadow-[0_0_20px_rgba(255,107,53,0.1)]"
+                  onClick={() => {
+                    const chatBtn = document.querySelector('[class*="fixed bottom-6 right-6"] button') as HTMLElement;
+                    if (chatBtn) chatBtn.click();
+                  }}
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#ff6b35]/40 bg-[#ff6b35]/10 animate-pulse">
+                      <span className="text-2xl" style={{ textShadow: '0 0 12px rgba(255,107,53,0.6)' }}>⚡</span>
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold text-[#ff6b35]" style={{ textShadow: '0 0 8px rgba(255,107,53,0.3)' }}>
+                        AI ASSISTANT
+                      </p>
+                      <p className="mt-1 text-xs text-white/50">
+                        Trained on this data room. Every number, every spec. Ask anything.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Documents */}
+                <Link
+                  href="/documents"
+                  className="rounded border border-[#00d4ff]/20 bg-gradient-to-r from-[#00d4ff]/[0.05] to-transparent px-6 py-5 transition-all hover:border-[#00d4ff]/40 hover:shadow-[0_0_20px_rgba(0,212,255,0.08)]"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#00d4ff]/40 bg-[#00d4ff]/10">
+                      <span className="text-xl text-[#00d4ff]">📄</span>
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold text-[#00d4ff]" style={{ textShadow: '0 0 8px rgba(0,212,255,0.3)' }}>
+                        DOCUMENT LIBRARY
+                      </p>
+                      <p className="mt-1 text-xs text-white/50">
+                        We built this data room to make hard tech easier to understand. Prefer a traditional format? Browse all documents directly.
+                      </p>
+                    </div>
+                  </div>
+                </Link>
               </motion.div>
 
               {/* 3. Three Revenue Engines */}
@@ -416,26 +487,6 @@ export default function Home() {
                 </div>
               </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.35 }}
-                className="border border-[#00d4ff]/20 bg-[#0a0a0f]/60 p-6"
-              >
-                <div className="mb-3 text-xs tracking-[0.15em] text-[#00d4ff]">
-                  AI ASSISTANT AVAILABLE
-                </div>
-                <p className="mb-4 text-sm text-[#9a9ab0]">
-                  AI assistant available on every page — ask anything about Tobe Energy.
-                </p>
-                <div className="flex items-center gap-2 border border-[#00d4ff]/20 bg-black/40 px-4 py-2">
-                  <span className="text-sm text-[#6a6a7a]">{'>'}</span>
-                  <span className="animate-blink text-sm text-[#00d4ff]">█</span>
-                </div>
-              </motion.div>
-
-              <div className="h-6" />
-
               {/* 4. Technology — Why It Matters */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -449,7 +500,7 @@ export default function Home() {
 
                 <div className="mb-6 border-l-[3px] border-[#00ff88] bg-[#12121a] px-6 py-5" style={{ borderTop: '1px solid rgba(0,255,136,0.08)', borderRight: '1px solid rgba(0,255,136,0.08)', borderBottom: '1px solid rgba(0,255,136,0.08)' }}>
                   <p className="font-sans text-[0.95rem] leading-relaxed text-[#b0b0c0]">
-                    Our innovation is two-tiered: a <span className="text-[#00ff88] font-semibold">unique cell geometry</span> designed to maximize the output of our <span className="text-[#00ff88] font-semibold">custom power electronics</span>. The result isn&apos;t just competing with green hydrogen — it&apos;s competing with the entire <span className="text-white font-semibold">$226B grey hydrogen market</span>, constrained by geography and logistics, with the flexibility that small modular facilities afford.
+                    Our innovation is two-tiered: a <span className="text-[#00ff88] font-semibold">unique cell geometry</span> designed to maximize the output of our <span className="text-[#00ff88] font-semibold">purpose-built power electronics optimized specifically for hydrogen production</span>. The result isn&apos;t just competing with green hydrogen — it&apos;s competing with the entire <span className="text-white font-semibold">$226B grey hydrogen market</span>, constrained by geography and logistics, with the flexibility that small modular facilities afford.
                   </p>
                 </div>
 
@@ -471,12 +522,21 @@ export default function Home() {
                   </div>
                 </div>
 
-                <Link
-                  href="/technology"
-                  className="mt-4 inline-block text-sm text-[#00d4ff] transition-colors hover:text-[#00d4ff]/80"
-                >
-                  Explore the Technology →
-                </Link>
+                <div className="mt-4 flex items-center gap-6">
+                  <Link
+                    href="/technology"
+                    className="text-sm text-[#00d4ff] transition-colors hover:text-[#00d4ff]/80"
+                  >
+                    Explore the Technology →
+                  </Link>
+                  <span className="text-xs text-white/20">|</span>
+                  <Link
+                    href="/technology#ip"
+                    className="text-xs text-[#ff6b35]/60 transition-colors hover:text-[#ff6b35]"
+                  >
+                    Wholly owned IP — not shared with any other entity →
+                  </Link>
+                </div>
               </motion.div>
 
               {/* 5. Financial Snapshot */}
@@ -563,106 +623,90 @@ export default function Home() {
                 </div>
               </motion.div>
 
-              {/* 7. Team Teaser */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7 }}
-                className="mb-12 border-l-4 border-[#ff6b35] pl-6"
-              >
-                <p className="mb-2 text-base text-[#b0b0bc]">
-                  Founded by Colby DeWeese (ChemE, $75M+ energy infrastructure) and Dr. Caleb Lareau (Harvard PhD, Forbes 30 Under 30). 9 engineers who CNC their own PCBs.
-                </p>
-                <Link
-                  href="/team"
-                  className="inline-block text-sm text-[#ff6b35] transition-colors hover:text-[#ff6b35]/80"
-                >
-                  Meet the Team →
-                </Link>
-              </motion.div>
-
-              {/* 8. Section Directory */}
+              {/* 8. Directory + AI Assistant — two column */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8 }}
-                className="mb-12"
+                className="mb-12 grid gap-6 md:grid-cols-2"
               >
-                <h2 className="mb-4 text-sm font-bold tracking-[0.2em] text-[#ff6b35] glow-orange">
-                  SECTION DIRECTORY
-                </h2>
-                <div className="space-y-6">
-                  {[
-                    {
-                      title: 'BUSINESS',
-                      color: '#00ff88',
-                      items: [
-                        { name: 'Business Model', href: '/business-model' },
-                        { name: 'Customers', href: '/customers' },
-                        { name: 'Financial Model', href: '/financials' },
-                        { name: 'Tax Credits', href: '/tax-credits' },
-                      ],
-                    },
-                    {
-                      title: 'TECHNOLOGY',
-                      color: '#00d4ff',
-                      items: [
-                        { name: 'Overview', href: '/technology' },
-                        { name: 'Cell', href: '/technology/cell' },
-                        { name: 'Power Converter', href: '/technology/power-converter' },
-                        { name: 'Controls', href: '/technology/controls' },
-                        { name: 'Efficiency', href: '/technology/efficiency' },
-                      ],
-                    },
-                    {
-                      title: 'PEOPLE & PROJECTS',
-                      color: '#ff6b35',
-                      items: [
-                        { name: 'NODE-01', href: '/projects/node-01' },
-                        { name: 'Zeeco ARC', href: '/projects/zeeco' },
-                        { name: 'Validation', href: '/validation' },
-                        { name: 'Backed By', href: '/backed-by' },
-                        { name: 'Team', href: '/team' },
-                      ],
-                    },
-                    {
-                      title: 'DOCUMENTS',
-                      color: '#7a7a8a',
-                      items: [{ name: 'Document Library', href: '/documents' }],
-                    },
-                  ].map((section, i) => (
-                    <div key={i}>
-                      <h3
-                        className="mb-2 text-sm font-bold tracking-[0.15em]"
-                        style={{ color: section.color, textShadow: `0 0 8px ${section.color}40` }}
-                      >
-                        {section.title}
-                      </h3>
-                      <div className="space-y-1">
-                        {section.items.map((item, j) => (
-                          <Link
-                            key={j}
-                            href={item.href}
-                            className="group flex items-baseline transition-colors hover:bg-white/[0.02]"
-                          >
-                            <span className="mr-2 text-sm text-[#6a6a7a]">
-                              {j === section.items.length - 1 ? '└─' : '├─'}
-                            </span>
-                            <span
-                              className="text-sm transition-colors"
-                              style={{ color: section.color }}
+                {/* LEFT: Section Directory */}
+                <div>
+                  <h2 className="mb-4 text-sm font-bold tracking-[0.2em] text-[#ff6b35] glow-orange">
+                    SECTION DIRECTORY
+                  </h2>
+                  <div className="space-y-6">
+                    {[
+                      {
+                        title: 'BUSINESS',
+                        color: '#00ff88',
+                        items: [
+                          { name: 'Business Model', href: '/business-model' },
+                          { name: 'Customers', href: '/customers' },
+                          { name: 'Financial Model', href: '/financials' },
+                          { name: 'Tax Credits', href: '/tax-credits' },
+                        ],
+                      },
+                      {
+                        title: 'TECHNOLOGY',
+                        color: '#00d4ff',
+                        items: [
+                          { name: 'Overview', href: '/technology' },
+                          { name: 'Cell', href: '/technology/cell' },
+                          { name: 'Power Converter', href: '/technology/power-converter' },
+                          { name: 'Controls', href: '/technology/controls' },
+                          { name: 'Efficiency', href: '/technology/efficiency' },
+                        ],
+                      },
+                      {
+                        title: 'PEOPLE & PROJECTS',
+                        color: '#ff6b35',
+                        items: [
+                          { name: 'NODE-01', href: '/projects/node-01' },
+                          { name: 'Zeeco ARC', href: '/projects/zeeco' },
+                          { name: 'Validation', href: '/validation' },
+                          { name: 'Backed By', href: '/backed-by' },
+                          { name: 'Team', href: '/team' },
+                        ],
+                      },
+                      {
+                        title: 'DOCUMENTS',
+                        color: '#7a7a8a',
+                        items: [{ name: 'Document Library', href: '/documents' }],
+                      },
+                    ].map((section, i) => (
+                      <div key={i}>
+                        <h3
+                          className="mb-2 text-sm font-bold tracking-[0.15em]"
+                          style={{ color: section.color, textShadow: `0 0 8px ${section.color}40` }}
+                        >
+                          {section.title}
+                        </h3>
+                        <div className="space-y-1">
+                          {section.items.map((item, j) => (
+                            <Link
+                              key={j}
+                              href={item.href}
+                              className="group flex items-baseline transition-colors hover:bg-white/[0.02]"
                             >
-                              {item.name}
-                            </span>
-                          </Link>
-                        ))}
+                              <span className="mr-2 text-sm text-[#6a6a7a]">
+                                {j === section.items.length - 1 ? '└─' : '├─'}
+                              </span>
+                              <span className="text-sm transition-colors" style={{ color: section.color }}>
+                                {item.name}
+                              </span>
+                            </Link>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
+
+                {/* RIGHT: AI Assistant — The Lightning Bolt */}
+                <RenPanel />
               </motion.div>
 
-              {/* 9. AI Assistant placeholder */}
               
             </>
           )}

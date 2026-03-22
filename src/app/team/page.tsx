@@ -27,20 +27,21 @@ const colbyFocus = [
 ];
 
 const calebFocus = [
-  'Electrode Design',
-  'System Architecture',
   'R&D Strategy',
-  'Data Analysis',
+  'Mathematical Modeling',
+  'Data Analytics & AI',
+  'Model Verification',
+  'Scientific Communication',
 ];
 
 const teamMembers = [
-  { name: 'Donald Trammell', title: '[Title TBD]', line: '[Bio to be provided by Colby]', placeholder: true },
-  { name: 'Tirth', title: '[Title TBD]', line: '[Bio to be provided by Colby]', placeholder: true },
-  { name: 'Trey', title: '[Title TBD]', line: 'Sensors & Instrumentation', placeholder: true },
-  { name: 'Slade', title: '[Title TBD]', line: 'Power Engineering', placeholder: true },
-  { name: 'Paden', title: '[Title TBD]', line: 'Fabrication & Manufacturing', placeholder: true },
-  { name: 'Austin', title: '[Title TBD]', line: 'Transformer Design', placeholder: true },
-  { name: 'Jane Quilates', title: 'Executive Assistant', line: 'Operations coordination, scheduling, candidate tracking, office logistics', placeholder: false },
+  { name: 'Slade', title: 'Principal Engineer', line: '15 years of electrolysis R&D and the architect of Tobe\u2019s modular dry cell. Designs custom AI programs for automated BOM scoping, electrical schematics, and PCB layout. Previously an automation expert programming industrial robots to automate every step of the manufacturing process. An open-ended problem solver who bridges electrochemistry, software, and hardware — and can honestly do anything you put in front of him.', placeholder: false },
+  { name: 'Paden', title: 'Mechanical Fabrication Lead', line: 'Mechanical engineering background and a builder his entire life. Has built and deployed energy systems, motors, and field equipment in both Alaska and Antarctica. Responsible for all mechanical fabrication, custom control cabinet integration, and in-house computer builds. The mastermind behind NODE-01 — from concept through container buildout.', placeholder: false },
+  { name: 'Austin', title: 'Power Electronics Engineer', line: 'Designs and deploys custom power converters end to end — 3D printing transformer bobbins, winding copper, vacuum insulation, documentation, testing, and parameter modeling. Fabricates PCBs on our in-house CNC and owns all power electronics testing and validation. Also a qualified ASME pressure vessel welder who previously made critical boiler tube repairs under the deck of large ships in hazardous environments.', placeholder: false },
+  { name: 'Connor', title: 'Engineering Physicist', line: 'Previously at Zap Energy (nuclear fusion), where he served as the scientist responsible for testing experimental configurations and analyzing the data behind the future of nuclear energy. At Tobe, runs the testing and validation program — overseeing data analysis, defining future test metrics, and leveraging deep experience with high-voltage power systems to drive electrolyzer performance.', placeholder: false },
+  { name: 'Trey', title: 'Controls & Integration Engineer', line: 'Mechatronics engineering degree. Previously worked on Patriot missile defense systems and ran complex controls infrastructure for USPS automated sorting facilities. Sits at the intersection of controls and mechanical — responsible for integrating every subsystem in the process and building the backend architecture that ties it all together.', placeholder: false },
+  { name: 'Jane', title: 'Executive Assistant', line: 'The operational backbone of Tobe Energy. Manages executive scheduling, candidate pipelines, investor coordination, office logistics, and vendor relationships. Keeps the machine running so the engineers can build.', placeholder: false },
+  { name: 'Ren', title: 'AI Operating Layer', line: 'The intelligence infrastructure behind Tobe Energy\u2019s operations. Manages investor CRM, competitive intelligence, grant tracking, document processing, overnight research, and real-time orchestration across the entire company. Built the data room you\u2019re reading, the financial model dashboard, and the AI assistant answering your questions. Processes thousands of data points daily across email, market signals, and engineering outputs. Never sleeps. Always on.', placeholder: false },
 ];
 
 export default function TeamPage() {
@@ -75,33 +76,7 @@ export default function TeamPage() {
             </span>
           </motion.h1>
 
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-4"
-          >
-            {[
-              { label: 'FOUNDERS', value: '2', color: '#00ff88' },
-              { label: 'TEAM', value: '9', color: '#00d4ff' },
-              { label: 'RAISED', value: '$1.8M', color: '#00ff88' },
-              { label: 'PIPELINE', value: '$100M+', color: '#ff6b35' },
-            ].map((s, i) => (
-              <motion.div
-                key={s.label}
-                custom={i}
-                variants={fadeUp}
-                className="rounded border border-white/10 bg-white/[0.02] p-4 text-center"
-              >
-                <p className="mb-1 text-[0.65rem] tracking-[0.15em] text-[#ff6b35]">{s.label}</p>
-                <p
-                  className="text-2xl font-bold md:text-3xl"
-                  style={{ color: s.color, textShadow: `0 0 10px ${s.color}50` }}
-                >
-                  {s.value}
-                </p>
-              </motion.div>
-            ))}
-          </motion.div>
+
         </div>
       </section>
 
@@ -147,7 +122,7 @@ export default function TeamPage() {
               {/* Bio narrative */}
               <div className="mt-6 space-y-4 text-sm leading-relaxed text-white/70">
                 <p>
-                  Chemical engineer and energy lawyer with a track record of delivering complex infrastructure at scale. At{' '}
+                  Chemical engineer with an M.L.S. in Oil, Gas & Energy Law and a track record of delivering complex infrastructure at scale. At{' '}
                   <span className="text-[#00ff88]">Marathon Petroleum</span>, Colby managed{' '}
                   <span className="text-[#00ff88]">$75M+ in energy infrastructure</span> — including a{' '}
                   <span className="text-[#00d4ff]">$66MM greenfield natural gas processing facility</span> delivered
@@ -165,14 +140,17 @@ export default function TeamPage() {
                   <span className="text-white/90">Honda</span>, <span className="text-white/90">Goodyear</span>, and
                   Seattle district energy systems.
                 </p>
-                <p>
+                <p className="mt-4">
+                  This is where he saw the pain of the hydrogen industry firsthand — the problem wasn&apos;t using hydrogen, it was making cost-competitive green hydrogen. Frustrated by project collaborations with industry giants, slipping schedules, and dishonest efficiency metrics, it became baked into his DNA to provide true innovation to the hydrogen industry and make it live up to its zero-emission promise. Tobe started as a garage science project to modernize electrolysis power conversion and morphed into what it is today.
+                </p>
+                <p className="mt-4">
                   Founded Tobe Energy in 2024. <span className="text-[#ff6b35]">Techstars NYC</span> graduate. Raised{' '}
                   <span className="text-[#00ff88]">$1.8M pre-seed</span> and built a{' '}
-                  <span className="text-[#00ff88]">$100M+ customer pipeline</span>. Personally runs CNC machines,
-                  designs PCBs in KiCad, programs firmware, and tests every unit that ships. TEDx speaker on{' '}
+                  <span className="text-[#00ff88]">$100M+ customer pipeline</span>. Inventor behind Tobe&apos;s core technology — responsible for the chemical and process engineering, process controls and controller programming, safety systems, and separations technologies. TEDx speaker on{' '}
                   <a href="https://www.youtube.com/watch?v=VcGogXRBr1o" target="_blank" rel="noopener noreferrer" className="text-[#00d4ff] underline decoration-[#00d4ff]/30 hover:decoration-[#00d4ff]">hydrogen</a>{' '}
-                  and AI/genomics. Ironman finisher (Florida + Boulder). 100-mile ultramarathon finisher. Black belt in
-                  Taekwondo, blue belt in Brazilian Jiu Jitsu.
+                  and{' '}
+                  <a href="https://www.youtube.com/watch?v=e4-pm5LzSTI" target="_blank" rel="noopener noreferrer" className="text-[#00d4ff] underline decoration-[#00d4ff]/30 hover:decoration-[#00d4ff]">artificial intelligence</a>. Ironman finisher (Florida + Boulder). 100-mile ultramarathon finisher. Black belt in
+                  Taekwondo, purple belt in Brazilian Jiu Jitsu.
                 </p>
               </div>
 
@@ -274,15 +252,16 @@ export default function TeamPage() {
                     <span className="rounded border border-[#00ff88]/30 bg-[#00ff88]/10 px-2.5 py-1 text-xs font-bold text-[#00ff88]">
                       Harvard PhD
                     </span>
+                    <span className="rounded border border-[#00d4ff]/30 bg-[#00d4ff]/10 px-2.5 py-1 text-xs font-bold text-[#00d4ff]">
+                      Stanford Postdoc
+                    </span>
                     <span className="rounded border border-[#ff6b35]/30 bg-[#ff6b35]/10 px-2.5 py-1 text-xs font-bold text-[#ff6b35]">
                       Forbes 30 Under 30
                     </span>
                   </div>
 
                   <p className="mt-4 text-sm leading-relaxed text-white/70">
-                    Harvard PhD in mathematics and biochemistry. Advises on data analysis, research methodology, and
-                    technical strategy. His work on electrode design and system architecture underpins Tobe&apos;s{' '}
-                    <span className="text-[#00ff88]">94% HHV efficiency</span> benchmark.
+                    Harvard PhD in mathematics and biochemistry. Stanford postdoc. Forbes 30 Under 30. Advises on R&amp;D strategy, data analytics, mathematical modeling, model verification, and scientific communication — working at the intersection of AI and research. Passionate about anything that makes the world better. In his day job, leads a team of scientists using AI to literally cure cancer via complex protein modeling.
                   </p>
                 </div>
               </div>
@@ -360,25 +339,36 @@ export default function TeamPage() {
             viewport={{ once: true }}
             custom={0}
             variants={fadeUp}
-            className="rounded border border-white/10 bg-white/[0.02] p-6"
           >
-            <pre className="overflow-x-auto text-[0.6rem] leading-relaxed text-white/50 sm:text-xs" style={{ whiteSpace: 'pre' }}>
-{`╔═══════════════════════════════════════════════════════╗
-║                                                       ║
-║  FOUNDING PRINCIPLE:                                  ║
-║  Engineers who CNC their own PCBs, design their       ║
-║  own power electronics, and write their own firmware.  ║
-║                                                       ║
-║  > 2 founders + 7 team members                        ║
-║  > Vertically integrated — design to deployment       ║
-║  > Oklahoma-based. Domestically manufactured.         ║
-║                                                       ║
-║  TEAM SIZE: 9                                         ║
-║  LOCATION: Oklahoma, USA                              ║
-║  FOUNDED:  2024                                       ║
-║                                                       ║
-╚═══════════════════════════════════════════════════════╝`}
-            </pre>
+            <div className="mb-6 border-l-[3px] border-[#ff6b35] bg-[#12121a] px-6 py-6" style={{ borderTop: '1px solid rgba(255,107,53,0.08)', borderRight: '1px solid rgba(255,107,53,0.08)', borderBottom: '1px solid rgba(255,107,53,0.08)' }}>
+              <p className="font-sans text-[0.95rem] leading-relaxed text-white/70">
+                For decades, the green hydrogen industry has been waiting for equipment costs to fall the way solar panels did. The only progress most have made is to ignore innovation and offshore manufacturing — which constantly causes large projects to fail. CF Industries wrote off a $50M electrolysis project. They won&apos;t be the last.
+              </p>
+              <p className="mt-4 font-sans text-[0.95rem] leading-relaxed text-white/70">
+                We know industrial equipment doesn&apos;t follow consumer cost curves. The path to cheaper hydrogen isn&apos;t waiting — it&apos;s engineering.
+              </p>
+              <p className="mt-4 font-sans text-[0.95rem] leading-relaxed text-white/70">
+                Where most startups spend years with contract engineers developing their ideas, we do it in-house. Where others outsource manufacturing, we do it in-house. When we have an issue with a board, we don&apos;t send it back to a third party who doesn&apos;t care about the outcome and wait months for a revision. We test, make the change, and have a new board on the bench the next morning.
+              </p>
+              <p className="mt-4 font-sans text-[0.95rem] leading-relaxed text-[#00ff88]" style={{ textShadow: '0 0 8px rgba(0,255,136,0.15)' }}>
+                This is how you compress decades of innovation into a fraction of the time. It&apos;s baked into our DNA from day one, and it&apos;s something that will never change about Tobe Energy.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-3 gap-4 text-center">
+              <div className="rounded border border-white/10 bg-white/[0.02] px-4 py-4">
+                <p className="text-2xl font-bold text-[#00ff88]" style={{ textShadow: '0 0 8px rgba(0,255,136,0.3)' }}>9</p>
+                <p className="text-xs text-white/40">Team Members</p>
+              </div>
+              <div className="rounded border border-white/10 bg-white/[0.02] px-4 py-4">
+                <p className="text-2xl font-bold text-[#ff6b35]" style={{ textShadow: '0 0 8px rgba(255,107,53,0.3)' }}>2024</p>
+                <p className="text-xs text-white/40">Founded</p>
+              </div>
+              <div className="rounded border border-white/10 bg-white/[0.02] px-4 py-4">
+                <p className="text-2xl font-bold text-[#00d4ff]" style={{ textShadow: '0 0 8px rgba(0,212,255,0.3)' }}>Oklahoma</p>
+                <p className="text-xs text-white/40">Vertically Integrated</p>
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>

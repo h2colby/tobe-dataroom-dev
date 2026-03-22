@@ -55,18 +55,22 @@ export default function PowerConverterPage() {
       <div className="mx-auto max-w-6xl px-6">
         {/* ═══ PCB HERO — DESIGN + FINISHED SIDE BY SIDE ═══ */}
         <section className="py-12">
-          <div className="grid gap-4 sm:grid-cols-2">
-            {/* Left — Schematic */}
-            <div className="overflow-hidden rounded border border-white/10 bg-[#12121a]">
-              <img src="/media/manufacturing/pcb.png" alt="PCB schematic layout" className="w-full rounded object-cover" />
+          <div className="grid gap-4 sm:grid-cols-2" style={{ height: '450px' }}>
+            {/* Left — Schematic (rotated 90°) */}
+            <div className="overflow-hidden rounded border border-white/10 bg-[#12121a] flex flex-col">
+              <div className="flex-1 overflow-hidden flex items-center justify-center bg-[#0a0a0f]">
+                <img src="/media/manufacturing/pcb.png" alt="PCB schematic layout" className="w-full h-full object-contain p-4" />
+              </div>
               <div className="px-4 py-3">
                 <p className="text-[0.65rem] tracking-[0.15em] text-[#ff6b35]">BOARD DESIGN — KiCad</p>
                 <p className="mt-1 text-xs text-white/40">Current sensing (LA55-P), precision op-amps (OPA277P), TOBE.ENERGY branded.</p>
               </div>
             </div>
-            {/* Right — Finished boards */}
-            <div className="overflow-hidden rounded border border-white/10 bg-[#12121a]">
-              <img src="/media/manufacturing/pcb-mfg-12.jpg" alt="Finished PCB boards" className="w-full rounded object-cover" />
+            {/* Right — Finished boards (cropped tighter) */}
+            <div className="overflow-hidden rounded border border-white/10 bg-[#12121a] flex flex-col">
+              <div className="flex-1 overflow-hidden">
+                <img src="/media/manufacturing/pcb-mfg-12.jpg" alt="Finished PCB boards" className="w-full h-full object-cover" style={{ objectPosition: 'center 45%' }} />
+              </div>
               <div className="px-4 py-3">
                 <p className="text-[0.65rem] tracking-[0.15em] text-[#00ff88]">FINISHED BOARDS</p>
                 <p className="mt-1 text-xs text-white/40">From schematic to finished product — designed, etched, populated, and tested in-house.</p>
@@ -77,27 +81,80 @@ export default function PowerConverterPage() {
 
         <SectionDivider />
 
-        {/* ═══ PCB MANUFACTURING VIDEOS ═══ */}
+        {/* ═══ WHY CUSTOM ═══ */}
         <section className="py-12">
           <div className="mb-6 text-[0.7rem] tracking-[0.2em] text-[#00d4ff] glow-cyan">
-            ┌─── PCB MANUFACTURING ───┐
+            ┌─── WHY CUSTOM POWER ELECTRONICS ───┐
+          </div>
+
+          <h2 className="mb-6 text-2xl font-bold text-white">
+            The converter IS the competitive advantage.
+          </h2>
+
+          <div className="mb-8 max-w-3xl border-l-2 border-[#ff6b35]/50 pl-5 font-sans text-[0.95rem] leading-relaxed text-white/70">
+            The industry uses commodity rectifiers because they don&apos;t
+            understand power conversion as a competitive lever. We do. Our
+            converter efficiency directly determines our hydrogen production
+            cost — every percentage point matters.
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-3">
+            {[
+              {
+                title: 'Dynamic Waveform Control',
+                description: 'Direct Digital Synthesis generates the optimized waveform profile, dynamically adjusting frequency and duty cycle in real-time to maximize efficiency across varying water quality and contaminant concentrations.',
+                accent: '#00d4ff',
+              },
+              {
+                title: 'Purpose-Built Transformers',
+                description: 'In-house wound transformers optimized for our operating point. Potted in epoxy for environmental protection and tested to several times their rated operating voltage. Designed, wound, and validated entirely in-house.',
+                accent: '#ff6b35',
+              },
+              {
+                title: 'SiC Power Stage',
+                description: 'Silicon carbide MOSFETs in a high-voltage switching configuration with isolated gate drivers. Lower switching losses and higher frequency capability than silicon — critical for maintaining efficiency at the voltages we operate at.',
+                accent: '#00ff88',
+              },
+            ].map((a) => (
+              <div key={a.title} className="border-l-[3px] bg-[#12121a] px-6 py-6 transition-all hover:bg-[#14141e]"
+                style={{
+                  borderLeftColor: a.accent,
+                  borderTop: '1px solid rgba(255,255,255,0.04)',
+                  borderRight: '1px solid rgba(255,255,255,0.04)',
+                  borderBottom: '1px solid rgba(255,255,255,0.04)',
+                }}>
+                <h3 className="mb-2 text-base font-bold text-white">{a.title}</h3>
+                <p className="font-sans text-sm leading-relaxed text-[#9a9aaa]">{a.description}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <SectionDivider />
+
+        {/* ═══ POWER ELECTRONICS MANUFACTURING ═══ */}
+        <section className="py-12">
+          <div className="mb-6 text-[0.7rem] tracking-[0.2em] text-[#00d4ff] glow-cyan">
+            ┌─── POWER ELECTRONICS MANUFACTURING ───┐
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
             {[
-              { src: 'pcb-mfg-7.mp4', caption: 'PCB Manufacturing Process' },
-              { src: 'pcb-mfg-9.mp4', caption: 'Board Fabrication Detail' },
-              { src: 'pcb-mfg-11.mp4', caption: 'Laser Writing Circuit Traces' },
-              { src: null, caption: 'TRANSFORMER WINDING — Coming Soon', placeholder: true },
+              { src: 'pcb-mfg-11-stable.mp4', caption: 'Laser Etching Circuit Traces', type: 'video' as const },
+              { src: 'pcb-mfg-9-still.jpg', caption: 'Board Fabrication Detail', type: 'image' as const },
+              { src: 'pcb-mfg-7-stable.mp4', caption: 'PCB Manufacturing Process', type: 'video' as const },
+              { src: null, caption: 'TRANSFORMER WINDING — Coming Soon', type: 'placeholder' as const },
             ].map((v) => (
               <div key={v.caption} className="overflow-hidden rounded border border-white/10 bg-[#12121a]">
-                {v.placeholder ? (
+                {v.type === 'placeholder' ? (
                   <div className="flex aspect-video items-center justify-center bg-[#0a0a0f]">
                     <div className="text-center">
                       <p className="text-2xl text-white/10">🎥</p>
                       <p className="mt-2 text-[0.65rem] tracking-[0.1em] text-white/20">COMING SOON</p>
                     </div>
                   </div>
+                ) : v.type === 'image' ? (
+                  <img src={`/media/manufacturing/${v.src}`} alt={v.caption} className="w-full aspect-video object-cover" />
                 ) : (
                   <AutoplayVideo className="w-full aspect-video object-cover" src={`/media/manufacturing/${v.src}`} poster={`/media/manufacturing/${v.src!.replace(".mp4", "-poster.jpg")}`} />
                 )}
@@ -132,13 +189,10 @@ export default function PowerConverterPage() {
               style={{ borderTop: '1px solid rgba(0,212,255,0.08)', borderRight: '1px solid rgba(0,212,255,0.08)', borderBottom: '1px solid rgba(0,212,255,0.08)' }}>
               <div className="mb-2 text-[0.65rem] tracking-[0.15em] text-[#00d4ff]">STAGE 1</div>
               <h3 className="mb-3 text-xl font-bold text-white">
-                LLC Resonant Converter
+                Resonant Power Conversion
               </h3>
               <p className="mb-4 font-sans text-sm leading-relaxed text-[#9a9aaa]">
-                Converts AC mains to an isolated high-voltage DC bus. The LLC
-                topology achieves soft switching across the full load range,
-                minimizing switching losses. This is the same topology used in
-                high-end server power supplies — proven, efficient, reliable.
+                Converts AC mains to an isolated high-voltage DC bus using a combination of LLC resonant and dual active bridge topologies, selected and combined based on the target voltage and power requirements. Soft switching across the full load range minimizes switching losses.
               </p>
               <div className="flex gap-4">
                 <div>
@@ -160,14 +214,11 @@ export default function PowerConverterPage() {
                 Pulsed Waveform Generator
               </h3>
               <p className="mb-4 font-sans text-sm leading-relaxed text-[#9a9aaa]">
-                A half-bridge output stage delivers precisely shaped pulsed DC
-                to the capacitive cell. Frequency, duty cycle, and waveform
-                shape are all software-controlled via DDS (Direct Digital
-                Synthesis), enabling real-time optimization during operation.
+                A high-voltage switching stage delivers precisely shaped pulsed DC to the capacitive cell. Frequency and duty cycle are dynamically adjusted in real-time to maximize efficiency as the system responds to varying water quality, contaminant concentrations, and operating conditions.
               </p>
               <div className="flex gap-4">
                 <div>
-                  <div className="text-lg font-bold text-[#ff6b35]" style={{ textShadow: '0 0 6px rgba(255,107,53,0.25)' }}>10–100 kHz</div>
+                  <div className="text-lg font-bold text-[#ff6b35]" style={{ textShadow: '0 0 6px rgba(255,107,53,0.25)' }}>10–250 kHz</div>
                   <div className="text-[0.6rem] tracking-[0.1em] text-[#6a6a7a]">PULSE RANGE</div>
                 </div>
                 <div>
@@ -181,56 +232,7 @@ export default function PowerConverterPage() {
 
         <SectionDivider />
 
-        {/* ═══ WHY CUSTOM ═══ */}
-        <section className="py-12">
-          <div className="mb-6 text-[0.7rem] tracking-[0.2em] text-[#00d4ff] glow-cyan">
-            ┌─── WHY CUSTOM POWER ELECTRONICS ───┐
-          </div>
-
-          <h2 className="mb-6 text-2xl font-bold text-white">
-            The converter IS the competitive advantage.
-          </h2>
-
-          <div className="mb-8 max-w-3xl border-l-2 border-[#ff6b35]/50 pl-5 font-sans text-[0.95rem] leading-relaxed text-white/70">
-            The industry uses commodity rectifiers because they don&apos;t
-            understand power conversion as a competitive lever. We do. Our
-            converter efficiency directly determines our hydrogen production
-            cost — every percentage point matters.
-          </div>
-
-          <div className="grid gap-4 md:grid-cols-3">
-            {[
-              {
-                title: 'DDS Waveform Synthesis',
-                description: 'AD9833 Direct Digital Synthesis IC generates arbitrary waveforms with 0.1 Hz resolution from DC to 1 MHz. Software-defined frequency, phase, and waveform shape.',
-                accent: '#00d4ff',
-              },
-              {
-                title: 'Custom Transformers',
-                description: 'In-house wound transformers optimized for our operating point. 38:127 turns ratio, PQ-core ferrite, Kapton insulation. Designed, wound, and tested internally.',
-                accent: '#ff6b35',
-              },
-              {
-                title: 'SiC Power Stage',
-                description: 'Silicon carbide MOSFETs (C3M0065090D) in half-bridge configuration with isolated gate drivers. Lower switching losses, higher frequency capability than silicon.',
-                accent: '#00ff88',
-              },
-            ].map((a) => (
-              <div key={a.title} className="border-l-[3px] bg-[#12121a] px-6 py-6 transition-all hover:bg-[#14141e]"
-                style={{
-                  borderLeftColor: a.accent,
-                  borderTop: '1px solid rgba(255,255,255,0.04)',
-                  borderRight: '1px solid rgba(255,255,255,0.04)',
-                  borderBottom: '1px solid rgba(255,255,255,0.04)',
-                }}>
-                <h3 className="mb-2 text-base font-bold text-white">{a.title}</h3>
-                <p className="font-sans text-sm leading-relaxed text-[#9a9aaa]">{a.description}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <SectionDivider />
+        
 
         {/* ═══ VERTICAL INTEGRATION ═══ */}
         <section className="py-12">
@@ -255,15 +257,18 @@ export default function PowerConverterPage() {
           {/* Signal chain */}
           <div className="overflow-hidden border border-white/5 bg-[#12121a]">
             <div className="border-b border-white/10 bg-[#0e0e16] px-5 py-3 text-[0.7rem] tracking-[0.15em] text-[#6a6a7a]">
-              SIGNAL CHAIN: AC MAINS → HYDROGEN
+              SIGNAL CHAINS: AC MAINS + SOLAR INTEGRATION
             </div>
+            <div className="grid md:grid-cols-2">
+            <div>
+            <div className="border-b border-white/10 bg-[#0e0e16] px-5 py-2 text-[0.65rem] tracking-[0.1em] text-[#00d4ff]">AC MAINS PATH</div>
             {[
               { step: '01', name: '480VAC 3-Phase Input', detail: 'Utility grid connection', color: '#6a6a7a' },
-              { step: '02', name: 'LLC Resonant Converter', detail: 'Soft-switched AC/DC conversion, ~100 kHz', color: '#00d4ff' },
+              { step: '02', name: 'Resonant Power Conversion', detail: 'Soft-switched AC/DC conversion, ~100 kHz', color: '#00d4ff' },
               { step: '03', name: 'Isolated HV DC Bus', detail: 'High-voltage intermediate rail', color: '#6a6a7a' },
-              { step: '04', name: 'DDS + Gate Controller', detail: 'AD9833 waveform synthesis, real-time tuning', color: '#ff6b35' },
-              { step: '05', name: 'SiC Half-Bridge Output', detail: 'Pulsed DC delivery to cell, 10–100 kHz', color: '#ff6b35' },
-              { step: '06', name: 'Custom Transformer', detail: 'Impedance matching, voltage step-up', color: '#ff6b35' },
+              { step: '04', name: 'Waveform Controller', detail: 'DDS synthesis, dynamic real-time tuning', color: '#ff6b35' },
+              { step: '05', name: 'SiC Half-Bridge Output', detail: 'Pulsed DC delivery to cell, 10–250 kHz', color: '#ff6b35' },
+              { step: '06', name: 'Purpose-Built Transformer', detail: 'Epoxy-potted, rated for several times operating voltage', color: '#ff6b35' },
               { step: '07', name: 'Capacitive Electrolysis Cell', detail: 'H₂O → H₂ + O₂ at 27°C, >92% HHV', color: '#00ff88' },
               { step: '08', name: 'Gas Separation & Purification', detail: 'DeOx + mole sieve dryer → ≥99.99% H₂', color: '#00ff88' },
             ].map((s, i) => (
@@ -278,54 +283,32 @@ export default function PowerConverterPage() {
                 </div>
               </div>
             ))}
-          </div>
-        </section>
-
-        <SectionDivider />
-
-        {/* ═══ IP NOTE ═══ */}
-        <section className="py-12">
-          <div className="border-l-2 border-[#ff6b35]/30 bg-[#12121a] px-6 py-5"
-            style={{ borderTop: '1px solid rgba(255,107,53,0.06)', borderRight: '1px solid rgba(255,107,53,0.06)', borderBottom: '1px solid rgba(255,107,53,0.06)' }}>
-            <div className="mb-2 text-[0.65rem] tracking-[0.15em] text-[#ff6b35]/60">
-              INTELLECTUAL PROPERTY
             </div>
-            <p className="mb-4 max-w-3xl font-sans text-sm leading-relaxed text-[#9a9aaa]">
-              Multiple patent filings protect Tobe&apos;s core technology. The portfolio includes continuation-in-part applications building on the original provisional, plus a registered trademark.
-            </p>
-            <div className="space-y-3 text-sm">
-              <div className="flex gap-3">
-                <span className="text-[#00ff88]">●</span>
-                <div>
-                  <span className="font-bold text-white/80">U.S. Provisional 63/570,102</span>
-                  <span className="text-white/40"> — March 2024. &ldquo;Advanced Electrolyzer Utilizing Capacitively Coupled Resonant Effects for Enhanced Hydrogen Production Efficiency.&rdquo;</span>
+            <div>
+              <div className="border-b border-white/10 bg-[#0e0e16] px-5 py-2 text-[0.65rem] tracking-[0.1em] text-[#00ff88]">SOLAR INTEGRATION PATH</div>
+              {[
+                { step: '01', name: '1500V DC Solar Bus', detail: 'Standard utility-scale solar string voltage', color: '#00ff88' },
+                { step: '02', name: 'High-Voltage DC Switching', detail: 'Direct DC-DC conversion, no AC intermediate', color: '#00ff88' },
+                { step: '03', name: 'Isolated HV DC Bus', detail: 'Matched to electrolyzer operating point', color: '#6a6a7a' },
+                { step: '04', name: 'Waveform Controller', detail: 'DDS synthesis, dynamic real-time tuning', color: '#ff6b35' },
+                { step: '05', name: 'SiC Switching Stage', detail: 'Pulsed DC delivery to cell', color: '#ff6b35' },
+                { step: '06', name: 'Purpose-Built Transformer', detail: 'Epoxy-potted, voltage step-up', color: '#ff6b35' },
+                { step: '07', name: 'Capacitive Electrolysis Cell', detail: 'H₂O → H₂ + O₂ at 27°C, >92% HHV', color: '#00ff88' },
+                { step: '08', name: 'Gas Separation & Purification', detail: 'DeOx + mole sieve dryer → ≥99.99% H₂', color: '#00ff88' },
+              ].map((s, i) => (
+                <div key={`solar-${s.step}`} className={`flex items-center gap-4 px-5 py-3 ${i % 2 === 0 ? 'bg-[#12121a]' : 'bg-[#0f0f17]'}`}>
+                  <span className="w-8 text-center text-sm font-bold" style={{ color: s.color, textShadow: `0 0 6px ${s.color}30` }}>
+                    {s.step}
+                  </span>
+                  <div className="text-xs text-[#3a3a4a]">→</div>
+                  <div>
+                    <div className="text-sm font-bold text-white/80">{s.name}</div>
+                    <div className="text-xs text-[#6a6a7a]">{s.detail}</div>
+                  </div>
                 </div>
-              </div>
-              <div className="flex gap-3">
-                <span className="text-[#00ff88]">●</span>
-                <div>
-                  <span className="font-bold text-white/80">U.S. Non-Provisional 19/088,007</span>
-                  <span className="text-white/40"> — March 2025. &ldquo;Advanced Resonant Electrolysis System for High-Efficiency Hydrogen Production.&rdquo;</span>
-                </div>
-              </div>
-              <div className="flex gap-3">
-                <span className="text-[#00d4ff]">●</span>
-                <div>
-                  <span className="font-bold text-white/80">CIP Application (TOBE-CIP-001)</span>
-                  <span className="text-white/40"> — Filing imminent (March 2026). 14 figures. Expanded claims covering coaxial electrode architecture, LLC resonant converter, series impedance element, and capacitive discharge mechanism.</span>
-                </div>
-              </div>
-              <div className="flex gap-3">
-                <span className="text-[#ff6b35]">●</span>
-                <div>
-                  <span className="font-bold text-white/80">TOBE ENERGY&trade; Trademark</span>
-                  <span className="text-white/40"> — Application No. 99537135, filed December 2025.</span>
-                </div>
-              </div>
+              ))}
             </div>
-            <p className="mt-4 max-w-3xl font-sans text-xs leading-relaxed text-white/30">
-              Specific waveform parameters, LLC converter tuning ratios, and control algorithms are maintained as trade secrets and are not included in patent filings.
-            </p>
+            </div>
           </div>
         </section>
 

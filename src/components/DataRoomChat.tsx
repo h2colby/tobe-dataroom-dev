@@ -96,23 +96,23 @@ export function DataRoomChat() {
         {!isOpen && (
           <div 
             onClick={() => setIsOpen(true)}
-            className="cursor-pointer animate-pulse rounded border border-[#ff6b35]/20 bg-[#0a0a0f]/95 px-4 py-2 font-mono text-xs text-[#ff6b35] shadow-lg backdrop-blur-sm transition-all hover:border-[#ff6b35]/40 hover:shadow-[0_0_15px_rgba(255,107,53,0.15)]"
+            className="cursor-pointer rounded border border-[#ff6b35]/20 bg-[#0a0a0f]/95 px-3 py-1.5 font-mono text-xs text-[#ff6b35] shadow-lg backdrop-blur-sm transition-all hover:border-[#ff6b35]/40"
             style={{ textShadow: '0 0 8px rgba(255,107,53,0.4)' }}
           >
-            <span className="text-[#00ff88]">●</span> ASK AI — Questions? I know every number in this data room.
+            <span className="text-[#00ff88]">●</span> Ask AI
           </div>
         )}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="flex h-14 w-14 items-center justify-center rounded-full border border-[#ff6b35]/30 bg-[#0a0a0f] font-mono text-lg text-[#ff6b35] shadow-lg transition-all hover:border-[#ff6b35]/60 hover:shadow-[0_0_20px_rgba(255,107,53,0.2)]"
-          style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)', boxShadow: '0 0 15px rgba(255,107,53,0.15)' }}
+          className="flex h-10 w-10 items-center justify-center rounded-full border border-[#ff6b35]/30 bg-[#0a0a0f] font-mono text-sm text-[#ff6b35] shadow-lg transition-all hover:border-[#ff6b35]/60 hover:shadow-[0_0_15px_rgba(255,107,53,0.2)]"
+          style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)' }}
         >
           {isOpen ? '✕' : '⚡'}
         </button>
       </div>
 
       {isOpen && (
-        <div className="fixed bottom-24 right-6 z-50 flex h-[500px] w-[400px] flex-col overflow-hidden rounded border border-white/10 bg-[#0a0a0f] font-mono shadow-2xl">
+        <div className="fixed bottom-20 right-6 z-50 flex h-[480px] w-[400px] flex-col overflow-hidden rounded border border-white/10 bg-[#0a0a0f] font-mono shadow-2xl">
           <div className="border-b border-white/10 bg-[#12121a] px-4 py-3">
             <div className="flex items-center justify-between">
               <div>

@@ -459,6 +459,52 @@ export default function BusinessModelPage() {
         </div>
       </section>
 
+      {/* DOWNSTREAM IMPACT */}
+      <section className="scroll-mt-16 border-b border-white/10 px-6 py-12">
+        <div className="mx-auto max-w-5xl">
+          <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
+{`┌─── DOWNSTREAM IMPACT ───────────────────────────────────┐`}
+          </pre>
+
+          <div className="mb-6 border-l-[3px] border-[#00ff88] bg-[#12121a] px-6 py-5" style={{ borderTop: '1px solid rgba(0,255,136,0.08)', borderRight: '1px solid rgba(0,255,136,0.08)', borderBottom: '1px solid rgba(0,255,136,0.08)' }}>
+            <p className="font-sans text-lg leading-relaxed text-white/80">
+              We&apos;re your favorite e-fuels startup&apos;s favorite green hydrogen provider.
+            </p>
+          </div>
+
+          <p className="mb-8 max-w-3xl font-sans text-[0.95rem] leading-relaxed text-white/60">
+            Hydrogen isn&apos;t just an end product — it&apos;s the feedstock for the entire clean economy. Our cost breakthrough cascades downstream, making the technologies of the future economically viable today.
+          </p>
+
+          <div className="mb-8 grid gap-4 md:grid-cols-3">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp}
+              className="rounded border border-[#00ff88]/20 bg-[#00ff88]/[0.03] p-6">
+              <p className="mb-2 text-4xl font-bold text-[#00ff88]" style={{ textShadow: '0 0 10px rgba(0,255,136,0.4)' }}>30%</p>
+              <p className="mb-1 text-sm font-semibold text-[#ff6b35]">▸ Sustainable Aviation Fuel &amp; E-Fuels</p>
+              <p className="text-sm text-white/50">Hydrogen is the largest cost input in synthetic fuel production. Tobe reduces that cost by up to 30%, bringing SAF closer to jet fuel parity and making e-fuels commercially viable at scale.</p>
+            </motion.div>
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={1} variants={fadeUp}
+              className="rounded border border-[#00d4ff]/20 bg-[#00d4ff]/[0.03] p-6">
+              <p className="mb-2 text-4xl font-bold text-[#00d4ff]" style={{ textShadow: '0 0 10px rgba(0,212,255,0.4)' }}>40%</p>
+              <p className="mb-1 text-sm font-semibold text-[#ff6b35]">▸ Green Ammonia &amp; Fertilizer</p>
+              <p className="text-sm text-white/50">Ammonia production consumes 1-2% of global energy. Green ammonia from Tobe hydrogen cuts feedstock costs by up to 40%, enabling price parity with fossil-based fertilizer production for the first time.</p>
+            </motion.div>
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} custom={2} variants={fadeUp}
+              className="rounded border border-[#ff6b35]/20 bg-[#ff6b35]/[0.03] p-6">
+              <p className="mb-2 text-4xl font-bold text-[#ff6b35]" style={{ textShadow: '0 0 10px rgba(255,107,53,0.4)' }}>$1.4T</p>
+              <p className="mb-1 text-sm font-semibold text-[#ff6b35]">▸ Unlocked TAM</p>
+              <p className="text-sm text-white/50">With 45V tax credits, Tobe hydrogen is better priced than many legacy fossil-based solutions. This unlocks what Deloitte estimates as a $1.4T addressable market — steel, ammonia, e-fuels, mobility, and beyond.</p>
+            </motion.div>
+          </div>
+
+          <div className="rounded border border-white/10 bg-white/[0.02] px-6 py-4">
+            <p className="text-xs text-white/40">
+              ● When hydrogen costs drop below $2/kg, entire industries flip from fossil to renewable overnight. Tobe doesn&apos;t just produce hydrogen — we enable the economics that make the clean transition inevitable.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* REVENUE STREAMS */}
       <section id="revenue" className="scroll-mt-16 border-b border-white/10 px-6 py-12">
         <div className="mx-auto max-w-5xl">
@@ -839,13 +885,11 @@ export default function BusinessModelPage() {
 {`┌─── ADDRESSABLE MARKET ──────────────────────────────────┐`}
           </pre>
 
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-6 md:grid-cols-3">
             {[
-              { title: 'Global TAM', value: '$226B', desc: 'Total global hydrogen market — 94M tonnes/yr. Tobe competes with ALL hydrogen, not just green. On-site at <$5/kg beats delivered grey at $20-50/kg.', pct: 100 },
-              { title: 'U.S. TAM', value: '~3M tons/yr', desc: 'Current U.S. hydrogen consumption across refining, ammonia, and industrial. Grey + green — Tobe is cost-competitive with both.', pct: 60 },
-              { title: 'SAM', value: '500K-1M tons/yr', desc: 'Distributed, on-site industrial H\u2082 in Tobe\u2019s target verticals and geographies.', pct: 25 },
-              { title: 'SOM', value: '90-120K tons/yr', desc: 'Achievable capture with 12 facilities at full capacity by FY7.', pct: 8 },
-              { title: 'Upside TAM', value: '$1.4T', desc: 'Addressable market with cost-competitive green hydrogen (Deloitte). New demand from steel, ammonia, e-fuels, and mobility unlocked below $2/kg.', pct: 100 },
+              { title: 'Global TAM', value: '$226B', desc: 'Total global hydrogen market — 94M tonnes/yr. Tobe competes with ALL hydrogen, not just green. On-site at <$5/kg beats delivered grey at $20-50/kg.' },
+              { title: 'U.S. TAM', value: '~3M tons/yr', desc: 'Current U.S. hydrogen consumption across refining, ammonia, and industrial. Grey + green — Tobe is cost-competitive with both.' },
+              { title: 'SAM', value: '500K-1M tons/yr', desc: 'Distributed, on-site industrial H\u2082 in Tobe\u2019s target verticals and geographies.' },
             ].map((item, i) => (
               <motion.div
                 key={item.title}
@@ -864,10 +908,27 @@ export default function BusinessModelPage() {
                   {item.value}
                 </p>
                 <p className="mt-2 text-sm leading-relaxed text-white/50">{item.desc}</p>
-                {/* Terminal progress bar */}
-                <pre className="mt-4 text-[0.6rem] text-[#00d4ff]" style={{ whiteSpace: 'pre' }}>
-{`[${'█'.repeat(Math.round(item.pct / 5))}${'░'.repeat(20 - Math.round(item.pct / 5))}] ${item.pct}%`}
-                </pre>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="mt-6 grid gap-6 md:grid-cols-2">
+            {[
+              { title: 'SOM', value: '90-120K tons/yr', desc: 'Achievable capture with 12 facilities at full capacity by FY7.' },
+              { title: 'Upside TAM', value: '$1.4T', desc: 'Addressable market with cost-competitive green hydrogen (Deloitte). New demand from steel, ammonia, e-fuels, and mobility unlocked below $2/kg.' },
+            ].map((item, i) => (
+              <motion.div
+                key={item.title}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                custom={i}
+                variants={fadeUp}
+                className="rounded border border-white/10 bg-white/[0.02] p-6"
+              >
+                <p className="mb-1 text-xs tracking-[0.1em] text-[#ff6b35]">▸ {item.title}</p>
+                <p className="text-2xl font-bold text-[#00d4ff]" style={{ textShadow: '0 0 10px rgba(0,212,255,0.5)' }}>{item.value}</p>
+                <p className="mt-2 text-sm leading-relaxed text-white/50">{item.desc}</p>
               </motion.div>
             ))}
           </div>

@@ -134,7 +134,7 @@ export default function ElectrolysisCellPage() {
           <div className="grid gap-4 md:grid-cols-5">
             {/* Left — hero video (3/5 width) */}
             <div className="md:col-span-3 overflow-hidden rounded border border-white/10 bg-[#12121a]">
-              <AutoplayVideo src="/media/manufacturing/cnc-electrolysis-housing.mp4" poster="/media/manufacturing/cnc-electrolysis-housing-poster.jpg" className="w-full aspect-video object-cover" />
+              <AutoplayVideo src="/media/manufacturing/cnc-electrolysis-housing-6.mp4" poster="/media/manufacturing/cnc-electrolysis-housing-6-poster.jpg" className="w-full aspect-video object-cover" />
               <div className="px-4 py-3">
                 <p className="text-[0.65rem] tracking-[0.15em] text-[#ff6b35]">CNC MACHINING — ELECTROLYSIS CELL HOUSING</p>
                 <p className="mt-1 text-xs text-white/40">Langmuir MR-1 cutting 304 stainless steel. From raw stock to finished housing in a single setup.</p>
@@ -144,7 +144,7 @@ export default function ElectrolysisCellPage() {
             {/* Right — two stacked (2/5 width) */}
             <div className="md:col-span-2 flex flex-col gap-4">
               <div className="overflow-hidden rounded border border-white/10 bg-[#12121a]">
-                <AutoplayVideo src="/media/manufacturing/cnc-electrolysis-housing-2.mp4" poster="/media/manufacturing/cnc-electrolysis-housing-2-poster.jpg" className="w-full aspect-video object-cover" />
+                <AutoplayVideo src="/media/manufacturing/cnc-electrolysis-housing-3.mp4" poster="/media/manufacturing/cnc-electrolysis-housing-3-poster.jpg" className="w-full aspect-video object-cover" />
                 <div className="px-4 py-2">
                   <p className="text-[0.65rem] tracking-[0.15em] text-[#ff6b35]">PRECISION MACHINING DETAIL</p>
                 </div>
