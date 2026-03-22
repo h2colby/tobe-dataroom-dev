@@ -181,12 +181,20 @@ function RenPanel() {
             })();
 
             if (edgeDist < 0.3) {
-              const rb = Math.floor(b * 255);
-              ctx.fillStyle = `rgba(${rb}, ${Math.floor(rb * 0.42)}, ${Math.floor(rb * 0.21)}, ${b})`;
+              // Edge — bright white for dimension/contrast
+              const wb = Math.floor(b * 255);
+              ctx.fillStyle = `rgba(${wb}, ${wb}, ${wb}, ${b * 0.9})`;
+            } else if (edgeDist < 0.5) {
+              // Inner edge — warm white/orange blend
+              const r = Math.floor(255 * b);
+              const g = Math.floor(180 * b);
+              const bb2 = Math.floor(140 * b);
+              ctx.fillStyle = `rgba(${r}, ${g}, ${bb2}, ${b * 0.85})`;
             } else {
+              // Core — full orange
               const r = Math.floor(255 * b);
               const g = Math.floor(107 * b);
-              const bb = Math.floor(53 * b * 0.3);
+              const bb = Math.floor(53 * b);
               ctx.fillStyle = `rgba(${r}, ${g}, ${bb}, ${b})`;
             }
           } else {
@@ -204,10 +212,12 @@ function RenPanel() {
         }
       }
 
-      ctx.font = `bold ${fontSize * 0.8}px monospace`;
-      const bottomAlpha = 0.3 + Math.sin(t) * 0.1;
-      ctx.fillStyle = `rgba(255, 107, 53, ${bottomAlpha})`;
-      ctx.fillText('⚡  A L W A Y S   O N  ⚡', w / 2, h - cellH * 1.5);
+      ctx.font = `bold ${fontSize * 1.3}px monospace`;
+      const bottomAlpha = 0.5 + Math.sin(t) * 0.15;
+      ctx.fillStyle = `rgba(255, 255, 255, ${bottomAlpha})`;
+      ctx.fillText('⚡  A L W A Y S   O N  ⚡', w / 2, h - cellH * 2.5);
+      ctx.fillStyle = `rgba(255, 107, 53, ${bottomAlpha * 0.2})`;
+      ctx.fillText('⚡  A L W A Y S   O N  ⚡', w / 2, h - cellH * 2.5 + 1);
 
       animFrame = requestAnimationFrame(render);
     };

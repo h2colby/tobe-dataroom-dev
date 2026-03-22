@@ -529,7 +529,7 @@ export default function Home() {
                 <div className="mb-6 border-l-[3px] border-[#ff6b35] bg-[#12121a] px-6 py-5" style={{ borderTop: '1px solid rgba(255,107,53,0.08)', borderRight: '1px solid rgba(255,107,53,0.08)', borderBottom: '1px solid rgba(255,107,53,0.08)' }}>
                   <p className="font-sans text-[0.95rem] leading-relaxed text-[#b0b0c0]">
                     Our innovation is two-tiered: a <span className="text-[#ff6b35] font-semibold">unique cell geometry</span> designed to maximize the output of our <span className="text-[#ff6b35] font-semibold">purpose-built power electronics optimized specifically for hydrogen production</span>. The result isn&apos;t just competing with green hydrogen — it&apos;s competing with the entire <span className="text-white font-semibold">$226B grey hydrogen market</span>, constrained by geography and logistics, with the flexibility that small modular facilities afford.
-                    {' '}<Link href="/technology#ip" className="text-xs tracking-[0.1em] text-[#ff6b35]/70 transition-colors hover:text-[#ff6b35]">
+                    {' '}<Link href="/technology#ip" className="text-xs tracking-[0.1em] text-white/70 transition-colors hover:text-white">
                     2 patents filed, 1 in progress, registered trademark →
                   </Link>
                   </p>
