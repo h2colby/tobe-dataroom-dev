@@ -270,6 +270,34 @@ const folders: Folder[] = [
       f('/docs/mkt/case/mkt-case-h2-transport-industry.pdf', 'H2 Transport & Industry'),
     ],
   },
+  {
+    name: 'PENDING — LATEST VERSIONS (MacBook)',
+    description: 'Pulled from Financial_Model/ — verify these replace older versions',
+    files: [
+      f('/docs/_potential/eng-spec-tea-LATEST.docx', 'Final TEA (needs PDF conversion)'),
+      f('/docs/_potential/fin-model-seed-financial-LATEST.xlsx', 'Financial Model (latest from MacBook)'),
+      f('/docs/_potential/mkt-case-ou-final-report-LATEST.docx', 'OU Final Report (latest)'),
+      f('/docs/_potential/mkt-case-ou-financial-model-LATEST.xlsx', 'OU Financial Model (latest)'),
+    ],
+  },
+  {
+    name: 'PENDING — INTELLIGENCE REPORTS',
+    description: 'From intelligence/ — review for investor-readiness',
+    files: [
+      f('/docs/_potential/CLAIMS_EVIDENCE.md', 'Claims Evidence — every technical claim with sources'),
+      f('/docs/_potential/COMPETITIVE_DEEP_ANALYSIS.md', 'Competitive Deep Analysis'),
+      f('/docs/_potential/INVESTOR_FAQ_TOUGH_QUESTIONS.md', 'Investor FAQ — prepared answers for hard questions'),
+      f('/docs/_potential/PATENT_LANDSCAPE.md', 'Patent Landscape Analysis'),
+    ],
+  },
+  {
+    name: 'PENDING — TECHNICAL SPECIFICATIONS',
+    description: 'From dataroom-assets/technology/ — review for inclusion',
+    files: [
+      f('/docs/_potential/SPEC_electrolysis_power_conversion_specifications.docx', 'Power Conversion Specifications'),
+      f('/docs/_potential/SPEC_pulser_overview_specification.docx', 'Pulser System Overview'),
+    ],
+  },
 ];
 
 interface Section {
@@ -283,6 +311,7 @@ const sections: Section[] = [
   { name: 'ENGINEERING', folders: folders.filter(f => f.name.startsWith('ENGINEERING')) },
   { name: 'PROJECTS', folders: folders.filter(f => f.name.startsWith('PROJECTS')) },
   { name: 'MARKET', folders: folders.filter(f => f.name.startsWith('MARKET')) },
+  { name: 'PENDING REVIEW', folders: folders.filter(f => f.name.startsWith('PENDING')) },
 ];
 
 function getAllFiles(): DocFile[] {
