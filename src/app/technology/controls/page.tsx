@@ -389,7 +389,7 @@ function ProcessControl() {
 
         <SectionFrame title="BUS HEALTH">
           <TerminalReadout label="err_total" value={Math.round(errTotal)} unit="errs" color={errTotal > 2 ? '#ff3333' : '#ff6b35'} decimals={0} />
-          <div className="mt-2 font-mono text-xs text-[#ff6b35]">
+          <div className="mt-2 font-mono text-xs text-[#00ff88]">
             STATUS: ALL_SENSORS_OK <Cursor />
           </div>
         </SectionFrame>
@@ -581,14 +581,14 @@ function SafetySystems() {
           <div className="font-mono text-xs text-white/40">
             fc_o2: <span className="text-[#ff6b35]">FC{Math.round(fcO2)}</span> AUTO-LEARN
           </div>
-          <div className="mt-1 font-mono text-xs text-[#ff6b35]">
+          <div className="mt-1 font-mono text-xs text-[#00ff88]">
             NOMINAL: 20.9% <Cursor />
           </div>
         </SectionFrame>
       </div>
 
       <SectionFrame title="SYSTEM STATUS">
-        <div className="font-mono text-xs text-[#ff6b35]">
+        <div className="font-mono text-xs text-[#00ff88]">
           status_txt: <span className="text-white/60">ALL_CLEAR // NO_ALARMS // SENSORS_NOMINAL</span> <Cursor />
         </div>
         <div className="mt-2 font-mono text-xs text-white/40">
@@ -620,7 +620,7 @@ function WaterQuality() {
     <div className="space-y-4">
       <div className="font-mono text-xs text-white/50 flex flex-wrap items-center gap-4">
         <span>ATLAS EZO I2C BUS</span>
-        <span className="text-[#ff6b35]">● ALL SENSORS OK</span>
+        <span className="text-[#00ff88]">● ALL SENSORS OK</span>
         <span>PT100 RTD (MAX31865)</span>
         <span>4-20mA PRESSURE</span>
         <span>HALL EFFECT FLOW</span>
@@ -678,7 +678,7 @@ function WaterQuality() {
       </div>
 
       <SectionFrame title="SENSOR STATUS">
-        <div className="font-mono text-xs text-[#ff6b35]">
+        <div className="font-mono text-xs text-[#00ff88]">
           sensor_ok: <span className="text-white/60">TRUE // ALL EZO CIRCUITS RESPONDING</span> <Cursor />
         </div>
       </SectionFrame>
@@ -712,7 +712,7 @@ function Environmental() {
           <div className="mt-2 font-mono text-xs text-white/40">
             o2SampleSec: <span className="text-[#ff6b35]">{o2Sample.toFixed(1)}s</span>
           </div>
-          <div className="font-mono text-xs text-[#ff6b35]">NOMINAL: 20.9%</div>
+          <div className="font-mono text-xs text-[#00ff88]">NOMINAL: 20.9%</div>
         </SectionFrame>
 
         <SectionFrame title="HUMIDITY">
@@ -728,7 +728,7 @@ function Environmental() {
       </div>
 
       <SectionFrame title="ENVIRONMENT STATUS">
-        <div className="font-mono text-xs text-[#ff6b35]">
+        <div className="font-mono text-xs text-[#00ff88]">
           ALL PARAMETERS WITHIN SAFE OPERATING ENVELOPE <Cursor />
         </div>
         <div className="mt-2 grid grid-cols-2 gap-2 font-mono text-xs">
@@ -786,7 +786,7 @@ export default function HMIPage() {
               <div className="text-sm text-[#ff6b35] tabular-nums" style={{ textShadow: '0 0 8px #ff6b3540' }}>
                 {clock}
               </div>
-              <StatusBadge status="ALL SYSTEMS NOMINAL" color="#ff6b35" />
+              <StatusBadge status="ALL SYSTEMS NOMINAL" color="#00ff88" />
             </div>
           </div>
 
@@ -825,14 +825,14 @@ export default function HMIPage() {
 
           {/* Terminal-style system status readout */}
           <div className="mb-8 overflow-hidden rounded border border-white/10 bg-black/40 px-5 py-4 font-mono text-sm">
-            <div className="mb-3 text-[0.65rem] tracking-[0.15em] text-[#ff6b35]">SYSTEM STATUS: <span className="text-[#ff6b35]">● NOMINAL</span></div>
+            <div className="mb-3 text-[0.65rem] tracking-[0.15em] text-white/60">SYSTEM STATUS: <span className="text-[#00ff88]">● NOMINAL</span></div>
             <div className="space-y-1 text-white/70">
-              <div>├─ Stack Voltage: <span className="text-[#ff6b35]">3.2 kV</span>         <span className="text-[#ff6b35]">● NORMAL</span></div>
-              <div>├─ H₂ Flow Rate: <span className="text-[#ff6b35]">1.04 kg/hr</span>     <span className="text-[#ff6b35]">● NORMAL</span></div>
-              <div>├─ Stack Temp: <span className="text-[#ff6b35]">27.8°C</span>            <span className="text-[#ff6b35]">● NORMAL</span></div>
-              <div>├─ Valve V-101: <span className="text-[#ff6b35]">chatter detected</span> <span className="text-[#ff6b35]">● ATTENTION</span> — maintenance window: 14 days</div>
-              <div>├─ Sensor PT-103: <span className="text-[#ff6b35]">0.3% drift</span>     <span className="text-[#ff6b35]">● WATCHING</span> — calibration due: 30 days</div>
-              <div>└─ System Efficiency: <span className="text-[#ff6b35]">93.2% HHV</span>  <span className="text-[#ff6b35]">● OPTIMAL</span></div>
+              <div>├─ Stack Voltage: <span className="text-white">3.2 kV</span>         <span className="text-[#00ff88]">● NORMAL</span></div>
+              <div>├─ H₂ Flow Rate: <span className="text-white">1.04 kg/hr</span>     <span className="text-[#00ff88]">● NORMAL</span></div>
+              <div>├─ Stack Temp: <span className="text-white">27.8°C</span>            <span className="text-[#00ff88]">● NORMAL</span></div>
+              <div>├─ Valve V-101: <span className="text-white">chatter detected</span> <span className="text-[#f59e0b]">● ATTENTION</span> <span className="text-white/40">— maintenance window: 14 days</span></div>
+              <div>├─ Sensor PT-103: <span className="text-white">0.3% drift</span>     <span className="text-[#f59e0b]">● WATCHING</span> <span className="text-white/40">— calibration due: 30 days</span></div>
+              <div>└─ System Efficiency: <span className="text-white">93.2% HHV</span>  <span className="text-[#00ff88]">● OPTIMAL</span></div>
             </div>
           </div>
 
