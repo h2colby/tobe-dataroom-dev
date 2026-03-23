@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Sidebar } from "@/components/Sidebar";
 import { MobileNav } from "@/components/MobileNav";
 import { DataRoomChat } from "@/components/DataRoomChat";
+import { LogoutButton } from "@/components/LogoutButton";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -68,6 +69,7 @@ export default function RootLayout({
               CLASSIFICATION:{" "}
               <span className="text-[#ff6b35] glow-orange">INVESTOR</span>
             </span>
+            <LogoutButton />
           </div>
         </header>
 
