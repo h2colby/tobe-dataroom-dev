@@ -1,0 +1,19 @@
+node_modules
+.next
+.git
+*.md
+audit/
+screenshots/
+AUDIT_SCREENSHOTS/
+Financial_Model/
+Financial_Model_Dashboard/
+Codex_Financial_dashbaord/
+Tech_Videos/
+Zeeco Arc/
+tobe-dataroom/
+tobe-dataroom-nerv/
+docs-generator/
+reference-docs/
+.claude/
+.playwright-mcp/
+.env.local
