@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 import { AutoplayVideo } from '@/components/AutoplayVideo';
 import Link from 'next/link';
 
@@ -26,6 +27,7 @@ function useAutoplayVideos() {
 
 export default function TechnologyPage() {
   useAutoplayVideos();
+  const prefersReducedMotion = useReducedMotion();
   return (
     <div className="relative min-h-screen bg-[#0a0a0f] font-mono text-white">
       <style>{`
@@ -72,6 +74,99 @@ export default function TechnologyPage() {
               <p className="mt-1 text-xs text-white/40">Designed in KiCad, laser-etched and assembled on-site</p>
             </div>
           </div>
+        </div>
+
+        {/* ═══ SYSTEM ARCHITECTURE DIAGRAM ═══ */}
+        <div className="mb-10">
+          <div className="mb-3 text-xs tracking-[0.2em] uppercase text-white/45">
+            SYSTEM ARCHITECTURE
+          </div>
+          <motion.div
+            className="mx-auto max-w-3xl"
+            initial={prefersReducedMotion ? undefined : { opacity: 0, y: 16 }}
+            whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true, amount: 0.3 }}
+          >
+            <svg
+              viewBox="0 0 700 340"
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-full"
+              style={{ fontFamily: 'monospace' }}
+            >
+              {/* Arrowhead markers */}
+              <defs>
+                <marker id="arrow-white" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                  <path d="M0,0 L8,3 L0,6" fill="none" stroke="rgba(255,255,255,0.7)" strokeWidth="1" />
+                </marker>
+                <marker id="arrow-orange" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                  <path d="M0,0 L8,3 L0,6" fill="none" stroke="#ff6b35" strokeWidth="1" />
+                </marker>
+                <marker id="arrow-cyan" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                  <path d="M0,0 L8,3 L0,6" fill="none" stroke="#00d4ff" strokeWidth="1" />
+                </marker>
+              </defs>
+
+              {/* ── Water Input ── */}
+              <text x="20" y="108" fill="rgba(255,255,255,0.8)" fontSize="13" fontWeight="bold">H₂O</text>
+              <text x="12" y="124" fill="rgba(255,255,255,0.4)" fontSize="10">WATER IN</text>
+              {/* Water → Cell (solid white, material flow) */}
+              <line x1="62" y1="106" x2="168" y2="106" stroke="rgba(255,255,255,0.7)" strokeWidth="2" markerEnd="url(#arrow-white)" />
+
+              {/* ── Electrolysis Cell (central, largest, orange border) ── */}
+              <rect x="178" y="65" width="200" height="90" rx="6" fill="rgba(255,107,53,0.06)" stroke="#ff6b35" strokeWidth="1.5" />
+              <text x="278" y="96" fill="#ff6b35" fontSize="14" fontWeight="bold" textAnchor="middle">ELECTROLYSIS CELL</text>
+              <text x="278" y="116" fill="rgba(255,255,255,0.5)" fontSize="10" textAnchor="middle">Membrane-free capacitive splitting</text>
+              <text x="278" y="134" fill="rgba(255,255,255,0.4)" fontSize="9" textAnchor="middle">No rare earths | Near-ambient temp</text>
+
+              {/* ── H₂ Output ── */}
+              {/* Cell → H₂ (solid orange, material flow) */}
+              <line x1="378" y1="94" x2="478" y2="94" stroke="#ff6b35" strokeWidth="2" markerEnd="url(#arrow-orange)" />
+              <rect x="488" y="76" width="88" height="38" rx="4" fill="rgba(255,107,53,0.08)" stroke="rgba(255,107,53,0.4)" strokeWidth="1" />
+              <text x="532" y="99" fill="#ff6b35" fontSize="13" fontWeight="bold" textAnchor="middle">H₂</text>
+              <text x="594" y="99" fill="rgba(255,255,255,0.5)" fontSize="10">OUTPUT</text>
+
+              {/* ── O₂ Output ── */}
+              {/* Cell → O₂ (solid white, material flow) */}
+              <line x1="378" y1="132" x2="488" y2="172" stroke="rgba(255,255,255,0.5)" strokeWidth="1.5" markerEnd="url(#arrow-white)" />
+              <rect x="498" y="158" width="76" height="34" rx="4" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+              <text x="536" y="180" fill="rgba(255,255,255,0.5)" fontSize="13" fontWeight="bold" textAnchor="middle">O₂</text>
+              <text x="586" y="180" fill="rgba(255,255,255,0.4)" fontSize="9">VENT</text>
+
+              {/* ── Power Converter ── */}
+              <rect x="70" y="220" width="170" height="65" rx="5" fill="rgba(255,107,53,0.04)" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
+              <text x="155" y="247" fill="rgba(255,255,255,0.8)" fontSize="14" fontWeight="bold" textAnchor="middle">POWER CONVERTER</text>
+              <text x="155" y="265" fill="rgba(255,255,255,0.4)" fontSize="10" textAnchor="middle">LLC resonant | Pulsed DC</text>
+              {/* Converter → Cell (solid orange, power flow) */}
+              <line x1="192" y1="220" x2="238" y2="155" stroke="#ff6b35" strokeWidth="2" markerEnd="url(#arrow-orange)" />
+              <text x="196" y="192" fill="rgba(255,107,53,0.6)" fontSize="9">POWER</text>
+
+              {/* ── Controls / HMI ── */}
+              <rect x="310" y="230" width="200" height="65" rx="5" fill="rgba(0,212,255,0.04)" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
+              <text x="410" y="257" fill="rgba(255,255,255,0.8)" fontSize="14" fontWeight="bold" textAnchor="middle">CONTROLS / HMI</text>
+              <text x="410" y="275" fill="rgba(255,255,255,0.4)" fontSize="10" textAnchor="middle">5 Arduinos | 100 cloud vars | 8 Modbus</text>
+
+              {/* Controls → Cell (dashed cyan, data flow) */}
+              <line x1="360" y1="230" x2="310" y2="155" stroke="#00d4ff" strokeWidth="1" strokeDasharray="4 3" markerEnd="url(#arrow-cyan)" />
+              <text x="318" y="200" fill="rgba(0,212,255,0.6)" fontSize="9">DATA</text>
+
+              {/* Controls → Converter (dashed cyan, data flow) */}
+              <line x1="310" y1="262" x2="240" y2="262" stroke="#00d4ff" strokeWidth="1" strokeDasharray="4 3" markerEnd="url(#arrow-cyan)" />
+
+              {/* Controls → H₂ output monitoring (dashed cyan) */}
+              <line x1="510" y1="236" x2="535" y2="114" stroke="#00d4ff" strokeWidth="1" strokeDasharray="4 3" markerEnd="url(#arrow-cyan)" />
+              <text x="542" y="180" fill="rgba(0,212,255,0.6)" fontSize="9">MONITOR</text>
+
+              {/* Controls label: monitors all */}
+              <text x="410" y="312" fill="rgba(0,212,255,0.35)" fontSize="9" textAnchor="middle">(monitors all subsystems)</text>
+
+              {/* ── Legend ── */}
+              <line x1="20" y1="328" x2="50" y2="328" stroke="#ff6b35" strokeWidth="2" />
+              <text x="56" y="332" fill="rgba(255,255,255,0.4)" fontSize="9">POWER / MATERIAL</text>
+              <line x1="190" y1="328" x2="220" y2="328" stroke="#00d4ff" strokeWidth="1" strokeDasharray="4 3" />
+              <text x="226" y="332" fill="rgba(255,255,255,0.4)" fontSize="9">DATA / CONTROL</text>
+            </svg>
+          </motion.div>
         </div>
 
         {/* ═══ 4 ASCII ART MODULE CARDS ═══ */}

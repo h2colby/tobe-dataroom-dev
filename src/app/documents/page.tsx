@@ -325,6 +325,15 @@ function getAllFiles(): DocFile[] {
 
 const totalFiles = getAllFiles().length;
 
+// ── Start Here — essential documents for investor review ──
+const startHereFiles: DocFile[] = [
+  f('/docs/eng/spec/eng-spec-techno-economic-analysis.pdf', 'Techno-Economic Analysis (TEA)'),
+  f('/docs/fin/model/fin-model-seed-financial.xlsx', 'Seed Financial Model'),
+  f('/docs/eng/spec/eng-spec-technology-overview.pdf', 'Technology Overview'),
+  f('/docs/proj/feed/proj-feed-zeeco-package.pdf', 'Zeeco ARC FEED Package'),
+  f('/docs/mkt/research/mkt-research-investors-guide-45v.pdf', 'Investors Guide to 45V'),
+];
+
 // ── Inline Document Viewer ──
 
 function DocumentViewer({ file, allFiles, onClose, onNavigate }: {
@@ -747,6 +756,35 @@ export default function DocumentsPage() {
               <span className="text-[#ff6b35] font-bold">Delaware C-Corp, fully documented.</span> Bylaws, board resolutions, all investment agreements (14 instruments, $1.95M), IP assignments, insurance, tax filings, and engineering documentation. All founder agreements executed via Cooley LLP. For additional materials, contact{' '}
               <a href="mailto:colby@tobe.energy" className="text-[#ff6b35]/70 hover:text-[#ff6b35]">colby@tobe.energy</a>.
             </p>
+          </div>
+        </div>
+      )}
+
+      {/* Start Here card */}
+      {!isSearching && (
+        <div className="mx-auto max-w-6xl px-6 pb-6">
+          <div className="border border-[#ff6b35]/30 border-l-4 border-l-[#ff6b35] bg-[#12121a] px-5 py-5">
+            <div className="flex items-baseline gap-3 mb-1">
+              <span className="text-sm font-bold text-[#ff6b35] tracking-wider">▸ START HERE</span>
+            </div>
+            <p className="text-xs text-white/45 mb-4">Essential documents for investor review</p>
+            <div className="space-y-0.5">
+              {startHereFiles.map(file => (
+                <button
+                  key={file.path}
+                  onClick={() => setViewingFile(file)}
+                  className="group flex items-center gap-3 w-full py-2 px-2 -mx-2 rounded transition-all hover:bg-white/[0.04] text-left"
+                >
+                  <FileTypeIcon type={file.type} />
+                  <span className="text-[0.85rem] text-white/80 group-hover:text-white truncate transition-colors">
+                    {file.title}
+                  </span>
+                  <span className="text-[0.6rem] text-[#ff6b35]/0 group-hover:text-[#ff6b35]/60 transition-all shrink-0 ml-auto">
+                    VIEW
+                  </span>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       )}

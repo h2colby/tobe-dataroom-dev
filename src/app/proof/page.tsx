@@ -20,22 +20,22 @@ function SectionDivider() {
 const investors = [
   {
     name: 'Cortado Ventures',
-    tag: 'LEAD INVESTOR',
+    tag: 'LEAD PRE-SEED INVESTOR',
     tagColor: '#ff6b35',
     borderColor: '#ff6b35',
     amount: '$1.8M',
     amountLabel: 'PRE-SEED',
-    description: "Oklahoma's leading deep-tech VC. Focus on energy, aerospace, and advanced manufacturing.",
+    description: "Lead pre-seed investor, Oklahoma-based. Oklahoma's leading deep-tech VC with focus on energy, aerospace, and advanced manufacturing.",
     url: 'https://cortado.ventures',
   },
   {
     name: '46 Ventures',
-    tag: 'INVESTOR',
+    tag: 'STRATEGIC INVESTOR',
     tagColor: '#ff6b35',
     borderColor: '#ff6b35',
     amount: null,
     amountLabel: null,
-    description: 'Administers Hurricane Ventures (University of Tulsa). Early-stage technology investor.',
+    description: 'Strategic investor. Administers Hurricane Ventures (University of Tulsa). Early-stage technology investor with deep Oklahoma roots.',
     url: 'https://46vc.com',
   },
   {
@@ -55,7 +55,7 @@ const investors = [
     borderColor: 'rgba(255,255,255,0.6)',
     amount: 'FOLLOW-ON',
     amountLabel: 'INVESTMENT',
-    description: 'Spring 2025 cohort. Top-tier global accelerator with 3,000+ portfolio companies. Significant follow-on investment beyond standard program terms.',
+    description: 'Accelerator program (2024 cohort). Top-tier global accelerator with 3,000+ portfolio companies. Significant follow-on investment beyond standard program terms.',
     url: 'https://www.techstars.com',
   },
 ];
@@ -152,11 +152,42 @@ export default function ProofPage() {
 
       <div className="mx-auto max-w-6xl px-6">
 
+        {/* ═══ INVESTOR TESTIMONIAL ═══ */}
+        <section className="py-10">
+          <div className="mx-auto max-w-2xl text-center">
+            <div className="relative border-t border-b border-white/5 py-8">
+              <span className="absolute -top-5 left-1/2 -translate-x-1/2 text-4xl leading-none text-[#ff6b35]/30"
+                style={{ fontFamily: 'Georgia, serif' }}>&ldquo;</span>
+              <p className="mb-4 px-6 text-lg italic leading-relaxed text-white/80">
+                Tobe Energy represents the best of what we look for at Cortado&nbsp;&mdash;&nbsp;founder-led innovation grounded in deep technical expertise and built for Midcontinent deployment. Their approach to cost-effective, domestically produced green hydrogen has enormous implications for energy security, industrial decarbonization, and the growth of Oklahoma as a clean energy hub.
+              </p>
+              <p className="text-sm text-white/45">
+                &mdash; Nathaniel Harding, Managing Partner, Cortado Ventures
+              </p>
+              <p className="mt-2 text-[0.65rem] text-white/30">
+                From &lsquo;Why We Invested&rsquo; &mdash; September 2025
+              </p>
+              <span className="absolute -bottom-5 left-1/2 -translate-x-1/2 text-4xl leading-none text-[#ff6b35]/30"
+                style={{ fontFamily: 'Georgia, serif' }}>&rdquo;</span>
+            </div>
+          </div>
+        </section>
+
         {/* ═══ INVESTORS ═══ */}
         <section className="py-6">
           <div className="mb-6 text-[0.7rem] tracking-[0.2em] text-[#ff6b35] glow-orange">
             ┌─── BACKED BY ───┐
           </div>
+
+          {/* Pre-seed round badge */}
+          <div className="mb-6 flex flex-wrap items-center gap-4">
+            <div className="rounded border border-[#ff6b35]/30 bg-[#ff6b35]/[0.06] px-5 py-3">
+              <span className="text-[0.6rem] tracking-[0.2em] text-white/45">PRE-SEED ROUND</span>
+              <span className="ml-3 text-2xl font-bold text-[#ff6b35]" style={{ textShadow: '0 0 12px rgba(255,107,53,0.35)' }}>$1.8M</span>
+              <span className="ml-2 text-[0.6rem] tracking-[0.15em] text-[#00ff88]">RAISED</span>
+            </div>
+          </div>
+
           <p className="mb-6 font-sans text-[0.95rem] text-white/50">
             $1.8M pre-seed led by Cortado Ventures. Backed by institutional VCs, a top-tier accelerator, and angels from across energy, tech, and climate.
           </p>

@@ -120,6 +120,114 @@ export default function ZeecoPage() {
             manufacturer. Broken Arrow, Oklahoma. Proof of technology at commercial scale.
           </motion.p>
 
+          {/* Technical Hero Diagram — 12× T-25 Unit Grid */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.25 }}
+            className="mb-10 overflow-hidden rounded-lg border border-[#ff6b35]/20 bg-[#0c0c14]"
+          >
+            <div className="border-b border-[#ff6b35]/15 bg-[#ff6b35]/[0.04] px-5 py-3 flex items-center justify-between">
+              <span className="text-xs tracking-[0.15em] text-[#ff6b35] font-bold">▸ SYSTEM LAYOUT — 12× T-25 ELECTROLYZERS</span>
+              <span className="text-[0.65rem] tracking-[0.1em] text-white/40">TOP-DOWN VIEW</span>
+            </div>
+            <div className="p-6 sm:p-8">
+              <svg viewBox="0 0 680 280" className="mx-auto w-full max-w-5xl" style={{ maxHeight: '420px' }}>
+                <defs>
+                  <filter id="orangeGlow">
+                    <feGaussianBlur stdDeviation="3" result="blur" />
+                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                  </filter>
+                  <filter id="greenGlow">
+                    <feGaussianBlur stdDeviation="3" result="blur" />
+                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                  </filter>
+                </defs>
+
+                {/* Grid background lines */}
+                {Array.from({ length: 14 }).map((_, i) => (
+                  <line key={`vg-${i}`} x1={Math.round(i * 50)} y1={0} x2={Math.round(i * 50)} y2={280} stroke="rgba(255,255,255,0.04)" strokeWidth={1} />
+                ))}
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <line key={`hg-${i}`} x1={0} y1={Math.round(i * 50)} x2={680} y2={Math.round(i * 50)} stroke="rgba(255,255,255,0.04)" strokeWidth={1} />
+                ))}
+
+                {/* Shared bus bar (horizontal) */}
+                <rect x={60} y={128} width={420} height={6} fill="rgba(255,107,53,0.25)" rx={3} />
+                <rect x={60} y={130} width={420} height={2} fill="rgba(255,107,53,0.6)" rx={1} />
+                <text x={270} y={122} textAnchor="middle" fill="rgba(255,107,53,0.85)" fontSize="10" fontFamily="monospace" fontWeight="bold">480VAC BUS</text>
+
+                {/* T-25 units — Row 1 (top, 6 units) */}
+                {Array.from({ length: 6 }).map((_, i) => {
+                  const x = Math.round(70 + i * 68);
+                  const y = 40;
+                  return (
+                    <g key={`t1-${i}`} filter="url(#orangeGlow)">
+                      <rect x={x} y={y} width={52} height={70} rx={4} fill="rgba(255,107,53,0.1)" stroke="rgba(255,107,53,0.55)" strokeWidth={1.5} />
+                      <text x={Math.round(x + 26)} y={Math.round(y + 26)} textAnchor="middle" fill="#ff6b35" fontSize="11" fontFamily="monospace" fontWeight="bold">{`T-25`}</text>
+                      <text x={Math.round(x + 26)} y={Math.round(y + 41)} textAnchor="middle" fill="rgba(255,255,255,0.8)" fontSize="10" fontFamily="monospace">{`#${String(i + 1).padStart(2, '0')}`}</text>
+                      <text x={Math.round(x + 26)} y={Math.round(y + 56)} textAnchor="middle" fill="rgba(255,107,53,0.9)" fontSize="9" fontFamily="monospace" fontWeight="bold">50kW</text>
+                      {/* Connection line to bus */}
+                      <line x1={Math.round(x + 26)} y1={Math.round(y + 70)} x2={Math.round(x + 26)} y2={128} stroke="rgba(255,107,53,0.4)" strokeWidth={1.5} strokeDasharray="4,3" />
+                    </g>
+                  );
+                })}
+
+                {/* T-25 units — Row 2 (bottom, 6 units) */}
+                {Array.from({ length: 6 }).map((_, i) => {
+                  const x = Math.round(70 + i * 68);
+                  const y = 152;
+                  return (
+                    <g key={`t2-${i}`} filter="url(#orangeGlow)">
+                      <rect x={x} y={y} width={52} height={70} rx={4} fill="rgba(255,107,53,0.1)" stroke="rgba(255,107,53,0.55)" strokeWidth={1.5} />
+                      <text x={Math.round(x + 26)} y={Math.round(y + 26)} textAnchor="middle" fill="#ff6b35" fontSize="11" fontFamily="monospace" fontWeight="bold">{`T-25`}</text>
+                      <text x={Math.round(x + 26)} y={Math.round(y + 41)} textAnchor="middle" fill="rgba(255,255,255,0.8)" fontSize="10" fontFamily="monospace">{`#${String(i + 7).padStart(2, '0')}`}</text>
+                      <text x={Math.round(x + 26)} y={Math.round(y + 56)} textAnchor="middle" fill="rgba(255,107,53,0.9)" fontSize="9" fontFamily="monospace" fontWeight="bold">50kW</text>
+                      {/* Connection line to bus */}
+                      <line x1={Math.round(x + 26)} y1={y} x2={Math.round(x + 26)} y2={134} stroke="rgba(255,107,53,0.4)" strokeWidth={1.5} strokeDasharray="4,3" />
+                    </g>
+                  );
+                })}
+
+                {/* Shared infrastructure block — right side */}
+                <rect x={520} y={40} width={140} height={182} rx={5} fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.2)" strokeWidth={1.5} />
+                <text x={590} y={60} textAnchor="middle" fill="rgba(255,255,255,0.6)" fontSize="9" fontFamily="monospace" fontWeight="bold" letterSpacing="0.12em">SHARED INFRA</text>
+
+                {/* Sub-blocks */}
+                <rect x={530} y={72} width={120} height={28} rx={3} fill="rgba(255,107,53,0.08)" stroke="rgba(255,107,53,0.4)" strokeWidth={1} />
+                <text x={590} y={90} textAnchor="middle" fill="rgba(255,107,53,0.9)" fontSize="9" fontFamily="monospace">PLC-101 Controls</text>
+
+                <rect x={530} y={108} width={120} height={28} rx={3} fill="rgba(255,107,53,0.08)" stroke="rgba(255,107,53,0.4)" strokeWidth={1} />
+                <text x={590} y={126} textAnchor="middle" fill="rgba(255,107,53,0.9)" fontSize="9" fontFamily="monospace">SEP-101/102 Gas Sep</text>
+
+                <rect x={530} y={144} width={120} height={28} rx={3} fill="rgba(255,107,53,0.08)" stroke="rgba(255,107,53,0.4)" strokeWidth={1} />
+                <text x={590} y={162} textAnchor="middle" fill="rgba(255,107,53,0.9)" fontSize="9" fontFamily="monospace">PU-101 Purification</text>
+
+                <rect x={530} y={180} width={120} height={28} rx={3} fill="rgba(0,255,136,0.08)" stroke="rgba(0,255,136,0.4)" strokeWidth={1.5} filter="url(#greenGlow)" />
+                <text x={590} y={198} textAnchor="middle" fill="rgba(0,255,136,0.9)" fontSize="9" fontFamily="monospace" fontWeight="bold">H&#8322; OUT: 99.99%</text>
+
+                {/* Connection line from bus to infra */}
+                <line x1={480} y1={131} x2={520} y2={131} stroke="rgba(255,107,53,0.6)" strokeWidth={3} />
+                <polygon points="514,126 526,131 514,136" fill="rgba(255,107,53,0.7)" />
+              </svg>
+
+              {/* Specs bar below diagram */}
+              <div className="mt-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-3 border-t border-[#ff6b35]/10 pt-5">
+                {[
+                  { label: '600 kW', sub: 'total power' },
+                  { label: '300 kg H\u2082/day', sub: 'output' },
+                  { label: '12\u00D7 T-25', sub: 'electrolyzers' },
+                  { label: 'Q2 2026', sub: 'deployment' },
+                ].map((stat) => (
+                  <div key={stat.label} className="text-center">
+                    <span className="text-xl font-bold text-[#ff6b35]" style={{ textShadow: '0 0 12px rgba(255,107,53,0.4)' }}>{stat.label}</span>
+                    <span className="ml-2 text-xs tracking-[0.1em] text-white/50 uppercase">{stat.sub}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
           {/* Quick stats */}
           <motion.div
             initial="hidden"
@@ -147,6 +255,31 @@ export default function ZeecoPage() {
                 </p>
               </motion.div>
             ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ═══ ABOUT ZEECO ═══ */}
+      <section className="border-b border-white/10 px-6 py-12">
+        <div className="mx-auto max-w-6xl">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="rounded border border-white/10 border-l-[3px] border-l-[#ff6b35] bg-white/[0.02] p-5"
+          >
+            <p className="mb-2 text-xs font-bold tracking-[0.2em] text-white/45 uppercase">About Zeeco</p>
+            <p className="text-sm leading-relaxed text-white/80">
+              Zeeco is a global leader in combustion and environmental solutions, headquartered
+              in Broken Arrow, Oklahoma. With operations in 150+ countries and 30+ years of
+              engineering leadership, their selection of Tobe Energy for on-site hydrogen
+              production validates the technology at an industrial scale. The Zeeco ARC deployment
+              represents Tobe&apos;s first commercial installation&nbsp;&mdash;&nbsp;
+              <span className="text-[#ff6b35]">600 kW</span>,{' '}
+              <span className="text-[#ff6b35]">12 T-25 units</span>, producing{' '}
+              <span className="text-[#ff6b35]">300 kg H&#8322;/day</span>.
+            </p>
           </motion.div>
         </div>
       </section>
