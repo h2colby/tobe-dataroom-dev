@@ -1,33 +1,35 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { motion } from 'framer-motion';
+import { TabNav } from '@/components/ui/TabNav';
 import {
   AreaChart, Area, BarChart, Bar, ComposedChart, Line, LineChart,
   PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, Legend
 } from 'recharts';
+import { colors } from '@/lib/design-tokens';
 
 // ═══════════════════════════════════════════════════════════════
 // THEME & CONSTANTS
 // ═══════════════════════════════════════════════════════════════
 
 const COLORS = {
-  bg: '#0a0a0f',
+  bg: colors.bg.primary,
   card: 'rgba(255,255,255,0.02)',
-  cardBorder: 'rgba(255,255,255,0.1)',
-  green: '#ff6b35',
-  orange: '#ff6b35',
-  blue: '#ff6b35',
-  red: '#ff4444',
-  white: '#ffffff',
-  white60: 'rgba(255,255,255,0.6)',
-  white40: 'rgba(255,255,255,0.4)',
-  white10: 'rgba(255,255,255,0.1)',
-  grid: 'rgba(255,255,255,0.05)',
+  cardBorder: colors.border.light,
+  green: colors.chart.secondary,
+  orange: colors.chart.primary,
+  blue: colors.chart.tertiary,
+  red: colors.semantic.danger,
+  white: colors.text.primary,
+  white60: colors.text.secondary,
+  white40: colors.text.muted,
+  white10: colors.border.light,
+  grid: colors.border.subtle,
 };
 
-const TABS = [
+const TAB_LABELS = [
   'INVESTMENT THESIS',
   'REVENUE & GROWTH',
   'PROFITABILITY',
@@ -37,6 +39,11 @@ const TABS = [
   'SENSITIVITY',
   'CAP TABLE',
 ];
+
+const TABS_NAV = TAB_LABELS.map((label, i) => ({
+  id: String(i),
+  label,
+}));
 
 // ═══════════════════════════════════════════════════════════════
 // DATA — All values extracted from Tobe_Energy_Financial_Model_FINAL.xlsx
@@ -320,6 +327,14 @@ const InvestmentThesis = () => {
           </motion.div>
         ))}
       </div>
+
+      <motion.div {...fadeUp} transition={{ delay: 0.35 }}>
+        <Card style={{ padding: '14px 18px', marginBottom: 24, borderLeft: `3px solid ${COLORS.orange}`, background: 'rgba(255,107,53,0.04)' }}>
+          <div style={{ color: COLORS.white, fontSize: '0.85rem', fontFamily: 'monospace', lineHeight: 1.6 }}>
+            <strong style={{ color: COLORS.orange }}>NOTE:</strong> This model is conservative — limited to 12 facilities over 7 years. With 100+ addressable domestic sites, the platform scales well beyond this baseline. The right funding and strategic partners can accelerate both deployment count and timeline significantly.
+          </div>
+        </Card>
+      </motion.div>
 
       <motion.div {...fadeUp} transition={{ delay: 0.4 }}>
         <SectionLabel>WHY THIS INVESTMENT</SectionLabel>
@@ -1189,7 +1204,11 @@ const CapTableTab = () => {
 // ═══════════════════════════════════════════════════════════════
 
 export default function InvestorDashboard() {
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState('0');
+
+  const handleTabChange = useCallback((id: string) => {
+    setActiveTab(id);
+  }, []);
 
   const tabContent = useMemo(() => [
     <InvestmentThesis key={0} />,
@@ -1227,34 +1246,12 @@ export default function InvestorDashboard() {
       </div>
 
       {/* Tab Bar */}
-      <div style={{
-        display: 'flex', gap: 2, marginBottom: 28, overflowX: 'auto',
-        borderBottom: `1px solid ${COLORS.white10}`, paddingBottom: 0,
-      }}>
-        {TABS.map((tab, i) => (
-          <button
-            key={i}
-            onClick={() => setActiveTab(i)}
-            style={{
-              background: activeTab === i ? `${COLORS.orange}20` : 'transparent',
-              border: 'none',
-              borderBottom: activeTab === i ? `2px solid ${COLORS.orange}` : '2px solid transparent',
-              color: activeTab === i ? COLORS.orange : COLORS.white40,
-              fontFamily: '"IBM Plex Mono", monospace',
-              fontSize: '0.65rem',
-              fontWeight: 600,
-              padding: '10px 16px',
-              cursor: 'pointer',
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-              whiteSpace: 'nowrap',
-              transition: 'all 0.2s ease',
-            }}
-          >
-            {tab}
-          </button>
-        ))}
-      </div>
+      <TabNav
+        tabs={TABS_NAV}
+        activeTab={activeTab}
+        onChange={handleTabChange}
+        className="mb-7"
+      />
 
       {/* Tab Content */}
       <motion.div
@@ -1263,7 +1260,7 @@ export default function InvestorDashboard() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
       >
-        {tabContent[activeTab]}
+        {tabContent[Number(activeTab)]}
       </motion.div>
 
       {/* Footer */}

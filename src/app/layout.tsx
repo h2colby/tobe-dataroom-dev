@@ -18,6 +18,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-[#0a0a0f] text-white antialiased">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-[#ff6b35] focus:text-white focus:px-4 focus:py-2 focus:rounded focus:text-sm focus:font-mono"
+        >
+          Skip to main content
+        </a>
+
         {/* Scanline overlay */}
         <div
           className="pointer-events-none fixed inset-0 z-[100]"
@@ -49,15 +56,15 @@ export default function RootLayout({
           </div>
           {/* Right side: session info — hidden on very small screens */}
           <div className="hidden sm:flex items-center gap-6">
-            <span className="text-[0.65rem] tracking-[0.1em] text-[#6a6a7a]">
+            <span className="text-[0.65rem] tracking-[0.1em] text-[#8a8a9a]">
               SESSION:{" "}
               <span className="text-[#ff6b35] glow-orange">INV-2026-0318</span>
             </span>
-            <span className="text-[0.65rem] tracking-[0.1em] text-[#6a6a7a]">
+            <span className="text-[0.65rem] tracking-[0.1em] text-[#8a8a9a]">
               STATUS:{" "}
               <span className="text-[#ff6b35] glow-orange">{"\u25CF"} ACTIVE</span>
             </span>
-            <span className="text-[0.65rem] tracking-[0.1em] text-[#6a6a7a]">
+            <span className="text-[0.65rem] tracking-[0.1em] text-[#8a8a9a]">
               CLASSIFICATION:{" "}
               <span className="text-[#ff6b35] glow-orange">INVESTOR</span>
             </span>
@@ -70,7 +77,7 @@ export default function RootLayout({
         {/* Sidebar + Content */}
         <div className="relative z-10 flex" style={{ height: "calc(100vh - 52px)" }}>
           <Sidebar />
-          <main className="w-full md:flex-1 overflow-y-auto">{children}</main>
+          <main id="main-content" className="w-full md:flex-1 overflow-y-auto">{children}</main>
         </div>
         <DataRoomChat />
       </body>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
+import { useReducedMotion } from 'framer-motion';
 
 interface Message {
   id: string;
@@ -22,10 +23,27 @@ const BOLT_SHAPE = [
 
 function MiniBoltCanvas({ className }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const isVisibleRef = useRef(true);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+
+    // Canvas visibility optimization: pause rAF when off-screen or tab hidden
+    const observer = new IntersectionObserver(
+      ([entry]) => { isVisibleRef.current = entry.isIntersecting && !document.hidden; },
+      { threshold: 0 }
+    );
+    observer.observe(canvas);
+
+    const handleVisibility = () => {
+      if (document.hidden) {
+        isVisibleRef.current = false;
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
@@ -65,8 +83,36 @@ function MiniBoltCanvas({ className }: { className?: string }) {
       brightness.push(bRow);
     }
 
+    // Draw a single static frame
+    const drawStatic = () => {
+      ctx.fillStyle = '#0a0a0f';
+      ctx.fillRect(0, 0, w, h);
+      ctx.font = `${fontSize}px monospace`;
+      ctx.textBaseline = 'middle';
+
+      for (let y = 0; y < ROWS; y++) {
+        for (let x = 0; x < COLS; x++) {
+          if (brightness[y][x] <= 0) continue;
+          ctx.fillStyle = `rgba(255, 107, 53, ${brightness[y][x] * 0.85})`;
+          ctx.fillText(grid[y][x], x * cellW, y * cellH + cellH / 2);
+        }
+      }
+    };
+
+    // Reduced motion: draw once and stop
+    if (prefersReducedMotion) {
+      drawStatic();
+      observer.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibility);
+      return;
+    }
+
     let frame: number;
     const draw = () => {
+      if (!isVisibleRef.current) {
+        frame = requestAnimationFrame(draw);
+        return;
+      }
       ctx.fillStyle = '#0a0a0f';
       ctx.fillRect(0, 0, w, h);
       ctx.font = `${fontSize}px monospace`;
@@ -91,8 +137,12 @@ function MiniBoltCanvas({ className }: { className?: string }) {
       frame = requestAnimationFrame(draw);
     };
     draw();
-    return () => cancelAnimationFrame(frame);
-  }, []);
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibility);
+    };
+  }, [prefersReducedMotion]);
 
   return <canvas ref={canvasRef} aria-label="Ren AI assistant visual indicator" role="img" className={className} />;
 }
@@ -224,7 +274,7 @@ export function DataRoomChat() {
 
       {/* Chat panel */}
       {isOpen && (
-        <div className="fixed bottom-20 right-6 z-50 flex h-[560px] w-[420px] flex-col overflow-hidden rounded border border-[#ff6b35]/20 bg-[#0a0a0f] font-mono shadow-2xl"
+        <div data-chat-panel className="fixed bottom-20 right-6 z-50 flex h-[560px] w-[420px] flex-col overflow-hidden rounded border border-[#ff6b35]/20 bg-[#0a0a0f] font-mono shadow-2xl"
           style={{ boxShadow: '0 0 40px rgba(255,107,53,0.1)' }}>
 
           {/* Header with mini bolt */}
@@ -233,7 +283,7 @@ export function DataRoomChat() {
             <div className="relative z-10 px-5 py-3 flex items-center justify-between">
               <div>
                 <p className="text-[0.65rem] tracking-[0.15em] text-[#ff6b35]">REN // AI OPERATING LAYER</p>
-                <p className="text-xs text-white/30">I know every number in this data room.</p>
+                <p className="text-xs text-white/45">I know every number in this data room.</p>
               </div>
               <div className="h-2 w-2 rounded-full bg-[#ff6b35] animate-pulse" style={{ boxShadow: '0 0 8px rgba(255,107,53,0.6)' }} />
             </div>
@@ -278,7 +328,7 @@ export function DataRoomChat() {
             ))}
 
             {isLoading && (
-              <div className="flex items-center gap-2 text-xs text-white/30">
+              <div className="flex items-center gap-2 text-xs text-white/45">
                 <span className="animate-pulse">●</span> Thinking...
               </div>
             )}

@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { useState } from 'react';
 import { opportunities, statusColors, statusLabels, pipelineStats, type Opportunity, type OpportunityStatus } from './pipelineData';
 
@@ -125,20 +125,21 @@ interface OpportunityNodeProps {
   index: number;
   isHovered: boolean;
   onHover: (id: string | null) => void;
+  reducedMotion?: boolean;
 }
 
-const OpportunityNode = ({ opportunity, position, index, isHovered, onHover }: OpportunityNodeProps) => {
+const OpportunityNode = ({ opportunity, position, index, isHovered, onHover, reducedMotion }: OpportunityNodeProps) => {
   const size = getNodeSize(opportunity);
   const color = statusColors[opportunity.status];
-  
+
   return (
     <motion.g
-      initial={{ opacity: 0, scale: 0 }}
-      animate={{ 
-        opacity: 1, 
+      initial={reducedMotion ? false : { opacity: 0, scale: 0 }}
+      animate={{
+        opacity: 1,
         scale: isHovered ? 1.2 : 1,
       }}
-      transition={{ 
+      transition={reducedMotion ? { duration: 0.1 } : {
         delay: 0.5 + index * 0.08,
         duration: 0.5,
         type: 'spring',
@@ -148,26 +149,38 @@ const OpportunityNode = ({ opportunity, position, index, isHovered, onHover }: O
       onMouseLeave={() => onHover(null)}
       style={{ cursor: 'pointer' }}
     >
-      {/* Glow effect */}
-      <motion.circle
-        cx={position.x}
-        cy={position.y}
-        r={size + 8}
-        fill="none"
-        stroke={color}
-        strokeWidth={3}
-        opacity={isHovered ? 0.6 : 0.2}
-        animate={{
-          r: [size + 6, size + 10, size + 6],
-          opacity: isHovered ? [0.6, 0.3, 0.6] : [0.2, 0.1, 0.2],
-        }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-      />
-      
+      {/* Glow effect — static when reduced motion */}
+      {reducedMotion ? (
+        <circle
+          cx={position.x}
+          cy={position.y}
+          r={size + 8}
+          fill="none"
+          stroke={color}
+          strokeWidth={3}
+          opacity={isHovered ? 0.6 : 0.2}
+        />
+      ) : (
+        <motion.circle
+          cx={position.x}
+          cy={position.y}
+          r={size + 8}
+          fill="none"
+          stroke={color}
+          strokeWidth={3}
+          opacity={isHovered ? 0.6 : 0.2}
+          animate={{
+            r: [size + 6, size + 10, size + 6],
+            opacity: isHovered ? [0.6, 0.3, 0.6] : [0.2, 0.1, 0.2],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+      )}
+
       {/* Main circle */}
       <circle
         cx={position.x}
@@ -177,7 +190,7 @@ const OpportunityNode = ({ opportunity, position, index, isHovered, onHover }: O
         stroke="rgba(255,255,255,0.8)"
         strokeWidth={2}
       />
-      
+
       {/* Label */}
       <text
         x={position.x}
@@ -187,7 +200,7 @@ const OpportunityNode = ({ opportunity, position, index, isHovered, onHover }: O
       >
         {opportunity.codename}
       </text>
-      
+
       {/* Value label */}
       {opportunity.value && (
         <text
@@ -205,10 +218,11 @@ const OpportunityNode = ({ opportunity, position, index, isHovered, onHover }: O
 };
 
 export function PipelineNetwork() {
+  const prefersReducedMotion = !!useReducedMotion();
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const centerX = 450;
   const centerY = 300;
-  
+
   const hoveredOpp = opportunities.find(o => o.id === hoveredId);
   const hoveredPos = hoveredOpp ? getNodePosition(hoveredOpp, opportunities.indexOf(hoveredOpp)) : null;
   
@@ -271,21 +285,21 @@ export function PipelineNetwork() {
             stroke="#2a2a3a"
             strokeWidth={1}
             strokeDasharray="4 6"
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.8 }}
             animate={{ opacity: 0.4, scale: 1 }}
-            transition={{ delay: i * 0.1, duration: 0.8 }}
+            transition={prefersReducedMotion ? { duration: 0 } : { delay: i * 0.1, duration: 0.8 }}
           />
         ))}
-        
+
         {/* Ring labels */}
         <motion.text
           x={centerX}
           y={centerY - 85}
           textAnchor="middle"
           className="font-mono text-[8px] fill-gray-600"
-          initial={{ opacity: 0 }}
+          initial={prefersReducedMotion ? false : { opacity: 0 }}
           animate={{ opacity: 0.5 }}
-          transition={{ delay: 0.5 }}
+          transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.5 }}
         >
           CONTRACTED
         </motion.text>
@@ -294,9 +308,9 @@ export function PipelineNetwork() {
           y={centerY - 155}
           textAnchor="middle"
           className="font-mono text-[8px] fill-gray-600"
-          initial={{ opacity: 0 }}
+          initial={prefersReducedMotion ? false : { opacity: 0 }}
           animate={{ opacity: 0.5 }}
-          transition={{ delay: 0.6 }}
+          transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.6 }}
         >
           LOI SIGNED
         </motion.text>
@@ -305,13 +319,13 @@ export function PipelineNetwork() {
           y={centerY - 225}
           textAnchor="middle"
           className="font-mono text-[8px] fill-gray-600"
-          initial={{ opacity: 0 }}
+          initial={prefersReducedMotion ? false : { opacity: 0 }}
           animate={{ opacity: 0.5 }}
-          transition={{ delay: 0.7 }}
+          transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.7 }}
         >
           QUOTING
         </motion.text>
-        
+
         {/* Oklahoma cluster boundary */}
         <motion.ellipse
           cx={centerX}
@@ -322,18 +336,18 @@ export function PipelineNetwork() {
           stroke="#ff6b35"
           strokeWidth={1}
           strokeDasharray="6 4"
-          initial={{ opacity: 0 }}
+          initial={prefersReducedMotion ? false : { opacity: 0 }}
           animate={{ opacity: 0.4 }}
-          transition={{ delay: 0.8, duration: 1 }}
+          transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.8, duration: 1 }}
         />
         <motion.text
           x={centerX}
           y={centerY + 55}
           textAnchor="middle"
           className="font-mono text-[9px] fill-[#ff6b35]"
-          initial={{ opacity: 0 }}
+          initial={prefersReducedMotion ? false : { opacity: 0 }}
           animate={{ opacity: 0.6 }}
-          transition={{ delay: 1 }}
+          transition={prefersReducedMotion ? { duration: 0 } : { delay: 1 }}
         >
           OKLAHOMA CLUSTER
         </motion.text>
@@ -354,55 +368,79 @@ export function PipelineNetwork() {
               stroke={color}
               strokeWidth={isActive ? 2 : 1}
               opacity={isActive ? 0.8 : 0.3}
-              initial={{ pathLength: 0, opacity: 0 }}
+              initial={prefersReducedMotion ? false : { pathLength: 0, opacity: 0 }}
               animate={{ pathLength: 1, opacity: isActive ? 0.8 : 0.3 }}
-              transition={{ delay: 0.3 + index * 0.05, duration: 0.8 }}
+              transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.3 + index * 0.05, duration: 0.8 }}
             />
           );
         })}
         
         {/* HQ Node */}
         <motion.g
-          initial={{ opacity: 0, scale: 0 }}
+          initial={prefersReducedMotion ? false : { opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.2, duration: 0.5, type: 'spring' }}
+          transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.2, duration: 0.5, type: 'spring' }}
         >
-          {/* Outer pulsing ring */}
-          <motion.circle
-            cx={centerX}
-            cy={centerY}
-            r={45}
-            fill="none"
-            stroke="#ff6b35"
-            strokeWidth={1}
-            animate={{
-              r: [45, 50, 45],
-              opacity: [0.3, 0.15, 0.3],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          />
-          
-          {/* Inner ring */}
-          <motion.circle
-            cx={centerX}
-            cy={centerY}
-            r={35}
-            fill="none"
-            stroke="#ff6b35"
-            strokeWidth={2}
-            animate={{
-              opacity: [1, 0.5, 1],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          />
+          {/* Outer pulsing ring — static when reduced motion */}
+          {prefersReducedMotion ? (
+            <circle
+              cx={centerX}
+              cy={centerY}
+              r={45}
+              fill="none"
+              stroke="#ff6b35"
+              strokeWidth={1}
+              opacity={0.3}
+            />
+          ) : (
+            <motion.circle
+              cx={centerX}
+              cy={centerY}
+              r={45}
+              fill="none"
+              stroke="#ff6b35"
+              strokeWidth={1}
+              animate={{
+                r: [45, 50, 45],
+                opacity: [0.3, 0.15, 0.3],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+            />
+          )}
+
+          {/* Inner ring — static when reduced motion */}
+          {prefersReducedMotion ? (
+            <circle
+              cx={centerX}
+              cy={centerY}
+              r={35}
+              fill="none"
+              stroke="#ff6b35"
+              strokeWidth={2}
+              opacity={0.75}
+            />
+          ) : (
+            <motion.circle
+              cx={centerX}
+              cy={centerY}
+              r={35}
+              fill="none"
+              stroke="#ff6b35"
+              strokeWidth={2}
+              animate={{
+                opacity: [1, 0.5, 1],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+            />
+          )}
           
           {/* Center */}
           <circle
@@ -444,6 +482,7 @@ export function PipelineNetwork() {
             index={index}
             isHovered={hoveredId === opp.id}
             onHover={setHoveredId}
+            reducedMotion={prefersReducedMotion}
           />
         ))}
       </svg>

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import RenPanel from '@/components/RenPanel';
 
 type NavCategory = {
@@ -115,13 +115,15 @@ function useClickSound() {
 /* ── Page ──────────────────────────────────────────────── */
 
 export default function Home() {
+  const prefersReducedMotion = useReducedMotion();
   const [hoveredNav, setHoveredNav] = useState<string | null>(null);
   const [expandedNav, setExpandedNav] = useState<Set<string>>(new Set());
   const [bootStage, setBootStage] = useState(0);
   const [booted, setBooted] = useState(false);
+  const [showSkip, setShowSkip] = useState(false);
 
-  // Typewriter state
-  const [skipAnim] = useState(() => {
+  // Typewriter state — skip all animation if reduced motion is preferred
+  const [skipAnim, setSkipAnim] = useState(() => {
     if (typeof window === 'undefined') return true;
     return sessionStorage.getItem('overview-animated') === '1';
   });
@@ -129,6 +131,37 @@ export default function Home() {
   const [phase, setPhase] = useState<'header' | 'done'>(skipAnim ? 'done' : 'header');
   const [soundOn, setSoundOn] = useState(false);
   const { play: clickSound, toggle: toggleSound } = useClickSound();
+
+  // Reduced motion: skip directly to final state on mount
+  useEffect(() => {
+    if (prefersReducedMotion && !booted) {
+      setBootStage(bootLines.length);
+      setBooted(true);
+      setHeaderChars(ASCII_HEADER.length);
+      setPhase('done');
+      setSkipAnim(true);
+      setShowSkip(false);
+      sessionStorage.setItem('overview-animated', '1');
+    }
+  }, [prefersReducedMotion, booted]);
+
+  // Show skip button after 1 second delay
+  useEffect(() => {
+    if (skipAnim) return;
+    const timer = setTimeout(() => setShowSkip(true), 1000);
+    return () => clearTimeout(timer);
+  }, [skipAnim]);
+
+  // Skip handler: jump to fully loaded state
+  const handleSkip = useCallback(() => {
+    setBootStage(bootLines.length);
+    setBooted(true);
+    setHeaderChars(ASCII_HEADER.length);
+    setPhase('done');
+    setSkipAnim(true);
+    setShowSkip(false);
+    sessionStorage.setItem('overview-animated', '1');
+  }, []);
 
   const toggleCategory = (id: string) => {
     setExpandedNav((prev) => {
@@ -189,7 +222,7 @@ export default function Home() {
                   ? 'text-[#ff6b35] glow-orange'
                   : line.includes('READY')
                     ? 'text-[#ff6b35] glow-orange'
-                    : 'text-[#6a6a7a]'
+                    : 'text-[#8a8a9a]'
               }`}
             >
               {'> '}{line}
@@ -201,6 +234,19 @@ export default function Home() {
             </div>
           )}
         </div>
+        {showSkip && (
+          <button
+            type="button"
+            onClick={handleSkip}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleSkip(); } }}
+            tabIndex={0}
+            role="button"
+            aria-label="Skip boot animation"
+            className="fixed bottom-6 right-6 z-[110] font-mono text-xs tracking-[0.1em] text-white/45 transition-colors hover:text-white/50"
+          >
+            SKIP ▸
+          </button>
+        )}
       </div>
     );
   }
@@ -225,13 +271,13 @@ export default function Home() {
           <img src="/images/tobe-logo.svg" alt="Tobe Energy" className="h-7" />
         </Link>
         <div className="flex items-center gap-6">
-          <span className="text-[0.65rem] tracking-[0.1em] text-[#6a6a7a]">
+          <span className="text-[0.65rem] tracking-[0.1em] text-[#8a8a9a]">
             SESSION: <span className="text-[#ff6b35] glow-orange">INV-2026-0318</span>
           </span>
-          <span className="text-[0.65rem] tracking-[0.1em] text-[#6a6a7a]">
+          <span className="text-[0.65rem] tracking-[0.1em] text-[#8a8a9a]">
             STATUS: <span className="text-[#ff6b35] glow-orange">● ACTIVE</span>
           </span>
-          <span className="text-[0.65rem] tracking-[0.1em] text-[#6a6a7a]">
+          <span className="text-[0.65rem] tracking-[0.1em] text-[#8a8a9a]">
             CLASSIFICATION: <span className="text-[#ff6b35] glow-orange">INVESTOR</span>
           </span>
         </div>
@@ -263,8 +309,8 @@ export default function Home() {
                       isHovered ? 'bg-[#ff6b35]/8 text-[#ff6b35]' : 'text-[#b0b0bc]'
                     }`}
                   >
-                    <span className="mr-1.5 text-[0.7rem] text-[#5a5a6a] shrink-0">{catBranch}</span>
-                    <span className={`mr-2 shrink-0 text-[#6a6a7a]`}>{cat.id}</span>
+                    <span className="mr-1.5 text-[0.7rem] text-[#7a7a8a] shrink-0">{catBranch}</span>
+                    <span className={`mr-2 shrink-0 text-[#8a8a9a]`}>{cat.id}</span>
                     <span className="truncate">{cat.label}</span>
                   </button>
                 ) : cat.href === '#ask-ai' ? (
@@ -282,8 +328,8 @@ export default function Home() {
                         : 'text-[#ff6b35]/70'
                     }`}
                   >
-                    <span className="mr-1.5 text-[0.7rem] text-[#5a5a6a] shrink-0">└─</span>
-                    <span className="mr-2 text-[#6a6a7a] shrink-0">{cat.id}</span>
+                    <span className="mr-1.5 text-[0.7rem] text-[#7a7a8a] shrink-0">└─</span>
+                    <span className="mr-2 text-[#8a8a9a] shrink-0">{cat.id}</span>
                     <span className="truncate">{cat.label}</span>
                   </button>
                 ) : (
@@ -299,10 +345,10 @@ export default function Home() {
                           : 'text-[#b0b0bc]'
                     }`}
                   >
-                    <span className={`mr-1.5 text-[0.7rem] shrink-0 ${isActive ? 'text-[#ff6b35]/50' : 'text-[#5a5a6a]'}`}>
+                    <span className={`mr-1.5 text-[0.7rem] shrink-0 ${isActive ? 'text-[#ff6b35]/50' : 'text-[#7a7a8a]'}`}>
                       {catBranch}
                     </span>
-                    <span className={`mr-2 shrink-0 ${isActive ? 'text-[#ff6b35]/70' : 'text-[#6a6a7a]'}`}>{cat.id}</span>
+                    <span className={`mr-2 shrink-0 ${isActive ? 'text-[#ff6b35]/70' : 'text-[#8a8a9a]'}`}>{cat.id}</span>
                     <span className="truncate">{cat.label}</span>
                     {isActive && <span className="ml-1 animate-blink text-[#ff6b35] shrink-0">█</span>}
                   </Link>
@@ -325,7 +371,7 @@ export default function Home() {
                             isSubHovered ? 'bg-[#ff6b35]/8 text-[#ff6b35]' : 'text-[#9a9ab0]'
                           }`}
                         >
-                          <span className="mr-1.5 text-[0.6rem] shrink-0 text-[#4a4a5a]">{vertLine} {subBranch}</span>
+                          <span className="mr-1.5 text-[0.6rem] shrink-0 text-[#7a7a8a]">{vertLine} {subBranch}</span>
                           <span className="truncate">{item.label}</span>
                         </Link>
                       );
@@ -339,11 +385,25 @@ export default function Home() {
 
         {/* MAIN CONTENT */}
         <main className="flex-1 overflow-y-auto p-6 lg:p-8">
+          {/* Skip button during typewriter animation */}
+          {phase === 'header' && (
+            <button
+              type="button"
+              onClick={handleSkip}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleSkip(); } }}
+              tabIndex={0}
+              role="button"
+              aria-label="Skip boot animation"
+              className="fixed bottom-6 right-6 z-[110] font-mono text-xs tracking-[0.1em] text-white/45 transition-colors hover:text-white/50"
+            >
+              SKIP ▸
+            </button>
+          )}
           {/* Sound toggle */}
           <button
             type="button"
             onClick={() => setSoundOn(toggleSound())}
-            className="fixed right-8 top-16 z-20 text-[0.6rem] tracking-[0.1em] text-[#3a3a4a] transition-colors hover:text-[#6a6a7a]"
+            className="fixed right-8 top-16 z-20 text-[0.6rem] tracking-[0.1em] text-[#3a3a4a] transition-colors hover:text-[#8a8a9a]"
           >
             {soundOn ? '♪ SFX ON' : '♪ SFX OFF'}
           </button>
@@ -364,7 +424,7 @@ export default function Home() {
             <>
               {/* 1. Hero Statement */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
                 className="mb-12"
@@ -381,7 +441,7 @@ export default function Home() {
 
               {/* 2. The Pitch */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
                 className="mb-12"
@@ -423,7 +483,7 @@ export default function Home() {
 
               {/* AI + Documents — two column */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.35 }}
                 className="mb-10 grid gap-4 md:grid-cols-2"
@@ -474,7 +534,7 @@ export default function Home() {
 
               {/* 3. Three Revenue Engines */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
                 className="mb-12"
@@ -517,7 +577,7 @@ export default function Home() {
 
               {/* 4. Technology — Why It Matters */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
                 className="mb-12"
@@ -565,7 +625,7 @@ export default function Home() {
 
               {/* 5. Financial Snapshot */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
                 className="mb-12"
@@ -580,28 +640,28 @@ export default function Home() {
                       <p className="mb-1 text-[0.65rem] tracking-[0.15em] text-[#ff6b35]">HYDROGEN AS A SERVICE</p>
                       <p className="text-2xl font-bold text-[#ff6b35]" style={{ textShadow: '0 0 8px rgba(255,107,53,0.3)' }}>~$22.5M/yr</p>
                       <p className="mt-1 text-xs text-white/40">Average annual revenue per HaaS site</p>
-                      <p className="mt-1 text-xs text-white/30">Recurring, high-margin, long-term offtake</p>
+                      <p className="mt-1 text-xs text-white/45">Recurring, high-margin, long-term offtake</p>
                     </div>
                     {/* Equipment + Services */}
                     <div className="border-l-[3px] border-[#ff6b35] bg-[#0a0a0f]/60 px-5 py-4" style={{ borderTop: '1px solid rgba(255,107,53,0.06)', borderRight: '1px solid rgba(255,107,53,0.06)', borderBottom: '1px solid rgba(255,107,53,0.06)' }}>
                       <p className="mb-1 text-[0.65rem] tracking-[0.15em] text-[#ff6b35]">EQUIPMENT &amp; SERVICES</p>
                       <p className="text-2xl font-bold text-[#ff6b35]" style={{ textShadow: '0 0 8px rgba(255,107,53,0.3)' }}>$197M</p>
                       <p className="mt-1 text-xs text-white/40">FY7 equipment sales + AI services revenue</p>
-                      <p className="mt-1 text-xs text-white/30">Direct sales, maintenance, predictive AI</p>
+                      <p className="mt-1 text-xs text-white/45">Direct sales, maintenance, predictive AI</p>
                     </div>
                     {/* Scale */}
                     <div className="border-l-[3px] border-[#ff6b35] bg-[#0a0a0f]/60 px-5 py-4" style={{ borderTop: '1px solid rgba(255,107,53,0.06)', borderRight: '1px solid rgba(255,107,53,0.06)', borderBottom: '1px solid rgba(255,107,53,0.06)' }}>
                       <p className="mb-1 text-[0.65rem] tracking-[0.15em] text-[#ff6b35]">DEPLOYMENT SCALE</p>
                       <p className="text-2xl font-bold text-[#ff6b35]" style={{ textShadow: '0 0 8px rgba(255,107,53,0.3)' }}>12 sites modeled</p>
                       <p className="mt-1 text-xs text-white/40">Hundreds more available across North America</p>
-                      <p className="mt-1 text-xs text-white/30">Every grey hydrogen delivery point is a target</p>
+                      <p className="mt-1 text-xs text-white/45">Every grey hydrogen delivery point is a target</p>
                     </div>
                     {/* 45V PTC */}
                     <div className="border-l-[3px] border-[#ff6b35] bg-[#0a0a0f]/60 px-5 py-4" style={{ borderTop: '1px solid rgba(255,107,53,0.06)', borderRight: '1px solid rgba(255,107,53,0.06)', borderBottom: '1px solid rgba(255,107,53,0.06)' }}>
                       <p className="mb-1 text-[0.65rem] tracking-[0.15em] text-[#ff6b35]">45V PRODUCTION TAX CREDIT</p>
                       <p className="text-2xl font-bold text-[#ff6b35]" style={{ textShadow: '0 0 8px rgba(255,107,53,0.3)' }}>~$27M lifetime</p>
                       <p className="mt-1 text-xs text-white/40">Per qualifying site ($3/kg × 10 years)</p>
-                      <p className="mt-1 text-xs text-white/30">The faster we deploy, the more sites qualify — pure margin upside</p>
+                      <p className="mt-1 text-xs text-white/45">The faster we deploy, the more sites qualify — pure margin upside</p>
                     </div>
                   </div>
                   <Link
@@ -615,7 +675,7 @@ export default function Home() {
 
               {/* 6. Active Projects */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
                 className="mb-12"
@@ -665,7 +725,7 @@ export default function Home() {
 
               {/* 8. Directory + AI Assistant — two column */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8 }}
                 className="mb-12 grid gap-6 md:grid-cols-2"
@@ -728,7 +788,7 @@ export default function Home() {
                               href={item.href}
                               className="group flex items-baseline transition-colors hover:bg-white/[0.02]"
                             >
-                              <span className="mr-2 text-sm text-[#6a6a7a]">
+                              <span className="mr-2 text-sm text-[#8a8a9a]">
                                 {j === section.items.length - 1 ? '└─' : '├─'}
                               </span>
                               <span className="text-sm transition-colors" style={{ color: section.color }}>

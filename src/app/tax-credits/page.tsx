@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import TableOfContents from '@/components/ui/TableOfContents';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -20,12 +21,12 @@ const creditTiers = [
 ];
 
 const gridMix = [
-  { source: 'Wind', pct: 36.6, color: '#ff6b35' },
-  { source: 'Coal', pct: 31.8, color: '#ff4444' },
+  { source: 'Wind', pct: 36.6, color: '#22c55e' },
+  { source: 'Coal', pct: 31.8, color: '#ef4444' },
   { source: 'Gas', pct: 21.4, color: '#ff6b35' },
-  { source: 'Nuclear', pct: 5.0, color: '#ff6b35' },
+  { source: 'Nuclear', pct: 5.0, color: '#3b82f6' },
   { source: 'Hydro', pct: 4.3, color: '#4488ff' },
-  { source: 'Other', pct: 0.6, color: '#6a6a7a' },
+  { source: 'Other', pct: 0.6, color: '#8a8a9a' },
 ];
 
 const ppaScenarios = [
@@ -37,7 +38,7 @@ const ppaScenarios = [
 ];
 
 const statusStyle = {
-  fail:    { dot: 'bg-[#ff4444]', text: 'text-white/30', label: 'INELIGIBLE' },
+  fail:    { dot: 'bg-[#ff4444]', text: 'text-white/45', label: 'INELIGIBLE' },
   partial: { dot: 'bg-[#ff6b35]', text: 'text-[#ff6b35]', label: 'QUALIFIED' },
   max:     { dot: 'bg-[#ff6b35] shadow-[0_0_6px_rgba(255,107,53,0.6)]', text: 'text-[#ff6b35]', label: 'MAX TIER' },
 };
@@ -60,8 +61,18 @@ export default function TaxCreditsPage() {
 
   return (
     <div className="relative min-h-screen bg-[#0a0a0f] font-mono text-white">
+      <TableOfContents items={[
+        { id: '45v-overview', label: '45V Overview' },
+        { id: 'profitable-without-45v', label: 'Profitable Without' },
+        { id: 'oklahoma-grid', label: 'Oklahoma Grid' },
+        { id: 'ppa-scenarios', label: 'PPA Scenarios' },
+        { id: 'ppa-roi', label: 'PPA ROI' },
+        { id: 'efficiency-advantage', label: 'Efficiency Edge' },
+        { id: 'risk-factors', label: 'Risk Factors' },
+      ]} />
+
       {/* SECTION 1: 45V OVERVIEW */}
-      <section className="relative border-b border-white/10 px-6 py-16">
+      <section id="45v-overview" className="relative border-b border-white/10 px-6 py-16">
         <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs leading-tight text-[#ff6b35]/70 sm:text-sm" style={{ whiteSpace: 'pre' }}>
 {`┌─── 45V TAX CREDIT STRATEGY ───┐`}
@@ -97,7 +108,7 @@ export default function TaxCreditsPage() {
             className="rounded border border-white/10 bg-white/[0.02] p-6"
           >
             <p className="mb-4 text-sm font-semibold text-[#ff6b35]">▸ 45V CREDIT TIERS — LIFECYCLE EMISSIONS</p>
-            <pre className="mb-4 text-[0.65rem] text-white/30 sm:text-xs" style={{ whiteSpace: 'pre' }}>
+            <pre className="mb-4 text-[0.65rem] text-white/45 sm:text-xs" style={{ whiteSpace: 'pre' }}>
 {`    CREDIT         THRESHOLD           STATUS
     ─────────────────────────────────────────────`}
             </pre>
@@ -145,7 +156,7 @@ export default function TaxCreditsPage() {
       </section>
 
       {/* PROFITABLE WITHOUT 45V — LEAD WITH THIS */}
-      <section className="border-b border-white/10 px-6 py-16">
+      <section id="profitable-without-45v" className="border-b border-white/10 px-6 py-16">
         <div className="mx-auto max-w-6xl">
           <div className="mb-2 text-[0.7rem] tracking-[0.2em] text-[#ff6b35]">
             ┌─── THE KEY POINT ───┐
@@ -170,7 +181,7 @@ export default function TaxCreditsPage() {
                 $54.9M
               </p>
               <p className="mt-2 text-sm text-white/50">Margin: <span className="font-bold text-[#ff6b35]">62.2%</span></p>
-              <p className="mt-1 text-xs text-white/30">FY3 Base Case</p>
+              <p className="mt-1 text-xs text-white/45">FY3 Base Case</p>
             </motion.div>
 
             <motion.div
@@ -185,7 +196,7 @@ export default function TaxCreditsPage() {
               <p className="mb-1 text-xs text-white/40">EBITDA</p>
               <p className="text-3xl font-bold text-white/70">$46.0M</p>
               <p className="mt-2 text-sm text-white/50">Margin: <span className="font-bold text-white/70">52.1%</span></p>
-              <p className="mt-1 text-xs text-white/30">FY3 No Credit</p>
+              <p className="mt-1 text-xs text-white/45">FY3 No Credit</p>
             </motion.div>
 
             <motion.div
@@ -205,7 +216,7 @@ export default function TaxCreditsPage() {
                 -$8.9M
               </p>
               <p className="mt-2 text-sm text-white/50">Margin: <span className="font-bold text-[#ff6b35]">-10.1pp</span></p>
-              <p className="mt-1 text-xs text-white/30">45V Impact</p>
+              <p className="mt-1 text-xs text-white/45">45V Impact</p>
             </motion.div>
           </div>
 
@@ -225,7 +236,7 @@ export default function TaxCreditsPage() {
       </section>
 
       {/* SECTION 2: OKLAHOMA GRID ANALYSIS */}
-      <section className="border-b border-white/10 px-6 py-16">
+      <section id="oklahoma-grid" className="border-b border-white/10 px-6 py-16">
         <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
 {`┌─── OKLAHOMA GRID ANALYSIS ───┐`}
@@ -292,7 +303,7 @@ export default function TaxCreditsPage() {
       </section>
 
       {/* SECTION 3: RENEWABLE PPA SCENARIOS */}
-      <section className="border-b border-white/10 px-6 py-16">
+      <section id="ppa-scenarios" className="border-b border-white/10 px-6 py-16">
         <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
 {`┌─── RENEWABLE PPA SCENARIOS ───┐`}
@@ -328,25 +339,25 @@ export default function TaxCreditsPage() {
               onMouseLeave={() => setHoveredRow(null)}
             >
               <div>
-                <span className="text-xs text-white/30 md:hidden">CLEAN </span>
+                <span className="text-xs text-white/45 md:hidden">CLEAN </span>
                 <span className={`font-bold ${s.status === 'max' ? 'text-[#ff6b35]' : 'text-white/80'}`}>
                   {s.clean}
                 </span>
               </div>
               <div>
-                <span className="text-xs text-white/30 md:hidden">CO₂e </span>
+                <span className="text-xs text-white/45 md:hidden">CO₂e </span>
                 <span className="text-white/60">{s.intensity} kgCO₂e</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-xs text-white/30 md:hidden">TIER </span>
+                <span className="text-xs text-white/45 md:hidden">TIER </span>
                 <span className={`inline-block h-2 w-2 rounded-full ${statusStyle[s.status].dot}`} />
                 <span className={`text-[0.65rem] tracking-[0.1em] ${statusStyle[s.status].text}`}>{statusStyle[s.status].label}</span>
                 {s.tier !== 'None' && <span className="text-white/50">{s.tier}</span>}
               </div>
               <div>
-                <span className="text-xs text-white/30 md:hidden">CREDIT </span>
+                <span className="text-xs text-white/45 md:hidden">CREDIT </span>
                 <span
-                  className={`font-bold ${s.status === 'max' ? 'text-[#ff6b35]' : s.status === 'partial' ? 'text-[#ff6b35]' : 'text-white/30'}`}
+                  className={`font-bold ${s.status === 'max' ? 'text-[#ff6b35]' : s.status === 'partial' ? 'text-[#ff6b35]' : 'text-white/45'}`}
                   style={s.status === 'max' ? { textShadow: '0 0 10px rgba(255,107,53,0.5)' } : {}}
                 >
                   {s.credit}
@@ -371,7 +382,7 @@ export default function TaxCreditsPage() {
       </section>
 
       {/* SECTION 4: PPA ROI — THE MONEY SHOT */}
-      <section className="border-b border-white/10 px-6 py-16">
+      <section id="ppa-roi" className="border-b border-white/10 px-6 py-16">
         <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
 {`┌─── PPA RETURN ON INVESTMENT ───┐`}
@@ -470,7 +481,7 @@ export default function TaxCreditsPage() {
                 </div>
                 <div className="flex items-center gap-6">
                   <div className="text-right">
-                    <span className="text-xs text-white/30">annual </span>
+                    <span className="text-xs text-white/45">annual </span>
                     <span
                       className="font-bold text-[#ff6b35]"
                       style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)' }}
@@ -479,7 +490,7 @@ export default function TaxCreditsPage() {
                     </span>
                   </div>
                   <div className="text-right">
-                    <span className="text-xs text-white/30">10-yr </span>
+                    <span className="text-xs text-white/45">10-yr </span>
                     <span
                       className="font-bold text-[#ff6b35]"
                       style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)' }}
@@ -507,7 +518,7 @@ export default function TaxCreditsPage() {
       </section>
 
       {/* SECTION 5: EFFICIENCY ADVANTAGE */}
-      <section className="border-b border-white/10 px-6 py-16">
+      <section id="efficiency-advantage" className="border-b border-white/10 px-6 py-16">
         <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
 {`┌─── EFFICIENCY ADVANTAGE ───┐`}
@@ -538,27 +549,27 @@ export default function TaxCreditsPage() {
               }`}
             >
               <div>
-                <span className="text-xs text-white/30 md:hidden">TECH </span>
+                <span className="text-xs text-white/45 md:hidden">TECH </span>
                 <span className={`font-bold ${c.highlight ? 'text-[#ff6b35]' : 'text-white/60'}`}>
                   {c.highlight && '▸ '}{c.name}
                 </span>
               </div>
               <div>
-                <span className="text-xs text-white/30 md:hidden">kWh/kg </span>
+                <span className="text-xs text-white/45 md:hidden">kWh/kg </span>
                 <span className={c.highlight ? 'text-[#ff6b35] font-bold' : 'text-white/60'}>
                   {c.kwh} kWh/kg
                 </span>
               </div>
               <div>
-                <span className="text-xs text-white/30 md:hidden">GWh/yr </span>
+                <span className="text-xs text-white/45 md:hidden">GWh/yr </span>
                 <span className="text-white/60">{c.gwh} GWh/yr</span>
               </div>
               <div>
-                <span className="text-xs text-white/30 md:hidden">PPA </span>
+                <span className="text-xs text-white/45 md:hidden">PPA </span>
                 <span className="text-white/60">{c.ppa}</span>
               </div>
               <div>
-                <span className="text-xs text-white/30 md:hidden">NET </span>
+                <span className="text-xs text-white/45 md:hidden">NET </span>
                 <span
                   className={`font-bold ${c.highlight ? 'text-[#ff6b35]' : 'text-[#ff6b35]'}`}
                   style={c.highlight ? { textShadow: '0 0 10px rgba(255,107,53,0.5)' } : { textShadow: '0 0 10px rgba(255,107,53,0.5)' }}
@@ -608,8 +619,8 @@ export default function TaxCreditsPage() {
               <div className="space-y-3">
                 {[
                   { name: 'Tobe', kwh: '42 kWh/kg', gwh: '37.8 GWh', pct: 63, color: '#ff6b35', highlight: true },
-                  { name: 'PEM', kwh: '55 kWh/kg', gwh: '49.5 GWh', pct: 82.5, color: '#6a6a7a', highlight: false },
-                  { name: 'ALK', kwh: '60 kWh/kg', gwh: '54.0 GWh', pct: 90, color: '#6a6a7a', highlight: false },
+                  { name: 'PEM', kwh: '55 kWh/kg', gwh: '49.5 GWh', pct: 82.5, color: '#8a8a9a', highlight: false },
+                  { name: 'ALK', kwh: '60 kWh/kg', gwh: '54.0 GWh', pct: 90, color: '#8a8a9a', highlight: false },
                 ].map((tech) => (
                   <div key={tech.name} className="flex items-center gap-3">
                     <span className={`w-10 text-sm font-bold ${tech.highlight ? 'text-[#ff6b35]' : 'text-white/50'}`}>{tech.name}</span>
@@ -628,7 +639,7 @@ export default function TaxCreditsPage() {
       </section>
 
       {/* SECTION 6: RISKS */}
-      <section className="border-b border-white/10 px-6 py-16">
+      <section id="risk-factors" className="border-b border-white/10 px-6 py-16">
         <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
 {`┌─── RISK FACTORS ───┐`}
@@ -672,7 +683,7 @@ export default function TaxCreditsPage() {
       {/* FOOTER */}
       <footer className="border-t border-white/10 px-6 py-6">
         <div className="mx-auto max-w-6xl text-center">
-          <p className="mb-3 text-[0.6rem] tracking-[0.1em] text-white/30">
+          <p className="mb-3 text-[0.6rem] tracking-[0.1em] text-white/45">
             Source: 45VH2-GREET (Rev. December 2025) · Argonne National Laboratory
           </p>
           <pre className="text-xs text-[#ff6b35]/20" style={{ textShadow: '0 0 6px rgba(255,107,53,0.08)' }}>

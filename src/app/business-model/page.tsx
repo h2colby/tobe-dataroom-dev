@@ -1,7 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
+import { TabNav } from '@/components/ui/TabNav';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -24,9 +25,9 @@ const unitEconomics = {
 };
 
 const revenueStreams = [
-  { label: 'Hydrogen as a Service', pct: 82, desc: 'We own and operate electrolyzers near industrial end users. More capital intensive upfront, but generates recurring, high-margin revenue with long-term offtake agreements. The core of the business.', color: '#ff6b35' },
+  { label: 'Hydrogen as a Service', pct: 82, desc: 'We own and operate electrolyzers near industrial end users. More capital intensive upfront, but generates recurring, high-margin revenue with long-term offtake agreements. The core of the business.', color: '#22c55e' },
   { label: 'Equipment Sales', pct: 16, desc: 'Direct sale of T-25 and T-125 electrolyzer systems to support industry-defining projects — making steel production, ammonia synthesis, and refining more renewable. Customer owns the asset.', color: '#ff6b35' },
-  { label: 'AI Services & Maintenance', pct: 2, desc: 'Preventive and predictive maintenance powered by AI — valve chatter detection, sensor drift analysis, efficiency optimization. Plus traditional service contracts. Stacked on every deployment.', color: '#ff6b35' },
+  { label: 'AI Services & Maintenance', pct: 2, desc: 'Preventive and predictive maintenance powered by AI — valve chatter detection, sensor drift analysis, efficiency optimization. Plus traditional service contracts. Stacked on every deployment.', color: '#3b82f6' },
 ];
 
 const financials = [
@@ -80,6 +81,8 @@ const competitors = [
   { name: 'Enapter', tech: 'AEM', eff: '~50 kWh/kg', funding: 'IPO\u2019d', weakness: 'AEM membranes still degrade' },
 ];
 
+const sectionTabs = sectionNav.map((s) => ({ id: s.id, label: s.label }));
+
 function StickyNav() {
   const [active, setActive] = useState('');
 
@@ -101,22 +104,18 @@ function StickyNav() {
     return () => observer.disconnect();
   }, []);
 
+  const handleTabChange = useCallback((id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, []);
+
   return (
-    <nav className="sticky top-0 z-50 border-b border-white/10 bg-[#0a0a0f]/80 backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl gap-1 overflow-x-auto px-6 py-2 scrollbar-hide">
-        {sectionNav.map((s) => (
-          <button
-            key={s.id}
-            onClick={() => document.getElementById(s.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-            className={`whitespace-nowrap rounded px-3 py-1.5 font-mono text-[0.65rem] tracking-wider transition-colors ${
-              active === s.id
-                ? 'bg-[#ff6b35]/20 text-[#ff6b35]'
-                : 'text-white/40 hover:text-white/70'
-            }`}
-          >
-            {s.label}
-          </button>
-        ))}
+    <nav className="sticky top-0 z-50 bg-[#0a0a0f]/80 backdrop-blur-md">
+      <div className="mx-auto max-w-6xl px-6">
+        <TabNav
+          tabs={sectionTabs}
+          activeTab={active}
+          onChange={handleTabChange}
+        />
       </div>
     </nav>
   );
@@ -159,14 +158,14 @@ export default function BusinessModelPage() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="border-l-[3px] border-[#ff6b35] bg-[#12121a] px-5 py-6"
-              style={{ borderTop: '1px solid rgba(255,107,53,0.1)', borderRight: '1px solid rgba(255,107,53,0.1)', borderBottom: '1px solid rgba(255,107,53,0.1)' }}
+              className="border-l-[3px] border-[#22c55e] bg-[#12121a] px-5 py-6"
+              style={{ borderTop: '1px solid rgba(34,197,94,0.1)', borderRight: '1px solid rgba(34,197,94,0.1)', borderBottom: '1px solid rgba(34,197,94,0.1)' }}
             >
-              <p className="mb-1 text-[0.65rem] tracking-[0.15em] text-[#ff6b35]">ENGINE 01</p>
+              <p className="mb-1 text-[0.65rem] tracking-[0.15em] text-[#22c55e]">ENGINE 01</p>
               <h3 className="mb-2 text-xl font-bold text-white">Hydrogen as a Service</h3>
               <p className="mb-3 text-sm text-white/50">Own &amp; operate electrolyzers near industrial end users. Long-term offtake agreements. Recurring, high-margin revenue.</p>
-              <p className="text-3xl font-bold text-[#ff6b35]" style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)' }}>82%</p>
-              <p className="text-[0.6rem] text-white/30">OF FY7 REVENUE</p>
+              <p className="text-3xl font-bold text-[#22c55e]" style={{ textShadow: '0 0 10px rgba(34,197,94,0.5)' }}>82%</p>
+              <p className="text-[0.6rem] text-white/45">OF FY7 REVENUE</p>
             </motion.div>
 
             <motion.div
@@ -180,21 +179,21 @@ export default function BusinessModelPage() {
               <h3 className="mb-2 text-xl font-bold text-white">Equipment Sales</h3>
               <p className="mb-3 text-sm text-white/50">Direct sale of T-25 and T-125 systems for industry-defining projects — making steel, ammonia, and refining more renewable.</p>
               <p className="text-3xl font-bold text-[#ff6b35]" style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)' }}>16%</p>
-              <p className="text-[0.6rem] text-white/30">OF FY7 REVENUE</p>
+              <p className="text-[0.6rem] text-white/45">OF FY7 REVENUE</p>
             </motion.div>
 
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.5 }}
-              className="border-l-[3px] border-[#ff6b35] bg-[#12121a] px-5 py-6"
-              style={{ borderTop: '1px solid rgba(255,107,53,0.08)', borderRight: '1px solid rgba(255,107,53,0.08)', borderBottom: '1px solid rgba(255,107,53,0.08)' }}
+              className="border-l-[3px] border-[#3b82f6] bg-[#12121a] px-5 py-6"
+              style={{ borderTop: '1px solid rgba(59,130,246,0.08)', borderRight: '1px solid rgba(59,130,246,0.08)', borderBottom: '1px solid rgba(59,130,246,0.08)' }}
             >
-              <p className="mb-1 text-[0.65rem] tracking-[0.15em] text-[#ff6b35]">ENGINE 03</p>
+              <p className="mb-1 text-[0.65rem] tracking-[0.15em] text-[#3b82f6]">ENGINE 03</p>
               <h3 className="mb-2 text-xl font-bold text-white">AI Services &amp; Maintenance</h3>
               <p className="mb-3 text-sm text-white/50">Predictive maintenance AI — valve chatter, sensor drift, efficiency optimization. Plus service contracts. Stacked on every deployment.</p>
-              <p className="text-3xl font-bold text-[#ff6b35]" style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)' }}>2%</p>
-              <p className="text-[0.6rem] text-white/30">OF FY7 REVENUE (GROWING)</p>
+              <p className="text-3xl font-bold text-[#3b82f6]" style={{ textShadow: '0 0 10px rgba(59,130,246,0.5)' }}>2%</p>
+              <p className="text-[0.6rem] text-white/45">OF FY7 REVENUE (GROWING)</p>
             </motion.div>
           </div>
         </div>
@@ -265,7 +264,7 @@ export default function BusinessModelPage() {
               <p className="text-sm font-semibold text-[#ff6b35]">
                 ▸ DELIVERED H&#x2082; MARKET REALITY
               </p>
-              <span className="text-[0.65rem] text-white/30">// NOT ONLINE FANTASY</span>
+              <span className="text-[0.65rem] text-white/45">// NOT ONLINE FANTASY</span>
             </div>
             <p className="mb-4 text-sm text-white/50">
               Online says $10-15/kg. The reality for delivered hydrogen is $20-50+. These are real quotes.
@@ -551,8 +550,8 @@ export default function BusinessModelPage() {
                           className="w-1/2 rounded-t"
                           style={{
                             height: `${ebitdaHeight}px`,
-                            backgroundColor: '#ff6b35',
-                            boxShadow: '0 0 8px rgba(255,107,53,0.4)',
+                            backgroundColor: '#22c55e',
+                            boxShadow: '0 0 8px rgba(34,197,94,0.4)',
                           }}
                         />
                       )}
@@ -564,7 +563,7 @@ export default function BusinessModelPage() {
             </div>
             <div className="mt-4 flex gap-6 text-[0.65rem] text-white/40">
               <span><span className="mr-1 inline-block h-2 w-2 rounded" style={{ backgroundColor: '#ff6b35' }} /> Revenue</span>
-              <span><span className="mr-1 inline-block h-2 w-2 rounded" style={{ backgroundColor: '#ff6b35' }} /> EBITDA</span>
+              <span><span className="mr-1 inline-block h-2 w-2 rounded" style={{ backgroundColor: '#22c55e' }} /> EBITDA</span>
             </div>
           </motion.div>
 
@@ -589,11 +588,11 @@ export default function BusinessModelPage() {
               className="grid grid-cols-2 gap-4 border border-t-0 border-white/10 bg-white/[0.02] px-6 py-4 first:border-t first:rounded-t md:first:rounded-t-none md:grid-cols-5"
             >
               <div>
-                <span className="text-xs text-white/30 md:hidden">YEAR </span>
+                <span className="text-xs text-white/45 md:hidden">YEAR </span>
                 <span className="font-bold text-white/80">{f.year}</span>
               </div>
               <div>
-                <span className="text-xs text-white/30 md:hidden">REV </span>
+                <span className="text-xs text-white/45 md:hidden">REV </span>
                 <span
                   className="font-bold text-[#ff6b35]"
                   style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)' }}
@@ -602,7 +601,7 @@ export default function BusinessModelPage() {
                 </span>
               </div>
               <div>
-                <span className="text-xs text-white/30 md:hidden">EBITDA </span>
+                <span className="text-xs text-white/45 md:hidden">EBITDA </span>
                 <span
                   className="text-[#ff6b35]"
                   style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)' }}
@@ -611,7 +610,7 @@ export default function BusinessModelPage() {
                 </span>
               </div>
               <div>
-                <span className="text-xs text-white/30 md:hidden">MARGIN </span>
+                <span className="text-xs text-white/45 md:hidden">MARGIN </span>
                 <span className="text-white/70">{f.margin}</span>
               </div>
               <div className="col-span-2 md:col-span-1">
@@ -723,7 +722,7 @@ export default function BusinessModelPage() {
                 phase: 'Phase 1: Oklahoma Anchor',
                 timeline: 'FY1\u2013FY2',
                 facilities: '1\u20132 facilities',
-                color: '#ff6b35',
+                color: '#22c55e',
                 items: [
                   'First commercial deployment — prove unit economics with anchor HaaS customer',
                   'University research contract (CAMPUS) \u2014 academic validation',
@@ -735,7 +734,7 @@ export default function BusinessModelPage() {
                 phase: 'Phase 2: Regional Scale',
                 timeline: 'FY2\u2013FY4',
                 facilities: '4 facilities across Central US',
-                color: '#ff6b35',
+                color: '#3b82f6',
                 items: [
                   'Target industrial corridors with cheap electricity + wind PPAs',
                   'Expand to Texas (HORIZON), California (PHOENIX), Oregon (TRANSIT)',
@@ -795,8 +794,8 @@ export default function BusinessModelPage() {
             <p className="mb-4 text-sm font-semibold text-[#ff6b35]">▸ CUSTOMER ACQUISITION</p>
             <div className="space-y-4">
               {[
-                { label: 'Inbound (Fortune 500 + major industrials via website, conferences, RFPs)', pct: 40, color: '#ff6b35' },
-                { label: 'Referral (partner network, customer-to-customer)', pct: 35, color: '#ff6b35' },
+                { label: 'Inbound (Fortune 500 + major industrials via website, conferences, RFPs)', pct: 40, color: '#22c55e' },
+                { label: 'Referral (partner network, customer-to-customer)', pct: 35, color: '#3b82f6' },
                 { label: 'Direct Outbound (BD team)', pct: 25, color: '#ff6b35' },
               ].map((ch) => (
                 <div key={ch.label}>
@@ -1003,7 +1002,7 @@ export default function BusinessModelPage() {
             </table>
           </motion.div>
 
-          <p className="mt-2 text-right text-[0.6rem] text-white/30">Data as of Q1 2026</p>
+          <p className="mt-2 text-right text-[0.6rem] text-white/45">Data as of Q1 2026</p>
 
           {/* Membrane callout */}
           <motion.div

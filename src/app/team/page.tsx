@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -10,6 +11,90 @@ const fadeUp = {
     transition: { delay: i * 0.08, duration: 0.5, ease: 'easeOut' as const },
   }),
 };
+
+// ─── Avatar system ───
+const AVATAR_PALETTE = [
+  '#ff6b35', // orange
+  '#3b82f6', // blue
+  '#22c55e', // green
+  '#eab308', // gold
+  '#a855f7', // purple
+  '#ef4444', // red
+  '#06b6d4', // cyan
+  '#ec4899', // pink
+];
+
+function hashName(name: string): number {
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    hash = name.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  return Math.abs(hash);
+}
+
+function getInitials(name: string): string {
+  const parts = name.replace(/^Dr\.\s*/i, '').trim().split(/\s+/);
+  if (parts.length === 1) return parts[0][0].toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
+
+function Avatar({
+  name,
+  image,
+  size = 80,
+  isAI = false,
+}: {
+  name: string;
+  image?: string;
+  size?: number;
+  isAI?: boolean;
+}) {
+  const color = AVATAR_PALETTE[hashName(name) % AVATAR_PALETTE.length];
+  const initials = isAI ? 'AI' : getInitials(name);
+  const fontSize = size >= 96 ? 'text-2xl' : size >= 80 ? 'text-lg' : 'text-base';
+
+  if (image) {
+    return (
+      <div
+        className="relative shrink-0 overflow-hidden rounded-full"
+        style={{
+          width: size,
+          height: size,
+          border: '2px solid rgba(255,255,255,0.1)',
+        }}
+      >
+        <Image
+          src={image}
+          alt={name}
+          width={size}
+          height={size}
+          className="h-full w-full object-cover"
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className={`flex shrink-0 items-center justify-center rounded-full font-bold text-white ${fontSize}`}
+      style={{
+        width: size,
+        height: size,
+        backgroundColor: isAI ? 'rgba(255,255,255,0.05)' : color,
+        border: isAI
+          ? '2px solid rgba(0,212,255,0.4)'
+          : '2px solid rgba(255,255,255,0.1)',
+        boxShadow: isAI
+          ? '0 0 12px rgba(0,212,255,0.15), inset 0 0 12px rgba(0,212,255,0.05)'
+          : `0 0 12px ${color}30`,
+        color: isAI ? '#00d4ff' : '#ffffff',
+        textShadow: isAI ? '0 0 8px rgba(0,212,255,0.5)' : undefined,
+      }}
+    >
+      {initials}
+    </div>
+  );
+}
 
 const colbyStats = [
   { label: 'INFRASTRUCTURE', value: '$75M+', color: '#ff6b35' },
@@ -34,13 +119,22 @@ const calebFocus = [
   'Scientific Communication',
 ];
 
-const teamMembers = [
+// Team member data — add `image` path when headshots are available
+// e.g. image: '/images/team/slade.jpg'
+const teamMembers: {
+  name: string;
+  title: string;
+  line: string;
+  placeholder: boolean;
+  image?: string;
+  isAI?: boolean;
+}[] = [
   { name: 'Slade', title: 'Principal Engineer', line: '15 years of electrolysis R&D and the architect of Tobe\u2019s modular dry cell. Designs custom AI programs for automated BOM scoping, electrical schematics, and PCB layout. Previously an automation expert programming industrial robots to automate every step of the manufacturing process. An open-ended problem solver who bridges electrochemistry, software, and hardware — and can honestly do anything you put in front of him.', placeholder: false },
   { name: 'Paden', title: 'Mechanical Fabrication Lead', line: 'Mechanical engineering background and a builder his entire life. Has built and deployed energy systems, motors, and field equipment in both Alaska and Antarctica. Responsible for all mechanical fabrication, custom control cabinet integration, and in-house computer builds. The mastermind behind NODE-01 — from concept through container buildout.', placeholder: false },
   { name: 'Austin', title: 'Power Electronics Engineer', line: 'Designs and deploys custom power converters end to end — 3D printing transformer bobbins, winding copper, vacuum insulation, documentation, testing, and parameter modeling. Fabricates PCBs on our in-house CNC and owns all power electronics testing and validation. Also a qualified ASME pressure vessel welder who previously made critical boiler tube repairs under the deck of large ships in hazardous environments.', placeholder: false },
   { name: 'Connor', title: 'Engineering Physicist', line: 'Previously at Zap Energy (nuclear fusion), where he served as the scientist responsible for testing experimental configurations and analyzing the data behind the future of nuclear energy. At Tobe, runs the testing and validation program — overseeing data analysis, defining future test metrics, and drawing on deep experience with high-voltage power systems to drive electrolyzer performance.', placeholder: false },
   { name: 'Trey', title: 'Controls & Integration Engineer', line: 'Mechatronics engineering degree. Previously worked on Patriot missile defense systems and ran complex controls infrastructure for USPS automated sorting facilities. Sits at the intersection of controls and mechanical — responsible for integrating every subsystem in the process and building the backend architecture that ties it all together.', placeholder: false },
-  { name: 'Ren', title: 'AI Operating Layer', line: 'The intelligence infrastructure behind Tobe Energy\u2019s operations. Manages investor CRM, competitive intelligence, grant tracking, document processing, overnight research, and real-time orchestration across the entire company. Built the data room you\u2019re reading, the financial model dashboard, and the AI assistant answering your questions. Processes thousands of data points daily across email, market signals, and engineering outputs. Never sleeps. Always on.', placeholder: false },
+  { name: 'Ren', title: 'AI Operating Layer', line: 'The intelligence infrastructure behind Tobe Energy\u2019s operations. Manages investor CRM, competitive intelligence, grant tracking, document processing, overnight research, and real-time orchestration across the entire company. Built the data room you\u2019re reading, the financial model dashboard, and the AI assistant answering your questions. Processes thousands of data points daily across email, market signals, and engineering outputs. Never sleeps. Always on.', placeholder: false, isAI: true },
   { name: 'Jane', title: 'Executive Assistant', line: 'The operational backbone of Tobe Energy. Manages executive scheduling, candidate pipelines, investor coordination, office logistics, and vendor relationships. Keeps the machine running so the engineers can build.', placeholder: false },
 ];
 
@@ -103,21 +197,26 @@ export default function TeamPage() {
 
             <div className="p-6 md:p-8">
               {/* Name & education */}
-              <h2
-                className="text-3xl font-bold md:text-4xl"
-                style={{ textShadow: '0 0 10px rgba(255,107,53,0.3)' }}
-              >
-                Colby DeWeese
-              </h2>
-              <p className="mt-2 text-sm text-[#ff6b35]" style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)' }}>
-                ▸ CEO & Co-Founder
-              </p>
-              <p className="mt-2 text-xs text-[#ff6b35]">
-                UTulsa B.S. ChemE (Minor: Mathematics) → OU M.L.S. Oil, Gas & Energy Law → Harvard Business School CORe
-              </p>
-              <p className="mt-1 text-xs text-white/40">
-                NSF Graduate Research Fellow (Honorable Mention) · FE Certificate Holder
-              </p>
+              <div className="flex items-start gap-5">
+                <Avatar name="Colby DeWeese" size={96} /* image="/images/team/colby.jpg" */ />
+                <div className="min-w-0 flex-1">
+                  <h2
+                    className="text-3xl font-bold md:text-4xl"
+                    style={{ textShadow: '0 0 10px rgba(255,107,53,0.3)' }}
+                  >
+                    Colby DeWeese
+                  </h2>
+                  <p className="mt-2 text-sm text-[#ff6b35]" style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)' }}>
+                    ▸ CEO & Co-Founder
+                  </p>
+                  <p className="mt-2 text-xs text-[#ff6b35]">
+                    UTulsa B.S. ChemE (Minor: Mathematics) → OU M.L.S. Oil, Gas & Energy Law → Harvard Business School CORe
+                  </p>
+                  <p className="mt-1 text-xs text-white/40">
+                    NSF Graduate Research Fellow (Honorable Mention) · FE Certificate Holder
+                  </p>
+                </div>
+              </div>
 
               {/* Bio narrative */}
               <div className="mt-6 space-y-4 text-sm leading-relaxed text-white/70">
@@ -236,8 +335,9 @@ export default function TeamPage() {
             </div>
 
             <div className="p-6 md:p-8">
-              <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-                <div className="flex-1">
+              <div className="flex items-start gap-5">
+                <Avatar name="Dr. Caleb Lareau" size={96} /* image="/images/team/caleb.jpg" */ />
+                <div className="min-w-0 flex-1">
                   <h2
                     className="text-2xl font-bold md:text-3xl"
                     style={{ textShadow: '0 0 10px rgba(255,107,53,0.3)' }}
@@ -307,14 +407,30 @@ export default function TeamPage() {
                 key={m.name}
                 custom={i}
                 variants={fadeUp}
-                className="rounded border border-white/10 bg-white/[0.02] p-5"
+                className={`rounded border p-5 ${
+                  m.isAI
+                    ? 'border-[#00d4ff]/20 bg-[#00d4ff]/[0.02]'
+                    : 'border-white/10 bg-white/[0.02]'
+                }`}
               >
-                <div className="flex items-start justify-between">
-                  <div>
-                    <h3 className="text-sm font-bold text-white/90">{m.name}</h3>
-                    <p className="mt-1 text-xs text-[#ff6b35]">{m.title}</p>
+                <div className="flex items-start gap-3">
+                  <Avatar
+                    name={m.name}
+                    image={m.image}
+                    size={48}
+                    isAI={m.isAI}
+                  />
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <h3 className="text-sm font-bold text-white/90">{m.name}</h3>
+                        <p className={`mt-1 text-xs ${m.isAI ? 'text-[#00d4ff]' : 'text-[#ff6b35]'}`}>{m.title}</p>
+                      </div>
+                      <span className={`text-[0.6rem] ${m.isAI ? 'text-[#00d4ff]' : 'text-[#ff6b35]'}`}>
+                        {m.isAI ? '◆ ONLINE' : '● ACTIVE'}
+                      </span>
+                    </div>
                   </div>
-                  <span className="text-[0.6rem] text-[#ff6b35]">● ACTIVE</span>
                 </div>
                 <p className="mt-3 text-xs leading-relaxed text-white/50">{m.line}</p>
                 {m.placeholder && (
@@ -355,7 +471,7 @@ export default function TeamPage() {
                 </div>
               </div>
               <div className="mt-4 border-t border-white/5 pt-3">
-                <p className="text-xs text-white/30">
+                <p className="text-xs text-white/45">
                   Every hire maps to unit throughput. The team scales with deployments — not ahead of revenue.
                 </p>
               </div>

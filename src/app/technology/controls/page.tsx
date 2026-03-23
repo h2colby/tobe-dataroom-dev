@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { TabNav } from '@/components/ui/TabNav';
 
 // ─── TYPES ──────────────────────────────────────────────────────
 type Tab = 'process' | 'power' | 'safety' | 'water' | 'environmental';
@@ -15,10 +16,66 @@ interface SensorReading {
   decimals?: number;
 }
 
+// ─── SEMANTIC COLOR RANGES ──────────────────────────────────────
+interface ColorRange {
+  safe: [number, number];
+  warning: [number, number];
+}
+
+function getStatusColor(value: number, ranges: ColorRange): string {
+  if (value >= ranges.safe[0] && value <= ranges.safe[1]) return '#22c55e';
+  if (value >= ranges.warning[0] && value <= ranges.warning[1]) return '#eab308';
+  return '#ef4444';
+}
+
+// Metric-specific range definitions
+const RANGES = {
+  // Process Control
+  pressure_kpa: { safe: [99, 106] as [number, number], warning: [95, 110] as [number, number] },
+  pressure_psi: { safe: [13.5, 15.5] as [number, number], warning: [12, 17] as [number, number] },
+  temperature_ambient: { safe: [15, 40] as [number, number], warning: [10, 60] as [number, number] },
+  noise_dba: { safe: [0, 65] as [number, number], warning: [0, 80] as [number, number] },
+  conductivity: { safe: [100, 350] as [number, number], warning: [50, 450] as [number, number] },
+  ph: { safe: [6.5, 8.5] as [number, number], warning: [5.5, 9.5] as [number, number] },
+  dissolved_oxygen_mgl: { safe: [6, 10] as [number, number], warning: [4, 12] as [number, number] },
+  dissolved_oxygen_pct: { safe: [80, 110] as [number, number], warning: [60, 120] as [number, number] },
+  ozone_ppm: { safe: [0, 0.05] as [number, number], warning: [0, 0.08] as [number, number] },
+  flow_lpm: { safe: [2, 9] as [number, number], warning: [1, 10] as [number, number] },
+  bus_errors: { safe: [0, 1] as [number, number], warning: [0, 3] as [number, number] },
+
+  // Power Electronics
+  frequency_hz: { safe: [15000, 18000] as [number, number], warning: [12000, 20000] as [number, number] },
+  duty_pct: { safe: [45, 75] as [number, number], warning: [30, 85] as [number, number] },
+  current_a: { safe: [1.0, 2.5] as [number, number], warning: [0.5, 3.5] as [number, number] },
+  voltage_mv: { safe: [2800, 3500] as [number, number], warning: [2500, 3800] as [number, number] },
+  temp_heatsink: { safe: [15, 45] as [number, number], warning: [10, 60] as [number, number] },
+  fan_pwm: { safe: [20, 70] as [number, number], warning: [10, 90] as [number, number] },
+
+  // Safety Systems
+  h2_ppm: { safe: [0, 25] as [number, number], warning: [0, 50] as [number, number] },
+  o2_pct: { safe: [19.5, 23.5] as [number, number], warning: [18.5, 24.5] as [number, number] },
+
+  // Water Quality
+  water_pressure_psi: { safe: [20, 60] as [number, number], warning: [10, 70] as [number, number] },
+  water_temp: { safe: [15, 30] as [number, number], warning: [10, 40] as [number, number] },
+  orp_mv: { safe: [200, 500] as [number, number], warning: [100, 550] as [number, number] },
+  tds_ppm: { safe: [0, 150] as [number, number], warning: [0, 250] as [number, number] },
+  salinity: { safe: [0, 0.2] as [number, number], warning: [0, 0.3] as [number, number] },
+  sg: { safe: [0.997, 1.003] as [number, number], warning: [0.995, 1.005] as [number, number] },
+
+  // Environmental
+  rh_pct: { safe: [20, 70] as [number, number], warning: [15, 80] as [number, number] },
+};
+
 // ─── ANIMATED VALUE HOOK ────────────────────────────────────────
-function useAnimatedValue(min: number, max: number, phase: number, speed = 0.0005) {
+function useAnimatedValue(min: number, max: number, phase: number, speed = 0.0005, reducedMotion = false) {
   const [value, setValue] = useState(min + (max - min) * 0.5);
   useEffect(() => {
+    // Reduced motion: hold at midpoint, no animation loop
+    if (reducedMotion) {
+      setValue(min + (max - min) * 0.5);
+      return;
+    }
     let raf: number;
     const animate = () => {
       const t = Date.now() * speed + phase;
@@ -31,7 +88,7 @@ function useAnimatedValue(min: number, max: number, phase: number, speed = 0.000
     };
     raf = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(raf);
-  }, [min, max, phase, speed]);
+  }, [min, max, phase, speed, reducedMotion]);
   return value;
 }
 
@@ -63,7 +120,7 @@ function TerminalReadout({ label, value, unit, color = '#ff6b35', decimals = 1 }
     <div className="flex items-baseline justify-between border-b border-white/5 py-2 font-mono text-sm">
       <span className="text-white/60 uppercase tracking-wider">{label}</span>
       <span className="flex items-baseline gap-1.5">
-        <span style={{ color, textShadow: `0 0 8px ${color}40` }} className="text-base font-bold tabular-nums">
+        <span style={{ color, textShadow: `0 0 8px ${color}40`, transition: 'color 0.5s ease' }} className="text-base font-bold tabular-nums">
           {value.toFixed(decimals)}
         </span>
         <span className="text-white/40">{unit}</span>
@@ -86,19 +143,20 @@ function TerminalBar({ label, value, max, unit, color = '#ff6b35' }: {
         <span className="uppercase tracking-wider">{label}</span>
         <span className="font-bold">{value.toFixed(1)} {unit}</span>
       </div>
-      <div style={{ color }} className="tracking-[2px]">{bar} <span className="text-white/40">{Math.round(pct)}%</span></div>
+      <div style={{ color, transition: 'color 0.5s ease' }} className="tracking-[2px]">{bar} <span className="text-white/40">{Math.round(pct)}%</span></div>
     </div>
   );
 }
 
 // ─── GAUGE COMPONENT ────────────────────────────────────────────
-function Gauge({ label, value, max, unit, safeMin, safeMax, color = '#ff6b35', size = 120 }: {
+function Gauge({ label, value, max, unit, safeMin, safeMax, color = '#ff6b35', size = 120, ranges }: {
   label: string; value: number; max: number; unit: string;
-  safeMin?: number; safeMax?: number; color?: string; size?: number;
+  safeMin?: number; safeMax?: number; color?: string; size?: number; ranges?: ColorRange;
 }) {
   const pct = Math.max(0, Math.min(1, value / max));
-  const isSafe = (safeMin === undefined || value >= safeMin) && (safeMax === undefined || value <= safeMax);
-  const gaugeColor = isSafe ? color : '#ff3333';
+  const gaugeColor = ranges
+    ? getStatusColor(value, ranges)
+    : ((safeMin === undefined || value >= safeMin) && (safeMax === undefined || value <= safeMax)) ? color : '#ff3333';
   const r = Math.round(size * 0.38);
   const cx = Math.round(size / 2);
   const cy = Math.round(size / 2 + 5);
@@ -146,8 +204,14 @@ function Gauge({ label, value, max, unit, safeMin, safeMax, color = '#ff6b35', s
 
 // ─── OSCILLOSCOPE ───────────────────────────────────────────────
 function Oscilloscope({ frequency }: { frequency: number; waveform: string }) {
+  const prefersReducedMotion = useReducedMotion();
   const [offset, setOffset] = useState(0);
   useEffect(() => {
+    // Reduced motion: show a static waveform
+    if (prefersReducedMotion) {
+      setOffset(0);
+      return;
+    }
     let raf: number;
     const animate = () => {
       setOffset(Date.now() * 0.003);
@@ -155,7 +219,7 @@ function Oscilloscope({ frequency }: { frequency: number; waveform: string }) {
     };
     raf = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(raf);
-  }, []);
+  }, [prefersReducedMotion]);
 
   const w = 400;
   const h = 100;
@@ -212,10 +276,11 @@ function Oscilloscope({ frequency }: { frequency: number; waveform: string }) {
 
 // ─── STATUS BADGE ───────────────────────────────────────────────
 function StatusBadge({ status, color }: { status: string; color: string }) {
+  const prefersReducedMotion = useReducedMotion();
   return (
     <motion.div
-      animate={{ opacity: [0.7, 1, 0.7] }}
-      transition={{ duration: 2, repeat: Infinity }}
+      animate={prefersReducedMotion ? { opacity: 1 } : { opacity: [0.7, 1, 0.7] }}
+      transition={prefersReducedMotion ? {} : { duration: 2, repeat: Infinity }}
       className="inline-flex items-center gap-2 rounded border px-3 py-1.5 font-mono text-sm"
       style={{ borderColor: `${color}40`, backgroundColor: `${color}10`, color }}
     >
@@ -239,11 +304,12 @@ function SectionFrame({ title, children }: { title: string; children: React.Reac
 
 // ─── SPINNING FAN ───────────────────────────────────────────────
 function SpinningFan({ pwm }: { pwm: number }) {
+  const prefersReducedMotion = useReducedMotion();
   const speed = Math.max(0.2, 2 - (pwm / 100) * 1.8);
   return (
     <motion.span
-      animate={{ rotate: 360 }}
-      transition={{ duration: speed, repeat: Infinity, ease: 'linear' }}
+      animate={prefersReducedMotion ? {} : { rotate: 360 }}
+      transition={prefersReducedMotion ? {} : { duration: speed, repeat: Infinity, ease: 'linear' }}
       className="inline-block text-lg"
       style={{ color: '#ff6b35' }}
     >
@@ -311,25 +377,28 @@ const TABS: { key: Tab; label: string; shortLabel: string }[] = [
   { key: 'environmental', label: 'ENVIRONMENTAL', shortLabel: 'ENVIRO' },
 ];
 
+const TABS_NAV = TABS.map((t) => ({ id: t.key, label: t.label }));
+
 // ═══════════════════════════════════════════════════════════════
 // SCREEN 1: PROCESS CONTROL
 // ═══════════════════════════════════════════════════════════════
 function ProcessControl() {
-  const p_kpa = useAnimatedValue(101, 104, 0);
-  const p_psi = useAnimatedValue(14.6, 15.1, 0.5);
-  const t2_c = useAnimatedValue(26, 29, 1.2);
-  const noise = useAnimatedValue(48, 54, 2.1);
-  const ec = useAnimatedValue(220, 260, 3.3);
-  const ph = useAnimatedValue(7.0, 7.2, 4.0);
-  const phTemp = useAnimatedValue(26.5, 27.5, 4.5);
-  const doMgl = useAnimatedValue(7.5, 8.2, 5.1);
-  const doPct = useAnimatedValue(88, 95, 5.5);
-  const doTemp = useAnimatedValue(26.8, 27.4, 5.8);
-  const o3 = useAnimatedValue(0.02, 0.04, 6.2);
-  const flow = useAnimatedValue(2.8, 3.4, 7.0);
-  const flowTemp = useAnimatedValue(26.5, 27.5, 7.3);
-  const total = useAnimatedValue(1280, 1310, 7.8, 0.0001);
-  const errTotal = useAnimatedValue(0, 3, 8.5, 0.0002);
+  const rm = !!useReducedMotion();
+  const p_kpa = useAnimatedValue(101, 104, 0, 0.0005, rm);
+  const p_psi = useAnimatedValue(14.6, 15.1, 0.5, 0.0005, rm);
+  const t2_c = useAnimatedValue(26, 29, 1.2, 0.0005, rm);
+  const noise = useAnimatedValue(48, 54, 2.1, 0.0005, rm);
+  const ec = useAnimatedValue(220, 260, 3.3, 0.0005, rm);
+  const ph = useAnimatedValue(7.0, 7.2, 4.0, 0.0005, rm);
+  const phTemp = useAnimatedValue(26.5, 27.5, 4.5, 0.0005, rm);
+  const doMgl = useAnimatedValue(7.5, 8.2, 5.1, 0.0005, rm);
+  const doPct = useAnimatedValue(88, 95, 5.5, 0.0005, rm);
+  const doTemp = useAnimatedValue(26.8, 27.4, 5.8, 0.0005, rm);
+  const o3 = useAnimatedValue(0.02, 0.04, 6.2, 0.0005, rm);
+  const flow = useAnimatedValue(2.8, 3.4, 7.0, 0.0005, rm);
+  const flowTemp = useAnimatedValue(26.5, 27.5, 7.3, 0.0005, rm);
+  const total = useAnimatedValue(1280, 1310, 7.8, 0.0001, rm);
+  const errTotal = useAnimatedValue(0, 3, 8.5, 0.0002, rm);
 
   return (
     <div className="space-y-4">
@@ -342,53 +411,53 @@ function ProcessControl() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <SectionFrame title="PRESSURE">
-          <TerminalReadout label="p_kpa" value={p_kpa} unit="kPa" color="#ff6b35" />
-          <TerminalReadout label="p_psi" value={p_psi} unit="PSI" color="#ff6b35" />
+          <TerminalReadout label="p_kpa" value={p_kpa} unit="kPa" color={getStatusColor(p_kpa, RANGES.pressure_kpa)} />
+          <TerminalReadout label="p_psi" value={p_psi} unit="PSI" color={getStatusColor(p_psi, RANGES.pressure_psi)} />
           <div className="mt-2 font-mono text-xs text-white/40 flex items-center gap-2">
             <span className="text-[#ff6b35]">◆</span> TARE: ZEROED
           </div>
         </SectionFrame>
 
         <SectionFrame title="TEMPERATURE">
-          <TerminalReadout label="t2_c" value={t2_c} unit="°C" color="#ff6b35" />
-          <TerminalBar label="THERMAL" value={t2_c} max={60} unit="°C" color="#ff6b35" />
+          <TerminalReadout label="t2_c" value={t2_c} unit="°C" color={getStatusColor(t2_c, RANGES.temperature_ambient)} />
+          <TerminalBar label="THERMAL" value={t2_c} max={60} unit="°C" color={getStatusColor(t2_c, RANGES.temperature_ambient)} />
         </SectionFrame>
 
         <SectionFrame title="NOISE LEVEL">
-          <TerminalReadout label="noise_dba" value={noise} unit="dBA" color="#ff6b35" />
-          <TerminalBar label="AMBIENT" value={noise} max={100} unit="dBA" />
+          <TerminalReadout label="noise_dba" value={noise} unit="dBA" color={getStatusColor(noise, RANGES.noise_dba)} />
+          <TerminalBar label="AMBIENT" value={noise} max={100} unit="dBA" color={getStatusColor(noise, RANGES.noise_dba)} />
         </SectionFrame>
 
         <SectionFrame title="CONDUCTIVITY">
-          <TerminalReadout label="ec_uScm" value={ec} unit="µS/cm" color="#ff6b35" decimals={0} />
-          <TerminalBar label="EC" value={ec} max={500} unit="µS/cm" />
+          <TerminalReadout label="ec_uScm" value={ec} unit="µS/cm" color={getStatusColor(ec, RANGES.conductivity)} decimals={0} />
+          <TerminalBar label="EC" value={ec} max={500} unit="µS/cm" color={getStatusColor(ec, RANGES.conductivity)} />
         </SectionFrame>
 
         <SectionFrame title="pH">
-          <TerminalReadout label="ph" value={ph} unit="pH" color="#ff6b35" decimals={2} />
-          <TerminalReadout label="ph_tempC" value={phTemp} unit="°C" color="#ff6b35" />
+          <TerminalReadout label="ph" value={ph} unit="pH" color={getStatusColor(ph, RANGES.ph)} decimals={2} />
+          <TerminalReadout label="ph_tempC" value={phTemp} unit="°C" color={getStatusColor(phTemp, RANGES.temperature_ambient)} />
         </SectionFrame>
 
         <SectionFrame title="DISSOLVED OXYGEN">
-          <TerminalReadout label="do_mgl" value={doMgl} unit="mg/L" color="#ff6b35" />
-          <TerminalReadout label="do_pct" value={doPct} unit="%" color="#ff6b35" />
-          <TerminalReadout label="do_tempC" value={doTemp} unit="°C" color="#ff6b35" />
+          <TerminalReadout label="do_mgl" value={doMgl} unit="mg/L" color={getStatusColor(doMgl, RANGES.dissolved_oxygen_mgl)} />
+          <TerminalReadout label="do_pct" value={doPct} unit="%" color={getStatusColor(doPct, RANGES.dissolved_oxygen_pct)} />
+          <TerminalReadout label="do_tempC" value={doTemp} unit="°C" color={getStatusColor(doTemp, RANGES.temperature_ambient)} />
         </SectionFrame>
 
         <SectionFrame title="OZONE">
-          <TerminalReadout label="o3_ppm" value={o3} unit="ppm" color="#ff6b35" decimals={3} />
-          <TerminalBar label="O3 LEVEL" value={o3} max={0.1} unit="ppm" color="#ff6b35" />
+          <TerminalReadout label="o3_ppm" value={o3} unit="ppm" color={getStatusColor(o3, RANGES.ozone_ppm)} decimals={3} />
+          <TerminalBar label="O3 LEVEL" value={o3} max={0.1} unit="ppm" color={getStatusColor(o3, RANGES.ozone_ppm)} />
         </SectionFrame>
 
         <SectionFrame title="MASS FLOW">
-          <TerminalReadout label="flow" value={flow} unit="L/min" color="#ff6b35" decimals={2} />
-          <TerminalReadout label="flow_tempC" value={flowTemp} unit="°C" color="#ff6b35" />
+          <TerminalReadout label="flow" value={flow} unit="L/min" color={getStatusColor(flow, RANGES.flow_lpm)} decimals={2} />
+          <TerminalReadout label="flow_tempC" value={flowTemp} unit="°C" color={getStatusColor(flowTemp, RANGES.temperature_ambient)} />
           <TerminalReadout label="total" value={total} unit="L" color="#ff6b35" decimals={0} />
           <div className="mt-1 font-mono text-xs text-white/40">↑ CUMULATIVE TOTALIZER</div>
         </SectionFrame>
 
         <SectionFrame title="BUS HEALTH">
-          <TerminalReadout label="err_total" value={Math.round(errTotal)} unit="errs" color={errTotal > 2 ? '#ff3333' : '#ff6b35'} decimals={0} />
+          <TerminalReadout label="err_total" value={Math.round(errTotal)} unit="errs" color={getStatusColor(errTotal, RANGES.bus_errors)} decimals={0} />
           <div className="mt-2 font-mono text-xs text-[#00ff88]">
             STATUS: ALL_SENSORS_OK <Cursor />
           </div>
@@ -402,21 +471,22 @@ function ProcessControl() {
 // SCREEN 2: POWER ELECTRONICS
 // ═══════════════════════════════════════════════════════════════
 function PowerElectronics() {
-  const freq = useAnimatedValue(16000, 16800, 0, 0.0003);
-  const onCount = useAnimatedValue(280, 320, 1.0);
-  const offCount = useAnimatedValue(180, 210, 1.5);
-  const dutyPct = useAnimatedValue(58, 62, 2.0);
-  const actualDuty = useAnimatedValue(58, 62, 2.3);
-  const thresholdV = useAnimatedValue(3.1, 3.3, 2.8);
-  const rampStart = useAnimatedValue(100, 500, 3.0, 0.0001);
-  const rampStop = useAnimatedValue(50000, 200000, 3.3, 0.0001);
-  const rampDuration = useAnimatedValue(5, 30, 3.6, 0.0002);
-  const curr0A = useAnimatedValue(1.8, 2.2, 4.0);
-  const curr0V = useAnimatedValue(3100, 3300, 4.3);
-  const curr1A = useAnimatedValue(1.6, 2.0, 4.6);
-  const curr1V = useAnimatedValue(3050, 3250, 4.9);
-  const tempC = useAnimatedValue(27, 29, 5.2);
-  const fanPwm = useAnimatedValue(30, 85, 5.5);
+  const rm = !!useReducedMotion();
+  const freq = useAnimatedValue(16000, 16800, 0, 0.0003, rm);
+  const onCount = useAnimatedValue(280, 320, 1.0, 0.0005, rm);
+  const offCount = useAnimatedValue(180, 210, 1.5, 0.0005, rm);
+  const dutyPct = useAnimatedValue(58, 62, 2.0, 0.0005, rm);
+  const actualDuty = useAnimatedValue(58, 62, 2.3, 0.0005, rm);
+  const thresholdV = useAnimatedValue(3.1, 3.3, 2.8, 0.0005, rm);
+  const rampStart = useAnimatedValue(100, 500, 3.0, 0.0001, rm);
+  const rampStop = useAnimatedValue(50000, 200000, 3.3, 0.0001, rm);
+  const rampDuration = useAnimatedValue(5, 30, 3.6, 0.0002, rm);
+  const curr0A = useAnimatedValue(1.8, 2.2, 4.0, 0.0005, rm);
+  const curr0V = useAnimatedValue(3100, 3300, 4.3, 0.0005, rm);
+  const curr1A = useAnimatedValue(1.6, 2.0, 4.6, 0.0005, rm);
+  const curr1V = useAnimatedValue(3050, 3250, 4.9, 0.0005, rm);
+  const tempC = useAnimatedValue(27, 29, 5.2, 0.0005, rm);
+  const fanPwm = useAnimatedValue(30, 85, 5.5, 0.0005, rm);
 
   const [waveform] = useState<'triangle'>('triangle');
   useEffect(() => {
@@ -435,7 +505,7 @@ function PowerElectronics() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <SectionFrame title="DDS FREQUENCY SYNTHESIZER">
-          <TerminalReadout label="currentFrequencyHz" value={freq} unit="Hz" color="#ff6b35" decimals={1} />
+          <TerminalReadout label="currentFrequencyHz" value={freq} unit="Hz" color={getStatusColor(freq, RANGES.frequency_hz)} decimals={1} />
           <div className="mt-2 font-mono text-xs text-white/50">
             RANGE: 0.1 Hz → 1 MHz
           </div>
@@ -453,10 +523,10 @@ function PowerElectronics() {
         </SectionFrame>
 
         <SectionFrame title="DUTY CYCLE">
-          <TerminalReadout label="dutyPct" value={dutyPct} unit="%" color="#ff6b35" />
-          <TerminalReadout label="actualDutyPct" value={actualDuty} unit="%" color="#ff6b35" />
+          <TerminalReadout label="dutyPct" value={dutyPct} unit="%" color={getStatusColor(dutyPct, RANGES.duty_pct)} />
+          <TerminalReadout label="actualDutyPct" value={actualDuty} unit="%" color={getStatusColor(actualDuty, RANGES.duty_pct)} />
           <TerminalReadout label="thresholdV" value={thresholdV} unit="V" color="#ff6b35" />
-          <TerminalBar label="DUTY" value={dutyPct} max={100} unit="%" color="#ff6b35" />
+          <TerminalBar label="DUTY" value={dutyPct} max={100} unit="%" color={getStatusColor(dutyPct, RANGES.duty_pct)} />
         </SectionFrame>
 
         <SectionFrame title="FREQUENCY SWEEP">
@@ -468,37 +538,37 @@ function PowerElectronics() {
           </div>
           <motion.div
             className="mt-1 h-1 rounded-full bg-[#ff6b35]"
-            animate={{ width: ['0%', '100%'] }}
-            transition={{ duration: rampDuration, repeat: Infinity, ease: 'linear' }}
+            animate={rm ? { width: '50%' } : { width: ['0%', '100%'] }}
+            transition={rm ? {} : { duration: rampDuration, repeat: Infinity, ease: 'linear' }}
             style={{ filter: 'drop-shadow(0 0 4px #ff6b35)' }}
           />
         </SectionFrame>
 
         <SectionFrame title="CURRENT SENSING">
           <div className="font-mono text-xs text-white/45 mb-1">── CHANNEL 0 ──</div>
-          <TerminalReadout label="curr0_A" value={curr0A} unit="A" color="#ff6b35" decimals={2} />
-          <TerminalReadout label="curr0_V" value={curr0V} unit="V" color="#ff6b35" />
+          <TerminalReadout label="curr0_A" value={curr0A} unit="A" color={getStatusColor(curr0A, RANGES.current_a)} decimals={2} />
+          <TerminalReadout label="curr0_V" value={curr0V} unit="V" color={getStatusColor(curr0V, RANGES.voltage_mv)} />
           <div className="font-mono text-xs text-white/45 mt-2 mb-1">── CHANNEL 1 ──</div>
-          <TerminalReadout label="curr1_A" value={curr1A} unit="A" color="#ff6b35" decimals={2} />
-          <TerminalReadout label="curr1_V" value={curr1V} unit="V" color="#ff6b35" />
+          <TerminalReadout label="curr1_A" value={curr1A} unit="A" color={getStatusColor(curr1A, RANGES.current_a)} decimals={2} />
+          <TerminalReadout label="curr1_V" value={curr1V} unit="V" color={getStatusColor(curr1V, RANGES.voltage_mv)} />
           <div className="mt-2 font-mono text-xs text-white/40">
             P_total: <span className="text-[#ff6b35]">{(curr0A * curr0V + curr1A * curr1V).toFixed(1)} W</span>
           </div>
         </SectionFrame>
 
         <SectionFrame title="THERMAL MANAGEMENT">
-          <TerminalReadout label="temp_C" value={tempC} unit="°C" color={tempC > 55 ? '#ff3333' : '#ff6b35'} />
-          <TerminalBar label="HEATSINK" value={tempC} max={85} unit="°C" color={tempC > 55 ? '#ff3333' : '#ff6b35'} />
+          <TerminalReadout label="temp_C" value={tempC} unit="°C" color={getStatusColor(tempC, RANGES.temp_heatsink)} />
+          <TerminalBar label="HEATSINK" value={tempC} max={85} unit="°C" color={getStatusColor(tempC, RANGES.temp_heatsink)} />
           <div className="mt-2 flex items-center gap-2 font-mono text-xs">
             <span className="text-white/50">OVERTEMP LATCH:</span>
             <span className="text-[#ff6b35]">CLEAR</span>
           </div>
           <div className="mt-2 flex items-center gap-2 font-mono text-xs">
             <span className="text-white/50">fan_pwm_pct:</span>
-            <span className="text-[#ff6b35]">{fanPwm.toFixed(0)}%</span>
+            <span style={{ color: getStatusColor(fanPwm, RANGES.fan_pwm), transition: 'color 0.5s ease' }}>{fanPwm.toFixed(0)}%</span>
             <SpinningFan pwm={fanPwm} />
           </div>
-          <TerminalBar label="FAN" value={fanPwm} max={100} unit="%" color="#ff6b35" />
+          <TerminalBar label="FAN" value={fanPwm} max={100} unit="%" color={getStatusColor(fanPwm, RANGES.fan_pwm)} />
         </SectionFrame>
       </div>
 
@@ -512,23 +582,24 @@ function PowerElectronics() {
 // SCREEN 3: SAFETY SYSTEMS
 // ═══════════════════════════════════════════════════════════════
 function SafetySystems() {
-  const h2a = useAnimatedValue(0, 15, 0, 0.0003);
-  const h2b = useAnimatedValue(0, 12, 0.5, 0.0003);
-  const o2 = useAnimatedValue(20.5, 21.2, 1.0, 0.0004);
-  const errsH2a = useAnimatedValue(0, 2, 2.0, 0.0001);
-  const errsO2 = useAnimatedValue(0, 1, 2.5, 0.0001);
-  const errsH2b = useAnimatedValue(0, 2, 3.0, 0.0001);
-  const fcH2a = useAnimatedValue(3, 4, 3.5, 0.0001);
-  const fcO2 = useAnimatedValue(3, 4, 4.0, 0.0001);
-  const fcH2b = useAnimatedValue(3, 4, 4.5, 0.0001);
+  const rm = !!useReducedMotion();
+  const h2a = useAnimatedValue(0, 15, 0, 0.0003, rm);
+  const h2b = useAnimatedValue(0, 12, 0.5, 0.0003, rm);
+  const o2 = useAnimatedValue(20.5, 21.2, 1.0, 0.0004, rm);
+  const errsH2a = useAnimatedValue(0, 2, 2.0, 0.0001, rm);
+  const errsO2 = useAnimatedValue(0, 1, 2.5, 0.0001, rm);
+  const errsH2b = useAnimatedValue(0, 2, 3.0, 0.0001, rm);
+  const fcH2a = useAnimatedValue(3, 4, 3.5, 0.0001, rm);
+  const fcO2 = useAnimatedValue(3, 4, 4.0, 0.0001, rm);
+  const fcH2b = useAnimatedValue(3, 4, 4.5, 0.0001, rm);
 
   return (
     <div className="space-y-4">
       {/* BIG STATUS INDICATOR */}
       <div className="flex flex-col items-center gap-3 py-6 rounded border border-[#ff6b35]/20 bg-[#ff6b35]/5">
         <motion.div
-          animate={{ opacity: [0.6, 1, 0.6], scale: [0.98, 1.02, 0.98] }}
-          transition={{ duration: 2, repeat: Infinity }}
+          animate={rm ? { opacity: 1, scale: 1 } : { opacity: [0.6, 1, 0.6], scale: [0.98, 1.02, 0.98] }}
+          transition={rm ? {} : { duration: 2, repeat: Infinity }}
           className="font-mono text-4xl font-bold text-[#ff6b35]"
           style={{ textShadow: '0 0 20px #ff6b3560, 0 0 40px #ff6b3530' }}
         >
@@ -544,9 +615,9 @@ function SafetySystems() {
         {/* H2 Sensor A */}
         <SectionFrame title="H2 SENSOR A (PRIMARY)">
           <div className="flex justify-center py-2">
-            <Gauge label="h2a_ppm" value={h2a} max={200} unit="ppm" safeMax={50} color="#ff6b35" size={140} />
+            <Gauge label="h2a_ppm" value={h2a} max={200} unit="ppm" safeMax={50} color="#ff6b35" size={140} ranges={RANGES.h2_ppm} />
           </div>
-          <TerminalReadout label="h2a_ppm" value={h2a} unit="ppm" color="#ff6b35" />
+          <TerminalReadout label="h2a_ppm" value={h2a} unit="ppm" color={getStatusColor(h2a, RANGES.h2_ppm)} />
           <div className="mt-2 font-mono text-xs text-white/40">
             errs_h2a: <span className="text-white/40">{Math.round(errsH2a)}</span>
           </div>
@@ -558,9 +629,9 @@ function SafetySystems() {
         {/* H2 Sensor B */}
         <SectionFrame title="H2 SENSOR B (REDUNDANT)">
           <div className="flex justify-center py-2">
-            <Gauge label="h2b_ppm" value={h2b} max={200} unit="ppm" safeMax={50} color="#ff6b35" size={140} />
+            <Gauge label="h2b_ppm" value={h2b} max={200} unit="ppm" safeMax={50} color="#ff6b35" size={140} ranges={RANGES.h2_ppm} />
           </div>
-          <TerminalReadout label="h2b_ppm" value={h2b} unit="ppm" color="#ff6b35" />
+          <TerminalReadout label="h2b_ppm" value={h2b} unit="ppm" color={getStatusColor(h2b, RANGES.h2_ppm)} />
           <div className="mt-2 font-mono text-xs text-white/40">
             errs_h2b: <span className="text-white/40">{Math.round(errsH2b)}</span>
           </div>
@@ -572,9 +643,9 @@ function SafetySystems() {
         {/* O2 */}
         <SectionFrame title="O2 MONITOR">
           <div className="flex justify-center py-2">
-            <Gauge label="o2_pct" value={o2} max={25} unit="%" safeMin={19.5} safeMax={23.5} color="#ff6b35" size={140} />
+            <Gauge label="o2_pct" value={o2} max={25} unit="%" safeMin={19.5} safeMax={23.5} color="#ff6b35" size={140} ranges={RANGES.o2_pct} />
           </div>
-          <TerminalReadout label="o2_pct" value={o2} unit="%" color="#ff6b35" decimals={1} />
+          <TerminalReadout label="o2_pct" value={o2} unit="%" color={getStatusColor(o2, RANGES.o2_pct)} decimals={1} />
           <div className="mt-2 font-mono text-xs text-white/40">
             errs_o2: <span className="text-white/40">{Math.round(errsO2)}</span>
           </div>
@@ -603,18 +674,19 @@ function SafetySystems() {
 // SCREEN 4: WATER QUALITY
 // ═══════════════════════════════════════════════════════════════
 function WaterQuality() {
-  const flowLpm = useAnimatedValue(2.0, 8.5, 0);
-  const totalLiters = useAnimatedValue(4500, 4650, 0.3, 0.0001);
-  const tcC = useAnimatedValue(18, 28, 1.0);
-  const pressurePsi = useAnimatedValue(25, 55, 1.5);
-  const pH = useAnimatedValue(6.9, 7.6, 2.0);
-  const orp = useAnimatedValue(200, 450, 2.5);
-  const doMgL = useAnimatedValue(6.0, 9.0, 3.0);
-  const doPct = useAnimatedValue(72, 105, 3.3);
-  const ec = useAnimatedValue(100, 400, 4.0);
-  const tds = useAnimatedValue(50, 200, 4.3);
-  const sal = useAnimatedValue(0.05, 0.25, 4.6);
-  const sg = useAnimatedValue(0.998, 1.002, 4.9, 0.0003);
+  const rm = !!useReducedMotion();
+  const flowLpm = useAnimatedValue(2.0, 8.5, 0, 0.0005, rm);
+  const totalLiters = useAnimatedValue(4500, 4650, 0.3, 0.0001, rm);
+  const tcC = useAnimatedValue(18, 28, 1.0, 0.0005, rm);
+  const pressurePsi = useAnimatedValue(25, 55, 1.5, 0.0005, rm);
+  const pH = useAnimatedValue(6.9, 7.6, 2.0, 0.0005, rm);
+  const orp = useAnimatedValue(200, 450, 2.5, 0.0005, rm);
+  const doMgL = useAnimatedValue(6.0, 9.0, 3.0, 0.0005, rm);
+  const doPct = useAnimatedValue(72, 105, 3.3, 0.0005, rm);
+  const ec = useAnimatedValue(100, 400, 4.0, 0.0005, rm);
+  const tds = useAnimatedValue(50, 200, 4.3, 0.0005, rm);
+  const sal = useAnimatedValue(0.05, 0.25, 4.6, 0.0005, rm);
+  const sg = useAnimatedValue(0.998, 1.002, 4.9, 0.0003, rm);
 
   return (
     <div className="space-y-4">
@@ -628,25 +700,25 @@ function WaterQuality() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <SectionFrame title="FLOW (HALL EFFECT)">
-          <TerminalReadout label="flowLpm" value={flowLpm} unit="L/min" color="#ff6b35" decimals={2} />
+          <TerminalReadout label="flowLpm" value={flowLpm} unit="L/min" color={getStatusColor(flowLpm, RANGES.flow_lpm)} decimals={2} />
           <TerminalReadout label="totalLiters" value={totalLiters} unit="L" color="#ff6b35" decimals={0} />
-          <TerminalBar label="FLOW RATE" value={flowLpm} max={10} unit="L/min" color="#ff6b35" />
+          <TerminalBar label="FLOW RATE" value={flowLpm} max={10} unit="L/min" color={getStatusColor(flowLpm, RANGES.flow_lpm)} />
           <div className="mt-1 font-mono text-xs text-white/40">
             EMA SMOOTHING: <span className="text-[#ff6b35]">α = 0.15</span>
           </div>
         </SectionFrame>
 
         <SectionFrame title="TEMPERATURE (PT100 RTD)">
-          <TerminalReadout label="tcC" value={tcC} unit="°C" color="#ff6b35" decimals={2} />
-          <TerminalBar label="TEMP" value={tcC} max={50} unit="°C" color="#ff6b35" />
+          <TerminalReadout label="tcC" value={tcC} unit="°C" color={getStatusColor(tcC, RANGES.water_temp)} decimals={2} />
+          <TerminalBar label="TEMP" value={tcC} max={50} unit="°C" color={getStatusColor(tcC, RANGES.water_temp)} />
           <div className="mt-1 font-mono text-xs text-white/40">
             VIA MAX31865 // 3-WIRE
           </div>
         </SectionFrame>
 
         <SectionFrame title="PRESSURE (4-20mA)">
-          <TerminalReadout label="pressurePsi" value={pressurePsi} unit="PSI" color="#ff6b35" />
-          <TerminalBar label="LINE PRESSURE" value={pressurePsi} max={80} unit="PSI" />
+          <TerminalReadout label="pressurePsi" value={pressurePsi} unit="PSI" color={getStatusColor(pressurePsi, RANGES.water_pressure_psi)} />
+          <TerminalBar label="LINE PRESSURE" value={pressurePsi} max={80} unit="PSI" color={getStatusColor(pressurePsi, RANGES.water_pressure_psi)} />
           <div className="mt-1 font-mono text-xs text-white/40">
             TRANSDUCER: 0-100 PSI
           </div>
@@ -654,26 +726,26 @@ function WaterQuality() {
 
         <SectionFrame title="pH (ATLAS EZO)">
           <div className="flex justify-center py-2">
-            <Gauge label="pH" value={pH} max={14} unit="pH" safeMin={6.5} safeMax={8.5} color="#ff6b35" />
+            <Gauge label="pH" value={pH} max={14} unit="pH" safeMin={6.5} safeMax={8.5} color="#ff6b35" ranges={RANGES.ph} />
           </div>
-          <TerminalReadout label="pH" value={pH} unit="pH" color="#ff6b35" decimals={2} />
+          <TerminalReadout label="pH" value={pH} unit="pH" color={getStatusColor(pH, RANGES.ph)} decimals={2} />
         </SectionFrame>
 
         <SectionFrame title="ORP (ATLAS EZO)">
-          <TerminalReadout label="orp_mV" value={orp} unit="mV" color="#ff6b35" decimals={0} />
-          <TerminalBar label="ORP" value={orp} max={600} unit="mV" color="#ff6b35" />
+          <TerminalReadout label="orp_mV" value={orp} unit="mV" color={getStatusColor(orp, RANGES.orp_mv)} decimals={0} />
+          <TerminalBar label="ORP" value={orp} max={600} unit="mV" color={getStatusColor(orp, RANGES.orp_mv)} />
         </SectionFrame>
 
         <SectionFrame title="DISSOLVED OXYGEN">
-          <TerminalReadout label="do_mgL" value={doMgL} unit="mg/L" color="#ff6b35" />
-          <TerminalReadout label="do_pct" value={doPct} unit="%" color="#ff6b35" />
+          <TerminalReadout label="do_mgL" value={doMgL} unit="mg/L" color={getStatusColor(doMgL, RANGES.dissolved_oxygen_mgl)} />
+          <TerminalReadout label="do_pct" value={doPct} unit="%" color={getStatusColor(doPct, RANGES.dissolved_oxygen_pct)} />
         </SectionFrame>
 
         <SectionFrame title="CONDUCTIVITY">
-          <TerminalReadout label="ec_uScm" value={ec} unit="µS/cm" color="#ff6b35" decimals={0} />
-          <TerminalReadout label="tds_ppm" value={tds} unit="ppm" color="#ff6b35" decimals={0} />
-          <TerminalReadout label="sal_psu" value={sal} unit="PSU" color="#ff6b35" decimals={3} />
-          <TerminalReadout label="sg" value={sg} unit="" color="#ff6b35" decimals={4} />
+          <TerminalReadout label="ec_uScm" value={ec} unit="µS/cm" color={getStatusColor(ec, RANGES.conductivity)} decimals={0} />
+          <TerminalReadout label="tds_ppm" value={tds} unit="ppm" color={getStatusColor(tds, RANGES.tds_ppm)} decimals={0} />
+          <TerminalReadout label="sal_psu" value={sal} unit="PSU" color={getStatusColor(sal, RANGES.salinity)} decimals={3} />
+          <TerminalReadout label="sg" value={sg} unit="" color={getStatusColor(sg, RANGES.sg)} decimals={4} />
         </SectionFrame>
       </div>
 
@@ -690,10 +762,11 @@ function WaterQuality() {
 // SCREEN 5: ENVIRONMENTAL
 // ═══════════════════════════════════════════════════════════════
 function Environmental() {
-  const o2 = useAnimatedValue(20.6, 21.1, 0, 0.0004);
-  const rh = useAnimatedValue(35, 65, 1.0);
-  const o2Sample = useAnimatedValue(1.8, 2.2, 2.0, 0.0002);
-  const rhSample = useAnimatedValue(0.9, 1.1, 2.5, 0.0002);
+  const rm = !!useReducedMotion();
+  const o2 = useAnimatedValue(20.6, 21.1, 0, 0.0004, rm);
+  const rh = useAnimatedValue(35, 65, 1.0, 0.0005, rm);
+  const o2Sample = useAnimatedValue(1.8, 2.2, 2.0, 0.0002, rm);
+  const rhSample = useAnimatedValue(0.9, 1.1, 2.5, 0.0002, rm);
 
   return (
     <div className="space-y-4">
@@ -705,10 +778,10 @@ function Environmental() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <SectionFrame title="OXYGEN">
           <div className="flex justify-center py-4">
-            <Gauge label="o2_pct" value={o2} max={25} unit="%" safeMin={19.5} safeMax={23.5} color="#ff6b35" size={160} />
+            <Gauge label="o2_pct" value={o2} max={25} unit="%" safeMin={19.5} safeMax={23.5} color="#ff6b35" size={160} ranges={RANGES.o2_pct} />
           </div>
-          <TerminalReadout label="o2_pct" value={o2} unit="%" color="#ff6b35" decimals={1} />
-          <TerminalBar label="O2 LEVEL" value={o2} max={25} unit="%" color="#ff6b35" />
+          <TerminalReadout label="o2_pct" value={o2} unit="%" color={getStatusColor(o2, RANGES.o2_pct)} decimals={1} />
+          <TerminalBar label="O2 LEVEL" value={o2} max={25} unit="%" color={getStatusColor(o2, RANGES.o2_pct)} />
           <div className="mt-2 font-mono text-xs text-white/40">
             o2SampleSec: <span className="text-[#ff6b35]">{o2Sample.toFixed(1)}s</span>
           </div>
@@ -717,10 +790,10 @@ function Environmental() {
 
         <SectionFrame title="HUMIDITY">
           <div className="flex justify-center py-4">
-            <Gauge label="rh_pct" value={rh} max={100} unit="%" safeMin={20} safeMax={80} color="#ff6b35" size={160} />
+            <Gauge label="rh_pct" value={rh} max={100} unit="%" safeMin={20} safeMax={80} color="#ff6b35" size={160} ranges={RANGES.rh_pct} />
           </div>
-          <TerminalReadout label="rh_pct" value={rh} unit="%" color="#ff6b35" />
-          <TerminalBar label="RELATIVE HUMIDITY" value={rh} max={100} unit="%" color="#ff6b35" />
+          <TerminalReadout label="rh_pct" value={rh} unit="%" color={getStatusColor(rh, RANGES.rh_pct)} />
+          <TerminalBar label="RELATIVE HUMIDITY" value={rh} max={100} unit="%" color={getStatusColor(rh, RANGES.rh_pct)} />
           <div className="mt-2 font-mono text-xs text-white/40">
             rhSampleSec: <span className="text-[#ff6b35]">{rhSample.toFixed(1)}s</span>
           </div>
@@ -755,6 +828,7 @@ function useAutoplayVideos() {
 
 export default function HMIPage() {
   useAutoplayVideos();
+  const prefersReducedMotion = useReducedMotion();
   const [activeTab, setActiveTab] = useState<Tab>('process');
   const clock = useClock();
 
@@ -861,32 +935,21 @@ export default function HMIPage() {
         </div>
 
         {/* Tab Bar */}
-        <div className="mb-6 flex flex-wrap gap-1 border-b border-white/10 pb-2">
-          {TABS.map((tab, i) => (
-            <button
-              key={tab.key}
-              onClick={() => setActiveTab(tab.key)}
-              className={`px-4 py-2 text-xs sm:text-sm tracking-wider transition-all rounded-t border border-b-0 ${
-                activeTab === tab.key
-                  ? 'bg-white/5 text-[#ff6b35] border-white/20 font-bold'
-                  : 'text-white/40 border-transparent hover:text-white/70 hover:bg-white/[0.02]'
-              }`}
-            >
-              <span className="text-white/50 mr-1">{String(i + 1).padStart(2, '0')}</span>
-              <span className="hidden sm:inline">{tab.label}</span>
-              <span className="sm:hidden">{tab.shortLabel}</span>
-            </button>
-          ))}
-        </div>
+        <TabNav
+          tabs={TABS_NAV}
+          activeTab={activeTab}
+          onChange={(id) => setActiveTab(id as Tab)}
+          className="mb-6"
+        />
 
         {/* Screen Content */}
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
-            initial={{ opacity: 0, y: 10 }}
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
+            exit={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: -10 }}
+            transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.2 }}
           >
             {renderScreen()}
           </motion.div>
@@ -897,27 +960,27 @@ export default function HMIPage() {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-2 font-mono text-xs text-white/40">
             <div className="flex flex-wrap items-center gap-2 sm:gap-4 justify-center">
               <span className="text-[#ff6b35]">100 CLOUD VARIABLES</span>
-              <span className="text-white/30">//</span>
+              <span className="text-white/45">//</span>
               <span className="text-[#ff6b35]">5 CONTROL BOARDS</span>
-              <span className="text-white/30">//</span>
+              <span className="text-white/45">//</span>
               <span className="text-[#ff6b35]">8 MODBUS SLAVES</span>
-              <span className="text-white/30">//</span>
+              <span className="text-white/45">//</span>
               <span className="text-[#ff6b35]">REAL-TIME</span>
             </div>
             <div className="text-white/15">
               HMI v2.1.0 // TOBE ENERGY CORP
             </div>
           </div>
-          <div className="mt-2 text-center font-mono text-xs text-white/30">
+          <div className="mt-2 text-center font-mono text-xs text-white/45">
             ╔══════════════════════════════════════════════════════════════════════════════════╗
           </div>
-          <div className="text-center font-mono text-xs text-white/30">
+          <div className="text-center font-mono text-xs text-white/45">
             ║ DEMO MODE — SIMULATED VALUES ONLY — NO REAL DATA, WAVEFORM PARAMETERS,        ║
           </div>
-          <div className="text-center font-mono text-xs text-white/30">
+          <div className="text-center font-mono text-xs text-white/45">
             ║ CONTROL ALGORITHMS, OR CALIBRATION DATA ARE EXPOSED IN THIS INTERFACE           ║
           </div>
-          <div className="text-center font-mono text-xs text-white/30">
+          <div className="text-center font-mono text-xs text-white/45">
             ╚══════════════════════════════════════════════════════════════════════════════════╝
           </div>
         </div>

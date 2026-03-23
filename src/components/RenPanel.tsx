@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useEffect, useState, useCallback } from 'react';
+import { useReducedMotion } from 'framer-motion';
 
 const CHARS = '⚡░▒▓█╔╗╚╝║═┌┐└┘├┤┬┴┼─│▲▼◄►●○◎◉∎∙·:;,.\'"`~!@#$%^&*()_+-=[]{}|\\/<>?01';
 const BOLT_CHARS = '█▓▒░⚡';
@@ -21,6 +22,7 @@ interface Message {
 }
 
 function RenPanel() {
+  const prefersReducedMotion = useReducedMotion();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -31,6 +33,7 @@ function RenPanel() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const isCanvasVisibleRef = useRef(true);
   const frameRef = useRef(0);
   const gridRef = useRef<string[][]>([]);
   const brightnessRef = useRef<number[][]>([]);
@@ -61,6 +64,31 @@ function RenPanel() {
     );
     if (panelRef.current) observer.observe(panelRef.current);
     return () => observer.disconnect();
+  }, []);
+
+  // Canvas visibility optimization: pause rAF when off-screen or tab hidden
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => { isCanvasVisibleRef.current = entry.isIntersecting && !document.hidden; },
+      { threshold: 0 }
+    );
+    observer.observe(canvas);
+
+    const handleVisibility = () => {
+      if (document.hidden) {
+        isCanvasVisibleRef.current = false;
+      }
+      // When tab becomes visible again, defer to intersection state
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+
+    return () => {
+      observer.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibility);
+    };
   }, []);
 
   const COLS = 44;
@@ -121,10 +149,81 @@ function RenPanel() {
     const cellH = h / ROWS;
     const fontSize = Math.min(cellW * 1.2, cellH * 0.9, 14);
 
+    // Draw a single static frame (used for reduced motion or as first frame)
+    const renderStaticFrame = () => {
+      ctx.clearRect(0, 0, w, h);
+      ctx.font = `${fontSize}px monospace`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      const grid = gridRef.current;
+      const brightness = brightnessRef.current;
+
+      for (let y = 0; y < ROWS; y++) {
+        for (let x = 0; x < COLS; x++) {
+          const ch = grid[y]?.[x];
+          const b = brightness[y]?.[x] || 0;
+          if (!ch || ch === ' ' || b === 0) continue;
+
+          let inBolt = false;
+          if (y >= 2 && y - 2 < BOLT_SHAPE.length) {
+            const [indent, width] = BOLT_SHAPE[y - 2];
+            if (x >= indent && x < indent + width) inBolt = true;
+          }
+
+          if (inBolt) {
+            const edgeDist = (() => {
+              if (y >= 2 && y - 2 < BOLT_SHAPE.length) {
+                const [indent, width] = BOLT_SHAPE[y - 2];
+                const relX = x - indent;
+                return Math.min(relX, width - 1 - relX) / (width / 2);
+              }
+              return 0;
+            })();
+
+            if (edgeDist < 0.3) {
+              const wb = Math.floor(b * 255);
+              ctx.fillStyle = `rgba(${wb}, ${wb}, ${wb}, ${b * 0.9})`;
+            } else if (edgeDist < 0.5) {
+              const r = Math.floor(255 * b);
+              const g = Math.floor(180 * b);
+              const bb2 = Math.floor(140 * b);
+              ctx.fillStyle = `rgba(${r}, ${g}, ${bb2}, ${b * 0.85})`;
+            } else {
+              const r = Math.floor(255 * b);
+              const g = Math.floor(107 * b);
+              const bb = Math.floor(53 * b);
+              ctx.fillStyle = `rgba(${r}, ${g}, ${bb}, ${b})`;
+            }
+          } else {
+            ctx.fillStyle = `rgba(255, 107, 53, ${b * 0.4})`;
+          }
+
+          ctx.fillText(ch, x * cellW + cellW / 2, y * cellH + cellH / 2);
+        }
+      }
+
+      ctx.font = `bold ${fontSize * 1.3}px monospace`;
+      ctx.fillStyle = `rgba(255, 255, 255, 0.5)`;
+      ctx.fillText('⚡  A L W A Y S   O N  ⚡', w / 2, h - cellH * 2.5);
+      ctx.fillStyle = `rgba(255, 107, 53, 0.1)`;
+      ctx.fillText('⚡  A L W A Y S   O N  ⚡', w / 2, h - cellH * 2.5 + 1);
+    };
+
+    // Reduced motion: draw once and stop
+    if (prefersReducedMotion) {
+      renderStaticFrame();
+      return;
+    }
+
     let animFrame: number;
     let frame = 0;
 
     const render = () => {
+      if (!isCanvasVisibleRef.current) {
+        animFrame = requestAnimationFrame(render);
+        return;
+      }
       frame++;
       ctx.clearRect(0, 0, w, h);
       ctx.font = `${fontSize}px monospace`;
@@ -224,7 +323,7 @@ function RenPanel() {
 
     render();
     return () => cancelAnimationFrame(animFrame);
-  }, [mousePos]);
+  }, [mousePos, prefersReducedMotion]);
 
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLCanvasElement>) => {
     const rect = canvasRef.current?.getBoundingClientRect();
@@ -306,7 +405,7 @@ function RenPanel() {
       <div className="border-b border-[#ff6b35]/20 bg-[#12121a] px-5 py-3 flex items-center justify-between z-10">
         <div>
           <p className="text-[0.65rem] tracking-[0.15em] text-[#ff6b35]">REN // AI OPERATING LAYER</p>
-          <p className="text-xs text-white/30">I know every number in this data room.</p>
+          <p className="text-xs text-white/45">I know every number in this data room.</p>
         </div>
         <div className="h-2 w-2 rounded-full bg-[#ff6b35] animate-pulse" style={{ boxShadow: '0 0 8px rgba(255,107,53,0.6)' }} />
       </div>
@@ -324,7 +423,7 @@ function RenPanel() {
           />
           <div className={`absolute inset-0 flex flex-col justify-center px-6 py-6 transition-all duration-700 ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}`}>
             <p className="mb-2 text-[0.65rem] tracking-[0.15em] text-[#ff6b35]">ASK ME ANYTHING</p>
-            <p className="mb-4 text-xs text-white/30">Click any question to start a conversation.</p>
+            <p className="mb-4 text-xs text-white/45">Click any question to start a conversation.</p>
             <div className="space-y-2.5">
               {[
                 { q: 'How does Tobe compete with grey hydrogen at $20-50/kg delivered?', color: '#ff6b35' },
@@ -364,7 +463,7 @@ function RenPanel() {
           ))}
 
           {isLoading && (
-            <div className="flex items-center gap-2 text-xs text-white/30">
+            <div className="flex items-center gap-2 text-xs text-white/45">
               <span className="animate-pulse">●</span> Thinking...
             </div>
           )}

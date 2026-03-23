@@ -1,6 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { MetricCard } from '@/components/ui/MetricCard';
+import { DataTable } from '@/components/ui/DataTable';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -98,33 +100,11 @@ export default function EfficiencyPage() {
           </motion.p>
 
           {/* Key stat cards */}
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            className="grid grid-cols-1 gap-4 sm:grid-cols-3"
-          >
-            {[
-              { label: 'MEASURED SEC', value: '46.08', unit: 'kWh/kg', color: '#ff6b35' },
-              { label: 'OPERATING TEMP', value: '~28\u00b0C', unit: 'Near Ambient', color: '#ff6b35' },
-              { label: 'DATA POINTS', value: '22,103', unit: 'Logged Samples', color: '#ff6b35' },
-            ].map((s, i) => (
-              <motion.div
-                key={s.label}
-                custom={i}
-                variants={fadeUp}
-                className="rounded border border-white/10 bg-white/[0.02] p-5 text-center"
-              >
-                <p className="mb-1 text-[0.65rem] tracking-[0.15em] text-[#ff6b35]">{s.label}</p>
-                <p
-                  className="text-3xl font-bold md:text-4xl"
-                  style={{ color: s.color, textShadow: `0 0 10px ${s.color}50` }}
-                >
-                  {s.value}
-                </p>
-                <p className="mt-1 text-xs text-white/40">{s.unit}</p>
-              </motion.div>
-            ))}
-          </motion.div>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <MetricCard label="MEASURED SEC" value="46.08" unit="kWh/kg" variant="highlight" className="text-center" />
+            <MetricCard label="OPERATING TEMP" value="~28°C" unit="Near Ambient" variant="highlight" className="text-center" />
+            <MetricCard label="DATA POINTS" value="22,103" unit="Logged Samples" variant="highlight" className="text-center" />
+          </div>
         </div>
       </section>
 
@@ -197,18 +177,18 @@ export default function EfficiencyPage() {
                   <tr>
                     <td className="px-4 py-3 text-white/60">NREL PEM benchmark</td>
                     <td className="px-4 py-3 text-white/50">~55 kWh/kg system</td>
-                    <td className="px-4 py-3 text-white/30">&mdash;</td>
+                    <td className="px-4 py-3 text-white/45">&mdash;</td>
                   </tr>
                   <tr>
                     <td className="px-4 py-3 text-white/60">DOE PEM reference</td>
                     <td className="px-4 py-3 text-white/50">~57.5 kWh/kg avg</td>
-                    <td className="px-4 py-3 text-white/30">&mdash;</td>
+                    <td className="px-4 py-3 text-white/45">&mdash;</td>
                   </tr>
                 </tbody>
               </table>
             </div>
             <div className="border-t border-white/5 px-4 py-2">
-              <span className="text-[0.6rem] text-white/30">Source: TEA Deep Research Report, NREL ATB, ENG_PreCommit_SampleOperatingData.xlsx</span>
+              <span className="text-[0.6rem] text-white/45">Source: TEA Deep Research Report, NREL ATB, ENG_PreCommit_SampleOperatingData.xlsx</span>
             </div>
           </motion.div>
         </div>
@@ -295,7 +275,7 @@ export default function EfficiencyPage() {
             </p>
           </motion.div>
 
-          <div className="mt-3 text-[0.6rem] text-white/30">
+          <div className="mt-3 text-[0.6rem] text-white/45">
             Source: ENG_EfficiencyCalculations.xlsx, ENG_PreCommit_SampleOperatingData.xlsx
           </div>
         </div>
@@ -446,50 +426,25 @@ END OF LOG  |  5-sec intervals  |  22,103 pts`}
             <h2 className="text-2xl font-bold tracking-tight">Technology Comparison</h2>
           </div>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            custom={0}
-            variants={fadeUp}
-            className="overflow-hidden rounded border border-white/10 bg-white/[0.02]"
-          >
+          <div className="overflow-hidden rounded bg-white/[0.02]">
             <div className="border-b border-white/10 bg-white/[0.03] px-4 py-2">
               <span className="text-xs tracking-[0.15em] text-[#ff6b35]">▸ TOBE vs PEM vs ALKALINE</span>
             </div>
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-white/10 text-left">
-                    <th className="whitespace-nowrap px-4 py-3 text-xs tracking-wider text-white/40">Parameter</th>
-                    <th className="whitespace-nowrap px-4 py-3 text-xs tracking-wider text-[#ff6b35]">Tobe</th>
-                    <th className="whitespace-nowrap px-4 py-3 text-xs tracking-wider text-white/40">PEM (Industry)</th>
-                    <th className="whitespace-nowrap px-4 py-3 text-xs tracking-wider text-white/40">Alkaline (Industry)</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-white/5">
-                  {comparisonRows.map((r, i) => (
-                    <motion.tr
-                      key={r.param}
-                      initial="hidden"
-                      whileInView="visible"
-                      viewport={{ once: true }}
-                      custom={i}
-                      variants={fadeUp}
-                    >
-                      <td className="whitespace-nowrap px-4 py-3 text-white/60">{r.param}</td>
-                      <td className="whitespace-nowrap px-4 py-3 font-semibold text-[#ff6b35]">{r.tobe}</td>
-                      <td className="whitespace-nowrap px-4 py-3 text-white/50">{r.pem}</td>
-                      <td className="whitespace-nowrap px-4 py-3 text-white/50">{r.alk}</td>
-                    </motion.tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            <DataTable
+              columns={[
+                { key: 'param', label: 'Parameter' },
+                { key: 'tobe', label: 'Tobe' },
+                { key: 'pem', label: 'PEM (Industry)' },
+                { key: 'alk', label: 'Alkaline (Industry)' },
+              ]}
+              rows={comparisonRows}
+              highlightColumn="tobe"
+              className="border-0 rounded-none"
+            />
             <div className="border-t border-white/5 px-4 py-2">
-              <span className="text-[0.6rem] text-white/30">Source: TEA_Deep_Research_Report.md, Tobe_TEA_Narrative_v1.md, ENG data</span>
+              <span className="text-[0.6rem] text-white/45">Source: TEA_Deep_Research_Report.md, Tobe_TEA_Narrative_v1.md, ENG data</span>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 

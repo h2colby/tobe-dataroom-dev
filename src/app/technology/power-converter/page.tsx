@@ -190,11 +190,11 @@ export default function PowerConverterPage() {
               <div className="flex gap-4">
                 <div>
                   <div className="text-lg font-bold text-[#ff6b35]" style={{ textShadow: '0 0 6px rgba(255,107,53,0.25)' }}>~100 kHz</div>
-                  <div className="text-[0.6rem] tracking-[0.1em] text-[#6a6a7a]">SWITCHING FREQ</div>
+                  <div className="text-[0.6rem] tracking-[0.1em] text-[#8a8a9a]">SWITCHING FREQ</div>
                 </div>
                 <div>
                   <div className="text-lg font-bold text-[#ff6b35]" style={{ textShadow: '0 0 6px rgba(255,107,53,0.25)' }}>480VAC</div>
-                  <div className="text-[0.6rem] tracking-[0.1em] text-[#6a6a7a]">INPUT</div>
+                  <div className="text-[0.6rem] tracking-[0.1em] text-[#8a8a9a]">INPUT</div>
                 </div>
               </div>
             </div>
@@ -212,11 +212,11 @@ export default function PowerConverterPage() {
               <div className="flex gap-4">
                 <div>
                   <div className="text-lg font-bold text-[#ff6b35]" style={{ textShadow: '0 0 6px rgba(255,107,53,0.25)' }}>10–250 kHz</div>
-                  <div className="text-[0.6rem] tracking-[0.1em] text-[#6a6a7a]">PULSE RANGE</div>
+                  <div className="text-[0.6rem] tracking-[0.1em] text-[#8a8a9a]">PULSE RANGE</div>
                 </div>
                 <div>
                   <div className="text-lg font-bold text-[#ff6b35]" style={{ textShadow: '0 0 6px rgba(255,107,53,0.25)' }}>≥3 kV</div>
-                  <div className="text-[0.6rem] tracking-[0.1em] text-[#6a6a7a]">OUTPUT</div>
+                  <div className="text-[0.6rem] tracking-[0.1em] text-[#8a8a9a]">OUTPUT</div>
                 </div>
               </div>
             </div>
@@ -249,16 +249,16 @@ export default function PowerConverterPage() {
 
           {/* Signal chain */}
           <div className="overflow-hidden border border-white/5 bg-[#12121a]">
-            <div className="border-b border-white/10 bg-[#0e0e16] px-5 py-3 text-[0.7rem] tracking-[0.15em] text-[#6a6a7a]">
+            <div className="border-b border-white/10 bg-[#0e0e16] px-5 py-3 text-[0.7rem] tracking-[0.15em] text-[#8a8a9a]">
               SIGNAL CHAINS: AC MAINS + SOLAR INTEGRATION
             </div>
             <div className="grid md:grid-cols-2">
             <div>
             <div className="border-b border-white/10 bg-[#0e0e16] px-5 py-2 text-[0.65rem] tracking-[0.1em] text-[#ff6b35]">AC MAINS PATH</div>
             {[
-              { step: '01', name: '480VAC 3-Phase Input', detail: 'Utility grid connection', color: '#6a6a7a' },
+              { step: '01', name: '480VAC 3-Phase Input', detail: 'Utility grid connection', color: '#8a8a9a' },
               { step: '02', name: 'Resonant Power Conversion', detail: 'Soft-switched AC/DC conversion, ~100 kHz', color: '#ff6b35' },
-              { step: '03', name: 'Isolated HV DC Bus', detail: 'High-voltage intermediate rail', color: '#6a6a7a' },
+              { step: '03', name: 'Isolated HV DC Bus', detail: 'High-voltage intermediate rail', color: '#8a8a9a' },
               { step: '04', name: 'Waveform Controller', detail: 'DDS synthesis, dynamic real-time tuning', color: '#ff6b35' },
               { step: '05', name: 'SiC Half-Bridge Output', detail: 'Pulsed DC delivery to cell, 10–250 kHz', color: '#ff6b35' },
               { step: '06', name: 'Purpose-Built Transformer', detail: 'Epoxy-potted, rated for several times operating voltage', color: '#ff6b35' },
@@ -272,7 +272,7 @@ export default function PowerConverterPage() {
                 <div className="text-xs text-[#3a3a4a]">→</div>
                 <div>
                   <div className="text-sm font-bold text-white/80">{s.name}</div>
-                  <div className="text-xs text-[#6a6a7a]">{s.detail}</div>
+                  <div className="text-xs text-[#8a8a9a]">{s.detail}</div>
                 </div>
               </div>
             ))}
@@ -282,7 +282,7 @@ export default function PowerConverterPage() {
               {[
                 { step: '01', name: '1500V DC Solar Bus', detail: 'Standard utility-scale solar string voltage', color: '#ff6b35' },
                 { step: '02', name: 'High-Voltage DC Switching', detail: 'Direct DC-DC conversion, no AC intermediate', color: '#ff6b35' },
-                { step: '03', name: 'Isolated HV DC Bus', detail: 'Matched to electrolyzer operating point', color: '#6a6a7a' },
+                { step: '03', name: 'Isolated HV DC Bus', detail: 'Matched to electrolyzer operating point', color: '#8a8a9a' },
                 { step: '04', name: 'Waveform Controller', detail: 'DDS synthesis, dynamic real-time tuning', color: '#ff6b35' },
                 { step: '05', name: 'SiC Switching Stage', detail: 'Pulsed DC delivery to cell', color: '#ff6b35' },
                 { step: '06', name: 'Purpose-Built Transformer', detail: 'Epoxy-potted, voltage step-up', color: '#ff6b35' },
@@ -296,7 +296,7 @@ export default function PowerConverterPage() {
                   <div className="text-xs text-[#3a3a4a]">→</div>
                   <div>
                     <div className="text-sm font-bold text-white/80">{s.name}</div>
-                    <div className="text-xs text-[#6a6a7a]">{s.detail}</div>
+                    <div className="text-xs text-[#8a8a9a]">{s.detail}</div>
                   </div>
                 </div>
               ))}

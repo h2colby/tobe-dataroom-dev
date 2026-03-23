@@ -139,20 +139,21 @@ export default function TechnologyPage() {
           {/* TESTING */}
           <Link
             href="/technology/efficiency"
-            className="tech-card block border border-white/10 bg-[#12121a] px-5 py-5"
-            style={{ '--glow': 'rgba(255,255,255,0.05)' } as React.CSSProperties}
+            className="tech-card block border border-[#ff6b35]/15 bg-[#12121a] px-5 py-5"
+            style={{ '--glow': 'rgba(255,107,53,0.1)' } as React.CSSProperties}
           >
-            <pre className="mb-3 text-[0.6rem] leading-[1.3] text-white/30">{`  ▁▂▃▅▆▇
+            <pre className="mb-3 text-[0.6rem] leading-[1.3] text-[#ff6b35]/50">{`  ▁▂▃▅▆▇
   ▔▔▔▔▔▔
   46 kWh
   /kg H₂`}</pre>
-            <div className="mb-1 text-base font-bold text-white/80">
+            <div className="mb-1 text-base font-bold text-[#ff6b35]"
+              style={{ textShadow: '0 0 6px rgba(255,107,53,0.2)' }}>
               TESTING
             </div>
             <div className="text-xs text-[#8a8a9a]">
               46 kWh/kg measured. Beating stated 92%.
             </div>
-            <div className="mt-2 text-xs text-white/30">────→</div>
+            <div className="mt-2 text-xs text-[#ff6b35]/50">────→</div>
           </Link>
         </div>
 
@@ -201,7 +202,7 @@ export default function TechnologyPage() {
 
         <div className="overflow-hidden border border-white/5 bg-[#12121a]">
           <div className="grid grid-cols-3 border-b border-white/10 bg-[#0e0e16]">
-            <div className="px-5 py-3 text-[0.7rem] tracking-[0.15em] text-[#6a6a7a]">METRIC</div>
+            <div className="px-5 py-3 text-[0.7rem] tracking-[0.15em] text-[#8a8a9a]">METRIC</div>
             <div className="border-l border-white/5 px-5 py-3 text-[0.7rem] tracking-[0.15em] text-[#ff4444]/60">CONVENTIONAL</div>
             <div className="border-l border-white/5 px-5 py-3 text-[0.7rem] tracking-[0.15em] text-[#ff6b35]">TOBE ENERGY</div>
           </div>
@@ -263,7 +264,7 @@ export default function TechnologyPage() {
               </div>
             </div>
           </div>
-          <p className="text-xs leading-relaxed text-white/30">
+          <p className="text-xs leading-relaxed text-white/45">
             Specific waveform parameters, converter tuning ratios, and control algorithms are maintained as trade secrets.
           </p>
         </div>

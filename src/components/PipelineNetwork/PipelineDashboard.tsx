@@ -22,9 +22,9 @@ const sectorTotals = opportunities.reduce((acc, opp) => {
 const sectorData = [
   { name: 'Transit', value: 19, color: '#ffcc00' },
   { name: 'Industrial', value: 12, color: '#ff6b35' },
-  { name: 'Steel', value: 7, color: '#ff6b35' },
-  { name: 'E-Fuels', value: 6, color: '#ff6b35' },
-  { name: 'Mobility', value: 3, color: '#ff6b35' },
+  { name: 'Steel', value: 7, color: '#3b82f6' },
+  { name: 'E-Fuels', value: 6, color: '#22c55e' },
+  { name: 'Mobility', value: 3, color: '#eab308' },
 ];
 
 const maxSectorValue = Math.max(...sectorData.map(s => s.value));

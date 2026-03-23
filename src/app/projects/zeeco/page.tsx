@@ -311,7 +311,7 @@ export default function ZeecoPage() {
                 </div>
                 <div className="text-right">
                   <p className="text-lg font-bold text-[#ff6b35]" style={{ textShadow: '0 0 8px rgba(255,107,53,0.3)' }}>300 kg/day</p>
-                  <p className="text-[0.5rem] text-white/30">H₂ OUTPUT</p>
+                  <p className="text-[0.5rem] text-white/45">H₂ OUTPUT</p>
                 </div>
               </div>
             </div>
@@ -332,7 +332,7 @@ export default function ZeecoPage() {
               </div>
               <div className="rounded border border-white/10 bg-white/[0.02] px-3 py-2 text-center min-w-[100px]">
                 <p className="text-[0.6rem] font-bold text-white/50">SEP-102</p>
-                <p className="text-[0.5rem] text-white/30">O₂ Vent</p>
+                <p className="text-[0.5rem] text-white/45">O₂ Vent</p>
               </div>
             </div>
 
@@ -375,12 +375,12 @@ export default function ZeecoPage() {
               <div className="rounded border border-[#ff6b35]/30 bg-[#ff6b35]/[0.05] px-4 py-3 text-center">
                 <p className="mb-1 text-[0.55rem] tracking-[0.15em] text-[#ff6b35]">PHASE 1</p>
                 <p className="text-sm font-bold text-white/70">FL-101 · Flare</p>
-                <p className="text-[0.5rem] text-white/30">Zeeco scope · Commissioning validation</p>
+                <p className="text-[0.5rem] text-white/45">Zeeco scope · Commissioning validation</p>
               </div>
               <div className="rounded border border-[#ff6b35]/30 bg-[#ff6b35]/[0.05] px-4 py-3 text-center">
                 <p className="mb-1 text-[0.55rem] tracking-[0.15em] text-[#ff6b35]">PHASE 2</p>
                 <p className="text-sm font-bold text-white/70">VS-101 · T-125</p>
-                <p className="text-[0.5rem] text-white/30">250 kW · 125 kg/day · Next-gen validation</p>
+                <p className="text-[0.5rem] text-white/45">250 kW · 125 kg/day · Next-gen validation</p>
               </div>
             </div>
           </motion.div>
@@ -414,13 +414,13 @@ export default function ZeecoPage() {
               >
                 <div className="mb-2 flex items-start justify-between">
                   <span className="text-[0.65rem] tracking-[0.15em] text-[#ff6b35]">{doc.number}</span>
-                  <span className="text-[0.6rem] text-white/30">{doc.size}</span>
+                  <span className="text-[0.6rem] text-white/45">{doc.size}</span>
                 </div>
                 <p className="mb-1 text-sm font-semibold text-white/90 group-hover:text-[#ff6b35]">
                   {doc.title}
                 </p>
                 <p className="mb-3 text-xs text-white/40">{doc.desc}</p>
-                <div className="flex items-center gap-2 text-xs text-white/30 group-hover:text-[#ff6b35]/60">
+                <div className="flex items-center gap-2 text-xs text-white/45 group-hover:text-[#ff6b35]/60">
                   <span>↓</span>
                   <span className="font-mono">{doc.file}</span>
                 </div>

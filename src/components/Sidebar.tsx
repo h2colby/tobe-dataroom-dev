@@ -107,8 +107,8 @@ function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
 
         const catContent = (
           <>
-            <span className="mr-1.5 text-[0.7rem] text-[#5a5a6a] shrink-0">{catBranch}</span>
-            <span className={`mr-2 shrink-0 ${active ? 'text-[#ff6b35]/70' : isAskAi ? 'text-[#6a6a7a]' : 'text-[#6a6a7a]'}`}>{cat.id}</span>
+            <span className="mr-1.5 text-[0.7rem] text-[#7a7a8a] shrink-0">{catBranch}</span>
+            <span className={`mr-2 shrink-0 ${active ? 'text-[#ff6b35]/70' : isAskAi ? 'text-[#8a8a9a]' : 'text-[#8a8a9a]'}`}>{cat.id}</span>
             <span className="truncate">{cat.label}</span>
             {active && <span className="ml-1 animate-blink text-[#ff6b35] shrink-0">{'\u2588'}</span>}
           </>
@@ -185,7 +185,7 @@ function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
                             : 'text-[#9a9ab0]'
                       }`}
                     >
-                      <span className={`mr-1.5 text-[0.6rem] shrink-0 ${subActive ? 'text-[#ff6b35]/40' : 'text-[#4a4a5a]'}`}>
+                      <span className={`mr-1.5 text-[0.6rem] shrink-0 ${subActive ? 'text-[#ff6b35]/40' : 'text-[#7a7a8a]'}`}>
                         {vertLine} {subBranch}
                       </span>
                       <span className="truncate">{item.label}</span>
@@ -206,7 +206,7 @@ function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
 /* ------------------------------------------------------------------ */
 export function Sidebar() {
   return (
-    <nav className="hidden md:flex w-[240px] shrink-0 flex-col border-r border-white/5 bg-[#0a0a0f]/80 py-5 font-mono overflow-y-auto">
+    <nav data-sidebar aria-label="Main navigation" className="hidden md:flex w-[240px] shrink-0 flex-col border-r border-white/5 bg-[#0a0a0f]/80 py-5 font-mono overflow-y-auto">
       <SidebarNav />
     </nav>
   );
@@ -266,6 +266,7 @@ export function MobileDrawer({
 
           {/* Drawer panel */}
           <motion.nav
+            aria-label="Main navigation"
             initial={{ x: -240 }}
             animate={{ x: 0 }}
             exit={{ x: -240 }}

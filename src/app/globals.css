@@ -1,5 +1,32 @@
 @import "tailwindcss";
 
+:root {
+  --color-bg: #0a0a0f;
+  --color-surface-1: #0f0f17;
+  --color-surface-2: #12121a;
+  --color-surface-3: #16161f;
+  --color-accent: #ff6b35;
+  --color-accent-dim: rgba(255,107,53,0.08);
+  --color-accent-glow: rgba(255,107,53,0.25);
+  --color-text-primary: #ffffff;
+  --color-text-secondary: rgba(255,255,255,0.6);
+  --color-text-muted: rgba(255,255,255,0.4);
+  --color-border-subtle: rgba(255,255,255,0.05);
+  --color-border-light: rgba(255,255,255,0.1);
+  --color-success: #22c55e;
+  --color-warning: #eab308;
+  --color-danger: #ef4444;
+  --color-info: #3b82f6;
+
+  --type-display: 2.5rem;
+  --type-h1: 1.875rem;
+  --type-h2: 1.5rem;
+  --type-h3: 1.25rem;
+  --type-body: 0.875rem;
+  --type-caption: 0.75rem;
+  --type-micro: 0.65rem;
+}
+
 /* Accessibility: visible focus indicators */
 :focus-visible {
   outline: 2px solid #ff6b35;
@@ -9,6 +36,21 @@
 /* Remove default outline for mouse users */
 :focus:not(:focus-visible) {
   outline: none;
+}
+
+/* Performance hints for heavy animations */
+canvas {
+  will-change: contents;
+  contain: strict;
+}
+
+/* Layout containment for fixed elements */
+[data-sidebar] {
+  contain: layout style;
+}
+
+[data-chat-panel] {
+  contain: layout style;
 }
 
 /* Blinking cursor animation */

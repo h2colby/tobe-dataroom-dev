@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 
 type FileType = 'PDF' | 'XLSX' | 'PNG' | 'DOCX';
 
@@ -455,7 +455,7 @@ function SubFolderSection({ subfolder, onFileClick }: { subfolder: SubFolder; on
         <span className="text-[0.8rem] font-semibold text-white/70 group-hover:text-white/90 transition-colors">
           {subfolder.name}
         </span>
-        <span className="text-[0.55rem] text-white/30">{subfolder.files.length}</span>
+        <span className="text-[0.55rem] text-white/45">{subfolder.files.length}</span>
       </button>
       {open && (
         <div className="ml-5 border-l border-white/[0.06] pl-4">
@@ -528,11 +528,142 @@ function SectionGroup({ section, onFileClick }: { section: Section; onFileClick:
   );
 }
 
+// ── Search Helpers ──
+
+function HighlightedText({ text, query }: { text: string; query: string }) {
+  if (!query) return <>{text}</>;
+  const lower = text.toLowerCase();
+  const qLower = query.toLowerCase();
+  const idx = lower.indexOf(qLower);
+  if (idx === -1) return <>{text}</>;
+  return (
+    <>
+      {text.slice(0, idx)}
+      <span className="text-[#ff6b35] font-bold">{text.slice(idx, idx + query.length)}</span>
+      {text.slice(idx + query.length)}
+    </>
+  );
+}
+
+function fileMatchesQuery(file: DocFile, query: string): boolean {
+  if (!query) return true;
+  return file.title.toLowerCase().includes(query.toLowerCase());
+}
+
+function SearchFileRow({ file, query, onClick }: { file: DocFile; query: string; onClick: (f: DocFile) => void }) {
+  return (
+    <button onClick={() => onClick(file)}
+      className="group flex items-center justify-between w-full py-2.5 px-3 -mx-3 rounded transition-all hover:bg-white/[0.04] text-left">
+      <div className="flex items-center gap-3 min-w-0">
+        <FileTypeIcon type={file.type} />
+        <span className="text-[0.85rem] text-white/80 group-hover:text-white truncate transition-colors">
+          <HighlightedText text={file.title} query={query} />
+        </span>
+      </div>
+      <span className="text-[0.6rem] text-[#ff6b35]/0 group-hover:text-[#ff6b35]/60 transition-all shrink-0 ml-3">
+        VIEW
+      </span>
+    </button>
+  );
+}
+
+function FilteredSectionGroup({ section, query, onFileClick }: { section: Section; query: string; onFileClick: (f: DocFile) => void }) {
+  // Filter folders/subfolders to only those with matching files
+  const filteredFolders = section.folders.map(folder => {
+    const matchedFiles = folder.files?.filter(f => fileMatchesQuery(f, query)) || [];
+    const matchedSubfolders = folder.subfolders?.map(sf => ({
+      ...sf,
+      files: sf.files.filter(f => fileMatchesQuery(f, query)),
+    })).filter(sf => sf.files.length > 0) || [];
+    return { ...folder, files: matchedFiles.length > 0 ? matchedFiles : undefined, subfolders: matchedSubfolders.length > 0 ? matchedSubfolders : undefined };
+  }).filter(folder => (folder.files && folder.files.length > 0) || (folder.subfolders && folder.subfolders.length > 0));
+
+  if (filteredFolders.length === 0) return null;
+
+  const totalCount = filteredFolders.reduce((sum, folder) => {
+    return sum + (folder.files?.length || 0) + (folder.subfolders?.reduce((s, sf) => s + sf.files.length, 0) || 0);
+  }, 0);
+
+  return (
+    <div className="mb-1">
+      <div className="flex items-center justify-between w-full py-4 px-1 text-left border-b border-white/[0.06]">
+        <div className="flex items-center gap-3">
+          <span className="text-sm text-[#ff6b35] shrink-0" style={{ transform: 'rotate(90deg)' }}>▸</span>
+          <span className="text-[0.85rem] font-bold tracking-[0.12em] text-white">
+            {section.name}
+          </span>
+        </div>
+        <span className="text-[0.6rem] text-white/25 shrink-0">{totalCount} files</span>
+      </div>
+      <div className="ml-5 border-l border-[#ff6b35]/10">
+        {filteredFolders.map(folder => {
+          const displayName = folder.name.includes(' — ') ? folder.name.split(' — ')[1] : folder.name;
+          const fileCount = (folder.files?.length || 0) + (folder.subfolders?.reduce((s, sf) => s + sf.files.length, 0) || 0);
+          return (
+            <div key={folder.name} className="border-b border-white/[0.04]">
+              <div className="flex items-center justify-between w-full py-3 px-2 text-left">
+                <div className="flex items-center gap-2.5">
+                  <span className="text-xs text-[#ff6b35]/40 shrink-0" style={{ transform: 'rotate(90deg)' }}>▸</span>
+                  <div>
+                    <span className="text-[0.8rem] font-semibold text-white/80">{displayName}</span>
+                  </div>
+                </div>
+                <span className="text-[0.55rem] text-white/20 shrink-0">{fileCount}</span>
+              </div>
+              <div className="pb-3 px-8">
+                {folder.files?.map(file => <SearchFileRow key={file.path} file={file} query={query} onClick={onFileClick} />)}
+                {folder.subfolders?.map(sf => (
+                  <div key={sf.name}>
+                    <div className="flex items-center gap-2.5 w-full py-2.5 text-left">
+                      <span className="text-xs text-[#ff6b35]/40 shrink-0" style={{ transform: 'rotate(90deg)' }}>▸</span>
+                      <span className="text-[0.8rem] font-semibold text-white/70">{sf.name}</span>
+                      <span className="text-[0.55rem] text-white/45">{sf.files.length}</span>
+                    </div>
+                    <div className="ml-5 border-l border-white/[0.06] pl-4">
+                      {sf.files.map(file => <SearchFileRow key={file.path} file={file} query={query} onClick={onFileClick} />)}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 // ── Page ──
 
 export default function DocumentsPage() {
   const [viewingFile, setViewingFile] = useState<DocFile | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const allFiles = getAllFiles();
+
+  const isSearching = searchQuery.trim().length > 0;
+
+  const matchCount = useMemo(() => {
+    if (!isSearching) return totalFiles;
+    return allFiles.filter(f => fileMatchesQuery(f, searchQuery.trim())).length;
+  }, [searchQuery, isSearching, allFiles]);
+
+  // Cmd/Ctrl+K to focus search, Escape to clear and blur
+  useEffect(() => {
+    const handleGlobalKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+      }
+      if (e.key === 'Escape' && document.activeElement === searchInputRef.current) {
+        e.preventDefault();
+        setSearchQuery('');
+        searchInputRef.current?.blur();
+      }
+    };
+    window.addEventListener('keydown', handleGlobalKey);
+    return () => window.removeEventListener('keydown', handleGlobalKey);
+  }, []);
 
   return (
     <div className="relative min-h-screen bg-[#0a0a0f] font-mono text-white">
@@ -561,20 +692,82 @@ export default function DocumentsPage() {
         </div>
       </section>
 
-      {/* Readme callout */}
+      {/* Search bar */}
       <div className="mx-auto max-w-6xl px-6 pt-6">
-        <div className="border-l-[3px] border-[#ff6b35] bg-[#ff6b35]/[0.04] px-5 py-4 mb-6"
-          style={{ borderTop: '1px solid rgba(255,107,53,0.08)', borderRight: '1px solid rgba(255,107,53,0.08)', borderBottom: '1px solid rgba(255,107,53,0.08)' }}>
-          <p className="text-sm text-white/70 leading-relaxed">
-            <span className="text-[#ff6b35] font-bold">Delaware C-Corp, fully documented.</span> Bylaws, board resolutions, all investment agreements (14 instruments, $1.95M), IP assignments, insurance, tax filings, and engineering documentation. All founder agreements executed via Cooley LLP. For additional materials, contact{' '}
-            <a href="mailto:colby@tobe.energy" className="text-[#ff6b35]/70 hover:text-[#ff6b35]">colby@tobe.energy</a>.
-          </p>
+        <div className="max-w-xl">
+          <div className="relative">
+            {/* Search icon / terminal prompt */}
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-white/20 text-sm select-none pointer-events-none">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="7" cy="7" r="4.5" />
+                <line x1="10.2" y1="10.2" x2="14" y2="14" />
+              </svg>
+            </span>
+            <input
+              ref={searchInputRef}
+              type="text"
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              placeholder="SEARCH DOCUMENTS..."
+              className="w-full bg-white/[0.03] border border-white/[0.08] rounded px-3 py-2.5 pl-10 pr-20 text-[0.8rem] tracking-wider text-white/80 placeholder:text-white/20 font-mono uppercase outline-none transition-colors focus:border-[#ff6b35] focus:bg-white/[0.05]"
+            />
+            {/* Right side: clear button + shortcut hint */}
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
+              {searchQuery && (
+                <button
+                  onClick={() => { setSearchQuery(''); searchInputRef.current?.focus(); }}
+                  className="text-white/45 hover:text-white/60 transition-colors text-sm"
+                  title="Clear search"
+                >
+                  ✕
+                </button>
+              )}
+              {!searchQuery && (
+                <kbd className="text-[0.55rem] text-white/15 border border-white/[0.08] rounded px-1.5 py-0.5 tracking-wider">
+                  ⌘K
+                </kbd>
+              )}
+            </div>
+          </div>
+          {/* Result count */}
+          {isSearching && (
+            <p className="mt-2 text-[0.65rem] tracking-[0.15em] text-white/45">
+              {matchCount} {matchCount === 1 ? 'FILE' : 'FILES'} FOUND
+            </p>
+          )}
         </div>
       </div>
 
+      {/* Readme callout */}
+      {!isSearching && (
+        <div className="mx-auto max-w-6xl px-6 pt-6">
+          <div className="border-l-[3px] border-[#ff6b35] bg-[#ff6b35]/[0.04] px-5 py-4 mb-6"
+            style={{ borderTop: '1px solid rgba(255,107,53,0.08)', borderRight: '1px solid rgba(255,107,53,0.08)', borderBottom: '1px solid rgba(255,107,53,0.08)' }}>
+            <p className="text-sm text-white/70 leading-relaxed">
+              <span className="text-[#ff6b35] font-bold">Delaware C-Corp, fully documented.</span> Bylaws, board resolutions, all investment agreements (14 instruments, $1.95M), IP assignments, insurance, tax filings, and engineering documentation. All founder agreements executed via Cooley LLP. For additional materials, contact{' '}
+              <a href="mailto:colby@tobe.energy" className="text-[#ff6b35]/70 hover:text-[#ff6b35]">colby@tobe.energy</a>.
+            </p>
+          </div>
+        </div>
+      )}
+
       {/* Folder tree */}
       <div className="mx-auto max-w-6xl px-6 pb-16">
-        {sections.map(section => <SectionGroup key={section.name} section={section} onFileClick={setViewingFile} />)}
+        {isSearching ? (
+          <>
+            {sections.map(section => (
+              <FilteredSectionGroup key={section.name} section={section} query={searchQuery.trim()} onFileClick={setViewingFile} />
+            ))}
+            {matchCount === 0 && (
+              <div className="py-16 text-center">
+                <p className="text-white/20 text-sm tracking-wider">NO MATCHING DOCUMENTS</p>
+                <p className="text-white/10 text-xs mt-2">Try a different search term</p>
+              </div>
+            )}
+          </>
+        ) : (
+          sections.map(section => <SectionGroup key={section.name} section={section} onFileClick={setViewingFile} />)
+        )}
       </div>
 
       {/* Footer */}

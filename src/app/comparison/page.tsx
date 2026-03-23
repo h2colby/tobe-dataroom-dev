@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import TableOfContents from '@/components/ui/TableOfContents';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -76,6 +77,14 @@ export default function ComparisonPage() {
   return (
     <div className="relative min-h-screen bg-[#0a0a0f] font-mono text-white">
 
+      <TableOfContents items={[
+        { id: 'pricing-problem', label: 'Pricing Problem' },
+        { id: 'platts-pricing', label: 'Platts Pricing' },
+        { id: 'startup-benchmarks', label: 'Startup Benchmarks' },
+        { id: 'capital-efficiency', label: 'Capital Efficiency' },
+        { id: 'timeline', label: 'Timeline' },
+      ]} />
+
       {/* ═══ HERO ═══ */}
       <section className="relative border-b border-white/10 px-6 py-16">
         <div className="mx-auto max-w-6xl">
@@ -121,7 +130,7 @@ export default function ComparisonPage() {
       <div className="mx-auto max-w-6xl px-6">
 
         {/* ═══ SECTION 1: WHY HYDROGEN PRICING IS BROKEN ═══ */}
-        <section className="py-6">
+        <section id="pricing-problem" className="py-6">
           <div className="mb-4 text-[0.7rem] tracking-[0.2em] text-[#ff6b35] glow-orange">
             ┌─── WHY HYDROGEN PRICING IS BROKEN ───┐
           </div>
@@ -155,7 +164,7 @@ export default function ComparisonPage() {
         <SectionDivider />
 
         {/* ═══ SECTION 2: PLATTS PUBLISHED PRICING ═══ */}
-        <section className="py-6">
+        <section id="platts-pricing" className="py-6">
           <div className="mb-4 text-[0.7rem] tracking-[0.2em] text-[#ff6b35] glow-orange">
             ┌─── PLATTS PUBLISHED PRICING ───┐
           </div>
@@ -174,8 +183,8 @@ export default function ComparisonPage() {
             className="mb-8 overflow-hidden border border-white/5 bg-[#12121a]"
           >
             <div className="grid grid-cols-2 border-b border-white/10 bg-[#0e0e16]">
-              <div className="px-5 py-3 text-[0.7rem] tracking-[0.15em] text-[#6a6a7a]">COMPONENT</div>
-              <div className="border-l border-white/5 px-5 py-3 text-[0.7rem] tracking-[0.15em] text-[#6a6a7a]">COST</div>
+              <div className="px-5 py-3 text-[0.7rem] tracking-[0.15em] text-[#8a8a9a]">COMPONENT</div>
+              <div className="border-l border-white/5 px-5 py-3 text-[0.7rem] tracking-[0.15em] text-[#8a8a9a]">COST</div>
             </div>
             {costBreakdown.map(([component, cost], i) => {
               const isTotal = i >= 6;
@@ -205,10 +214,10 @@ export default function ComparisonPage() {
           >
             <div className="min-w-[700px] overflow-hidden border border-white/5 bg-[#12121a]">
               <div className="grid grid-cols-4 border-b border-white/10 bg-[#0e0e16]">
-                <div className="px-5 py-3 text-[0.65rem] tracking-[0.15em] text-[#6a6a7a]">SOURCE</div>
-                <div className="border-l border-white/5 px-5 py-3 text-[0.65rem] tracking-[0.15em] text-[#6a6a7a]">$/KG</div>
-                <div className="border-l border-white/5 px-5 py-3 text-[0.65rem] tracking-[0.15em] text-[#6a6a7a]">TERMS</div>
-                <div className="border-l border-white/5 px-5 py-3 text-[0.65rem] tracking-[0.15em] text-[#6a6a7a]">SUBSIDIES</div>
+                <div className="px-5 py-3 text-[0.65rem] tracking-[0.15em] text-[#8a8a9a]">SOURCE</div>
+                <div className="border-l border-white/5 px-5 py-3 text-[0.65rem] tracking-[0.15em] text-[#8a8a9a]">$/KG</div>
+                <div className="border-l border-white/5 px-5 py-3 text-[0.65rem] tracking-[0.15em] text-[#8a8a9a]">TERMS</div>
+                <div className="border-l border-white/5 px-5 py-3 text-[0.65rem] tracking-[0.15em] text-[#8a8a9a]">SUBSIDIES</div>
               </div>
               {pricingComparison.map((row, i) => (
                 <div key={`${row.source}-${row.price}`} className={`grid grid-cols-4 ${row.highlight ? 'bg-[#ff6b35]/[0.04]' : i % 2 === 0 ? 'bg-[#12121a]' : 'bg-[#0f0f17]'}`}>
@@ -243,7 +252,7 @@ export default function ComparisonPage() {
             </p>
           </motion.div>
 
-          <p className="text-xs text-[#6a6a7a]">
+          <p className="text-xs text-[#8a8a9a]">
             Source: S&amp;P Global Commodity Insights / Platts Hydrogen Price Index
           </p>
         </section>
@@ -251,7 +260,7 @@ export default function ComparisonPage() {
         <SectionDivider />
 
         {/* ═══ SECTION 3: NON-CONVENTIONAL ELECTROLYSIS STARTUPS ═══ */}
-        <section className="py-6">
+        <section id="startup-benchmarks" className="py-6">
           <div className="mb-4 text-[0.7rem] tracking-[0.2em] text-[#ff6b35] glow-orange">
             ┌─── NON-CONVENTIONAL ELECTROLYSIS STARTUPS ───┐
           </div>
@@ -285,11 +294,11 @@ export default function ComparisonPage() {
           >
             <div className="min-w-[800px] overflow-hidden border border-white/5 bg-[#12121a]">
               <div className="grid grid-cols-5 border-b border-white/10 bg-[#0e0e16]">
-                <div className="px-4 py-3 text-[0.6rem] tracking-[0.15em] text-[#6a6a7a]">METRIC</div>
+                <div className="px-4 py-3 text-[0.6rem] tracking-[0.15em] text-[#8a8a9a]">METRIC</div>
                 <div className="border-l border-white/5 px-4 py-3 text-[0.6rem] tracking-[0.15em] text-[#ff6b35]">TOBE ENERGY</div>
-                <div className="border-l border-white/5 px-4 py-3 text-[0.6rem] tracking-[0.15em] text-[#6a6a7a]">ADVANCED IONICS</div>
-                <div className="border-l border-white/5 px-4 py-3 text-[0.6rem] tracking-[0.15em] text-[#6a6a7a]">FOURIER</div>
-                <div className="border-l border-white/5 px-4 py-3 text-[0.6rem] tracking-[0.15em] text-[#6a6a7a]">HGEN</div>
+                <div className="border-l border-white/5 px-4 py-3 text-[0.6rem] tracking-[0.15em] text-[#8a8a9a]">ADVANCED IONICS</div>
+                <div className="border-l border-white/5 px-4 py-3 text-[0.6rem] tracking-[0.15em] text-[#8a8a9a]">FOURIER</div>
+                <div className="border-l border-white/5 px-4 py-3 text-[0.6rem] tracking-[0.15em] text-[#8a8a9a]">HGEN</div>
               </div>
               {startupComparison.map((row, i) => {
                 const tobeWins = ['None', '<30°C', '6,400 cm²', '~$300K', 'Full in-house', 'Q4 2026 (Zeeco)', 'Yes (Platts)', 'Isothermal, membrane-free'].includes(row.tobe);
@@ -311,7 +320,7 @@ export default function ComparisonPage() {
         <SectionDivider />
 
         {/* ═══ SECTION 4: CAPITAL EFFICIENCY ═══ */}
-        <section className="py-6">
+        <section id="capital-efficiency" className="py-6">
           <div className="mb-4 text-[0.7rem] tracking-[0.2em] text-[#ff6b35] glow-orange">
             ┌─── CAPITAL EFFICIENCY ───┐
           </div>
@@ -348,7 +357,7 @@ export default function ComparisonPage() {
               variants={fadeUp}
               className="rounded border border-white/10 bg-[#12121a] p-8 text-center"
             >
-              <div className="mb-2 text-[0.65rem] tracking-[0.2em] text-[#6a6a7a]">ADVANCED IONICS</div>
+              <div className="mb-2 text-[0.65rem] tracking-[0.2em] text-[#8a8a9a]">ADVANCED IONICS</div>
               <div className="text-5xl font-bold text-white/25 md:text-6xl">$5,000</div>
               <div className="mt-1 text-sm text-white/20">per cm²</div>
             </motion.div>
@@ -359,7 +368,7 @@ export default function ComparisonPage() {
               variants={fadeUp}
               className="rounded border border-white/10 bg-[#12121a] p-8 text-center"
             >
-              <div className="mb-2 text-[0.65rem] tracking-[0.2em] text-[#6a6a7a]">FOURIER</div>
+              <div className="mb-2 text-[0.65rem] tracking-[0.2em] text-[#8a8a9a]">FOURIER</div>
               <div className="text-5xl font-bold text-white/25 md:text-6xl">~$10K</div>
               <div className="mt-1 text-sm text-white/20">per cm²</div>
             </motion.div>
@@ -395,7 +404,7 @@ export default function ComparisonPage() {
         <SectionDivider />
 
         {/* ═══ SECTION 5: TIMELINE ═══ */}
-        <section className="py-6">
+        <section id="timeline" className="py-6">
           <div className="mb-4 text-[0.7rem] tracking-[0.2em] text-[#ff6b35] glow-orange">
             ┌─── TIMELINE ───┐
           </div>
@@ -415,7 +424,7 @@ export default function ComparisonPage() {
               const color = t.type === 'tobe' ? '#00ff88'
                 : t.type === 'milestone' ? '#00ff88'
                 : t.type === 'stale' ? '#ff4444'
-                : '#6a6a7a';
+                : '#8a8a9a';
               const filled = t.type === 'tobe' || t.type === 'milestone';
 
               return (
@@ -437,7 +446,7 @@ export default function ComparisonPage() {
                     <span className="text-sm font-bold" style={{ color }}>
                       {t.year}
                     </span>
-                    <span className={`text-sm ${t.type === 'stale' ? 'text-white/30 italic' : 'text-white/70'}`}>
+                    <span className={`text-sm ${t.type === 'stale' ? 'text-white/45 italic' : 'text-white/70'}`}>
                       {t.label}
                     </span>
                     {t.type === 'milestone' && (

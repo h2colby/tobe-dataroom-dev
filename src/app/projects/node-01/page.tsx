@@ -360,7 +360,7 @@ export default function Node01Page() {
                       <span className="text-xs font-bold tracking-[0.08em]" style={{ color: row.color }}>{row.status}</span>
                     </div>
                     <div className="text-white/80 text-sm">{row.value}</div>
-                    {row.note && <div className="text-[0.65rem] text-white/30 mt-0.5">{row.note}</div>}
+                    {row.note && <div className="text-[0.65rem] text-white/45 mt-0.5">{row.note}</div>}
                   </div>
                 </div>
               ))}

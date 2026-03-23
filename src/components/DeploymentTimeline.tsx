@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -9,6 +9,11 @@ const fadeUp = {
     y: 0,
     transition: { delay: i * 0.08, duration: 0.5, ease: 'easeOut' as const },
   }),
+};
+
+const noAnimation = {
+  hidden: { opacity: 1, y: 0 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0 } },
 };
 
 type MilestoneStatus = 'contracted' | 'future' | 'speculative';
@@ -24,11 +29,19 @@ interface Milestone {
 
 const milestones: Milestone[] = [
   {
-    date: 'Q2 2026',
+    date: 'Q3 2026',
+    codename: 'NODE-01',
+    title: 'Internal proving ground — first production unit long-duration testing',
+    capacity: '25 kg/day',
+    detail: 'T-25 unit. Validates stack life & controls',
+    status: 'contracted',
+  },
+  {
+    date: 'Q4 2026',
     codename: 'CARDINAL',
-    title: 'First commercial deployment at Zeeco (Broken Arrow, OK)',
-    capacity: '50 kg/day',
-    detail: 'T-25 unit',
+    title: 'First commercial deployment at Zeeco ARC (Broken Arrow, OK)',
+    capacity: '12\u00D7 25 kg/day',
+    detail: '12 T-25 units',
     status: 'contracted',
   },
   {
@@ -74,9 +87,9 @@ const milestones: Milestone[] = [
 ];
 
 const statusColors: Record<MilestoneStatus, string> = {
-  contracted: '#ff6b35',
-  future: '#ff6b35',
-  speculative: '#ff6b35',
+  contracted: '#10b981',
+  future: '#3b82f6',
+  speculative: '#6b7280',
 };
 
 const statusLabels: Record<MilestoneStatus, string> = {
@@ -86,6 +99,9 @@ const statusLabels: Record<MilestoneStatus, string> = {
 };
 
 export default function DeploymentTimeline() {
+  const prefersReducedMotion = useReducedMotion();
+  const variants = prefersReducedMotion ? noAnimation : fadeUp;
+
   return (
     <section className="border-b border-white/10 px-6 py-16">
       <div className="mx-auto max-w-5xl">
@@ -105,36 +121,38 @@ export default function DeploymentTimeline() {
           whileInView="visible"
           viewport={{ once: true }}
           custom={0}
-          variants={fadeUp}
+          variants={variants}
           className="mb-10 overflow-x-auto"
         >
           <pre
             className="text-[0.55rem] leading-tight sm:text-xs"
-            style={{ whiteSpace: 'pre', minWidth: '640px' }}
+            style={{ whiteSpace: 'pre', minWidth: '720px' }}
           >
-            <span className="text-white/30">{'    Q2 2026       Q3 2026       Q1 2027        2027        Jul 2027       TBD'}</span>
+            <span className="text-white/45">{'   Q3 2026      Q3 2026      Q4 2026      Q1 2027       2027       Jul 2027      TBD'}</span>
 {`
 `}
-            <span className="text-white/30">{'       \u2502            \u2502             \u2502            \u2502            \u2502            \u2502'}</span>
+            <span className="text-white/45">{'      \u2502           \u2502           \u2502           \u2502           \u2502           \u2502          \u2502'}</span>
 {`
 `}
-            <span className="text-[#ff6b35]">{'\u2500\u2500\u2500\u2500\u2500\u2500\u25CF'}</span>
-            <span className="text-[#ff6b35]">{'\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF'}</span>
-            <span className="text-[#ff6b35]">{'\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF'}</span>
-            <span className="text-[#ff6b35]">{'\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF'}</span>
-            <span className="text-[#ff6b35]">{'\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF'}</span>
-            <span className="text-[#ff6b35]">{'\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500'}</span>
+            <span className="text-[#10b981]">{'\u2500\u2500\u2500\u2500\u2500\u25CF'}</span>
+            <span className="text-[#10b981]">{'\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF'}</span>
+            <span className="text-[#10b981]">{'\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF'}</span>
+            <span className="text-[#10b981]">{'\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF'}</span>
+            <span className="text-[#3b82f6]">{'\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF'}</span>
+            <span className="text-[#3b82f6]">{'\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF'}</span>
+            <span className="text-[#6b7280]">{'\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500'}</span>
 {`
 `}
-            <span className="text-white/30">{'       \u2502            \u2502             \u2502            \u2502            \u2502            \u2502'}</span>
+            <span className="text-white/45">{'      \u2502           \u2502           \u2502           \u2502           \u2502           \u2502          \u2502'}</span>
 {`
 `}
-            <span className="text-[#ff6b35]">{'   CARDINAL'}</span>
-            <span className="text-[#ff6b35]">{'      CAMPUS'}</span>
-            <span className="text-[#ff6b35]">{'      REFINERY'}</span>
-            <span className="text-[#ff6b35]">{'     PHOENIX'}</span>
-            <span className="text-[#ff6b35]">{'      TRANSIT'}</span>
-            <span className="text-[#ff6b35]">{'   FORGE-STEEL'}</span>
+            <span className="text-[#10b981]">{'   NODE-01'}</span>
+            <span className="text-[#10b981]">{'      CAMPUS'}</span>
+            <span className="text-[#10b981]">{'    CARDINAL'}</span>
+            <span className="text-[#10b981]">{'    REFINERY'}</span>
+            <span className="text-[#3b82f6]">{'     PHOENIX'}</span>
+            <span className="text-[#3b82f6]">{'     TRANSIT'}</span>
+            <span className="text-[#6b7280]">{'   FORGE-STEEL'}</span>
           </pre>
         </motion.div>
 
@@ -144,19 +162,19 @@ export default function DeploymentTimeline() {
           whileInView="visible"
           viewport={{ once: true }}
           custom={1}
-          variants={fadeUp}
+          variants={variants}
           className="mb-8 flex flex-wrap gap-6 text-xs"
         >
           <div className="flex items-center gap-2">
-            <span className="inline-block h-2 w-6 rounded-sm bg-[#ff6b35]" />
+            <span className="inline-block h-2 w-6 rounded-sm bg-[#10b981]" />
             <span className="text-white/50">Contracted / Active</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="inline-block h-2 w-6 rounded-sm bg-[#ff6b35]" />
+            <span className="inline-block h-2 w-6 rounded-sm bg-[#3b82f6]" />
             <span className="text-white/50">In Pipeline</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="inline-block h-2 w-6 rounded-sm bg-[#ff6b35]" />
+            <span className="inline-block h-2 w-6 rounded-sm bg-[#6b7280]" />
             <span className="text-white/50">Speculative</span>
           </div>
         </motion.div>
@@ -174,7 +192,7 @@ export default function DeploymentTimeline() {
                 whileInView="visible"
                 viewport={{ once: true }}
                 custom={i + 2}
-                variants={fadeUp}
+                variants={variants}
                 className="rounded-r border-l-2 bg-white/[0.02] p-5 transition-colors hover:bg-white/[0.04]"
                 style={{ borderColor: color }}
               >

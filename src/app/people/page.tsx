@@ -75,7 +75,7 @@ export default function PeopleIndexPage() {
               <p className="mb-4 flex-1 font-sans text-[0.9rem] leading-relaxed text-[#a0a0b0]">
                 {s.description}
               </p>
-              <div className="mb-3 text-[0.65rem] tracking-[0.05em] text-[#6a6a7a]">
+              <div className="mb-3 text-[0.65rem] tracking-[0.05em] text-[#8a8a9a]">
                 {s.tag}
               </div>
               <span

@@ -169,9 +169,9 @@ export default function ElectrolysisCellPage() {
 
           <div className="overflow-hidden border border-white/5 bg-[#12121a]">
             <div className="grid grid-cols-3 border-b border-white/10 bg-[#0e0e16]">
-              <div className="px-5 py-3 text-[0.7rem] tracking-[0.15em] text-[#6a6a7a]">PARAMETER</div>
-              <div className="border-l border-white/5 px-5 py-3 text-[0.7rem] tracking-[0.15em] text-[#6a6a7a]">T-25</div>
-              <div className="border-l border-white/5 px-5 py-3 text-[0.7rem] tracking-[0.15em] text-[#6a6a7a]">T-125</div>
+              <div className="px-5 py-3 text-[0.7rem] tracking-[0.15em] text-[#8a8a9a]">PARAMETER</div>
+              <div className="border-l border-white/5 px-5 py-3 text-[0.7rem] tracking-[0.15em] text-[#8a8a9a]">T-25</div>
+              <div className="border-l border-white/5 px-5 py-3 text-[0.7rem] tracking-[0.15em] text-[#8a8a9a]">T-125</div>
             </div>
             {[
               ['Nameplate Power', '50 kW', '250 kW'],
@@ -198,7 +198,7 @@ export default function ElectrolysisCellPage() {
             ))}
           </div>
 
-          <div className="mt-4 font-sans text-xs text-[#6a6a7a]">
+          <div className="mt-4 font-sans text-xs text-[#8a8a9a]">
             Source: January 2026 engineering quote. ISO 22734
             certification path in progress.
           </div>
@@ -253,7 +253,7 @@ export default function ElectrolysisCellPage() {
 
           <div className="overflow-hidden border border-white/5 bg-[#12121a]">
             <div className="grid grid-cols-4 border-b border-white/10 bg-[#0e0e16]">
-              <div className="px-5 py-3 text-[0.65rem] tracking-[0.15em] text-[#6a6a7a]">PARAMETER</div>
+              <div className="px-5 py-3 text-[0.65rem] tracking-[0.15em] text-[#8a8a9a]">PARAMETER</div>
               <div className="border-l border-white/5 px-5 py-3 text-[0.65rem] tracking-[0.15em] text-[#ff6b35]">TOBE</div>
               <div className="border-l border-white/5 px-5 py-3 text-[0.65rem] tracking-[0.15em] text-[#ff4444]/60">PEM</div>
               <div className="border-l border-white/5 px-5 py-3 text-[0.65rem] tracking-[0.15em] text-[#ff4444]/60">ALKALINE</div>

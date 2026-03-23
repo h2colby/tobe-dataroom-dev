@@ -189,7 +189,7 @@ export default function ProofPage() {
                       {inv.amount}
                     </span>
                     {inv.amountLabel && (
-                      <span className="ml-2 text-[0.6rem] tracking-[0.1em] text-[#6a6a7a]">
+                      <span className="ml-2 text-[0.6rem] tracking-[0.1em] text-[#8a8a9a]">
                         {inv.amountLabel}
                       </span>
                     )}
@@ -247,15 +247,15 @@ export default function ProofPage() {
               <div className="mb-3 flex flex-wrap gap-x-6 gap-y-2">
                 <div>
                   <span className="text-xl font-bold text-[#ff6b35]" style={{ textShadow: '0 0 8px rgba(255,107,53,0.25)' }}>$9.81B</span>
-                  <span className="ml-2 text-[0.55rem] tracking-[0.1em] text-[#6a6a7a]">SERVICEABLE MARKET</span>
+                  <span className="ml-2 text-[0.55rem] tracking-[0.1em] text-[#8a8a9a]">SERVICEABLE MARKET</span>
                 </div>
                 <div>
                   <span className="text-xl font-bold text-[#ff6b35]" style={{ textShadow: '0 0 8px rgba(255,107,53,0.25)' }}>$657M</span>
-                  <span className="ml-2 text-[0.55rem] tracking-[0.1em] text-[#6a6a7a]">PROJECTED PROFIT</span>
+                  <span className="ml-2 text-[0.55rem] tracking-[0.1em] text-[#8a8a9a]">PROJECTED PROFIT</span>
                 </div>
                 <div>
                   <span className="text-xl font-bold text-[#ff6b35]" style={{ textShadow: '0 0 8px rgba(255,107,53,0.25)' }}>8</span>
-                  <span className="ml-2 text-[0.55rem] tracking-[0.1em] text-[#6a6a7a]">SEGMENTS</span>
+                  <span className="ml-2 text-[0.55rem] tracking-[0.1em] text-[#8a8a9a]">SEGMENTS</span>
                 </div>
               </div>
               <p className="mb-3 font-sans text-[0.9rem] leading-relaxed text-[#8a8a9a]">
@@ -357,7 +357,7 @@ export default function ProofPage() {
           {/* Featured outlets bar */}
           <div className="mb-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 border border-white/5 bg-[#12121a] px-4 py-3">
             {['CleanTechnica', 'Chemical Engineering', 'The Journal Record', 'Renewables Now', 'KTUL', 'PR Newswire', 'FuelCellsWorks', 'TEDx'].map((name) => (
-              <span key={name} className="text-[0.65rem] tracking-[0.1em] text-white/30 transition-colors hover:text-white/60">
+              <span key={name} className="text-[0.65rem] tracking-[0.1em] text-white/45 transition-colors hover:text-white/60">
                 {name}
               </span>
             ))}
@@ -392,7 +392,7 @@ export default function ProofPage() {
                 <h4 className="mb-2 text-sm font-bold text-white/80 transition-colors hover:text-[#ff6b35]">
                   {article.title}
                 </h4>
-                <span className="text-[0.6rem] tracking-[0.05em] text-white/30">Read ↗</span>
+                <span className="text-[0.6rem] tracking-[0.05em] text-white/45">Read ↗</span>
               </a>
             ))}
           </div>
