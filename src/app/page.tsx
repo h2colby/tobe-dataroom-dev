@@ -285,7 +285,7 @@ export default function Home() {
 
       <div className="relative z-10 flex min-h-0 flex-1">
         {/* LEFT SIDEBAR */}
-        <nav className="flex w-[240px] shrink-0 flex-col border-r border-white/5 bg-[#0a0a0f]/80 py-5">
+        <nav className="hidden md:flex w-[240px] shrink-0 flex-col border-r border-white/5 bg-[#0a0a0f]/80 py-5">
           <div className="mb-2 px-5 text-[0.65rem] font-bold tracking-[0.2em] text-[#ff6b35] glow-orange">
             SYSTEM MODULES
           </div>
