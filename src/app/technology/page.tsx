@@ -89,82 +89,78 @@ export default function TechnologyPage() {
             viewport={{ once: true, amount: 0.3 }}
           >
             <svg
-              viewBox="0 0 700 340"
+              viewBox="0 0 820 380"
               xmlns="http://www.w3.org/2000/svg"
               className="w-full"
               style={{ fontFamily: 'monospace' }}
             >
               {/* Arrowhead markers */}
               <defs>
-                <marker id="arrow-white" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
-                  <path d="M0,0 L8,3 L0,6" fill="none" stroke="rgba(255,255,255,0.7)" strokeWidth="1" />
+                <marker id="arrow-white" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+                  <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="rgba(255,255,255,0.8)" strokeWidth="1.2" />
                 </marker>
-                <marker id="arrow-orange" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
-                  <path d="M0,0 L8,3 L0,6" fill="none" stroke="#ff6b35" strokeWidth="1" />
+                <marker id="arrow-orange" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+                  <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#ff6b35" strokeWidth="1.2" />
                 </marker>
-                <marker id="arrow-cyan" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
-                  <path d="M0,0 L8,3 L0,6" fill="none" stroke="#00d4ff" strokeWidth="1" />
+                <marker id="arrow-cyan" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+                  <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#00d4ff" strokeWidth="1.2" />
                 </marker>
               </defs>
 
               {/* ── Water Input ── */}
-              <text x="20" y="108" fill="rgba(255,255,255,0.8)" fontSize="13" fontWeight="bold">H₂O</text>
-              <text x="12" y="124" fill="rgba(255,255,255,0.4)" fontSize="10">WATER IN</text>
-              {/* Water → Cell (solid white, material flow) */}
-              <line x1="62" y1="106" x2="168" y2="106" stroke="rgba(255,255,255,0.7)" strokeWidth="2" markerEnd="url(#arrow-white)" />
+              <text x="22" y="102" fill="rgba(255,255,255,0.9)" fontSize="15" fontWeight="bold">H₂O</text>
+              <text x="14" y="120" fill="rgba(255,255,255,0.5)" fontSize="11">WATER IN</text>
+              <line x1="68" y1="100" x2="155" y2="100" stroke="rgba(255,255,255,0.8)" strokeWidth="2" markerEnd="url(#arrow-white)" />
 
-              {/* ── Electrolysis Cell (central, largest, orange border) ── */}
-              <rect x="178" y="65" width="200" height="90" rx="6" fill="rgba(255,107,53,0.06)" stroke="#ff6b35" strokeWidth="1.5" />
-              <text x="278" y="96" fill="#ff6b35" fontSize="14" fontWeight="bold" textAnchor="middle">ELECTROLYSIS CELL</text>
-              <text x="278" y="116" fill="rgba(255,255,255,0.5)" fontSize="10" textAnchor="middle">Membrane-free capacitive splitting</text>
-              <text x="278" y="134" fill="rgba(255,255,255,0.4)" fontSize="9" textAnchor="middle">No rare earths | Near-ambient temp</text>
+              {/* ── Electrolysis Cell ── */}
+              <rect x="168" y="52" width="260" height="105" rx="6" fill="rgba(255,107,53,0.06)" stroke="#ff6b35" strokeWidth="2" />
+              <text x="298" y="86" fill="#ff6b35" fontSize="16" fontWeight="bold" textAnchor="middle">ELECTROLYSIS CELL</text>
+              <text x="298" y="112" fill="rgba(255,255,255,0.6)" fontSize="11" textAnchor="middle">Membrane-free capacitive splitting</text>
+              <text x="298" y="134" fill="rgba(255,255,255,0.5)" fontSize="10" textAnchor="middle">No rare earths | Near-ambient temp</text>
 
               {/* ── H₂ Output ── */}
-              {/* Cell → H₂ (solid orange, material flow) */}
-              <line x1="378" y1="94" x2="478" y2="94" stroke="#ff6b35" strokeWidth="2" markerEnd="url(#arrow-orange)" />
-              <rect x="488" y="76" width="88" height="38" rx="4" fill="rgba(255,107,53,0.08)" stroke="rgba(255,107,53,0.4)" strokeWidth="1" />
-              <text x="532" y="99" fill="#ff6b35" fontSize="13" fontWeight="bold" textAnchor="middle">H₂</text>
-              <text x="594" y="99" fill="rgba(255,255,255,0.5)" fontSize="10">OUTPUT</text>
+              <line x1="428" y1="86" x2="520" y2="86" stroke="#ff6b35" strokeWidth="2" markerEnd="url(#arrow-orange)" />
+              <rect x="532" y="66" width="96" height="42" rx="4" fill="rgba(255,107,53,0.1)" stroke="rgba(255,107,53,0.5)" strokeWidth="1.5" />
+              <text x="580" y="92" fill="#ff6b35" fontSize="15" fontWeight="bold" textAnchor="middle">H₂</text>
+              <text x="580" y="126" fill="rgba(255,255,255,0.5)" fontSize="10" textAnchor="middle">OUTPUT</text>
 
               {/* ── O₂ Output ── */}
-              {/* Cell → O₂ (solid white, material flow) */}
-              <line x1="378" y1="132" x2="488" y2="172" stroke="rgba(255,255,255,0.5)" strokeWidth="1.5" markerEnd="url(#arrow-white)" />
-              <rect x="498" y="158" width="76" height="34" rx="4" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
-              <text x="536" y="180" fill="rgba(255,255,255,0.5)" fontSize="13" fontWeight="bold" textAnchor="middle">O₂</text>
-              <text x="586" y="180" fill="rgba(255,255,255,0.4)" fontSize="9">VENT</text>
+              <line x1="428" y1="134" x2="468" y2="194" stroke="rgba(255,255,255,0.6)" strokeWidth="1.5" markerEnd="url(#arrow-white)" />
+              <rect x="476" y="180" width="84" height="38" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
+              <text x="518" y="204" fill="rgba(255,255,255,0.6)" fontSize="14" fontWeight="bold" textAnchor="middle">O₂</text>
+              <text x="572" y="204" fill="rgba(255,255,255,0.5)" fontSize="10">VENT</text>
 
               {/* ── Power Converter ── */}
-              <rect x="70" y="220" width="170" height="65" rx="5" fill="rgba(255,107,53,0.04)" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-              <text x="155" y="247" fill="rgba(255,255,255,0.8)" fontSize="14" fontWeight="bold" textAnchor="middle">POWER CONVERTER</text>
-              <text x="155" y="265" fill="rgba(255,255,255,0.4)" fontSize="10" textAnchor="middle">LLC resonant | Pulsed DC</text>
-              {/* Converter → Cell (solid orange, power flow) */}
-              <line x1="192" y1="220" x2="238" y2="155" stroke="#ff6b35" strokeWidth="2" markerEnd="url(#arrow-orange)" />
-              <text x="196" y="192" fill="rgba(255,107,53,0.6)" fontSize="9">POWER</text>
+              <rect x="50" y="254" width="190" height="70" rx="5" fill="rgba(255,107,53,0.04)" stroke="rgba(255,255,255,0.25)" strokeWidth="1" />
+              <text x="145" y="284" fill="rgba(255,255,255,0.9)" fontSize="15" fontWeight="bold" textAnchor="middle">POWER CONVERTER</text>
+              <text x="145" y="304" fill="rgba(255,255,255,0.5)" fontSize="11" textAnchor="middle">LLC resonant | Pulsed DC</text>
+              <line x1="185" y1="254" x2="232" y2="157" stroke="#ff6b35" strokeWidth="2" markerEnd="url(#arrow-orange)" />
+              <text x="184" y="212" fill="rgba(255,107,53,0.7)" fontSize="10" fontWeight="bold">POWER</text>
 
               {/* ── Controls / HMI ── */}
-              <rect x="310" y="230" width="200" height="65" rx="5" fill="rgba(0,212,255,0.04)" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-              <text x="410" y="257" fill="rgba(255,255,255,0.8)" fontSize="14" fontWeight="bold" textAnchor="middle">CONTROLS / HMI</text>
-              <text x="410" y="275" fill="rgba(255,255,255,0.4)" fontSize="10" textAnchor="middle">5 Arduinos | 100 cloud vars | 8 Modbus</text>
+              <rect x="300" y="260" width="270" height="70" rx="5" fill="rgba(0,212,255,0.04)" stroke="rgba(255,255,255,0.25)" strokeWidth="1" />
+              <text x="435" y="290" fill="rgba(255,255,255,0.9)" fontSize="15" fontWeight="bold" textAnchor="middle">CONTROLS / HMI</text>
+              <text x="435" y="310" fill="rgba(255,255,255,0.5)" fontSize="11" textAnchor="middle">5 Controllers | 100 cloud vars | 8 Modbus</text>
 
-              {/* Controls → Cell (dashed cyan, data flow) */}
-              <line x1="360" y1="230" x2="310" y2="155" stroke="#00d4ff" strokeWidth="1" strokeDasharray="4 3" markerEnd="url(#arrow-cyan)" />
-              <text x="318" y="200" fill="rgba(0,212,255,0.6)" fontSize="9">DATA</text>
+              {/* Controls → Cell (dashed cyan) */}
+              <line x1="365" y1="260" x2="310" y2="157" stroke="#00d4ff" strokeWidth="1.2" strokeDasharray="5 3" markerEnd="url(#arrow-cyan)" />
+              <text x="316" y="218" fill="rgba(0,212,255,0.7)" fontSize="10" fontWeight="bold">DATA</text>
 
-              {/* Controls → Converter (dashed cyan, data flow) */}
-              <line x1="310" y1="262" x2="240" y2="262" stroke="#00d4ff" strokeWidth="1" strokeDasharray="4 3" markerEnd="url(#arrow-cyan)" />
+              {/* Controls → Converter (dashed cyan) */}
+              <line x1="300" y1="295" x2="240" y2="295" stroke="#00d4ff" strokeWidth="1.2" strokeDasharray="5 3" markerEnd="url(#arrow-cyan)" />
 
-              {/* Controls → H₂ output monitoring (dashed cyan) */}
-              <line x1="510" y1="236" x2="535" y2="114" stroke="#00d4ff" strokeWidth="1" strokeDasharray="4 3" markerEnd="url(#arrow-cyan)" />
-              <text x="542" y="180" fill="rgba(0,212,255,0.6)" fontSize="9">MONITOR</text>
+              {/* Controls → H₂ monitoring (routed right, around O₂ box) */}
+              <polyline points="570,268 700,268 700,87 628,87" fill="none" stroke="#00d4ff" strokeWidth="1.2" strokeDasharray="5 3" markerEnd="url(#arrow-cyan)" />
+              <text x="710" y="182" fill="rgba(0,212,255,0.7)" fontSize="10" fontWeight="bold">MONITOR</text>
 
-              {/* Controls label: monitors all */}
-              <text x="410" y="312" fill="rgba(0,212,255,0.35)" fontSize="9" textAnchor="middle">(monitors all subsystems)</text>
+              {/* Controls label */}
+              <text x="435" y="350" fill="rgba(0,212,255,0.4)" fontSize="10" textAnchor="middle">(monitors all subsystems)</text>
 
               {/* ── Legend ── */}
-              <line x1="20" y1="328" x2="50" y2="328" stroke="#ff6b35" strokeWidth="2" />
-              <text x="56" y="332" fill="rgba(255,255,255,0.4)" fontSize="9">POWER / MATERIAL</text>
-              <line x1="190" y1="328" x2="220" y2="328" stroke="#00d4ff" strokeWidth="1" strokeDasharray="4 3" />
-              <text x="226" y="332" fill="rgba(255,255,255,0.4)" fontSize="9">DATA / CONTROL</text>
+              <line x1="22" y1="370" x2="56" y2="370" stroke="#ff6b35" strokeWidth="2" />
+              <text x="64" y="374" fill="rgba(255,255,255,0.5)" fontSize="10">POWER / MATERIAL</text>
+              <line x1="220" y1="370" x2="254" y2="370" stroke="#00d4ff" strokeWidth="1.2" strokeDasharray="5 3" />
+              <text x="262" y="374" fill="rgba(255,255,255,0.5)" fontSize="10">DATA / CONTROL</text>
             </svg>
           </motion.div>
         </div>
