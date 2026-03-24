@@ -741,9 +741,10 @@ export default function Home() {
                         title: 'BUSINESS',
                         color: '#ff6b35',
                         items: [
+                          { name: 'Comparison', href: '/comparison' },
                           { name: 'Business Model', href: '/business-model' },
-                          { name: 'Customers', href: '/customers' },
                           { name: 'Financial Model', href: '/financials' },
+                          { name: 'Customers', href: '/customers' },
                           { name: 'Tax Credits', href: '/tax-credits' },
                         ],
                       },
@@ -752,18 +753,24 @@ export default function Home() {
                         color: '#ff6b35',
                         items: [
                           { name: 'Overview', href: '/technology' },
-                          { name: 'Cell', href: '/technology/cell' },
+                          { name: 'Electrolysis Cell', href: '/technology/cell' },
                           { name: 'Power Converter', href: '/technology/power-converter' },
                           { name: 'Controls', href: '/technology/controls' },
                           { name: 'Efficiency', href: '/technology/efficiency' },
                         ],
                       },
                       {
-                        title: 'PEOPLE & PROJECTS',
+                        title: 'PROJECTS',
                         color: '#ff6b35',
                         items: [
                           { name: 'NODE-01', href: '/projects/node-01' },
                           { name: 'Zeeco ARC', href: '/projects/zeeco' },
+                        ],
+                      },
+                      {
+                        title: 'PEOPLE',
+                        color: '#ff6b35',
+                        items: [
                           { name: 'Proof', href: '/proof' },
                           { name: 'Team', href: '/team' },
                         ],
