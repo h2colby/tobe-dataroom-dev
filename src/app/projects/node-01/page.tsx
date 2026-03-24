@@ -501,6 +501,28 @@ export default function Node01Page() {
         </div>
       </section>
 
+      {/* ═══ LAUNCH EVENT CTA ═══ */}
+      <section className="border-b border-white/10 px-6 py-16">
+        <div className="mx-auto max-w-3xl text-center">
+          <pre className="mb-4 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
+{`┌─── LAUNCH EVENT ──────────────────────────────┐`}
+          </pre>
+          <h2 className="mb-3 text-2xl font-bold tracking-tight">See NODE-01 in person.</h2>
+          <p className="mb-8 text-sm text-white/50">
+            Join us for the commissioning event at our Oklahoma City facility. Live demonstration, team Q&A, and facility tour.
+          </p>
+          <a
+            href="https://tobe.energy/launch"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 border border-[#ff6b35]/40 bg-[#ff6b35]/10 px-8 py-3 text-sm font-bold tracking-wider text-[#ff6b35] transition-all hover:bg-[#ff6b35]/20 hover:border-[#ff6b35]/60"
+            style={{ textShadow: '0 0 8px rgba(255,107,53,0.3)' }}
+          >
+            REGISTER FOR LAUNCH EVENT →
+          </a>
+        </div>
+      </section>
+
       {/* ═══ FOOTER ═══ */}
       <footer className="border-t border-white/10 px-6 py-6">
         <div className="mx-auto max-w-6xl text-center">

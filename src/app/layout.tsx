@@ -4,6 +4,7 @@ import { Sidebar } from "@/components/Sidebar";
 import { MobileNav } from "@/components/MobileNav";
 import { DataRoomChat } from "@/components/DataRoomChat";
 import { LogoutButton } from "@/components/LogoutButton";
+import { PageViewTracker } from "@/components/PageViewTracker";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -79,7 +80,10 @@ export default function RootLayout({
         {/* Sidebar + Content */}
         <div className="relative z-10 flex" style={{ height: "calc(100vh - 52px)" }}>
           <Sidebar />
-          <main id="main-content" className="w-full md:flex-1 overflow-y-auto">{children}</main>
+          <main id="main-content" className="w-full md:flex-1 overflow-y-auto">
+            <PageViewTracker />
+            {children}
+          </main>
         </div>
         <DataRoomChat />
       </body>

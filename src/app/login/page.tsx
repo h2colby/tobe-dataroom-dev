@@ -122,7 +122,10 @@ export default function LoginPage() {
           </form>
 
           {/* Footer */}
-          <div className="mt-8 pt-6 border-t border-[#ff6b35]/10 text-center">
+          <div className="mt-8 pt-6 border-t border-[#ff6b35]/10 text-center space-y-2">
+            <p className="font-mono text-[0.6rem] tracking-[0.15em] text-[#8a8a9a]/60">
+              Have an invite link? It will grant you direct access.
+            </p>
             <p className="font-mono text-[0.6rem] tracking-[0.15em] text-[#8a8a9a]/60">
               For investor access, contact{' '}
               <a

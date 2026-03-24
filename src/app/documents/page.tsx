@@ -172,7 +172,7 @@ const folders: Folder[] = [
     name: 'CORPORATE — REGULATORY & 45V',
     description: 'GREET analysis, 45V compliance, PPA modeling',
     files: [
-      f('/docs/corp/reg/corp-reg-greet-summary.pdf', 'GREET Analysis Summary'),
+
       f('/docs/corp/reg/corp-reg-lifecycle-ghg-analysis.pdf', 'Lifecycle GHG Analysis'),
       f('/docs/corp/reg/corp-reg-sensitivity-analysis.pdf', '45V Sensitivity Analysis'),
       f('/docs/corp/reg/corp-reg-45v-compliance-memo.pdf', '45V Compliance Memo'),
@@ -198,7 +198,7 @@ const folders: Folder[] = [
     name: 'ENGINEERING — SPECIFICATIONS',
     description: 'Technical documentation, roadmaps, analysis',
     files: [
-      f('/docs/eng/spec/eng-spec-techno-economic-analysis.pdf', 'Techno-Economic Analysis (TEA)'),
+      f('/docs/eng/spec/Final_Tobe_TEA_v3_March2026.pdf', 'Techno-Economic Analysis (TEA) v3.0'),
       f('/docs/eng/spec/eng-spec-technology-overview.pdf', 'Technology Overview'),
       f('/docs/eng/spec/eng-spec-project-developer-guide.pdf', 'Project Developer Guide'),
       f('/docs/eng/spec/eng-spec-product-roadmap-brochure.pdf', 'Product Roadmap Brochure'),
@@ -274,7 +274,7 @@ const folders: Folder[] = [
     name: 'PENDING — LATEST VERSIONS (MacBook)',
     description: 'Pulled from Financial_Model/ — verify these replace older versions',
     files: [
-      f('/docs/_potential/eng-spec-tea-LATEST.docx', 'Final TEA (needs PDF conversion)'),
+      f('/docs/eng/spec/Final_Tobe_TEA_v3_March2026.pdf', 'Final TEA v3.0 ✓ (converted)'),
       f('/docs/_potential/fin-model-seed-financial-LATEST.xlsx', 'Financial Model (latest from MacBook)'),
       f('/docs/_potential/mkt-case-ou-final-report-LATEST.docx', 'OU Final Report (latest)'),
       f('/docs/_potential/mkt-case-ou-financial-model-LATEST.xlsx', 'OU Financial Model (latest)'),
@@ -327,7 +327,7 @@ const totalFiles = getAllFiles().length;
 
 // ── Start Here — essential documents for investor review ──
 const startHereFiles: DocFile[] = [
-  f('/docs/eng/spec/eng-spec-techno-economic-analysis.pdf', 'Techno-Economic Analysis (TEA)'),
+  f('/docs/eng/spec/Final_Tobe_TEA_v3_March2026.pdf', 'Techno-Economic Analysis (TEA) v3.0'),
   f('/docs/fin/model/fin-model-seed-financial.xlsx', 'Seed Financial Model'),
   f('/docs/eng/spec/eng-spec-technology-overview.pdf', 'Technology Overview'),
   f('/docs/proj/feed/proj-feed-zeeco-package.pdf', 'Zeeco ARC FEED Package'),

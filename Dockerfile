@@ -3,6 +3,10 @@ FROM node:20-alpine AS base
 # --- Dependencies ---
 FROM base AS deps
 WORKDIR /app
+
+# Native build tools for better-sqlite3
+RUN apk add --no-cache python3 make g++
+
 COPY package.json package-lock.json ./
 RUN npm ci
 
@@ -33,7 +37,19 @@ COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
+# Copy better-sqlite3 native bindings (needed at runtime)
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules/better-sqlite3 ./node_modules/better-sqlite3
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules/bindings ./node_modules/bindings
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules/file-uri-to-path ./node_modules/file-uri-to-path
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules/prebuild-install ./node_modules/prebuild-install
+
 USER nextjs
+
+# Create data directory for SQLite database
+# IMPORTANT: Mount a Docker volume here to persist across container restarts:
+#   docker run -v dataroom-data:/app/data ...
+RUN mkdir -p /app/data
+
 EXPOSE 3001
 
 CMD ["node", "server.js"]
