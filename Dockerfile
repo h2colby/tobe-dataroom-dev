@@ -43,12 +43,13 @@ COPY --from=deps --chown=nextjs:nodejs /app/node_modules/bindings ./node_modules
 COPY --from=deps --chown=nextjs:nodejs /app/node_modules/file-uri-to-path ./node_modules/file-uri-to-path
 COPY --from=deps --chown=nextjs:nodejs /app/node_modules/prebuild-install ./node_modules/prebuild-install
 
+# Create data directory for SQLite database BEFORE switching to nextjs user
+RUN mkdir -p /app/data && chown nextjs:nodejs /app/data
+
 USER nextjs
 
-# Create data directory for SQLite database
 # IMPORTANT: Mount a Docker volume here to persist across container restarts:
 #   docker run -v dataroom-data:/app/data ...
-RUN mkdir -p /app/data
 
 EXPOSE 3001
 
