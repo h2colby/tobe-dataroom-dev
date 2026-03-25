@@ -43,7 +43,6 @@ const folders: Folder[] = [
       f('/docs/corp/formation/corp-formation-bylaws.pdf', 'Bylaws'),
       f('/docs/corp/formation/corp-formation-action-by-sole-incorporator.pdf', 'Action by Sole Incorporator'),
       f('/docs/corp/formation/corp-formation-ein.pdf', 'EIN Assignment'),
-      f('/docs/corp/formation/corp-formation-oklahoma-foreign-qualification.pdf', 'Oklahoma Foreign Corp Qualification'),
       f('/docs/corp/formation/corp-formation-delaware-good-standing.pdf', 'Delaware Certificate of Good Standing'),
     ],
   },
@@ -53,10 +52,8 @@ const folders: Folder[] = [
     files: [
       f('/docs/corp/governance/corp-governance-initial-board-action.pdf', 'Initial Board Action'),
       f('/docs/corp/governance/corp-governance-stockholder-consent-equity-plan.pdf', 'Stockholder Consent — Equity Plan'),
-      f('/docs/corp/governance/corp-governance-board-consent-techstars.pdf', 'Board Consent — Techstars'),
       f('/docs/corp/governance/corp-governance-board-resolution-vehicle-lease.pdf', 'Board Resolution — Vehicle Lease'),
       f('/docs/corp/governance/corp-governance-resignation-mounsey.pdf', 'Officer Resignation — Mounsey'),
-      f('/docs/corp/governance/corp-governance-cortado-audit-confirmation.pdf', 'Cortado Audit Confirmation'),
     ],
   },
   {
@@ -150,7 +147,7 @@ const folders: Folder[] = [
     files: [
       f('/docs/corp/tax/corp-tax-financials-2025.xlsx', '2025 Financial Statements'),
       f('/docs/corp/tax/corp-tax-delaware-franchise-report-2025.pdf', 'Delaware Franchise Tax Report TY2025'),
-      f('/docs/corp/tax/corp-tax-delaware-franchise-confirmation.pdf', 'Franchise Tax Filing Confirmation'),
+
     ],
   },
   {
@@ -203,12 +200,9 @@ const folders: Folder[] = [
       f('/docs/eng/spec/eng-spec-project-developer-guide.pdf', 'Project Developer Guide'),
       f('/docs/eng/spec/eng-spec-product-roadmap-brochure.pdf', 'Product Roadmap Brochure'),
       f('/docs/eng/spec/eng-spec-product-roadmap-technical.pdf', 'Product Roadmap — Technical'),
-      f('/docs/eng/spec/eng-spec-block-flow-diagram.pdf', 'Block Flow Diagram'),
-      f('/docs/eng/spec/eng-spec-circuit-efficiency-diagram.pdf', 'Circuit Efficiency Diagram'),
+
       f('/docs/eng/spec/eng-spec-electrolyzer-comparison.pdf', 'Electrolyzer Comparative Analysis'),
-      f('/docs/eng/spec/eng-spec-maxwell-academic-draft.pdf', 'Maxwell Expansion — Academic Draft'),
-      f('/docs/eng/spec/eng-spec-testing-framework.pdf', 'Testing Framework'),
-      f('/docs/eng/spec/eng-spec-provisional-patent-efficiency.pdf', 'Provisional Patent — H2 Efficiency'),
+
     ],
   },
   {
@@ -223,8 +217,7 @@ const folders: Folder[] = [
   {
     name: 'ENGINEERING — GRANTS',
     files: [
-      f('/docs/eng/grant/eng-grant-doe-photoelectrolysis-concept.pdf', 'DOE Photoelectrolysis Concept'),
-      f('/docs/eng/grant/eng-grant-resonantedge-power-electronics.pdf', 'ResonantEdge Power Electronics'),
+
       f('/docs/eng/grant/eng-grant-navy-sbir-n242.pdf', 'Navy SBIR N242-070'),
     ],
   },
@@ -753,7 +746,7 @@ export default function DocumentsPage() {
           <div className="border-l-[3px] border-[#ff6b35] bg-[#ff6b35]/[0.04] px-5 py-4 mb-6"
             style={{ borderTop: '1px solid rgba(255,107,53,0.08)', borderRight: '1px solid rgba(255,107,53,0.08)', borderBottom: '1px solid rgba(255,107,53,0.08)' }}>
             <p className="text-sm text-white/70 leading-relaxed">
-              <span className="text-[#ff6b35] font-bold">Delaware C-Corp, fully documented.</span> Bylaws, board resolutions, all investment agreements (14 instruments, $1.95M), IP assignments, insurance, tax filings, and engineering documentation. All founder agreements executed via Cooley LLP. For additional materials, contact{' '}
+              <span className="text-[#ff6b35] font-bold">Delaware C-Corp, fully documented.</span> Bylaws, board resolutions, all investment agreements (14 instruments, $1.95M), IP assignments, insurance, tax filings, and engineering documentation. All founder agreements executed via Cooley LLP. Payroll, benefits, and employment compliance managed by Deel. For additional materials, contact{' '}
               <a href="mailto:colby@tobe.energy" className="text-[#ff6b35]/70 hover:text-[#ff6b35]">colby@tobe.energy</a>.
             </p>
           </div>

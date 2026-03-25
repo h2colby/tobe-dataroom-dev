@@ -345,7 +345,7 @@ export default function TeamPage() {
                     Dr. Caleb Lareau
                   </h2>
                   <p className="mt-2 text-sm text-[#ff6b35]" style={{ textShadow: '0 0 10px rgba(255,107,53,0.5)' }}>
-                    ▸ Co-Founder & Advisor
+                    ▸ Co-Founder & President
                   </p>
 
                   <div className="mt-3 flex flex-wrap gap-2">

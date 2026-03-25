@@ -87,6 +87,7 @@ function StickyNav() {
   const [active, setActive] = useState('');
 
   useEffect(() => {
+    const root = document.getElementById('main-content') || null;
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -95,7 +96,7 @@ function StickyNav() {
           }
         }
       },
-      { rootMargin: '-20% 0px -70% 0px' }
+      { root, rootMargin: '-20% 0px -70% 0px' }
     );
     for (const s of sectionNav) {
       const el = document.getElementById(s.id);
@@ -105,7 +106,23 @@ function StickyNav() {
   }, []);
 
   const handleTabChange = useCallback((id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const el = document.getElementById(id);
+    if (!el) return;
+    // Find the scrollable parent (main-content or window)
+    let scrollParent: HTMLElement | null = el.parentElement;
+    while (scrollParent && scrollParent !== document.body) {
+      const overflow = getComputedStyle(scrollParent).overflowY;
+      if (overflow === 'auto' || overflow === 'scroll') break;
+      scrollParent = scrollParent.parentElement;
+    }
+    if (scrollParent && scrollParent !== document.body) {
+      const elRect = el.getBoundingClientRect();
+      const parentRect = scrollParent.getBoundingClientRect();
+      const offset = elRect.top - parentRect.top + scrollParent.scrollTop - 56;
+      scrollParent.scrollTo({ top: Math.max(0, offset), behavior: 'smooth' });
+    } else {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }, []);
 
   return (
@@ -205,7 +222,7 @@ export default function BusinessModelPage() {
 
 
       {/* UNIT ECONOMICS */}
-      <section id="unit-economics" className="scroll-mt-16 border-b border-white/10 px-6 py-12">
+      <section id="unit-economics" className="scroll-mt-24 border-b border-white/10 px-6 py-12">
         <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
 {`┌─── UNIT ECONOMICS ───┐`}
@@ -303,7 +320,7 @@ export default function BusinessModelPage() {
       </section>
 
       {/* WHY ON-SITE WINS */}
-      <section id="on-site" className="scroll-mt-16 border-b border-white/10 px-6 py-12">
+      <section id="on-site" className="scroll-mt-24 border-b border-white/10 px-6 py-12">
         <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
 {`┌─── WHY ON-SITE WINS ───┐`}
@@ -429,7 +446,7 @@ export default function BusinessModelPage() {
       </section>
 
       {/* DOWNSTREAM IMPACT */}
-      <section className="scroll-mt-16 border-b border-white/10 px-6 py-12">
+      <section className="scroll-mt-24 border-b border-white/10 px-6 py-12">
         <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
 {`┌─── DOWNSTREAM IMPACT ───┐`}
@@ -475,7 +492,7 @@ export default function BusinessModelPage() {
       </section>
 
       {/* REVENUE STREAMS */}
-      <section id="revenue" className="scroll-mt-16 border-b border-white/10 px-6 py-12">
+      <section id="revenue" className="scroll-mt-24 border-b border-white/10 px-6 py-12">
         <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
 {`┌─── REVENUE STREAMS ───┐`}
@@ -513,7 +530,7 @@ export default function BusinessModelPage() {
       </section>
 
       {/* FINANCIAL TRAJECTORY */}
-      <section id="financials" className="scroll-mt-16 border-b border-white/10 px-6 py-12">
+      <section id="financials" className="scroll-mt-24 border-b border-white/10 px-6 py-12">
         <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
 {`┌─── FINANCIAL TRAJECTORY ───┐`}
@@ -635,7 +652,7 @@ export default function BusinessModelPage() {
       </section>
 
       {/* FUNDING ROADMAP */}
-      <section id="funding" className="scroll-mt-16 border-b border-white/10 px-6 py-12">
+      <section id="funding" className="scroll-mt-24 border-b border-white/10 px-6 py-12">
         <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
 {`┌─── FUNDING ROADMAP ───┐`}
@@ -709,7 +726,7 @@ export default function BusinessModelPage() {
       </section>
 
       {/* GO-TO-MARKET STRATEGY */}
-      <section id="gtm" className="scroll-mt-16 border-b border-white/10 px-6 py-12">
+      <section id="gtm" className="scroll-mt-24 border-b border-white/10 px-6 py-12">
         <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
 {`┌─── GO-TO-MARKET STRATEGY ───┐`}
@@ -848,7 +865,7 @@ export default function BusinessModelPage() {
       </section>
 
       {/* TAM / SAM / SOM */}
-      <section id="market" className="scroll-mt-16 border-b border-white/10 px-6 py-12">
+      <section id="market" className="scroll-mt-24 border-b border-white/10 px-6 py-12">
         <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
 {`┌─── ADDRESSABLE MARKET ───┐`}
@@ -954,7 +971,7 @@ export default function BusinessModelPage() {
       </section>
 
       {/* COMPETITIVE LANDSCAPE */}
-      <section id="competitive" className="scroll-mt-16 border-b border-white/10 px-6 py-12">
+      <section id="competitive" className="scroll-mt-24 border-b border-white/10 px-6 py-12">
         <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
 {`┌─── COMPETITIVE LANDSCAPE ───┐`}
@@ -1041,7 +1058,7 @@ export default function BusinessModelPage() {
       </section>
 
       {/* COMPETITIVE MOAT */}
-      <section id="moat" className="scroll-mt-16 border-b border-white/10 px-6 py-12">
+      <section id="moat" className="scroll-mt-24 border-b border-white/10 px-6 py-12">
         <div className="mx-auto max-w-6xl">
           <pre className="mb-6 text-xs text-[#ff6b35]/70" style={{ whiteSpace: 'pre' }}>
 {`┌─── COMPETITIVE MOAT ───┐`}

@@ -1039,10 +1039,49 @@ export default function InvestorDashboard() {
   const [activeTab, setActiveTab] = useState('0');
 
   const handleTabChange = useCallback((id: string) => {
+    const el = document.getElementById(`fin-section-${id}`);
+    if (!el) return;
+    // Find the scrollable parent (main-content or window)
+    let scrollParent: HTMLElement | null = el.parentElement;
+    while (scrollParent && scrollParent !== document.body) {
+      const overflow = getComputedStyle(scrollParent).overflowY;
+      if (overflow === 'auto' || overflow === 'scroll') break;
+      scrollParent = scrollParent.parentElement;
+    }
+    if (scrollParent && scrollParent !== document.body) {
+      const elRect = el.getBoundingClientRect();
+      const parentRect = scrollParent.getBoundingClientRect();
+      const offset = elRect.top - parentRect.top + scrollParent.scrollTop - 56;
+      scrollParent.scrollTo({ top: Math.max(0, offset), behavior: 'smooth' });
+    } else {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
     setActiveTab(id);
   }, []);
 
-  const tabContent = useMemo(() => [
+  // Track active section on scroll
+  React.useEffect(() => {
+    // Find the scroll container (main-content has overflow-y: auto)
+    const root = document.getElementById('main-content') || null;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            const id = entry.target.id.replace('fin-section-', '');
+            setActiveTab(id);
+          }
+        }
+      },
+      { root, rootMargin: '-20% 0px -70% 0px' }
+    );
+    for (let i = 0; i < TAB_LABELS.length; i++) {
+      const el = document.getElementById(`fin-section-${i}`);
+      if (el) observer.observe(el);
+    }
+    return () => observer.disconnect();
+  }, []);
+
+  const sections = useMemo(() => [
     <InvestmentThesis key={0} />,
     <RevenueGrowth key={1} />,
     <Profitability key={2} />,
@@ -1056,48 +1095,61 @@ export default function InvestorDashboard() {
   return (
     <div style={{
       background: COLORS.bg, minHeight: '100vh', color: COLORS.white,
-      fontFamily: '"IBM Plex Mono", "Courier New", monospace', padding: '24px 32px',
+      fontFamily: '"IBM Plex Mono", "Courier New", monospace',
     }}>
       {/* Header */}
-      <div style={{ marginBottom: 24, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-        <div>
-          <div style={{ color: COLORS.orange, fontSize: '0.65rem', letterSpacing: '0.2em', textTransform: 'uppercase', fontWeight: 600 }}>
-            TOBE ENERGY CORP — INVESTOR DATA ROOM
+      <div style={{ padding: '24px 32px 0', marginBottom: 0 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 16 }}>
+          <div>
+            <div style={{ color: COLORS.orange, fontSize: '0.65rem', letterSpacing: '0.2em', textTransform: 'uppercase', fontWeight: 600 }}>
+              TOBE ENERGY CORP — INVESTOR DATA ROOM
+            </div>
+            <div style={{ color: COLORS.white, fontSize: '1.4rem', fontWeight: 700, marginTop: 4 }}>
+              Financial Model Dashboard
+            </div>
+            <div style={{ color: COLORS.white40, fontSize: '0.7rem', marginTop: 2 }}>
+              Seed Round — $10M at $40M Pre-Money · Membrane-Free Green Hydrogen Electrolysis
+            </div>
           </div>
-          <div style={{ color: COLORS.white, fontSize: '1.4rem', fontWeight: 700, marginTop: 4 }}>
-            Financial Model Dashboard
+          <div style={{ color: COLORS.white40, fontSize: '0.65rem', textAlign: 'right' }}>
+            <div>March 2026 · v1.0</div>
+            <div>CONFIDENTIAL</div>
           </div>
-          <div style={{ color: COLORS.white40, fontSize: '0.7rem', marginTop: 2 }}>
-            Seed Round — $10M at $40M Pre-Money · Membrane-Free Green Hydrogen Electrolysis
-          </div>
-        </div>
-        <div style={{ color: COLORS.white40, fontSize: '0.65rem', textAlign: 'right' }}>
-          <div>March 2026 · v1.0</div>
-          <div>CONFIDENTIAL</div>
         </div>
       </div>
 
-      {/* Tab Bar */}
-      <TabNav
-        tabs={TABS_NAV}
-        activeTab={activeTab}
-        onChange={handleTabChange}
-        className="mb-7"
-      />
+      {/* Sticky Nav */}
+      <nav className="sticky top-0 z-50" style={{ background: `${COLORS.bg}cc`, backdropFilter: 'blur(12px)' }}>
+        <div style={{ padding: '0 32px' }}>
+          <TabNav
+            tabs={TABS_NAV}
+            activeTab={activeTab}
+            onChange={handleTabChange}
+          />
+        </div>
+      </nav>
 
-      {/* Tab Content */}
-      <motion.div
-        key={activeTab}
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
-      >
-        {tabContent[Number(activeTab)]}
-      </motion.div>
+      {/* All sections rendered as scrollable page */}
+      <div style={{ padding: '0 32px' }}>
+        {sections.map((section, i) => (
+          <div
+            key={i}
+            id={`fin-section-${i}`}
+            className="scroll-mt-24"
+            style={{
+              paddingTop: 32,
+              paddingBottom: 32,
+              borderBottom: i < sections.length - 1 ? `1px solid ${COLORS.white10}` : 'none',
+            }}
+          >
+            {section}
+          </div>
+        ))}
+      </div>
 
       {/* Footer */}
       <div style={{
-        marginTop: 48, paddingTop: 16, borderTop: `1px solid ${COLORS.white10}`,
+        margin: '0 32px', padding: '16px 0 32px', borderTop: `1px solid ${COLORS.white10}`,
         display: 'flex', justifyContent: 'space-between', alignItems: 'center',
       }}>
         <div style={{ color: COLORS.white40, fontSize: '0.65rem', fontFamily: 'monospace' }}>
