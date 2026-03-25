@@ -291,6 +291,78 @@ const folders: Folder[] = [
       f('/docs/_potential/SPEC_pulser_overview_specification.docx', 'Pulser System Overview'),
     ],
   },
+  {
+    name: 'BRANDED REPORTS',
+    description: 'Comprehensive research, analysis, and strategy documents — Tobe Energy brand format',
+    subfolders: [
+      {
+        name: 'Regulatory & 45V',
+        files: [
+          f('/docs/branded/45v-compliance-memo.pdf', '45V Compliance Memo'),
+          f('/docs/branded/45v-sensitivity-analysis.pdf', '45V GREET Sensitivity Analysis'),
+          f('/docs/branded/lifecycle-ghg-analysis.pdf', 'Lifecycle GHG Analysis'),
+          f('/docs/branded/investors-guide-45v.pdf', 'Investor Guide to 45V Tax Credit'),
+          f('/docs/branded/ppa-roi-analysis.pdf', '45V PPA ROI Analysis'),
+        ],
+      },
+      {
+        name: 'Market Research',
+        files: [
+          f('/docs/branded/tam-sam-som-analysis.pdf', 'TAM / SAM / SOM Analysis'),
+          f('/docs/branded/green-h2-market-landscape.pdf', 'Green H₂ Market Landscape'),
+          f('/docs/branded/best-us-markets.pdf', 'Best US Markets for Green Hydrogen'),
+          f('/docs/branded/okc-tulsa-market-survey.pdf', 'OKC & Tulsa H₂ Market Survey'),
+          f('/docs/branded/market-expansion-cost-advantage.pdf', 'Market Expansion & Cost Advantage'),
+          f('/docs/branded/market-intelligence-report.pdf', 'Market Intelligence Report (LCOH + Competitive)'),
+        ],
+      },
+      {
+        name: 'Competitive Intelligence',
+        files: [
+          f('/docs/branded/competitive-benchmarking.pdf', 'Competitive Benchmarking'),
+          f('/docs/branded/competitive-deep-analysis.pdf', 'Comprehensive Competitive Analysis'),
+          f('/docs/branded/competitor-acquirer-overview.pdf', 'Competitor & Acquirer Overview'),
+        ],
+      },
+      {
+        name: 'Case Studies',
+        files: [
+          f('/docs/branded/hydrogen-ai-data-centers.pdf', 'Hydrogen for AI Data Centers'),
+          f('/docs/branded/hydrogen-hospitals.pdf', 'Hydrogen for Hospitals & Medical Oxygen'),
+          f('/docs/branded/h2-transport.pdf', 'Hydrogen for Heavy Transport'),
+          f('/docs/branded/cost-analysis.pdf', 'On-Site Cost Advantage Analysis'),
+        ],
+      },
+      {
+        name: 'Engineering & Technology',
+        files: [
+          f('/docs/branded/technology-overview.pdf', 'Technology Overview'),
+          f('/docs/branded/testing-framework.pdf', 'Comprehensive Testing Framework'),
+          f('/docs/branded/efficiency-costs-report.pdf', 'Efficiency & Cost Analysis'),
+          f('/docs/branded/product-roadmap-technical.pdf', 'Product Roadmap (Technical)'),
+          f('/docs/branded/ip-fortress-strategy.pdf', 'IP Fortress Strategy'),
+          f('/docs/branded/patent-landscape-analysis.pdf', 'Patent Landscape Analysis'),
+        ],
+      },
+      {
+        name: 'Financial & Pricing',
+        files: [
+          f('/docs/branded/platts-h2-pricing-report.pdf', 'S&P Global Platts H₂ Pricing Report'),
+          f('/docs/branded/non-dilutive-funding-report.pdf', 'Non-Dilutive Funding Pipeline'),
+        ],
+      },
+      {
+        name: 'Strategy & Organization',
+        files: [
+          f('/docs/branded/go-to-market-branding.pdf', 'Go-to-Market & Branding Strategy'),
+          f('/docs/branded/public-master-plan.pdf', 'Public Master Plan'),
+          f('/docs/branded/organizational-structure-current.pdf', 'Current Organizational Structure'),
+          f('/docs/branded/organizational-structure-aspirational.pdf', 'Aspirational Org Structure (NVIDIA Model)'),
+          f('/docs/branded/investor-faq-30-questions.pdf', '30 Tough Investor Questions — Answered'),
+        ],
+      },
+    ],
+  },
 ];
 
 interface Section {
@@ -305,6 +377,7 @@ const sections: Section[] = [
   { name: 'PROJECTS', folders: folders.filter(f => f.name.startsWith('PROJECTS')) },
   { name: 'MARKET', folders: folders.filter(f => f.name.startsWith('MARKET')) },
   { name: 'LATEST REPORTS', folders: folders.filter(f => f.name.startsWith('PENDING')) },
+  { name: 'BRANDED REPORTS', folders: folders.filter(f => f.name === 'BRANDED REPORTS') },
 ];
 
 function getAllFiles(): DocFile[] {
