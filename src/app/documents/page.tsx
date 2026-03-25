@@ -163,6 +163,9 @@ const folders: Folder[] = [
       f('/docs/corp/ip/corp-ip-fortress-overview.pdf', 'IP Fortress Strategy'),
       f('/docs/corp/ip/corp-ip-patent-figures.pdf', 'Patent Figures'),
       f('/docs/corp/ip/corp-ip-patent-specification.pdf', 'Patent Specification'),
+      f('/docs/branded/ip-fortress-strategy.pdf', 'IP Fortress Strategy (Branded)'),
+      f('/docs/branded/patent-landscape-analysis.pdf', 'Patent Landscape Analysis'),
+      f('/docs/eng/spec/eng-spec-power-conversion.pdf', 'Power Conversion Specifications'),
     ],
   },
   {
@@ -174,12 +177,19 @@ const folders: Folder[] = [
       f('/docs/corp/reg/corp-reg-sensitivity-analysis.pdf', '45V Sensitivity Analysis'),
       f('/docs/corp/reg/corp-reg-45v-compliance-memo.pdf', '45V Compliance Memo'),
       f('/docs/corp/reg/corp-reg-45v-ppa-roi-analysis.pdf', 'PPA ROI Analysis'),
+      f('/docs/branded/45v-compliance-memo.pdf', '45V Compliance Memo (Branded)'),
+      f('/docs/branded/45v-sensitivity-analysis.pdf', '45V GREET Sensitivity Analysis (Branded)'),
+      f('/docs/branded/lifecycle-ghg-analysis.pdf', 'Lifecycle GHG Analysis (Branded)'),
+      f('/docs/branded/investors-guide-45v.pdf', 'Investor Guide to 45V Tax Credit'),
+      f('/docs/branded/ppa-roi-analysis.pdf', '45V PPA ROI Analysis (Branded)'),
     ],
   },
   {
     name: 'CORPORATE — ORGANIZATION',
     files: [
       f('/docs/corp/org/corp-org-leadership-overview.pdf', 'Leadership & Org Structure'),
+      f('/docs/branded/organizational-structure-current.pdf', 'Current Organizational Structure'),
+      f('/docs/branded/organizational-structure-aspirational.pdf', 'Aspirational Org Structure (NVIDIA Model)'),
     ],
   },
   {
@@ -189,6 +199,9 @@ const folders: Folder[] = [
       f('/docs/fin/model/fin-model-seed-financial.xlsx', 'Seed Financial Model'),
       f('/docs/fin/model/fin-model-cap-table.xlsx', 'Cap Table'),
       f('/docs/fin/pricing/fin-pricing-platts-h2-report.pdf', 'Platts H2 Pricing Report'),
+      f('/docs/branded/platts-h2-pricing-report.pdf', 'S&P Global Platts H₂ Pricing (Branded)'),
+      f('/docs/branded/efficiency-costs-report.pdf', 'Efficiency & Cost Analysis'),
+      f('/docs/branded/non-dilutive-funding-report.pdf', 'Non-Dilutive Funding Pipeline'),
     ],
   },
   {
@@ -202,7 +215,9 @@ const folders: Folder[] = [
       f('/docs/eng/spec/eng-spec-product-roadmap-technical.pdf', 'Product Roadmap — Technical'),
 
       f('/docs/eng/spec/eng-spec-electrolyzer-comparison.pdf', 'Electrolyzer Comparative Analysis'),
-
+      f('/docs/branded/technology-overview.pdf', 'Technology Overview (Branded)'),
+      f('/docs/branded/testing-framework.pdf', 'Comprehensive Testing Framework'),
+      f('/docs/branded/product-roadmap-technical.pdf', 'Product Roadmap — Technical (Branded)'),
     ],
   },
   {
@@ -249,6 +264,18 @@ const folders: Folder[] = [
       f('/docs/mkt/research/mkt-research-public-master-plan.pdf', 'Public Master Plan'),
       f('/docs/mkt/research/mkt-research-nsf-icorps-presentation.pdf', 'NSF I-Corps Presentation'),
       f('/docs/mkt/research/mkt-research-ocast-innovation-plan.pdf', 'OCAST Innovation Plan'),
+      f('/docs/branded/market-intelligence-report.pdf', 'Market Intelligence Report (LCOH + Competitive)'),
+      f('/docs/branded/competitive-deep-analysis.pdf', 'Comprehensive Competitive Analysis'),
+      f('/docs/branded/tam-sam-som-analysis.pdf', 'TAM / SAM / SOM Analysis (Branded)'),
+      f('/docs/branded/green-h2-market-landscape.pdf', 'Green H₂ Market Landscape (Branded)'),
+      f('/docs/branded/best-us-markets.pdf', 'Best US Markets for Green Hydrogen'),
+      f('/docs/branded/okc-tulsa-market-survey.pdf', 'OKC & Tulsa H₂ Market Survey (Branded)'),
+      f('/docs/branded/market-expansion-cost-advantage.pdf', 'Market Expansion & Cost Advantage (Branded)'),
+      f('/docs/branded/competitive-benchmarking.pdf', 'Competitive Benchmarking (Branded)'),
+      f('/docs/branded/competitor-acquirer-overview.pdf', 'Competitor & Acquirer Overview (Branded)'),
+      f('/docs/branded/go-to-market-branding.pdf', 'Go-to-Market & Branding Strategy'),
+      f('/docs/branded/public-master-plan.pdf', 'Public Master Plan (Branded)'),
+      f('/docs/branded/investor-faq-30-questions.pdf', '30 Tough Investor Questions — Answered'),
     ],
   },
   {
@@ -261,81 +288,14 @@ const folders: Folder[] = [
       f('/docs/mkt/case/mkt-case-h2-ai-datacenters.pdf', 'H2 for AI Datacenters'),
       f('/docs/mkt/case/mkt-case-h2-hospitals.pdf', 'H2 for Hospitals'),
       f('/docs/mkt/case/mkt-case-h2-transport-industry.pdf', 'H2 Transport & Industry'),
+      f('/docs/branded/hydrogen-ai-data-centers.pdf', 'Hydrogen for AI Data Centers (Branded)'),
+      f('/docs/branded/hydrogen-hospitals.pdf', 'Hydrogen for Hospitals & Medical Oxygen (Branded)'),
+      f('/docs/branded/h2-transport.pdf', 'Hydrogen for Heavy Transport (Branded)'),
+      f('/docs/branded/cost-analysis.pdf', 'On-Site Cost Advantage Analysis'),
     ],
   },
 
-  {
-    name: 'BRANDED REPORTS',
-    description: 'Comprehensive research, analysis, and strategy documents — Tobe Energy brand format',
-    subfolders: [
-      {
-        name: 'Regulatory & 45V',
-        files: [
-          f('/docs/branded/45v-compliance-memo.pdf', '45V Compliance Memo'),
-          f('/docs/branded/45v-sensitivity-analysis.pdf', '45V GREET Sensitivity Analysis'),
-          f('/docs/branded/lifecycle-ghg-analysis.pdf', 'Lifecycle GHG Analysis'),
-          f('/docs/branded/investors-guide-45v.pdf', 'Investor Guide to 45V Tax Credit'),
-          f('/docs/branded/ppa-roi-analysis.pdf', '45V PPA ROI Analysis'),
-        ],
-      },
-      {
-        name: 'Market Research',
-        files: [
-          f('/docs/branded/tam-sam-som-analysis.pdf', 'TAM / SAM / SOM Analysis'),
-          f('/docs/branded/green-h2-market-landscape.pdf', 'Green H₂ Market Landscape'),
-          f('/docs/branded/best-us-markets.pdf', 'Best US Markets for Green Hydrogen'),
-          f('/docs/branded/okc-tulsa-market-survey.pdf', 'OKC & Tulsa H₂ Market Survey'),
-          f('/docs/branded/market-expansion-cost-advantage.pdf', 'Market Expansion & Cost Advantage'),
-          f('/docs/branded/market-intelligence-report.pdf', 'Market Intelligence Report (LCOH + Competitive)'),
-        ],
-      },
-      {
-        name: 'Competitive Intelligence',
-        files: [
-          f('/docs/branded/competitive-benchmarking.pdf', 'Competitive Benchmarking'),
-          f('/docs/branded/competitive-deep-analysis.pdf', 'Comprehensive Competitive Analysis'),
-          f('/docs/branded/competitor-acquirer-overview.pdf', 'Competitor & Acquirer Overview'),
-        ],
-      },
-      {
-        name: 'Case Studies',
-        files: [
-          f('/docs/branded/hydrogen-ai-data-centers.pdf', 'Hydrogen for AI Data Centers'),
-          f('/docs/branded/hydrogen-hospitals.pdf', 'Hydrogen for Hospitals & Medical Oxygen'),
-          f('/docs/branded/h2-transport.pdf', 'Hydrogen for Heavy Transport'),
-          f('/docs/branded/cost-analysis.pdf', 'On-Site Cost Advantage Analysis'),
-        ],
-      },
-      {
-        name: 'Engineering & Technology',
-        files: [
-          f('/docs/branded/technology-overview.pdf', 'Technology Overview'),
-          f('/docs/branded/testing-framework.pdf', 'Comprehensive Testing Framework'),
-          f('/docs/branded/efficiency-costs-report.pdf', 'Efficiency & Cost Analysis'),
-          f('/docs/branded/product-roadmap-technical.pdf', 'Product Roadmap (Technical)'),
-          f('/docs/branded/ip-fortress-strategy.pdf', 'IP Fortress Strategy'),
-          f('/docs/branded/patent-landscape-analysis.pdf', 'Patent Landscape Analysis'),
-        ],
-      },
-      {
-        name: 'Financial & Pricing',
-        files: [
-          f('/docs/branded/platts-h2-pricing-report.pdf', 'S&P Global Platts H₂ Pricing Report'),
-          f('/docs/branded/non-dilutive-funding-report.pdf', 'Non-Dilutive Funding Pipeline'),
-        ],
-      },
-      {
-        name: 'Strategy & Organization',
-        files: [
-          f('/docs/branded/go-to-market-branding.pdf', 'Go-to-Market & Branding Strategy'),
-          f('/docs/branded/public-master-plan.pdf', 'Public Master Plan'),
-          f('/docs/branded/organizational-structure-current.pdf', 'Current Organizational Structure'),
-          f('/docs/branded/organizational-structure-aspirational.pdf', 'Aspirational Org Structure (NVIDIA Model)'),
-          f('/docs/branded/investor-faq-30-questions.pdf', '30 Tough Investor Questions — Answered'),
-        ],
-      },
-    ],
-  },
+
 ];
 
 interface Section {
@@ -349,7 +309,7 @@ const sections: Section[] = [
   { name: 'ENGINEERING', folders: folders.filter(f => f.name.startsWith('ENGINEERING')) },
   { name: 'PROJECTS', folders: folders.filter(f => f.name.startsWith('PROJECTS')) },
   { name: 'MARKET', folders: folders.filter(f => f.name.startsWith('MARKET')) },
-  { name: 'BRANDED REPORTS', folders: folders.filter(f => f.name === 'BRANDED REPORTS') },
+
 ];
 
 function getAllFiles(): DocFile[] {
